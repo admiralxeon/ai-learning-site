@@ -30,7 +30,7 @@
   var ctr=el("div","fc-controls");
   var fs=el("fieldset","dgroup fc-deck");fs.appendChild(el("legend",null,"Cards from"));
   var seg=el("div","dseg");
-  [["all","All"]].concat(MODS.map(function(m){return [m,m==="topics"?"Short topics":"Module "+m];})).forEach(function(o){
+  [["all","All"]].concat(MODS.map(function(m){return [m,m==="topics"?"Topics":"Module "+m];})).forEach(function(o){
     var id="fc-deck-"+o[0],lab=el("label","dopt");lab.setAttribute("for",id);
     var inp=el("input");inp.type="radio";inp.name="fc-deck";inp.id=id;inp.value=o[0];inp.checked=o[0]===deck;
     inp.addEventListener("change",function(){if(inp.checked){deck=o[0];start(false);}});

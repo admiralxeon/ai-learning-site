@@ -50,7 +50,7 @@
     {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"1063ca8b9e","playgrounds.js":"b710db72c0","search-index.js":"aa0168fb1b"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"b710db72c0","search-index.js":"aa0168fb1b"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
