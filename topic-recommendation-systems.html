@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recommendation systems | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Short topic, Recommendation systems: How shops, video apps, and music apps select what to show you, and the risks of feedback loops.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Recommendation systems | AI learning manual">
+<meta property="og:description" content="Short topic, Recommendation systems: How shops, video apps, and music apps select what to show you, and the risks of feedback loops.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html" aria-current="page">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-60-00-00-030A</b></div>
+    <div>Subject<b>Recommendation systems</b></div>
+    <div>Info type<b>Short topic</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Recommendation systems: how apps select what you see</h1>
+    <p>This short topic is written in ASD-STE100 Simplified Technical English. Read <a href="machine-learning.html">Module 3, Machine learning</a> and <a href="mathematics.html#vectors">Module 2, Section 9</a> first. Shops, video apps, music apps, and news apps show each person a different list. This topic tells you how they select it, how teams measure it, and what risks it has.</p>
+  </div>
+
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>A <span class="tn" title="A system that predicts which items a person will probably like, and shows those items first.">recommendation system</span> predicts which items a person will probably like, and shows those items first. An item can be a product, a video, a song, a job, or a news article. This topic gives a description of the two main methods, the stages of a large system, how to measure it, and its risks.</p>
+    </div>
+  </section>
+
+  <section id="two-main-methods">
+    <div class="num">2</div>
+    <div>
+      <h2>Two main methods</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>The idea</th><th>It needs</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tn" title="A method that recommends items that are similar to the items that the person liked before.">Content-based filtering</span></td><td>"This is similar to what you liked."</td><td>Information about the items, for example the type, the price, or the words in the description.</td></tr>
+            <tr><td><span class="tn" title="A method that recommends items that similar people liked. It uses only the history of what people did.">Collaborative filtering</span></td><td>"People like you also liked this."</td><td>The history of many users: what they bought, watched, or rated.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Collaborative filtering starts from a table of users and items. Most cells are empty, because each person used only a few items. The system must predict the empty cells. Refer to Figure 1.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 230" role="img" aria-labelledby="rs1t">
+            <title id="rs1t">A table of users and mangoes with ratings and empty cells to predict</title>
+            <g class="sm" style="font-weight:600">
+              <text x="190" y="30" text-anchor="middle">Alphonso</text><text x="290" y="30" text-anchor="middle">Kesar</text><text x="390" y="30" text-anchor="middle">Totapuri</text><text x="490" y="30" text-anchor="middle">Raw mango pickle</text>
+              <text x="40" y="70">Ravi</text><text x="40" y="115">Meena</text><text x="40" y="160">Arjun</text><text x="40" y="205">Sara</text>
+            </g>
+            <g>
+              <rect class="boxb" x="145" y="45" width="90" height="38" rx="4"/><rect class="boxb" x="245" y="45" width="90" height="38" rx="4"/><rect class="box" x="345" y="45" width="90" height="38" rx="4"/><rect class="boxb" x="445" y="45" width="90" height="38" rx="4"/>
+              <rect class="boxb" x="145" y="90" width="90" height="38" rx="4"/><rect class="box" x="245" y="90" width="90" height="38" rx="4"/><rect class="boxb" x="345" y="90" width="90" height="38" rx="4"/><rect class="box" x="445" y="90" width="90" height="38" rx="4"/>
+              <rect class="box" x="145" y="135" width="90" height="38" rx="4"/><rect class="boxb" x="245" y="135" width="90" height="38" rx="4"/><rect class="box" x="345" y="135" width="90" height="38" rx="4"/><rect class="boxb" x="445" y="135" width="90" height="38" rx="4"/>
+              <rect class="boxb" x="145" y="180" width="90" height="38" rx="4"/><rect class="boxb" x="245" y="180" width="90" height="38" rx="4"/><rect class="box" x="345" y="180" width="90" height="38" rx="4"/><rect x="445" y="180" width="90" height="38" rx="4" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="2"/>
+            </g>
+            <g class="lbl" text-anchor="middle">
+              <text x="190" y="70">5</text><text x="290" y="70">4</text><text x="390" y="70" style="fill:var(--muted)">?</text><text x="490" y="70">1</text>
+              <text x="190" y="115">4</text><text x="290" y="115" style="fill:var(--muted)">?</text><text x="390" y="115">2</text><text x="490" y="115" style="fill:var(--muted)">?</text>
+              <text x="190" y="160" style="fill:var(--muted)">?</text><text x="290" y="160">2</text><text x="390" y="160" style="fill:var(--muted)">?</text><text x="490" y="160">5</text>
+              <text x="190" y="205">5</text><text x="290" y="205">5</text><text x="390" y="205" style="fill:var(--muted)">?</text><text x="490" y="205" style="font-weight:700">? &rarr; 1</text>
+            </g>
+            <text class="sm" x="560" y="70">Ratings from 1 to 5.</text>
+            <text class="sm" x="560" y="90">"?" = not tried yet.</text>
+            <text class="sm" x="560" y="190">Sara rates like Ravi.</text>
+            <text class="sm" x="560" y="208">Ravi gave the pickle 1.</text>
+            <text class="sm" x="560" y="226">Prediction for Sara: low.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> A table of users and items. The system predicts the empty cells. Sara gives ratings like Ravi, so she will probably not like the pickle. All values are only examples.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="how-the-prediction-works">
+    <div class="num">3</div>
+    <div>
+      <h2>How the prediction works</h2>
+      <p>Modern systems learn an embedding for each user and for each item. Refer to <a href="deep-learning.html#how-a-network-changes-words-into-numbers">Module 4, Section 7</a>. The numbers are learned from the history. Often they agree with ideas that people can name, for example "sweet" and "sour".</p>
+      <p>The predicted score is the dot product of the user embedding and the item embedding. Refer to <a href="mathematics.html#vectors">Module 2, Section 9</a>. Example with two numbers (sweet, sour):</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Embedding</th><th>Sweet</th><th>Sour</th><th>Score for Sara (0.9, 0.1)</th></tr></thead>
+          <tbody>
+            <tr><td>Alphonso</td><td>0.8</td><td>0.2</td><td>0.9 &times; 0.8 + 0.1 &times; 0.2 = 0.74</td></tr>
+            <tr><td>Kesar</td><td>0.7</td><td>0.3</td><td>0.9 &times; 0.7 + 0.1 &times; 0.3 = 0.66</td></tr>
+            <tr><td>Raw mango pickle</td><td>0.1</td><td>0.9</td><td>0.9 &times; 0.1 + 0.1 &times; 0.9 = 0.18</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The system shows the items with the highest scores first: Alphonso, then Kesar. Training changes the embeddings with gradient descent, so that the scores agree with the real history. Real systems use 32 to several hundred numbers for each embedding, not two.</p>
+      <h3>The cold start problem</h3>
+      <p>A new user or a new item has no history. We call this the <span class="tn" title="The problem that a new user or a new item has no history, so collaborative filtering cannot make a prediction.">cold start</span> problem. Solutions:</p>
+      <ul>
+        <li>Show popular items to a new user, or ask the user to select some interests.</li>
+        <li>Use content information for a new item, for example its type and price.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="the-stages-of-a-large-system">
+    <div class="num">4</div>
+    <div>
+      <h2>The stages of a large system</h2>
+      <p>A video app can have millions of videos. It cannot calculate a full score for each video, for each user, each time. Thus a large system works in stages. Refer to Figure 2.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 170" role="img" aria-labelledby="rs2t">
+            <title id="rs2t">The stages of a recommendation system, from millions of items to ten</title>
+            <defs><marker id="rs2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <path d="M20 20 H190 V140 H20 z" fill="var(--sheet-2)" stroke="var(--rule-strong)"/>
+            <path d="M220 35 H380 V125 H220 z" fill="var(--blue-soft)" stroke="var(--blue)"/>
+            <path d="M410 50 H560 V110 H410 z" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2"/>
+            <path d="M590 60 H740 V100 H590 z" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <g class="line" marker-end="url(#rs2)"><path d="M190 80 H216"/><path d="M380 80 H406"/><path d="M560 80 H586"/></g>
+            <text class="lbl" x="105" y="72" text-anchor="middle" style="font-weight:600">All items</text><text class="sm" x="105" y="92" text-anchor="middle">millions</text>
+            <text class="lbl" x="300" y="72" text-anchor="middle" style="font-weight:600">1. Candidates</text><text class="sm" x="300" y="92" text-anchor="middle">a fast search: ~1,000</text>
+            <text class="lbl" x="485" y="72" text-anchor="middle" style="font-weight:600">2. Ranking</text><text class="sm" x="485" y="92" text-anchor="middle">a detailed model</text>
+            <text class="lbl" x="665" y="85" text-anchor="middle" style="font-weight:600">3. Final list: 10</text>
+            <text class="sm" x="380" y="160" text-anchor="middle">Rules at the end: remove items already bought, add variety, follow the law and the company policy.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> The stages of a large recommendation system. Each stage uses a more detailed model on fewer items.</figcaption>
+      </figure>
+      <ol>
+        <li><b><span class="tn" title="The first stage of a recommendation system. A fast method selects some hundreds or thousands of possible items from all items.">Candidate generation</span>.</b> A fast method selects approximately 1,000 possible items, for example with a search for the nearest embeddings.</li>
+        <li><b>Ranking.</b> A more detailed model predicts the probability that the user will click, buy, or watch to the end. It uses many features, for example the time of day and the device.</li>
+        <li><b>Rules.</b> The system removes items that are not suitable and adds variety.</li>
+      </ol>
+      <p>Each action of the user goes back into the data. Thus the system learns all the time.</p>
+    </div>
+  </section>
+
+  <section id="how-to-measure-recommendations">
+    <div class="num">5</div>
+    <div>
+      <h2>How to measure recommendations</h2>
+      <ul>
+        <li><b>Before release:</b> hide the last purchases of each user. Then check if the system recommends them. <span class="tn" title="Of the first k recommended items, the part that the user really used. For example, precision at 10.">Precision at k</span> gives the part of the first k items that the user really used. Example: 3 of the first 10 items were bought, so precision at 10 = 0.3.</li>
+        <li><b>After release:</b> use an A/B test. Refer to <a href="ai-in-practice.html#put-a-model-into-use">Module 7, Section 6</a>. Compare clicks, purchases, and returns.</li>
+        <li><b>Long term:</b> do users stay satisfied after months? A system that gets many clicks today can make users leave later.</li>
+      </ul>
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Divide the history by date, not at random. Train with the older history, and test with the newer history. Otherwise the model sees the future during training. This is data leakage. Refer to <a href="ai-in-practice.html#prepare-the-data">Module 7, Section 3</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="where-people-use-recommendation-systems">
+    <div class="num">6</div>
+    <div>
+      <h2>Where people use recommendation systems</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Area</th><th>Item</th><th>What the system usually tries to increase</th></tr></thead>
+          <tbody>
+            <tr><td>Online shops</td><td>Products</td><td>Purchases, and the value of each order.</td></tr>
+            <tr><td>Video and music apps</td><td>Videos, songs</td><td>Watch time or listen time, and return visits.</td></tr>
+            <tr><td>News and social media</td><td>Articles, posts</td><td>Clicks, comments, and time in the app.</td></tr>
+            <tr><td>Jobs</td><td>Job offers, candidates</td><td>Applications and successful hires.</td></tr>
+            <tr><td>Food delivery and travel</td><td>Restaurants, hotels</td><td>Orders and bookings.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="risks-of-recommendation-systems">
+    <div class="num">7</div>
+    <div>
+      <h2>Risks of recommendation systems</h2>
+      <ul>
+        <li><b><span class="tn" title="A loop in which the outputs of a model change the data that the model learns from next time. It can make a small effect larger.">Feedback loops</span>.</b> The system shows popular items, so they get more clicks, so the system shows them more. New items and small sellers get few chances.</li>
+        <li><b>Filter bubbles.</b> A person sees more and more of the same opinions or the same type of content.</li>
+        <li><b>The wrong goal.</b> A system that only increases watch time can recommend content that is extreme or harmful, because it holds attention.</li>
+        <li><b>Fairness.</b> A job system that learns from old hiring decisions can repeat old bias. Refer to <a href="responsible-ai.html#bias-and-fairness">Module 6, Section 3</a>.</li>
+        <li><b>Privacy.</b> The history of a person shows much about their life. Protect it, and tell users what data the system uses.</li>
+      </ul>
+      <p>Good teams add variety, measure long-term satisfaction, and give users control, for example "Not interested" and "Show fewer items like this".</p>
+    </div>
+  </section>
+
+  <section id="summary">
+    <div class="num">8</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>Content-based filtering recommends similar items. Collaborative filtering recommends what similar people liked.</li>
+        <li>Modern systems learn embeddings for users and items. The score is a dot product.</li>
+        <li>New users and new items have no history: the cold start problem.</li>
+        <li>Large systems work in stages: candidates, ranking, and rules.</li>
+        <li>Test with newer history, then with an A/B test. Measure long-term satisfaction, not only clicks.</li>
+        <li>Watch for feedback loops, filter bubbles, wrong goals, bias, and privacy problems.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="knowledge-check">
+    <div class="num">9</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "\"People who bought this also bought ...\" Which method is this?", "options": ["Collaborative filtering", "Content-based filtering", "Object detection", "Linear regression"], "answer": 0, "explain": "Collaborative filtering uses the history of similar people, not information about the items.", "ref": "two-main-methods"},
+ {"q": "A user embedding is (1, 0) and an item embedding is (0.6, 0.4). What is the score?", "options": ["0.6", "0.4", "1.0", "0.24"], "answer": 0, "explain": "The dot product is 1 × 0.6 + 0 × 0.4 = 0.6.", "ref": "how-the-prediction-works"},
+ {"q": "A new song has no plays yet. Why is this a problem for collaborative filtering?", "options": ["It has no history, so the method cannot find similar users who liked it", "Songs cannot have embeddings", "The song is too long", "Collaborative filtering only works with videos"], "answer": 0, "explain": "This is the cold start problem. Content information about the song can help.", "ref": "how-the-prediction-works"},
+ {"q": "Of the first 10 recommended items, a user bought 2. What is the precision at 10?", "options": ["0.2", "0.1", "2", "0.8"], "answer": 0, "explain": "Precision at 10 = 2 divided by 10 = 0.2.", "ref": "how-to-measure-recommendations"},
+ {"q": "A mango shop recommends only its 5 best-selling boxes. New varieties never sell. What is the cause?", "options": ["A feedback loop: popular items are shown more, so they become more popular", "Data leakage", "The context window is too small", "Underfitting"], "answer": 0, "explain": "The system shows popular items, they get more sales, and the system shows them more. Add variety to break the loop.", "ref": "risks-of-recommendation-systems", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section id="technical-names">
+    <div class="num">10</div>
+    <div>
+      <h2>Technical names</h2>
+      <dl class="glossary">
+        <dt>Candidate generation</dt><dd>The first stage of a recommendation system. A fast method selects some hundreds or thousands of possible items.</dd>
+        <dt>Cold start</dt><dd>The problem that a new user or a new item has no history.</dd>
+        <dt>Collaborative filtering</dt><dd>A method that recommends items that similar people liked.</dd>
+        <dt>Content-based filtering</dt><dd>A method that recommends items that are similar to the items that the person liked before.</dd>
+        <dt>Feedback loop</dt><dd>A loop in which the outputs of a model change the data that the model learns from next time.</dd>
+        <dt>Precision at k</dt><dd>Of the first k recommended items, the part that the user really used.</dd>
+        <dt>Recommendation system</dt><dd>A system that predicts which items a person will probably like, and shows those items first.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="topic-language-tasks.html"><small>Previous topic</small><b>Language tasks</b></a>
+    <a class="next" href="topic-forecasting.html"><small>Next topic</small><b>Forecasting</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). A short topic of the AI learning manual.</span>
+  </footer>
+</div>
+</body>
+</html>

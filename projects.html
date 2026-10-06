@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Seven hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, and a bias audit.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Projects | AI learning manual">
+<meta property="og:description" content="Seven hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, and a bias audit.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html" aria-current="page">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html" aria-current="page">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-00-00-00-003A</b></div>
+    <div>Subject<b>Projects</b></div>
+    <div>Info type<b>Procedures</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Projects</h1>
+    <p>This page has seven hands-on projects, from beginner to advanced. Each project uses the ideas of the modules. Do a project when you finish the modules that it uses. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+  <!-- 1 -->
+  <section id="about-the-projects">
+    <div class="num">1</div>
+    <div>
+      <h2>About the projects</h2>
+      <p>Reading teaches you the ideas. Projects teach you to use them. This page has seven projects. Each project uses the ideas of one or more modules.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Level</th><th>What you need</th><th>Projects</th></tr></thead>
+          <tbody>
+            <tr><td>Beginner</td><td>A web browser. No code.</td><td>1, 2, and 6</td></tr>
+            <tr><td>Intermediate</td><td>A Google account for Google Colab. You copy and run the code.</td><td>3 and 4</td></tr>
+            <tr><td>Advanced</td><td>Google Colab. You read and change the code.</td><td>5 and 7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>How to run the code</h3>
+      <ol class="steps">
+        <li>Open <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab</a> and sign in. Colab runs Python in your browser. It is free, and you do not need to install software.</li>
+        <li>Select <b>New notebook</b>.</li>
+        <li>On the project, select <b>Copy the code</b>. Paste the code into the first cell of the notebook.</li>
+        <li>Select the run button of the cell, or push Shift and Enter together.</li>
+        <li>Compare your results with "Check your work". Small differences are usual.</li>
+      </ol>
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Do not put private data into the projects, for example real customer data, passwords, or messages from other persons. Use the example data, or data that you have permission to use.</p>
+      </div>
+      <p>Each project has a <b>Mark as done</b> button at its end. Your progress is kept in this browser.</p>
+    </div>
+  </section>
+  <!-- 2 -->
+  <section id="project-1-teach-a-computer-to-see">
+    <div class="num">2</div>
+    <div>
+      <h2>Project 1: Teach a computer to see</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-beginner">Beginner</li><li>About 30 min</li><li>Teachable Machine, a webcam</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="ai.html#how-an-ai-system-learns">Module 1, Section 4</a> <a href="machine-learning.html#data">Module 3, Section 4</a> <a href="deep-learning.html#deep-learning-in-practice">Module 4, Section 9</a></p>
+      <p><b>What you make:</b> an image classifier that tells the difference between two objects, for example a pen and a spoon. You train it with your webcam, in your browser.</p>
+      <h3>Steps</h3>
+      <ol class="steps">
+        <li>Open <a href="https://teachablemachine.withgoogle.com/" target="_blank" rel="noopener">Teachable Machine</a>. Select <b>Get started</b>, then <b>Image project</b>, then <b>Standard image model</b>.</li>
+        <li>Change the names of the two classes, for example "Pen" and "Spoon". These are the labels.</li>
+        <li>For each class, select <b>Webcam</b>. Hold the object in front of the camera and record approximately 100 images. Turn the object and move it, so that the images are different.</li>
+        <li>Select <b>Train model</b>. The tool uses transfer learning: it starts from a network that is already trained on millions of photographs.</li>
+        <li>In <b>Preview</b>, show each object to the camera. Look at the probabilities.</li>
+        <li>Now test it with things that the model did not see: a different pen, your hand, an empty desk.</li>
+      </ol>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>The model gives more than 90% to the correct class when you show each object.</li>
+        <li>With an object that is in no class, the model still selects a class. It does not know “nothing”.</li>
+        <li>You can explain why: the model must put each image into one of the classes that you made.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Make a test for bias: train with images in bright light only. Then test in dim light. What occurs? Refer to Module 4, Section 9.</li>
+        <li>Add a third class “Nothing” with images of the empty desk. Does this solve the problem above?</li>
+        <li>Record only 10 images for each class. Is the model still good? This shows why the quantity of data is important.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 3 -->
+  <section id="project-2-predict-flat-prices-with-a-line">
+    <div class="num">3</div>
+    <div>
+      <h2>Project 2: Predict flat prices with a line</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-beginner">Beginner</li><li>About 30 min</li><li>A spreadsheet, for example Google Sheets or Excel</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="mathematics.html#statistics-describe-data">Module 2, Section 4</a> <a href="mathematics.html#correlation">Module 2, Section 6</a> <a href="machine-learning.html#supervised-learning">Module 3, Section 5</a></p>
+      <p><b>What you make:</b> a linear regression model in a spreadsheet. It predicts the price of a flat from its area.</p>
+      <h3>Steps</h3>
+      <ol class="steps">
+        <li>Open a new spreadsheet. In column A, write "Area (m²)". In column B, write "Price (₹ lakh)". Copy the data below into rows 2 to 11.</li>
+        <li>In cell D2, write <code>=SLOPE(B2:B11, A2:A11)</code>. This is the price for each additional square metre.</li>
+        <li>In cell D3, write <code>=INTERCEPT(B2:B11, A2:A11)</code>. This is where the line crosses zero area.</li>
+        <li>In cell D4, write <code>=RSQ(B2:B11, A2:A11)</code>. This shows how well the line fits the data: 1 is a perfect fit.</li>
+        <li>Predict the price of a flat of 80 m²: write <code>=D3 + D2 * 80</code>.</li>
+        <li>Make a scatter chart of the data, and add a trend line. The trend line is your model.</li>
+      </ol>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Area (m²)</th><th>Price (₹ lakh)</th></tr></thead>
+          <tbody>
+            <tr><td>45</td><td>58</td></tr><tr><td>52</td><td>66</td></tr><tr><td>60</td><td>74</td></tr><tr><td>65</td><td>82</td></tr><tr><td>70</td><td>86</td></tr>
+            <tr><td>78</td><td>97</td></tr><tr><td>85</td><td>104</td></tr><tr><td>92</td><td>113</td></tr><tr><td>100</td><td>121</td></tr><tr><td>110</td><td>135</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>The slope is approximately 1.18 and the intercept is approximately 4.6. Thus each square metre adds approximately ₹1.18 lakh.</li>
+        <li>R² is approximately 0.999. The line fits this example data very well. Real data is never this clean.</li>
+        <li>The prediction for 80 m² is approximately ₹98.7 lakh.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Predict the price for 150 m². The data has no flat larger than 110 m², so this prediction is not reliable. A model is only good inside the range of its training data.</li>
+        <li>Add a column “Distance to station”. Use <code>=LINEST()</code> to use two features at the same time.</li>
+        <li>Change one price to an error, for example 950. Look at how the slope changes. Refer to outliers in Module 2, Section 4.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 4 -->
+  <section id="project-3-build-a-spam-filter">
+    <div class="num">4</div>
+    <div>
+      <h2>Project 3: Build a spam filter</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-intermediate">Intermediate</li><li>About 45 min</li><li>Python in Google Colab</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="mathematics.html#probability">Module 2, Section 7</a> <a href="machine-learning.html#how-to-measure-a-model">Module 3, Section 10</a> <a href="machine-learning.html#data">Module 3, Section 4</a></p>
+      <p><b>What you make:</b> a model that reads an SMS message and predicts "spam" or "ham" (not spam). It learns from 5,572 real messages. The model uses Bayes' rule for each word.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-spam">Copy the code</button></div>
+        <pre id="code-spam" tabindex="0" role="region" aria-label="Python code: spam filter"><code>import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
+
+# 1. Load 5,572 SMS messages. Each message has the label &quot;spam&quot; or &quot;ham&quot; (not spam).
+url = &quot;https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/sms.tsv&quot;
+data = pd.read_csv(url, sep=&quot;\t&quot;, header=None, names=[&quot;label&quot;, &quot;text&quot;])
+print(data[&quot;label&quot;].value_counts())
+
+# 2. Divide the data: 80% for training, 20% for the test.
+text_train, text_test, label_train, label_test = train_test_split(
+    data[&quot;text&quot;], data[&quot;label&quot;], test_size=0.2, random_state=1, stratify=data[&quot;label&quot;])
+
+# 3. Change each message into word counts (the features).
+vectorizer = CountVectorizer()
+X_train_counts = vectorizer.fit_transform(text_train)
+X_test_counts = vectorizer.transform(text_test)
+
+# 4. Train a Naive Bayes model. It uses Bayes&#x27; rule for each word.
+spam_model = MultinomialNB()
+spam_model.fit(X_train_counts, label_train)
+
+# 5. Measure the model on the test set.
+spam_pred = spam_model.predict(X_test_counts)
+print(&quot;Accuracy :&quot;, round(accuracy_score(label_test, spam_pred), 3))
+print(&quot;Precision:&quot;, round(precision_score(label_test, spam_pred, pos_label=&quot;spam&quot;), 3))
+print(&quot;Recall   :&quot;, round(recall_score(label_test, spam_pred, pos_label=&quot;spam&quot;), 3))
+print(confusion_matrix(label_test, spam_pred, labels=[&quot;spam&quot;, &quot;ham&quot;]))
+
+# 6. Try your own messages.
+new = [&quot;You won a free prize! Send your bank details now&quot;,
+       &quot;Are we still meeting for lunch today?&quot;]
+print(spam_model.predict(vectorizer.transform(new)))</code></pre>
+      </div>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>The data has 4,825 ham messages and 747 spam messages. The data is not balanced.</li>
+        <li>The accuracy is approximately 0.99, the precision approximately 0.99, and the recall approximately 0.94.</li>
+        <li>In the confusion matrix, approximately 9 spam messages are missed, and approximately 1 good message is marked as spam.</li>
+        <li>Your two messages are predicted as “spam” and “ham”.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Write a message that is spam but that the model does not find. Which words help you to trick it? This is how spam senders work.</li>
+        <li>Change <code>CountVectorizer()</code> to <code>CountVectorizer(stop_words="english")</code>. Do the results change?</li>
+        <li>Why is the recall lower than the precision? Which error is worse for a user: a missed spam, or a lost good message?</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 5 -->
+  <section id="project-4-find-groups-of-customers">
+    <div class="num">5</div>
+    <div>
+      <h2>Project 4: Find groups of customers</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-intermediate">Intermediate</li><li>About 40 min</li><li>Python in Google Colab</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="machine-learning.html#unsupervised-learning">Module 3, Section 6</a> <a href="mathematics.html#distributions">Module 2, Section 5</a></p>
+      <p><b>What you make:</b> a k-means model that finds groups of customers in data that has no labels. Then you find the best number of groups.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-kmeans">Copy the code</button></div>
+        <pre id="code-kmeans" tabindex="0" role="region" aria-label="Python code: customer groups"><code>import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# 1. Make example data: 180 customers with two features each.
+#    Feature 1: visits to the shop in a month. Feature 2: money spent in a month (rupees).
+rng = np.random.default_rng(0)
+students = np.column_stack([rng.normal(12, 2, 60), rng.normal(1500, 300, 60)])
+families = np.column_stack([rng.normal(6, 1.5, 60), rng.normal(6000, 800, 60)])
+workers  = np.column_stack([rng.normal(3, 1, 60), rng.normal(3000, 500, 60)])
+X = np.vstack([students, families, workers])
+
+# 2. Standardize the features (Module 2, Section 5), so that money does not hide the visits.
+X_scaled = StandardScaler().fit_transform(X)
+
+# 3. Try 1 to 6 groups. &quot;Inertia&quot; is the total distance from each point to its center.
+for k in range(1, 7):
+    km = KMeans(n_clusters=k, n_init=10, random_state=0).fit(X_scaled)
+    print(k, &quot;groups: inertia =&quot;, round(km.inertia_, 1))
+
+# 4. Use 3 groups and show them on a chart.
+km = KMeans(n_clusters=3, n_init=10, random_state=0).fit(X_scaled)
+plt.scatter(X[:, 0], X[:, 1], c=km.labels_)
+plt.xlabel(&quot;Visits in a month&quot;)
+plt.ylabel(&quot;Money spent in a month (rupees)&quot;)
+plt.show()</code></pre>
+      </div>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>The inertia decreases very much from 1 to 3 groups, and only a little after 3. This “elbow” shows that 3 groups is a good number.</li>
+        <li>The chart shows three clear groups: many visits with little money, few visits with much money, and few visits with medium money.</li>
+        <li>You can give each group a name, for example “students”, “families”, and “office workers”. The model does not know these names. A person gives them.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Remove the standardization (use <code>X</code> in place of <code>X_scaled</code>). Are the groups worse? Why? The money values are much larger than the visit values.</li>
+        <li>Change the number of customers in each group to 10. Is the elbow still clear?</li>
+        <li>Use your own data, for example the time and the cost of your trips. Do not use data about other persons without their permission.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 6 -->
+  <section id="project-5-a-neural-network-that-reads-digits">
+    <div class="num">6</div>
+    <div>
+      <h2>Project 5: A neural network that reads digits</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-advanced">Advanced</li><li>About 45 min</li><li>Python in Google Colab</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="deep-learning.html#inside-a-neuron">Module 4, Section 3</a> <a href="deep-learning.html#how-a-deep-network-learns">Module 4, Section 4</a> <a href="machine-learning.html#overfitting-and-underfitting">Module 3, Section 9</a></p>
+      <p><b>What you make:</b> a neural network that reads handwritten digits from 0 to 9. The data is part of scikit-learn, so you do not need to download it.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-digits">Copy the code</button></div>
+        <pre id="code-digits" tabindex="0" role="region" aria-label="Python code: digit reader"><code>from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# 1. Load 1,797 small images of handwritten digits. Each image has 8 x 8 = 64 pixels.
+digits = load_digits()
+X = digits.data / 16.0     # change the pixel values to numbers from 0 to 1
+y = digits.target          # the label: the digit 0 to 9
+
+# 2. Divide the data.
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=1, stratify=y)
+
+# 3. Make a neural network: 64 inputs, two hidden layers (64 and 32 neurons), 10 outputs.
+model = MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=500, random_state=1)
+model.fit(X_train, y_train)   # backpropagation and gradient descent happen here
+
+# 4. Measure the model.
+pred = model.predict(X_test)
+print(&quot;Training accuracy:&quot;, round(model.score(X_train, y_train), 3))
+print(&quot;Test accuracy    :&quot;, round(accuracy_score(y_test, pred), 3))
+print(confusion_matrix(y_test, pred))</code></pre>
+      </div>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>The training accuracy is 1.0 and the test accuracy is approximately 0.98.</li>
+        <li>The difference between the two shows a small quantity of overfitting. Refer to Module 3, Section 9.</li>
+        <li>In the confusion matrix, most errors are between digits that look similar, for example 8 and 1.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Change <code>hidden_layer_sizes</code> to <code>(8,)</code>: one small hidden layer. Is the model worse? Then try <code>(256, 128)</code>.</li>
+        <li>Use only 10% of the data for training (<code>test_size=0.9</code>). How much does the test accuracy decrease?</li>
+        <li>Show the images that the model gets wrong. Would a person also make these errors?</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 7 -->
+  <section id="project-6-a-prompt-lab">
+    <div class="num">7</div>
+    <div>
+      <h2>Project 6: A prompt lab</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-beginner">Beginner</li><li>About 45 min</li><li>Any chat AI and a spreadsheet</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="generative-ai.html#how-to-write-a-good-prompt">Module 5, Section 7</a> <a href="generative-ai.html#how-a-model-selects-its-output">Module 5, Section 5</a> <a href="responsible-ai.html#evaluate-an-ai-tool-before-you-trust-it">Module 6, Section 6</a></p>
+      <p><b>What you make:</b> a prompt for a real task, and a test that measures how good the prompt is. This is how professionals improve prompts: they measure, they do not guess.</p>
+      <h3>Steps</h3>
+      <ol class="steps">
+        <li>Select a task with a clear correct answer. Example: put customer messages into one of three categories: "Question", "Complaint", or "Order".</li>
+        <li>In a spreadsheet, write 10 test messages. For each message, write the correct category. Include 3 difficult messages, for example a complaint that is also a question.</li>
+        <li>Write prompt version 1: only the task.</li>
+        <li>Use the prompt with each test message. Write the answer of the AI in the spreadsheet. Count the correct answers.</li>
+        <li>Write prompt version 2: add the context, the format ("Answer with one word"), and two examples (few-shot prompting).</li>
+        <li>Test version 2 with the same 10 messages. Compare the scores.</li>
+        <li>Test version 2 again. Do you get the same answers? If not, use a lower temperature if the tool lets you.</li>
+      </ol>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>You have a table with 10 messages, the correct answers, and the answers from each version.</li>
+        <li>Version 2 has a higher score than version 1, especially on the difficult messages.</li>
+        <li>You can tell which part of version 2 helped the most.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Add a message that is in no category. Tell the model to answer “Other”. Does it obey?</li>
+        <li>Use the same test with a different chat AI. Which one is better for your task?</li>
+        <li>Make the test set larger: 30 messages. Is the difference between the versions still the same?</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 8 -->
+  <section id="project-7-audit-a-model-for-bias">
+    <div class="num">8</div>
+    <div>
+      <h2>Project 7: Audit a model for bias</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-advanced">Advanced</li><li>About 60 min</li><li>Python in Google Colab</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="responsible-ai.html#bias-and-fairness">Module 6, Section 3</a> <a href="machine-learning.html#how-to-measure-a-model">Module 3, Section 10</a> <a href="responsible-ai.html#evaluate-an-ai-tool-before-you-trust-it">Module 6, Section 6</a></p>
+      <p><b>What you make:</b> a test that finds if your spam filter from Project 3 works equally well for different groups of messages. Then you write a short <span class="tn" title="A short document that describes a model: its use, its data, its results for each group, its limits, and who is responsible.">model card</span>: a description of the model for its users.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-audit">Copy the code</button></div>
+        <pre id="code-audit" tabindex="0" role="region" aria-label="Python code: bias audit"><code># Continue from Project 3 (the spam filter). Run this code after the code of Project 3.
+from sklearn.metrics import recall_score, precision_score
+
+test = pd.DataFrame({&quot;text&quot;: text_test, &quot;label&quot;: label_test, &quot;pred&quot;: spam_pred})
+test[&quot;group&quot;] = test[&quot;text&quot;].str.len().apply(lambda n: &quot;short (&lt; 60 characters)&quot; if n &lt; 60 else &quot;long&quot;)
+
+for group, part in test.groupby(&quot;group&quot;):
+    print(group, &quot;| messages:&quot;, len(part), &quot;| spam:&quot;, (part[&quot;label&quot;] == &quot;spam&quot;).sum(),
+          &quot;| recall:&quot;, round(recall_score(part[&quot;label&quot;], part[&quot;pred&quot;], pos_label=&quot;spam&quot;, zero_division=0), 3),
+          &quot;| precision:&quot;, round(precision_score(part[&quot;label&quot;], part[&quot;pred&quot;], pos_label=&quot;spam&quot;, zero_division=0), 3))</code></pre>
+      </div>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>The recall for long messages is approximately 0.95. The recall for short messages is approximately 0.75.</li>
+        <li>The test set has only approximately 8 short spam messages. A result from 8 examples is not reliable. Collect more examples before you decide.</li>
+        <li>You can explain the risk: if spam senders use short messages, many of them will not be found.</li>
+      </ul>
+      <h3>Write the model card</h3>
+      <p>Write one short paragraph for each heading:</p>
+      <ol>
+        <li><b>Use:</b> what the model is for, and what it is not for.</li>
+        <li><b>Data:</b> where the training data comes from, and how old it is.</li>
+        <li><b>Results:</b> accuracy, precision, and recall, for all messages and for each group.</li>
+        <li><b>Limits:</b> where the model is weak, for example short messages or other languages.</li>
+        <li><b>Responsibility:</b> who checks the model, and who users can contact.</li>
+      </ol>
+      <h3>Go further</h3>
+      <ul>
+        <li>Make a different group: messages with numbers and messages without numbers. Is there a difference?</li>
+        <li>Your model was trained on English messages. Test it on messages in a different language. What occurs?</li>
+        <li>Use the capstone project to plan a better spam filter. Refer to Module 6, Section 8.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 9 -->
+  <section id="after-the-projects">
+    <div class="num">9</div>
+    <div>
+      <h2>After the projects</h2>
+      <p>Keep your work. A small set of projects shows employers and teachers what you can do.</p>
+      <ul>
+        <li>Save each notebook. In Colab, select <b>File</b>, then <b>Save a copy in GitHub</b> or <b>Download</b>.</li>
+        <li>For each project, write three sentences: the problem, your result, and what you learned.</li>
+        <li>Include what did not work. Honest results are more useful than perfect results.</li>
+        <li>Then plan your own project with the capstone. Refer to <a href="responsible-ai.html#capstone-project-plan-an-ai-solution">Module 6, Section 8</a>.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="index.html"><small>Back to</small><b>Home</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Data: SMS Spam Collection (UCI), scikit-learn digits.</span>
+  </footer>
+</div>
+</body>
+</html>

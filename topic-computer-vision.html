@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Computer vision | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Short topic, Computer vision: Detection, segmentation, key points, and text in images: how they work and where people use them.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Computer vision | AI learning manual">
+<meta property="og:description" content="Short topic, Computer vision: Detection, segmentation, key points, and text in images: how they work and where people use them.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html" aria-current="page">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-60-00-00-010A</b></div>
+    <div>Subject<b>Computer vision</b></div>
+    <div>Info type<b>Short topic</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Computer vision: more than classification</h1>
+    <p>This short topic is written in ASD-STE100 Simplified Technical English. Read <a href="deep-learning.html">Module 4, Deep learning</a> first. Module 4 tells you how a CNN finds patterns in an image and gives one label for the full image. This topic tells you how a computer finds where each object is, which pixels belong to it, and how it reads text in images.</p>
+  </div>
+
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p><span class="tn" title="The part of AI that gets information from images and video.">Computer vision</span> is the part of AI that gets information from images and video. This topic gives a description of the four most usual tasks, how object detection works, where people use computer vision, and its limits.</p>
+    </div>
+  </section>
+
+  <section id="four-tasks">
+    <div class="num">2</div>
+    <div>
+      <h2>Four tasks</h2>
+      <p>The same photograph can give very different types of answer. Refer to Figure 1.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 250" role="img" aria-labelledby="cv1t">
+            <title id="cv1t">The same photograph of two mangoes with four different outputs: a label, boxes, pixel areas, and read text</title>
+            <defs><g id="cvscene">
+              <rect x="0" y="0" width="170" height="150" rx="6" fill="var(--sheet-2)" stroke="var(--rule-strong)"/>
+              <ellipse cx="55" cy="80" rx="30" ry="38" fill="#F2B544" stroke="#B57A10" stroke-width="1.5"/>
+              <ellipse cx="118" cy="88" rx="27" ry="34" fill="#E89A2C" stroke="#A96510" stroke-width="1.5"/>
+              <path d="M55 42 q12 -18 30 -14 q-10 14 -30 14z" fill="#3E8E4E"/>
+              <rect x="20" y="126" width="74" height="16" rx="2" fill="var(--sheet)" stroke="var(--rule-strong)"/>
+              <text x="57" y="138" text-anchor="middle" style="font:600 9px var(--font-mono);fill:var(--ink)">ALPHONSO 2kg</text>
+            </g></defs>
+            <use href="#cvscene" transform="translate(10 20)"/>
+            <use href="#cvscene" transform="translate(200 20)"/>
+            <use href="#cvscene" transform="translate(390 20)"/>
+            <use href="#cvscene" transform="translate(580 20)"/>
+            <!-- A: classification -->
+            <rect x="40" y="26" width="110" height="20" rx="10" fill="var(--blue)"/><text x="95" y="40" text-anchor="middle" style="font:600 11px var(--font);fill:var(--on-blue)">Mango: 98%</text>
+            <!-- B: detection -->
+            <rect x="221" y="58" width="68" height="84" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+            <rect x="289" y="70" width="60" height="76" fill="none" stroke="var(--green)" stroke-width="2.5"/>
+            <rect x="221" y="44" width="62" height="14" fill="var(--blue)"/><text x="252" y="55" text-anchor="middle" style="font:600 9px var(--font);fill:var(--on-blue)">mango 0.96</text>
+            <rect x="289" y="56" width="62" height="14" fill="var(--green)"/><text x="320" y="67" text-anchor="middle" style="font:600 9px var(--font);fill:var(--sheet)">mango 0.91</text>
+            <!-- C: segmentation -->
+            <ellipse cx="445" cy="100" rx="30" ry="38" fill="var(--blue)" opacity=".75"/>
+            <ellipse cx="508" cy="108" rx="27" ry="34" fill="var(--green)" opacity=".75"/>
+            <!-- D: OCR -->
+            <rect x="597" y="143" width="80" height="22" fill="none" stroke="var(--amber)" stroke-width="2.5"/>
+            <rect x="612" y="26" width="126" height="20" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="675" y="40" text-anchor="middle" style="font:600 10px var(--font-mono);fill:var(--ink)">"ALPHONSO 2kg"</text>
+            <text class="lbl" x="95" y="200" text-anchor="middle" style="font-weight:600">A. Classification</text><text class="sm" x="95" y="218" text-anchor="middle">one label for the image</text>
+            <text class="lbl" x="285" y="200" text-anchor="middle" style="font-weight:600">B. Object detection</text><text class="sm" x="285" y="218" text-anchor="middle">a box and a label for each object</text>
+            <text class="lbl" x="475" y="200" text-anchor="middle" style="font-weight:600">C. Segmentation</text><text class="sm" x="475" y="218" text-anchor="middle">the pixels of each object</text>
+            <text class="lbl" x="665" y="200" text-anchor="middle" style="font-weight:600">D. Text recognition</text><text class="sm" x="665" y="218" text-anchor="middle">read the text on the box</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> One photograph, four tasks. Classification only says what is in the image. The other tasks also say where.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Task</th><th>Output</th><th>Example question</th></tr></thead>
+          <tbody>
+            <tr><td>Classification</td><td>One label (and a probability) for the full image.</td><td>Is this mango damaged?</td></tr>
+            <tr><td><span class="tn" title="A task that finds each object in an image and gives a box and a label for each one.">Object detection</span></td><td>A box, a label, and a confidence for each object.</td><td>How many mangoes are on this tree?</td></tr>
+            <tr><td><span class="tn" title="A task that gives a label to each pixel of an image.">Segmentation</span></td><td>A label for each pixel.</td><td>How much of the leaf has the disease?</td></tr>
+            <tr><td><span class="tn" title="Optical character recognition: a task that changes text in an image into text that a computer can use.">OCR</span> (text recognition)</td><td>The text in the image.</td><td>What is written on the box?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A fifth task finds <span class="tn" title="An important point on an object, for example an elbow or a knee of a person. A model finds its position.">key points</span>, for example the elbows, knees, and shoulders of a person. Fitness apps and sports analysis use key points to measure the movements of the body.</p>
+    </div>
+  </section>
+
+  <section id="how-object-detection-works">
+    <div class="num">3</div>
+    <div>
+      <h2>How object detection works</h2>
+      <p>A detection model is usually a CNN or a <span class="tn" title="A transformer that divides an image into small squares and uses attention between them, as a text transformer does with tokens.">vision transformer</span>. Refer to <a href="deep-learning.html#how-a-network-finds-patterns-in-images">Module 4, Section 6</a>. For each part of the image, it predicts:</p>
+      <ul>
+        <li>The four numbers of a <span class="tn" title="A rectangle around an object. Four numbers give its position and size.">bounding box</span>: the position and the size of a rectangle.</li>
+        <li>A probability for each category, for example mango, leaf, or nothing.</li>
+      </ul>
+      <p>The model finds many boxes that are almost the same for one mango. A step with the name <span class="tn" title="A step that keeps the box with the highest confidence and removes the other boxes that overlap it too much.">non-maximum suppression</span> keeps the box with the highest confidence and removes the other boxes that overlap it.</p>
+      <h3>Is a box correct?</h3>
+      <p>To measure a detection model, compare each predicted box with the correct box. <span class="tn" title="Intersection over union: the area where two boxes overlap, divided by the area of the two boxes together. 1 is a perfect match.">IoU</span> (intersection over union) measures how well two boxes overlap. Refer to Figure 2.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 200" role="img" aria-labelledby="cv2t">
+            <title id="cv2t">Intersection over union: the overlap area divided by the total area of two boxes</title>
+            <rect x="40" y="30" width="140" height="120" fill="var(--green-soft)" stroke="var(--green)" stroke-width="2"/>
+            <rect x="100" y="60" width="140" height="120" fill="color-mix(in srgb,var(--blue) 18%,transparent)" stroke="var(--blue)" stroke-width="2" stroke-dasharray="6 4"/>
+            <rect x="100" y="60" width="80" height="90" fill="var(--amber)" opacity=".55"/>
+            <text class="sm" x="48" y="48" style="fill:var(--green);font-weight:600">correct box</text>
+            <text class="sm" x="160" y="174" style="fill:var(--blue);font-weight:600">predicted box</text>
+            <text class="sm" x="140" y="110" text-anchor="middle" style="font-weight:600">overlap</text>
+            <text class="lbl" x="300" y="70" style="font-weight:600">IoU = overlap area &divide; area of both boxes together</text>
+            <text class="sm" x="300" y="100">IoU = 1: the boxes are the same.</text>
+            <text class="sm" x="300" y="122">IoU = 0: the boxes do not touch.</text>
+            <text class="sm" x="300" y="144">Usual rule: the detection is correct if IoU is 0.5 or more,</text>
+            <text class="sm" x="300" y="164">and the label is also correct.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> Intersection over union (IoU). The orange area is the overlap.</figcaption>
+      </figure>
+      <p>Example: each box has an area of 100 cm² on the screen, and the overlap is 60 cm². The two boxes together cover 100 + 100 − 60 = 140 cm². IoU = 60 &divide; 140 = 0.43. This is less than 0.5, thus the detection is not correct.</p>
+      <p>When you know which detections are correct, you can calculate precision and recall, as in <a href="machine-learning.html#how-to-measure-a-model">Module 3, Section 10</a>.</p>
+    </div>
+  </section>
+
+  <section id="segmentation-and-video">
+    <div class="num">4</div>
+    <div>
+      <h2>Segmentation and video</h2>
+      <ul>
+        <li><b>Semantic segmentation</b> gives each pixel a category, for example "mango" or "leaf". Two mangoes that touch become one area.</li>
+        <li><b>Instance segmentation</b> also separates the objects: "mango 1" and "mango 2". Figure 1C shows this.</li>
+        <li><b>Tracking</b> connects the detections in each frame of a video, so that the system knows that it is the same mango or the same car.</li>
+      </ul>
+      <p>Most teams do not train a vision model from zero. They start with a model that is already trained on millions of images and train it a little more on their own images. This is transfer learning. Refer to <a href="deep-learning.html#deep-learning-in-practice">Module 4, Section 9</a>. New multimodal models can also describe an image in words and answer questions about it. Refer to <a href="generative-ai.html#types-of-generative-ai">Module 5, Section 3</a>.</p>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Labels for detection and segmentation take much more work than one label for each image. A person must draw each box or each object outline. Plan time and money for this work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="where-people-use-computer-vision">
+    <div class="num">5</div>
+    <div>
+      <h2>Where people use computer vision</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Area</th><th>Task</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Agriculture</td><td>Detection, segmentation</td><td>Count fruit on trees. Find diseased leaves. Measure the size of fruit on a sorting line.</td></tr>
+            <tr><td>Medicine</td><td>Segmentation, classification</td><td>Mark possible tumors on scans, for a doctor to check.</td></tr>
+            <tr><td>Factories</td><td>Detection, classification</td><td>Find scratches and defects on parts.</td></tr>
+            <tr><td>Transport</td><td>Detection, tracking</td><td>Driver assistance finds people, cars, and road signs. Read number plates.</td></tr>
+            <tr><td>Shops and stores</td><td>Detection</td><td>Find empty shelves. Count stock in a store room.</td></tr>
+            <tr><td>Offices</td><td>OCR</td><td>Read invoices, forms, and identity documents.</td></tr>
+            <tr><td>Phones</td><td>Classification, key points</td><td>Unlock the phone with a face. Find photographs by their content.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="limits-and-risks">
+    <div class="num">6</div>
+    <div>
+      <h2>Limits and risks</h2>
+      <ul>
+        <li><b>New conditions.</b> A new camera, different light, rain, or a new type of object can decrease the accuracy. This is data drift. Refer to <a href="ai-in-practice.html#monitor-the-model">Module 7, Section 7</a>.</li>
+        <li><b>Small and hidden objects.</b> Objects that are small, far away, or partly hidden are difficult to find.</li>
+        <li><b>Attacks.</b> A special printed pattern can make a model see something that is not there, or not see something that is there.</li>
+        <li><b>Bias.</b> A face model that is trained mostly on one group of people can make more errors for other groups. Refer to <a href="responsible-ai.html#bias-and-fairness">Module 6, Section 3</a>.</li>
+      </ul>
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>A photograph of a face is personal data. Face recognition in public places has strict rules in many countries, for example in the EU AI Act. Refer to <a href="responsible-ai.html#privacy-and-the-law">Module 6, Section 4</a>. Do not use face recognition without a legal check.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="summary">
+    <div class="num">7</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>Classification says what is in an image. Detection, segmentation, and OCR also say where.</li>
+        <li>A detection model predicts a box, a label, and a confidence for each object.</li>
+        <li>IoU measures how well a predicted box matches the correct box. 0.5 or more is a usual limit.</li>
+        <li>Instance segmentation separates the objects. Tracking follows them through a video.</li>
+        <li>Use transfer learning, and plan for the work of drawing the labels.</li>
+        <li>Monitor for new conditions, and take special care with faces.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="knowledge-check">
+    <div class="num">8</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "A farmer wants to know how many mangoes are on each tree. Which task is necessary?", "options": ["Object detection", "Classification", "Text recognition", "Regression"], "answer": 0, "explain": "Detection finds each object with its own box, so the system can count them. Classification gives only one label for the full image.", "ref": "four-tasks", "scenario": true},
+ {"q": "Two boxes overlap. The overlap is 30 cm², and the two boxes together cover 120 cm². What is the IoU?", "options": ["0.25", "0.5", "4", "0.3"], "answer": 0, "explain": "IoU = overlap area divided by the area of both boxes together: 30 divided by 120 = 0.25.", "ref": "how-object-detection-works"},
+ {"q": "What does non-maximum suppression do?", "options": ["It keeps the best box and removes other boxes that overlap it", "It makes the image brighter", "It removes the smallest objects", "It trains the model faster"], "answer": 0, "explain": "The model finds many similar boxes for one object. Non-maximum suppression keeps only the box with the highest confidence.", "ref": "how-object-detection-works"},
+ {"q": "Which task gives a label to each pixel?", "options": ["Segmentation", "Classification", "Object detection", "Tracking"], "answer": 0, "explain": "Segmentation labels each pixel. Instance segmentation also separates objects of the same type.", "ref": "segmentation-and-video"},
+ {"q": "A shop wants to use face recognition to find people who stole before. What must it do first?", "options": ["Get a legal check, because face photographs are personal data with strict rules", "Nothing, because cameras are already in the shop", "Use a higher IoU limit", "Use only black and white images"], "answer": 0, "explain": "Faces are personal data, and face recognition in public places has strict rules in many countries.", "ref": "limits-and-risks"}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section id="technical-names">
+    <div class="num">9</div>
+    <div>
+      <h2>Technical names</h2>
+      <dl class="glossary">
+        <dt>Bounding box</dt><dd>A rectangle around an object. Four numbers give its position and size.</dd>
+        <dt>Computer vision</dt><dd>The part of AI that gets information from images and video.</dd>
+        <dt>IoU</dt><dd>Intersection over union: the overlap area of two boxes divided by the area of both boxes together.</dd>
+        <dt>Key point</dt><dd>An important point on an object, for example a knee or an elbow of a person.</dd>
+        <dt>Non-maximum suppression</dt><dd>A step that keeps the box with the highest confidence and removes the other boxes that overlap it.</dd>
+        <dt>Object detection</dt><dd>A task that finds each object in an image and gives a box and a label for each one.</dd>
+        <dt>OCR</dt><dd>Optical character recognition: a task that changes text in an image into text that a computer can use.</dd>
+        <dt>Segmentation</dt><dd>A task that gives a label to each pixel of an image.</dd>
+        <dt>Vision transformer</dt><dd>A transformer that divides an image into small squares and uses attention between them.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="index.html"><small>Back to</small><b>Home</b></a>
+    <a class="next" href="topic-language-tasks.html"><small>Next topic</small><b>Language tasks</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). A short topic of the AI learning manual.</span>
+  </footer>
+</div>
+</body>
+</html>

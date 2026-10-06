@@ -1,17 +1,28 @@
 # AI learning manual
 
-A static learning site in four modules, written in ASD-STE100 Simplified Technical English. There is no server and no framework: open `index.html` in a browser, or put the folder on any static host.
+A static learning site in seven modules, written in ASD-STE100 Simplified Technical English. There is no server and no framework: open `index.html` in a browser, or put the folder on any static host.
 
 ## Files
 
 | File | Contents |
 | --- | --- |
 | `index.html` | Home page and module list |
-| `ai.html`, `machine-learning.html`, `deep-learning.html`, `generative-ai.html` | Modules 1 to 4 |
-| `glossary.html` | All technical names. **Generated**: do not edit by hand |
+| `ai.html`, `mathematics.html`, `machine-learning.html`, `deep-learning.html`, `generative-ai.html`, `responsible-ai.html`, `ai-in-practice.html` | Modules 1 to 7 |
+| `topic-*.html` | Short topics: computer vision, language tasks, recommendation systems, forecasting. Listed in `TOPICS` in `tools/build.py` |
+| `review.html` | The final review: 20 questions drawn from all module knowledge checks. Passing it is the last step to the certificate |
+| `cheat-sheets.html` | One printable summary sheet for each module, and a formula sheet |
+| `careers.html` | Jobs in AI, skills, what to learn next, and how to build a portfolio |
+| `glossary.html` | All technical names and the flashcards. **Generated**: do not edit by hand |
+| `projects.html` | Seven hands-on projects. The code in it is tested with scikit-learn 1.9 |
+| `certificate.html` | The completion certificate |
+| `assets/playgrounds.js` | The interactive activities and the capstone worksheet |
+| `assets/flashcards.js` | The glossary flashcards |
+| `manifest.webmanifest`, `assets/icon-*.png` | Lets people install the site as an app |
+| `sw.js` | Keeps a copy of the site for offline use. **Generated**: do not edit by hand |
 | `assets/site.css` | All styles, light and dark theme |
 | `assets/site.js` | Navigation, progress, quizzes, search, display settings |
 | `assets/search-index.js` | Search data. **Generated**: do not edit by hand |
+| `assets/review-pool.js` | The questions of the final review, taken from each module. **Generated**: do not edit by hand |
 | `tools/build.py` | Build step (see below) |
 
 ## After you change content, run the build
@@ -30,6 +41,10 @@ The build writes the module menu, the previous/next links, the home module list,
 4. For each video, use `<div class="video" data-seconds="…">` with the length of the video in seconds.
 5. Add one line to the `MODULES` list at the top of `tools/build.py`.
 6. Run `python tools/build.py`.
+
+## Add a short topic
+
+Write the page like a module (sections, a knowledge check, and `Technical names`), add one line to `TOPICS` in `tools/build.py`, and run the build. Topics are not part of the certificate.
 
 ## Learner progress
 

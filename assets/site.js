@@ -3,7 +3,7 @@
 // Progress is kept in this browser only (localStorage).
 (function(){
   var root=document.documentElement;
-  var THEME_KEY="ai-manual-theme",TEXT_KEY="ai-manual-text",PROG_KEY="ai-manual-progress";
+  var THEME_KEY="ai-manual-theme",TEXT_KEY="ai-manual-text",PROG_KEY="ai-manual-progress",PATH_KEY="ai-manual-path",NAME_KEY="ai-manual-name";
 
   function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
@@ -31,6 +31,8 @@
     clock:SVG+'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     list:SVG+'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
     chevron:SVG+'<path d="m18 15-6-6-6 6"/></svg>',
+    speaker:SVG+'<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>',
+    stop:SVG+'<rect x="6" y="6" width="12" height="12" rx="2"/></svg>',
     search:SVG+'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
     sliders:SVG+'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>',
     play:SVG+'<circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg>',
@@ -39,10 +41,13 @@
 
   // The modules of the course, in order. A visited page updates these numbers in the saved progress.
   var MODULES=[
-    {"href":"ai.html","num":1,"title":"Artificial intelligence","sections":11,"read":9,"video":54},
-    {"href":"machine-learning.html","num":2,"title":"Machine learning","sections":14,"read":11,"video":47},
-    {"href":"deep-learning.html","num":3,"title":"Deep learning","sections":12,"read":12,"video":48},
-    {"href":"generative-ai.html","num":4,"title":"Generative AI","sections":12,"read":16,"video":104}
+    {"href":"ai.html","num":1,"title":"Artificial intelligence","sections":12,"read":15,"video":54,"quick":["what-ai-is","the-parts-of-ai","how-a-chat-ai-makes-text","limits-and-risks","summary","knowledge-check"],"quickRead":6},
+    {"href":"mathematics.html","num":2,"title":"Mathematics for machine learning","sections":14,"read":18,"video":62,"quick":["why-ai-needs-mathematics","statistics-describe-data","probability","vectors","calculus-rates-of-change","summary","knowledge-check"],"quickRead":9},
+    {"href":"machine-learning.html","num":3,"title":"Machine learning","sections":14,"read":13,"video":47,"quick":["what-machine-learning-is","the-machine-learning-workflow","how-a-model-makes-its-errors-smaller","overfitting-and-underfitting","summary","knowledge-check"],"quickRead":5},
+    {"href":"deep-learning.html","num":4,"title":"Deep learning","sections":12,"read":14,"video":48,"quick":["what-deep-learning-is","inside-a-neuron","how-a-transformer-uses-attention","summary","knowledge-check"],"quickRead":5},
+    {"href":"generative-ai.html","num":5,"title":"Generative AI","sections":12,"read":18,"video":104,"quick":["what-generative-ai-is","how-a-large-language-model-is-made","how-to-write-a-good-prompt","risks-of-generative-ai","summary","knowledge-check"],"quickRead":9},
+    {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5},
+    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7}
   ];
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
@@ -106,12 +111,30 @@
       document.addEventListener("click",function(){if(!panel.hidden)openMenu(false);});
       document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!panel.hidden){openMenu(false);dbtn.focus();}});
       panel.addEventListener("focusout",function(e){if(e.relatedTarget&&!dwrap.contains(e.relatedTarget))openMenu(false);});
-      dwrap.appendChild(dbtn);dwrap.appendChild(panel);barIn.appendChild(dwrap);
+      dwrap.appendChild(dbtn);dwrap.appendChild(panel);
+      var tbActs=el("div","tb-actions");tbActs.appendChild(dwrap);barIn.appendChild(tbActs);
     }
 
-    // Keep the current page visible in the scrollable mobile nav.
-    var curNav=bar&&bar.querySelector('nav a[aria-current="page"]');
-    if(curNav){var nav=curNav.parentNode;if(nav.scrollWidth>nav.clientWidth)nav.scrollLeft=curNav.offsetLeft-nav.offsetLeft-(nav.clientWidth-curNav.offsetWidth)/2;}
+    // Modules menu: close it with Escape, with a click outside, and when focus leaves it. Show the progress of each module.
+    var mods=bar&&bar.querySelector("details.mods");
+    if(mods){
+      var modsBtn=mods.querySelector("summary");
+      document.addEventListener("click",function(e){if(mods.open&&!mods.contains(e.target))mods.open=false;});
+      document.addEventListener("keydown",function(e){if(e.key==="Escape"&&mods.open){mods.open=false;modsBtn.focus();}});
+      mods.addEventListener("focusout",function(e){if(e.relatedTarget&&!mods.contains(e.relatedTarget))mods.open=false;});
+      mods.addEventListener("toggle",function(){if(mods.open){var p=mods.querySelector('.mods-list a[aria-current="page"]')||mods.querySelector(".mods-list a");if(p&&p.scrollIntoView)p.scrollIntoView({block:"nearest"});}});
+      var ps=loadProgress();
+      [].forEach.call(mods.querySelectorAll(".mods-list a[data-mod]"),function(a){
+        var p=ps[a.getAttribute("data-mod")];if(!p||!p.total)return;
+        var d=(p.done||[]).length,full=d>=p.total,quiz=(p.done||[]).indexOf("knowledge-check")>=0;
+        var pr=el("span","mods-prog"+(full?" done":""));
+        pr.textContent=full?"\u2713 Done":(d?d+"/"+p.total:"");
+        if(quiz&&!full)pr.textContent+=" \u2605";
+        pr.title=(full?"All sections done":d+" of "+p.total+" sections done")+(quiz?". Knowledge check passed.":".");
+        if(pr.textContent)a.appendChild(pr);
+        if(full)a.classList.add("is-done");
+      });
+    }
 
     // Reading progress bar
     var prog=null;
@@ -148,6 +171,8 @@
     // ---------- Sections ----------
     var sections=main?[].slice.call(main.querySelectorAll(":scope > section")):[];
     var isModule=!isHome&&sections.length>=4;
+    var isRef=!!(main&&main.hasAttribute("data-reference"));
+    if(isRef)document.body.classList.add("is-ref");
     var meta=[];
     sections.forEach(function(s,i){
       var h=s.querySelector("h2");if(!h)return;
@@ -217,7 +242,7 @@
       pageRead=mins;pageVideo=Math.round(vsecs/60);
       var facts=el("ul","facts");
       facts.setAttribute("aria-label","About this module");
-      [[ICON.clock,"About "+mins+" min read"],[ICON.play,vids+" videos, "+fmtMin(pageVideo)],[null,meta.length+" sections"],[null,figs+" figures"]].forEach(function(f){
+      [[ICON.clock,"About "+mins+" min read"],vids?[ICON.play,vids+(vids===1?" video, ":" videos, ")+fmtMin(pageVideo)]:null,[null,meta.length+" sections"],figs?[null,figs+(figs===1?" figure":" figures")]:null].filter(Boolean).forEach(function(f){
         var li=el("li");if(f[0])li.innerHTML=f[0];li.appendChild(document.createTextNode(f[1]));facts.appendChild(li);
       });
       title.appendChild(facts);
@@ -301,7 +326,7 @@
         var row=el("div","sec-end");
         if(m.isQuiz){
           m.note=el("div","sec-note");row.appendChild(m.note);
-        }else{
+        }else if(!isRef){
           var btn=el("button","donebtn");btn.type="button";
           btn.addEventListener("click",function(){
             var was=refresh();
@@ -364,6 +389,16 @@
       var src=box.querySelector('script[type="application/json"]'),data=null;
       try{data=JSON.parse(src.textContent);}catch(e){}
       var qs=(data&&data.questions)||[];
+      var reviewN=parseInt(box.getAttribute("data-review"),10)||0;
+      // The final review takes a new mix of questions each time: the same number from each module, then shuffled.
+      function draw(){
+        var pool=window.REVIEW_POOL||[],by={};
+        pool.forEach(function(q){(by[q.m]=by[q.m]||[]).push(q);});
+        var keys=Object.keys(by),per=Math.ceil(reviewN/Math.max(1,keys.length)),pick=[];
+        keys.forEach(function(k){pick=pick.concat(shuffle(by[k].slice()).slice(0,per));});
+        return shuffle(pick).slice(0,reviewN);
+      }
+      if(reviewN)qs=draw();
       if(!qs.length)return;
       var pass=parseInt(box.getAttribute("data-pass"),10)||70;
       var sec=box.closest("section"),qm=null;
@@ -372,6 +407,7 @@
       var ui=el("div","quiz-ui");box.appendChild(ui);
 
       function render(){
+        if(reviewN)qs=draw();
         ui.innerHTML="";
         var answered=0,correct=0;
         var head=el("div","quiz-head");
@@ -394,7 +430,10 @@
           var qid="quiz"+bi+"-q"+qi;
           li.id=qid+"-card";li.setAttribute("data-qi",qi);
           var qt=el("p","qtext");qt.id=qid;
-          qt.appendChild(el("span","qnum","Question "+(qi+1)));
+          var qn=el("span","qnum","Question "+(qi+1));
+          if(q.page)qn.appendChild(el("span","qmod","Module "+q.m));
+          if(q.scenario)qn.appendChild(el("span","qscen","Scenario: the mango checker"));
+          qt.appendChild(qn);
           qt.appendChild(document.createTextNode(q.q));
           li.appendChild(qt);
           var opts=el("div","qopts");opts.setAttribute("role","group");opts.setAttribute("aria-labelledby",qid);
@@ -429,7 +468,11 @@
             t.appendChild(document.createTextNode(q.explain||""));
             fb.appendChild(t);
             var rm=q.ref&&metaFor(q.ref);
-            if(rm){
+            if(q.page&&q.ref){
+              var xa=el("a","qref");xa.href=q.page+"#"+q.ref;
+              xa.textContent=(ok?"Read more":"Read again")+": Module "+q.m+", Section "+(q.rn||"")+(q.rt?", "+q.rt:"");
+              fb.appendChild(xa);
+            }else if(rm){
               var a=el("a","qref");a.href="#"+rm.id;
               a.textContent=(ok?"Read more":"Read again")+": Section "+rm.num+", "+rm.title;
               fb.appendChild(a);
@@ -443,7 +486,7 @@
           var pct=Math.round(correct/qs.length*100),passed=pct>=pass;
           var prev=mine.quiz&&mine.quiz.best!=null?mine.quiz.best:-1;
           mine.quiz={best:Math.max(prev,correct),last:correct,total:qs.length};
-          var was=refresh();
+          var was=refresh(),firstPass=passed&&qm&&!isDone(qm.id);
           if(passed&&qm&&!isDone(qm.id))mine.done.push(qm.id);
           persist();
           var now=refresh();
@@ -455,8 +498,9 @@
           result.appendChild(sc);
           var msg=el("div","qr-msg");
           var passedBefore=!passed&&qm&&isDone(qm.id);
-          msg.appendChild(el("b",null,passed?(pct===100?"Excellent. All answers are correct.":"Good. You passed the knowledge check."):(passedBefore?"Not this time. Your earlier pass still counts.":"Not yet. You need "+pass+"% to pass.")));
-          msg.appendChild(el("p",null,passed?"This section is now marked as done.":"Read the sections in the explanations again. Then try again."));
+          msg.appendChild(el("b",null,passed?(pct===100?"Excellent. All answers are correct.":reviewN?"Good. You passed the final review.":"Good. You passed the knowledge check."):(passedBefore?"Not this time. Your earlier pass still counts.":"Not yet. You need "+pass+"% to pass.")));
+          var allMods=MODULES.every(function(M){var p=loadProgress()[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
+          msg.appendChild(el("p",null,passed?(reviewN?(allMods?"Your certificate is ready.":"Your certificate is ready when you pass the knowledge check of all modules."):"This section is now marked as done."):(reviewN?"Read the sections in the explanations again. Each new try has a new mix of questions.":"Read the sections in the explanations again. Then try again.")));
           var missed=[].slice.call(list.querySelectorAll(".qcard.bad"));
           if(missed.length){
             var rv=el("div","qr-review");
@@ -467,7 +511,8 @@
               var rli=el("li");
               var ra=el("a",null);ra.href="#"+card.id;ra.textContent="Question "+(qi2+1)+": "+q2.q;rli.appendChild(ra);
               var rm2=q2.ref&&metaFor(q2.ref);
-              if(rm2){rli.appendChild(document.createTextNode(" "));var rs=el("a","qr-sec");rs.href="#"+rm2.id;rs.textContent="Read section "+rm2.num;rli.appendChild(rs);}
+              if(q2.page&&q2.ref){rli.appendChild(document.createTextNode(" "));var rx=el("a","qr-sec");rx.href=q2.page+"#"+q2.ref;rx.textContent="Module "+q2.m+", Section "+(q2.rn||"");rli.appendChild(rx);}
+              else if(rm2){rli.appendChild(document.createTextNode(" "));var rs=el("a","qr-sec");rs.href="#"+rm2.id;rs.textContent="Read section "+rm2.num;rli.appendChild(rs);}
               rul.appendChild(rli);
             });
             rv.appendChild(rul);
@@ -478,6 +523,16 @@
           result.appendChild(msg);
           if(missed.length)result.appendChild(rv);
           if(now===meta.length&&was<meta.length)celebrate();
+          else if(firstPass&&reviewN){
+            var ca2=el("a","btn");ca2.href="certificate.html";ca2.textContent="Get your certificate";
+            toast("<b>Final review passed</b>You answered "+correct+" of "+qs.length+" questions correctly.",[ca2],9000);
+          }
+          else if(firstPass){
+            var myM=null;MODULES.forEach(function(x){if(x.href===PAGE)myM=x;});
+            if(!myM){toast("<b>Topic complete</b>You passed the knowledge check of this topic.",[],7000);return;}
+            var ba=el("a","btn");ba.href="index.html";ba.textContent="See your badges";
+            toast("<b>Badge earned</b>You passed the knowledge check of Module "+(myM?myM.num:"")+".",[ba],8000);
+          }
         }
       }
       render();
@@ -488,7 +543,7 @@
       var acts=[];
       if(next&&next.getAttribute("href")!=="index.html"){
         var a=el("a","btn");a.href=next.getAttribute("href");
-        a.textContent="Next module: "+(next.querySelector("b")||next).textContent.trim();
+        a.textContent=((next.querySelector("small")||{}).textContent||"Next")+": "+(next.querySelector("b")||next).textContent.trim();
         acts.push(a);
       }
       toast("<b>Module complete</b>You marked all "+meta.length+" sections as done.",acts,9000);
@@ -541,7 +596,9 @@
       var mkBtn=function(label,fn){var b=el("button","linkbtn",label);b.type="button";b.addEventListener("click",fn);return b;};
       var fileIn=el("input");fileIn.type="file";fileIn.accept="application/json,.json";fileIn.hidden=true;
       tools.appendChild(mkBtn("Export progress",function(){
-        var data={app:"ai-learning-manual",version:1,exported:new Date().toISOString(),progress:loadProgress(),settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||""}};
+        var cards=null,cap=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));}catch(e){}
+        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,
+          settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||""}};
         var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
         var u=URL.createObjectURL(blob),dl=el("a");dl.href=u;dl.download="ai-manual-progress.json";
         document.body.appendChild(dl);dl.click();document.body.removeChild(dl);
@@ -549,8 +606,8 @@
       }));
       tools.appendChild(mkBtn("Import progress",function(){fileIn.click();}));
       tools.appendChild(mkBtn("Reset progress",function(){
-        if(window.confirm("Delete all your progress and quiz scores? You cannot undo this.")){
-          try{localStorage.removeItem(PROG_KEY);}catch(e){}
+        if(window.confirm("Delete all your progress, quiz scores, flashcards, and your project plan? You cannot undo this.")){
+          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
           location.reload();
         }
       }));
@@ -562,7 +619,9 @@
           if(!d||d.app!=="ai-learning-manual"||!d.progress||typeof d.progress!=="object"){window.alert("This file is not a progress file from the AI learning manual.");return;}
           if(!window.confirm("Replace your current progress with the progress in this file?"))return;
           saveProgress(d.progress);
-          if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");}
+          if(d.cards&&typeof d.cards==="object")set("ai-manual-cards",JSON.stringify(d.cards));
+          if(d.capstone&&typeof d.capstone==="object")set("ai-manual-capstone",JSON.stringify(d.capstone));
+          if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);}
           location.reload();
         };
         r.readAsText(f);fileIn.value="";
@@ -590,6 +649,74 @@
       }
       if(go2)dx2.appendChild(go2);
       dash.appendChild(dp);dash.appendChild(dx2);
+
+      // Learning path: the full course or the quick path
+      var fullMin=0,quickMin=0,vidMin=0;
+      MODULES.forEach(function(M){var p=store[M.href]||{};fullMin+=p.read||M.read;quickMin+=M.quickRead||0;vidMin+=p.video||M.video;});
+      var pc=el("div","dash-card dash-path");
+      var pfs=el("fieldset","dgroup");pfs.appendChild(el("legend",null,"Learning path"));
+      var pseg=el("div","dseg");
+      [["full","Full course","About "+fmtMin(fullMin)+" of reading and "+fmtMin(vidMin)+" of video"],
+       ["quick","Quick path","About "+fmtMin(quickMin)+" of reading: the most important sections only"]].forEach(function(o){
+        var id="path-"+o[0],lab=el("label","dopt dopt-2");lab.setAttribute("for",id);
+        var inp=el("input");inp.type="radio";inp.name="path";inp.id=id;inp.checked=(get(PATH_KEY)==="quick")===(o[0]==="quick");
+        inp.addEventListener("change",function(){if(inp.checked){set(PATH_KEY,o[0]);pnote.textContent=o[0]==="quick"?"The quick path is on. In each module, the other sections are closed. You can open them at any time.":"The full course is on. All sections are open.";}});
+        var sp=el("span");sp.appendChild(el("b",null,o[1]));sp.appendChild(el("small",null,o[2]));
+        lab.appendChild(inp);lab.appendChild(sp);pseg.appendChild(lab);
+      });
+      pfs.appendChild(pseg);pc.appendChild(pfs);
+      var pnote=el("p","dash-note",get(PATH_KEY)==="quick"?"The quick path is on. In each module, the other sections are closed. You can open them at any time.":"Select the quick path if you have less time. You can change this at any time.");
+      pnote.setAttribute("aria-live","polite");pc.appendChild(pnote);
+      dash.appendChild(pc);
+
+      // Badges and the certificate
+      var bc=el("div","dash-card dash-badges");
+      bc.appendChild(el("b",null,"Badges"));
+      var brow=el("ul","badges");brow.setAttribute("aria-label","Module badges");
+      MODULES.forEach(function(M){
+        var p=store[M.href]||{},ok=(p.done||[]).indexOf("knowledge-check")>=0;
+        var li=el("li","badge"+(ok?" earned":""));
+        li.appendChild(el("span","badge-n",String(M.num)));
+        li.appendChild(el("span","badge-t",M.title));
+        li.appendChild(el("span","sr-only",ok?", earned":", not earned yet"));
+        li.title=ok?"Earned: you passed the knowledge check":"Pass the knowledge check of this module to earn the badge";
+        brow.appendChild(li);
+      });
+      var rvP=store["review.html"]||{},rvOk=(rvP.done||[]).indexOf("final-review")>=0;
+      var rli=el("li","badge badge-rv"+(rvOk?" earned":""));
+      rli.appendChild(el("span","badge-n","\u2605"));rli.appendChild(el("span","badge-t","Final review"));
+      rli.appendChild(el("span","sr-only",rvOk?", earned":", not earned yet"));
+      rli.title=rvOk?"Earned: you passed the final review":"Pass the final review to earn this badge";
+      brow.appendChild(rli);
+      bc.appendChild(brow);
+      var cp=el("p","badges-cert");
+      if(qp===MODULES.length&&rvOk){var ca=el("a","btn","Get your certificate");ca.href="certificate.html";cp.appendChild(ca);}
+      else if(qp===MODULES.length){var ra=el("a","btn","Take the final review");ra.href="review.html";cp.appendChild(document.createTextNode("All knowledge checks passed. One step to your certificate: "));cp.appendChild(ra);}
+      else cp.textContent="Pass the knowledge check of all "+MODULES.length+" modules and the final review to get your certificate.";
+      bc.appendChild(cp);
+      dash.appendChild(bc);
+
+      // Projects
+      var pj=store["projects.html"]||{},pjDone=(pj.done||[]).filter(function(id){return /^project-/.test(id);}).length;
+      var pc2=el("div","dash-card dash-proj");
+      var pjt=el("div");
+      pjt.appendChild(el("b",null,"Projects"));
+      pjt.appendChild(el("p",null,"Seven hands-on projects, from an image classifier to a bias audit. "+(pjDone?pjDone+" of 7 done.":"Start with a beginner project.")));
+      pc2.appendChild(pjt);
+      var pja=el("a","btn",pjDone?"Continue the projects":"Open the projects");pja.href="projects.html";pc2.appendChild(pja);
+      dash.appendChild(pc2);
+
+      // More: short topics, cheat sheets, careers
+      var mc=el("div","dash-card dash-more");
+      mc.appendChild(el("b",null,"More to learn"));
+      var mul=el("ul","dash-links");
+      [["topic-computer-vision.html","Short topics","Computer vision, language tasks, recommendations, and forecasting"],
+       ["cheat-sheets.html","Cheat sheets","One printable page for each module, and a formula sheet"],
+       ["careers.html","Careers and next steps","Jobs in AI, skills, what to learn next, and your portfolio"]].forEach(function(x){
+        var li=el("li"),a=el("a");a.href=x[0];a.appendChild(el("b",null,x[1]));a.appendChild(el("small",null,x[2]));li.appendChild(a);mul.appendChild(li);
+      });
+      mc.appendChild(mul);
+      dash.appendChild(mc);
       if(title)title.insertAdjacentElement("afterend",dash);
 
       [].forEach.call(document.querySelectorAll(".modlist a[href]"),function(a){
@@ -674,6 +801,26 @@
       });
     }
 
+    // ---------- Flashcards (glossary page) and a link to them from each module ----------
+    if(document.getElementById("flashcards")){
+      var fcs=document.createElement("script");fcs.src="assets/flashcards.js";document.head.appendChild(fcs);
+    }
+    var tnSec=isModule&&document.getElementById("technical-names");
+    if(tnSec){
+      var myNum=null;MODULES.forEach(function(x){if(x.href===PAGE)myNum=x.num;});
+      var gl=tnSec.querySelector(".glossary");
+      if(gl&&myNum){
+        var fl=el("p","fc-link");
+        var fa=el("a",null,"Practice these names with flashcards");fa.href="glossary.html?deck="+myNum+"#flashcards";
+        fl.appendChild(fa);gl.insertAdjacentElement("afterend",fl);
+      }
+    }
+
+    // ---------- Playgrounds: load their code only on pages that have them ----------
+    if(document.querySelector(".playground[data-pg]")){
+      var pgs=document.createElement("script");pgs.src="assets/playgrounds.js";document.head.appendChild(pgs);
+    }
+
     // ---------- Videos: load the YouTube player only when the learner selects play ----------
     [].forEach.call(document.querySelectorAll("a.yt[data-yt]"),function(a){
       a.addEventListener("click",function(e){
@@ -713,7 +860,7 @@
     if(barIn){
       var sbtn=el("button","iconbtn",ICON.search);sbtn.type="button";
       sbtn.setAttribute("aria-label","Search the manual");sbtn.title="Search (press /)";
-      barIn.insertBefore(sbtn,barIn.querySelector(".dwrap"));
+      var dw=barIn.querySelector(".dwrap");dw.parentNode.insertBefore(sbtn,dw);
       var sd=el("dialog","searchdlg");sd.setAttribute("aria-label","Search the manual");
       var sh=el("div","sd-h");
       var slab=el("label","sr-only","Search the manual");slab.setAttribute("for","site-q");
@@ -766,7 +913,7 @@
           var it=h.it,x=it.x,i=x.toLowerCase().indexOf(terms[0]);
           var st=Math.max(0,i-60),snip=(st>0?"…":"")+x.slice(st,st+180)+(st+180<x.length?"…":"");
           var a=el("a");a.href=it.p===PAGE?"#"+it.id:it.p+"#"+it.id;
-          var where=it.g?"Glossary":"Module "+it.m+" · Section "+it.n;
+          var where=it.g?"Glossary":it.w?it.w+" \u00b7 Section "+it.n:"Module "+it.m+" \u00b7 Section "+it.n;
           a.innerHTML='<span class="sd-where">'+esc(where)+'</span><b>'+hl(it.t,terms)+'</b><span class="sd-snip">'+hl(snip,terms)+'</span>';
           a.addEventListener("click",function(){sd.close();});
           var li=el("li");li.appendChild(a);sres.appendChild(li);
@@ -788,6 +935,183 @@
         var typing=tag==="input"||tag==="textarea"||(e.target&&e.target.isContentEditable);
         if((e.key==="/"&&!typing)||((e.ctrlKey||e.metaKey)&&(e.key||"").toLowerCase()==="k")){e.preventDefault();openSearch();}
       });
+    }
+
+    // ---------- Copy buttons (prompt exercises) ----------
+    [].forEach.call(document.querySelectorAll("[data-copy]"),function(b){
+      b.addEventListener("click",function(){
+        var t=document.getElementById(b.getAttribute("data-copy"));if(!t)return;
+        var txt=t.textContent,label=b.textContent;
+        var ok=function(){b.textContent="Copied";setTimeout(function(){b.textContent=label;},1600);};
+        var fallback=function(){
+          var ta=el("textarea");ta.value=txt;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";
+          document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok();}catch(e){}document.body.removeChild(ta);
+        };
+        if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(txt).then(ok,fallback);else fallback();
+      });
+    });
+
+    // ---------- History timeline: show one period ----------
+    var tl=document.getElementById("timeline");
+    if(tl){
+      var leg=tl.querySelector(".tl-legend"),tItems=[].slice.call(tl.querySelectorAll(".tl-item"));
+      var tbar=el("div","tl-filter");tbar.setAttribute("role","group");tbar.setAttribute("aria-label","Show one period");
+      var tbtns=[];
+      [["all","All periods"]].concat([].map.call(leg.querySelectorAll("li"),function(li){return [li.className.replace("tl-",""),li.textContent];})).forEach(function(o){
+        var b=el("button","pg-chip tl-chip tl-"+o[0],o[1]);b.type="button";b.setAttribute("aria-pressed",o[0]==="all"?"true":"false");
+        b.addEventListener("click",function(){
+          tbtns.forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+          tItems.forEach(function(it){it.hidden=o[0]!=="all"&&it.getAttribute("data-era")!==o[0];});
+        });
+        tbtns.push(b);tbar.appendChild(b);
+      });
+      leg.parentNode.replaceChild(tbar,leg);
+      if("IntersectionObserver" in window&&!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)){
+        var tio=new IntersectionObserver(function(es){es.forEach(function(e2){if(e2.isIntersecting){e2.target.classList.add("in");tio.unobserve(e2.target);}});},{rootMargin:"0px 0px -10% 0px"});
+        tItems.forEach(function(it){it.classList.add("tl-anim");tio.observe(it);});
+      }
+    }
+
+    // ---------- Quick path (module pages) ----------
+    var thisM=null;MODULES.forEach(function(x){if(x.href===PAGE)thisM=x;});
+    if(isModule&&thisM&&get(PATH_KEY)==="quick"&&thisM.quick&&thisM.quick.length){
+      var openSec=function(sec){if(sec&&sec.classList.contains("pq-skip"))sec.classList.add("pq-open");};
+      meta.forEach(function(m){
+        var inPath=thisM.quick.indexOf(m.id)>=0;
+        m.anchors.forEach(function(a){a.classList.toggle("pq-out",!inPath);});
+        if(inPath)return;
+        m.s.classList.add("pq-skip");
+        var pn=el("div","pq-note");
+        pn.appendChild(el("span",null,"This section is not in the quick path."));
+        var pb=el("button","linkbtn","Open this section");pb.type="button";
+        pb.addEventListener("click",function(){m.s.classList.toggle("pq-open");pb.textContent=m.s.classList.contains("pq-open")?"Close this section":"Open this section";});
+        pn.appendChild(pb);
+        m.s.querySelector("h2").insertAdjacentElement("afterend",pn);
+      });
+      if(title){
+        var qb=el("div","resume pq-banner");qb.setAttribute("role","region");qb.setAttribute("aria-label","Quick path");
+        var qm2=el("div","resume-msg");qm2.appendChild(el("b",null,"Quick path: about "+fmtMin(thisM.quickRead)+" of reading"));
+        qm2.appendChild(document.createTextNode("The sections that are not in the quick path are closed. You can open each one."));
+        var qfull=el("button","btn-secondary","Use the full course");qfull.type="button";
+        qfull.addEventListener("click",function(){set(PATH_KEY,"full");location.reload();});
+        qb.appendChild(qm2);qb.appendChild(qfull);
+        title.insertAdjacentElement("afterend",qb);
+      }
+      var hashOpen=function(){var t=location.hash&&document.getElementById(location.hash.slice(1));if(t)openSec(t.closest("section"));};
+      hashOpen();window.addEventListener("hashchange",hashOpen);
+      document.addEventListener("click",function(e){
+        var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+        var t=document.getElementById(a.getAttribute("href").slice(1));if(t)openSec(t.closest("section"));
+      },true);
+    }
+
+    // ---------- Listen: read a section aloud with the voice of the browser ----------
+    if(isModule&&"speechSynthesis" in window&&"SpeechSynthesisUtterance" in window){
+      var speaking=null;
+      var stopSpeak=function(){
+        window.speechSynthesis.cancel();
+        if(speaking){speaking.innerHTML=ICON.speaker+"<span>Listen</span>";speaking.setAttribute("aria-pressed","false");speaking.classList.remove("is-on");}
+        speaking=null;
+      };
+      var pickVoice=function(){
+        var v=window.speechSynthesis.getVoices()||[];
+        return v.filter(function(x){return /^en[-_]IN/i.test(x.lang);})[0]||v.filter(function(x){return /^en[-_](GB|US)/i.test(x.lang);})[0]||v.filter(function(x){return /^en/i.test(x.lang);})[0]||null;
+      };
+      meta.forEach(function(m){
+        var row=m.s.querySelector(".sec-end");if(!row||m.isQuiz)return;
+        var b=el("button","listenbtn",ICON.speaker+"<span>Listen</span>");b.type="button";b.setAttribute("aria-pressed","false");
+        b.title="Read this section aloud";
+        b.addEventListener("click",function(){
+          if(speaking===b){stopSpeak();return;}
+          stopSpeak();
+          var texts=[m.title];
+          [].forEach.call(m.s.querySelectorAll("h3,p,li,dt,dd,figcaption"),function(n){
+            if(n.closest(".quiz,.playground,.sec-end,.pq-note,.video,.tl-filter,.tryit-prompt,svg,details:not([open]) > p"))return;
+            if(n.tagName==="LI"&&n.querySelector("p"))return;
+            var t=(n.textContent||"").replace(/\s+/g," ").trim();if(t)texts.push(t);
+          });
+          var voice=pickVoice();
+          speaking=b;b.innerHTML=ICON.stop+"<span>Stop</span>";b.setAttribute("aria-pressed","true");b.classList.add("is-on");
+          texts.forEach(function(t,i){
+            var u=new SpeechSynthesisUtterance(t);
+            if(voice){u.voice=voice;u.lang=voice.lang;}else u.lang="en-IN";
+            u.rate=0.95;
+            if(i===texts.length-1)u.onend=function(){if(speaking===b)stopSpeak();};
+            window.speechSynthesis.speak(u);
+          });
+        });
+        var done=row.querySelector(".donebtn,.sec-note");
+        if(done)done.insertAdjacentElement("afterend",b);else row.insertBefore(b,row.firstChild);
+      });
+      window.addEventListener("pagehide",stopSpeak);
+    }
+
+    // ---------- Certificate page ----------
+    var capp=document.querySelector(".cert-app");
+    if(capp){
+      document.body.classList.add("is-cert");
+      var passedM=MODULES.filter(function(M){var p=store[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
+      var rv=store["review.html"]||{},rvPassed=(rv.done||[]).indexOf("final-review")>=0;
+      if(passedM.length<MODULES.length||!rvPassed){
+        capp.appendChild(el("p",null,"You passed "+passedM.length+" of "+MODULES.length+" knowledge checks"+(rvPassed?" and the final review":"")+". To get your certificate, do these steps:"));
+        var cul=el("ul");
+        MODULES.forEach(function(M){if(passedM.indexOf(M)>=0)return;var li=el("li"),a=el("a",null,"Module "+M.num+": "+M.title);a.href=M.href+"#knowledge-check";li.appendChild(a);cul.appendChild(li);});
+        if(!rvPassed){var rli2=el("li"),ra2=el("a",null,"The final review: 20 questions from all modules");ra2.href="review.html#final-review";rli2.appendChild(ra2);cul.appendChild(rli2);}
+        capp.appendChild(cul);
+      }else{
+        var clab=el("label","pg-label","Your name, as you want it on the certificate");clab.setAttribute("for","cert-name");
+        var cin=el("input","pg-text cert-input");cin.id="cert-name";cin.type="text";cin.setAttribute("autocomplete","name");cin.value=get(NAME_KEY)||"";
+        var latest=0,scores=[];
+        MODULES.forEach(function(M){var p=store[M.href]||{};latest=Math.max(latest,p.t||0);if(p.quiz&&p.quiz.total)scores.push(p.quiz.best/p.quiz.total);});
+        var avg=scores.length?Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length*100):null;
+        var cert=el("div","cert");
+        var ci=el("div","cert-in");
+        ci.appendChild(el("div","cert-logo","AI"));
+        ci.appendChild(el("p","cert-k","Certificate of completion"));
+        ci.appendChild(el("p","cert-this","This certificate is given to"));
+        var cname=el("p","cert-name");ci.appendChild(cname);
+        ci.appendChild(el("p","cert-for","for the completion of all "+MODULES.length+" modules of the AI learning manual:"));
+        var cmods=el("ul","cert-mods");MODULES.forEach(function(M){cmods.appendChild(el("li",null,M.num+". "+M.title));});ci.appendChild(cmods);
+        var cdate=new Date(latest||Date.now());
+        var dtxt;try{dtxt=cdate.toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});}catch(e){dtxt=cdate.toDateString();}
+        ci.appendChild(el("p","cert-date","Completed on "+dtxt+(avg!=null?" \u00b7 Average best score in the knowledge checks: "+avg+"%":"")+(rv.quiz&&rv.quiz.total?" \u00b7 Final review: "+rv.quiz.best+" of "+rv.quiz.total:"")));
+        cert.appendChild(ci);
+        var paintName=function(){cname.textContent=cin.value.trim()||"Your name";cname.classList.toggle("is-empty",!cin.value.trim());};
+        cin.addEventListener("input",function(){set(NAME_KEY,cin.value.trim());paintName();});
+        paintName();
+        var cact=el("div","pg-actions");
+        var cpr=el("button","pg-btn pg-btn-primary","Print or save as PDF");cpr.type="button";cpr.addEventListener("click",function(){window.print();});
+        cact.appendChild(cpr);
+        capp.appendChild(el("p",null,"Congratulations. You passed the knowledge check of all "+MODULES.length+" modules and the final review."));
+        capp.appendChild(clab);capp.appendChild(cin);capp.appendChild(cert);capp.appendChild(cact);
+      }
+    }
+
+    // ---------- Final review: which knowledge checks are passed ----------
+    [].forEach.call(document.querySelectorAll("[data-ready]"),function(ul){
+      MODULES.forEach(function(M){
+        var p=store[M.href]||{},ok=(p.done||[]).indexOf("knowledge-check")>=0;
+        var li=el("li",ok?"ok":null),a=el("a",null,(ok?"✓ ":"")+"Module "+M.num);
+        a.href=M.href+"#knowledge-check";a.style.color="inherit";a.title=M.title+(ok?": passed":": not passed yet");
+        li.appendChild(a);ul.appendChild(li);
+      });
+    });
+
+    // ---------- Print buttons (cheat sheets) ----------
+    [].forEach.call(document.querySelectorAll("button[data-print]"),function(b){
+      b.addEventListener("click",function(){
+        var id=b.getAttribute("data-print"),target=id==="all"?null:document.getElementById(id);
+        if(target){document.body.classList.add("print-one");target.classList.add("print-this");}
+        var done=function(){document.body.classList.remove("print-one");if(target)target.classList.remove("print-this");window.removeEventListener("afterprint",done);};
+        window.addEventListener("afterprint",done);
+        window.print();
+        setTimeout(done,1000);
+      });
+    });
+
+    // ---------- Offline: keep a copy of the site (only on a web server, not on file://) ----------
+    if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){
+      window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});
     }
 
     // ---------- Back to top ----------

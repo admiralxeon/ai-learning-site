@@ -3,16 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>3. Deep learning | AI learning manual</title>
+<title>4. Deep learning | AI learning manual</title>
 <!-- head:start (made by tools/build.py) -->
-<meta name="description" content="Module 3, Deep learning: Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.">
+<meta name="description" content="Module 4, Deep learning: Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.">
 <meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI learning manual">
-<meta property="og:title" content="3. Deep learning | AI learning manual">
-<meta property="og:description" content="Module 3, Deep learning: Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.">
+<meta property="og:title" content="4. Deep learning | AI learning manual">
+<meta property="og:description" content="Module 4, Deep learning: Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.">
 <!-- head:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,13 +26,28 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="sitebar"><div class="in">
   <a class="brand" href="index.html">AI learning manual</a>
-  <nav aria-label="Modules">
-    <a href="index.html">Home</a>
-    <a href="ai.html">1. Artificial intelligence</a>
-    <a href="machine-learning.html">2. Machine learning</a>
-    <a href="deep-learning.html" aria-current="page">3. Deep learning</a>
-    <a href="generative-ai.html">4. Generative AI</a>
-    <a href="glossary.html">Glossary</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 4</span><span class="mods-t">Deep learning</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" aria-current="page" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
   </nav>
 </div></header>
 
@@ -46,7 +63,7 @@
 
   <div class="title">
     <h1>Deep learning: general description</h1>
-    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai.html">Module 1, Artificial intelligence</a> and <a href="machine-learning.html">Module 2, Machine learning</a> before you read this module. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai.html">Module 1, Artificial intelligence</a> and <a href="machine-learning.html">Module 3, Machine learning</a> before you read this module. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
   </div>
 
 
@@ -127,7 +144,7 @@
 
       <div class="notice note">
         <strong>Note</strong>
-        <p>For data in tables, classic methods are frequently as accurate as deep learning. They are also faster and easier to explain. Refer to <a href="machine-learning.html#common-machine-learning-methods">Module 2, Section 11</a>.</p>
+        <p>For data in tables, classic methods are frequently as accurate as deep learning. They are also faster and easier to explain. Refer to <a href="machine-learning.html#common-machine-learning-methods">Module 3, Section 11</a>.</p>
       </div>
     </div>
   </section>
@@ -186,6 +203,12 @@
 
       <p>The most common activation function is <span class="tn" title="Rectified linear unit: an activation function that changes negative numbers to zero and does not change positive numbers.">ReLU</span>. ReLU changes negative numbers to zero. It does not change positive numbers.</p>
 
+      <div class="playground" data-pg="neuron" id="try-neuron">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Change the weights of a neuron</h3></div>
+        <p class="pg-intro">This is the neuron from Figure 2. Move the weights and the bias. Look at the total and at the output after ReLU. Then try the challenges.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
       <div class="notice note">
         <strong>Note</strong>
         <p>Without an activation function, many layers act the same as one layer. The activation function lets the network learn complex patterns, for example curves, and not only straight lines.</p>
@@ -198,7 +221,7 @@
     <div class="num">4</div>
     <div>
       <h2>How a deep network learns</h2>
-      <p>A deep network learns with gradient descent. Refer to <a href="machine-learning.html#how-a-model-makes-its-errors-smaller">Module 2, Section 8</a>. But a deep network has millions or billions of weights. The system must find the gradient for each weight. A method with the name <span class="tn" title="A method that calculates the gradient for each weight. It starts at the output layer and goes back through the network, layer by layer.">backpropagation</span> does this quickly. Refer to Figure 3.</p>
+      <p>A deep network learns with gradient descent. Refer to <a href="machine-learning.html#how-a-model-makes-its-errors-smaller">Module 3, Section 8</a>. But a deep network has millions or billions of weights. The system must find the gradient for each weight. A method with the name <span class="tn" title="A method that calculates the gradient for each weight. It starts at the output layer and goes back through the network, layer by layer.">backpropagation</span> does this quickly. Refer to Figure 3.</p>
       <ol>
         <li>The data goes through the layers, from the input to the output. The network makes a prediction. We call this the <span class="tn" title="The calculation from the input layer to the output layer. It gives a prediction.">forward pass</span>.</li>
         <li>The system compares the prediction with the label. It calculates the loss.</li>
@@ -417,7 +440,7 @@
 
       <p>Systems use embeddings to:</p>
       <ul>
-        <li>Find text with the same meaning, not only the same words. Refer to <a href="generative-ai.html#connect-a-model-to-documents-and-tools">Module 4, Section 8</a>.</li>
+        <li>Find text with the same meaning, not only the same words. Refer to <a href="generative-ai.html#connect-a-model-to-documents-and-tools">Module 5, Section 8</a>.</li>
         <li>Recommend similar products, films, or songs.</li>
         <li>Put similar documents into groups.</li>
         <li>Start the calculation in a transformer. Refer to Section 8.</li>
@@ -498,7 +521,7 @@
       <p>Deep learning needs very many calculations. A <span class="tn" title="Graphics processing unit: a computer chip that does many calculations at the same time.">GPU</span> is a computer chip that does many calculations at the same time. Small networks can train on one GPU. Large language models train on thousands of GPUs for weeks or months.</p>
 
       <h3>Prevent overfitting</h3>
-      <p>A deep network has very many weights. Thus it can easily remember the training data. Refer to <a href="machine-learning.html#overfitting-and-underfitting">Module 2, Section 9</a>. Use these methods to prevent overfitting:</p>
+      <p>A deep network has very many weights. Thus it can easily remember the training data. Refer to <a href="machine-learning.html#overfitting-and-underfitting">Module 3, Section 9</a>. Use these methods to prevent overfitting:</p>
       <ul>
         <li><b><span class="tn" title="A method that switches off random neurons during training. It prevents the network from depending on a small number of neurons.">Dropout</span>.</b> During training, the system switches off some random neurons. Thus the network cannot depend on a small number of neurons.</li>
         <li><b><span class="tn" title="A method that makes more training examples from the existing examples, for example when it turns or flips images.">Data augmentation</span>.</b> The system makes more training examples from the existing examples. For example, it turns, flips, or crops each image.</li>
@@ -511,7 +534,22 @@
         <li>Start with a network that is already trained on a large data set. For example, a network that is trained on millions of photographs.</li>
         <li>Train it a little more on your small data set. For example, 500 photographs of defects on your parts.</li>
       </ol>
-      <p>The network keeps its general knowledge, for example how to find edges and shapes. It only learns the new task. Generative AI uses the same principle. Refer to <a href="generative-ai.html#how-a-large-language-model-is-made">Module 4, Section 4</a>.</p>
+      <p>The network keeps its general knowledge, for example how to find edges and shapes. It only learns the new task. Generative AI uses the same principle. Refer to <a href="generative-ai.html#how-a-large-language-model-is-made">Module 5, Section 4</a>.</p>
+
+      <div class="story" id="project-part-4">
+        <div class="story-head"><span class="story-icon" aria-hidden="true">🥭</span><div><span class="story-kicker">Project: the mango checker · Part 4 of 7</span><h3>A better model for photographs</h3></div></div>
+        <p>The model from Part 3 is a classic ML model. A person selected its features, for example the average color. It cannot see small spots well.</p>
+        <p>The team changes to a CNN. They use transfer learning:</p>
+        <ol>
+          <li>Start with a CNN that is trained on millions of general photographs.</li>
+          <li>Train it more on the 6,000 mango photographs.</li>
+          <li>Use data augmentation: turn and flip the photographs, and change their brightness.</li>
+        </ol>
+        <p>The new model finds small spots and works in different light. The recall for damaged mangoes is now 97%.</p>
+        <p>A buyer asks: "Why did the model put this mango in the damaged box?" The team cannot easily answer. Thus a worker does a check of each mango in the damaged box.</p>
+        <details class="story-think"><summary><b>Think:</b> why does data augmentation with changes of brightness help this model?</summary><p>The light on the farm is different in the morning and in the evening. When the model sees training photographs with many types of light, it learns to ignore the light and to look at the mango.</p></details>
+        <nav class="story-nav" aria-label="Project, part 4 of 7: previous and next part"><a href="machine-learning.html#project-part-3">← Part 3</a><a href="generative-ai.html#project-part-5">Part 5 →</a></nav>
+      </div>
 
       <div class="notice warning">
         <strong>Warning</strong>
@@ -546,16 +584,18 @@
       <div class="quiz" data-pass="70">
         <script type="application/json">
 {"questions":[
- {"q":"What is the main difference between deep learning and classic machine learning?","options":["In deep learning, the network finds the features in the raw data.","Deep learning does not need data.","In deep learning, a person writes all the rules.","Deep learning can only use tables of numbers."],"answer":0,"explain":"In classic ML, a person usually selects the features. In deep learning, the layers learn the features from the raw data.","ref":"s2"},
- {"q":"A neuron gets the inputs 1 and 2. The weights are 0.5 and 0.5. The bias is 0. The activation function is ReLU. What is the output?","options":["1.5","0.5","3","0"],"answer":0,"explain":"1 × 0.5 + 2 × 0.5 + 0 = 1.5. ReLU does not change a positive number.","ref":"s3"},
- {"q":"What does ReLU do with a negative number?","options":["It changes it to zero.","It makes it positive.","It does not change it.","It doubles it."],"answer":0,"explain":"ReLU changes negative numbers to zero. It does not change positive numbers.","ref":"s3"},
- {"q":"What does backpropagation calculate?","options":["The gradient for each weight, from the output layer back to the input layer.","The next token in a text.","The number of layers that the network needs.","The test accuracy of the model."],"answer":0,"explain":"The backward pass goes from the output back to the input. It finds how much each weight caused the error.","ref":"s4"},
- {"q":"What is one epoch?","options":["One complete pass through all of the training data.","One small group of training examples.","One layer of a network.","One prediction of the model."],"answer":0,"explain":"A batch is a small group of examples. An epoch is one pass through all of the training data.","ref":"s4"},
- {"q":"Which type of network is usually the best for images?","options":["CNN","RNN","Feedforward network","Decision tree"],"answer":0,"explain":"A CNN uses small filters that move across the image to find patterns.","ref":"s6"},
- {"q":"In a CNN, what do the first layers usually find?","options":["Edges and lines.","Complete objects, for example a car.","The name of the object.","The color of the full image only."],"answer":0,"explain":"The first layers find simple patterns, for example edges. The later layers find larger shapes and parts.","ref":"s6"},
- {"q":"Two words have very similar meanings. What is true about their embeddings?","options":["They are near each other.","They are far from each other.","They are exactly the same.","They have no numbers."],"answer":0,"explain":"The network learns to give similar numbers to items with similar meanings.","ref":"s7"},
- {"q":"What does attention let a transformer do?","options":["Each token collects information from the other tokens.","The model reads only one word at a time.","The model looks up facts on the internet.","The model makes the text shorter."],"answer":0,"explain":"Attention calculates how important each other token is, and adds information from the important tokens.","ref":"s8"},
- {"q":"You have only 500 photographs of defects. What is the best method?","options":["Transfer learning: start with a network that is already trained, then train it on your photographs.","Train a very large network from zero.","Use no training data.","Use only the test set for training."],"answer":0,"explain":"Transfer learning keeps the general knowledge of a trained network. It needs only a small data set for the new task.","ref":"s9"}
+ {"q": "What is the main difference between deep learning and classic machine learning?", "options": ["In deep learning, the network finds the features in the raw data.", "Deep learning does not need data.", "In deep learning, a person writes all the rules.", "Deep learning can only use tables of numbers."], "answer": 0, "explain": "In classic ML, a person usually selects the features. In deep learning, the layers learn the features from the raw data.", "ref": "s2"},
+ {"q": "A neuron gets the inputs 1 and 2. The weights are 0.5 and 0.5. The bias is 0. The activation function is ReLU. What is the output?", "options": ["1.5", "0.5", "3", "0"], "answer": 0, "explain": "1 × 0.5 + 2 × 0.5 + 0 = 1.5. ReLU does not change a positive number.", "ref": "s3"},
+ {"q": "What does ReLU do with a negative number?", "options": ["It changes it to zero.", "It makes it positive.", "It does not change it.", "It doubles it."], "answer": 0, "explain": "ReLU changes negative numbers to zero. It does not change positive numbers.", "ref": "s3"},
+ {"q": "What does backpropagation calculate?", "options": ["The gradient for each weight, from the output layer back to the input layer.", "The next token in a text.", "The number of layers that the network needs.", "The test accuracy of the model."], "answer": 0, "explain": "The backward pass goes from the output back to the input. It finds how much each weight caused the error.", "ref": "s4"},
+ {"q": "What is one epoch?", "options": ["One complete pass through all of the training data.", "One small group of training examples.", "One layer of a network.", "One prediction of the model."], "answer": 0, "explain": "A batch is a small group of examples. An epoch is one pass through all of the training data.", "ref": "s4"},
+ {"q": "Which type of network is usually the best for images?", "options": ["CNN", "RNN", "Feedforward network", "Decision tree"], "answer": 0, "explain": "A CNN uses small filters that move across the image to find patterns.", "ref": "s6"},
+ {"q": "In a CNN, what do the first layers usually find?", "options": ["Edges and lines.", "Complete objects, for example a car.", "The name of the object.", "The color of the full image only."], "answer": 0, "explain": "The first layers find simple patterns, for example edges. The later layers find larger shapes and parts.", "ref": "s6"},
+ {"q": "Two words have very similar meanings. What is true about their embeddings?", "options": ["They are near each other.", "They are far from each other.", "They are exactly the same.", "They have no numbers."], "answer": 0, "explain": "The network learns to give similar numbers to items with similar meanings.", "ref": "s7"},
+ {"q": "What does attention let a transformer do?", "options": ["Each token collects information from the other tokens.", "The model reads only one word at a time.", "The model looks up facts on the internet.", "The model makes the text shorter."], "answer": 0, "explain": "Attention calculates how important each other token is, and adds information from the important tokens.", "ref": "s8"},
+ {"q": "You have only 500 photographs of defects. What is the best method?", "options": ["Transfer learning: start with a network that is already trained, then train it on your photographs.", "Train a very large network from zero.", "Use no training data.", "Use only the test set for training."], "answer": 0, "explain": "Transfer learning keeps the general knowledge of a trained network. It needs only a small data set for the new task.", "ref": "s9"},
+ {"q": "The model works well on photographs from the farm. But it makes errors on photographs from a shop with yellow lights. What can help?", "options": ["Train with more types of light: data augmentation with changes of color and brightness, and photographs from shops.", "Make the network smaller.", "Remove the activation functions.", "Use fewer training photographs."], "answer": 0, "explain": "Data augmentation and more varied data teach the model to ignore the light and to look at the mango.", "ref": "deep-learning-in-practice", "scenario": true},
+ {"q": "A buyer asks why the model put one mango in the damaged box. Why is this a difficult question?", "options": ["It is difficult to know why a deep network gives an answer.", "The model does not use the photograph.", "A CNN has no weights.", "The answer is in the training data."], "answer": 0, "explain": "A deep network has millions of weights. It is difficult to explain one decision. Thus a person does a check of important decisions.", "ref": "deep-learning-in-practice", "scenario": true}
 ]}
         </script>
         <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
@@ -597,8 +637,8 @@
   </main>
 
   <nav class="pager" aria-label="Previous and next module">
-    <a href="machine-learning.html"><small>Previous module</small><b>2. Machine learning</b></a>
-    <a class="next" href="generative-ai.html"><small>Next module</small><b>4. Generative AI</b></a>
+    <a href="machine-learning.html"><small>Previous module</small><b>3. Machine learning</b></a>
+    <a class="next" href="generative-ai.html"><small>Next module</small><b>5. Generative AI</b></a>
   </nav>
 
   <footer>

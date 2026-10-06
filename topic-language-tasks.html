@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Language tasks | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Short topic, Language tasks: Classification, names in text, translation, summaries, questions and answers, and search by meaning.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Language tasks | AI learning manual">
+<meta property="og:description" content="Short topic, Language tasks: Classification, names in text, translation, summaries, questions and answers, and search by meaning.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html" aria-current="page">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-60-00-00-020A</b></div>
+    <div>Subject<b>Language tasks</b></div>
+    <div>Info type<b>Short topic</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Language tasks: what AI does with text</h1>
+    <p>This short topic is written in ASD-STE100 Simplified Technical English. Read <a href="deep-learning.html">Module 4, Deep learning</a> and <a href="generative-ai.html">Module 5, Generative AI</a> first. A chat AI is only one use of language AI. This topic tells you about the other usual tasks, how they work, and when a small special model is better than a large language model.</p>
+  </div>
+
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p><span class="tn" title="The part of AI that works with human language: text and speech.">Natural language processing</span> (NLP) is the part of AI that works with human language. This topic gives a description of the types of language task, how a computer finds names in text, how search by meaning works, and how to select a model.</p>
+    </div>
+  </section>
+
+  <section id="types-of-language-task">
+    <div class="num">2</div>
+    <div>
+      <h2>Types of language task</h2>
+      <p>Most language tasks have one of four shapes. The shape is the type of output. Refer to Figure 1.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 250" role="img" aria-labelledby="lt1t">
+            <title id="lt1t">Four shapes of language task, from input text to output</title>
+            <defs><marker id="lt1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <g class="sm">
+              <text x="20" y="22" style="font-weight:600">Input</text><text x="470" y="22" style="font-weight:600">Output</text>
+            </g>
+            <rect class="box" x="20" y="34" width="360" height="40" rx="4"/><text class="sm" x="32" y="58">"The mangoes came late and two were damaged."</text>
+            <path class="line" d="M380 54 H456" marker-end="url(#lt1)"/>
+            <rect class="boxb" x="460" y="34" width="168" height="40" rx="4"/><text class="lbl" x="544" y="59" text-anchor="middle">negative</text>
+            <text class="sm" x="642" y="52" style="font-weight:600">1. One label</text><text class="sm" x="642" y="68">for the text</text>
+
+            <rect class="box" x="20" y="88" width="360" height="40" rx="4"/><text class="sm" x="32" y="112">"Asha sent 40 boxes to Pune on Monday."</text>
+            <path class="line" d="M380 108 H456" marker-end="url(#lt1)"/>
+            <rect class="boxb" x="460" y="88" width="168" height="40" rx="4"/><text class="sm" x="470" y="106">Asha = person</text><text class="sm" x="470" y="121">Pune = place, Monday = date</text>
+            <text class="sm" x="642" y="106" style="font-weight:600">2. A label for</text><text class="sm" x="642" y="122">each word</text>
+
+            <rect class="box" x="20" y="142" width="360" height="40" rx="4"/><text class="sm" x="32" y="166">A long report, or text in Hindi</text>
+            <path class="line" d="M380 162 H456" marker-end="url(#lt1)"/>
+            <rect class="boxb" x="460" y="142" width="168" height="40" rx="4"/><text class="sm" x="470" y="160">a summary, or the</text><text class="sm" x="470" y="175">same text in English</text>
+            <text class="sm" x="642" y="160" style="font-weight:600">3. New text</text><text class="sm" x="642" y="176">from text</text>
+
+            <rect class="box" x="20" y="196" width="360" height="40" rx="4"/><text class="sm" x="32" y="214">Question: "How long do mangoes keep?"</text><text class="sm" x="32" y="229">+ the farm documents</text>
+            <path class="line" d="M380 216 H456" marker-end="url(#lt1)"/>
+            <rect class="boxb" x="460" y="196" width="168" height="40" rx="4"/><text class="sm" x="470" y="214">"5 to 7 days at room</text><text class="sm" x="470" y="229">temperature." (source)</text>
+            <text class="sm" x="642" y="214" style="font-weight:600">4. An answer</text><text class="sm" x="642" y="230">from documents</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> Four shapes of language task. The input is always text. The output is a label, a label for each word, new text, or an answer.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Shape</th><th>Tasks</th></tr></thead>
+          <tbody>
+            <tr><td>1. One label</td><td><span class="tn" title="A task that finds if a text is positive, negative, or neutral.">Sentiment analysis</span>, spam filters, sorting of support emails by subject, detection of harmful text.</td></tr>
+            <tr><td>2. A label for each word</td><td><span class="tn" title="A task that finds names of people, places, organizations, dates, and amounts in text.">Named entity recognition</span> (NER), the parts of speech of each word.</td></tr>
+            <tr><td>3. New text</td><td>Machine translation, summaries, correction of grammar, text from speech.</td></tr>
+            <tr><td>4. An answer</td><td>Questions and answers with RAG. Refer to <a href="generative-ai.html#connect-a-model-to-documents-and-tools">Module 5, Section 8</a>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-a-computer-finds-names-in-text">
+    <div class="num">3</div>
+    <div>
+      <h2>How a computer finds names in text</h2>
+      <p>NER is a classification for each token, not for the full text. The model reads all the text with attention, so it knows the context of each word. Then it gives each token a label. Refer to <a href="deep-learning.html#how-a-transformer-uses-attention">Module 4, Section 8</a>.</p>
+      <figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Token</th><th>Asha</th><th>sent</th><th>40</th><th>boxes</th><th>to</th><th>Pune</th><th>on</th><th>Monday</th></tr></thead>
+          <tbody>
+            <tr><td>Label</td><td>PERSON</td><td>&ndash;</td><td>AMOUNT</td><td>&ndash;</td><td>&ndash;</td><td>PLACE</td><td>&ndash;</td><td>DATE</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figcaption><b>Figure 2.</b> NER gives each token a label. A dash means "not a name".</figcaption>
+      </figure>
+      <p>The context is important. In "Pune is the city where I live", Pune is a place. In "The Pune team won", Pune is part of the name of an organization. A model that only looks at one word at a time cannot see this difference.</p>
+      <p>Companies use NER to get data from documents automatically: the names, the dates, and the amounts in invoices, contracts, or medical notes.</p>
+    </div>
+  </section>
+
+  <section id="search-by-meaning">
+    <div class="num">4</div>
+    <div>
+      <h2>Search by meaning</h2>
+      <p>A usual search finds documents that contain the same words as the question. <span class="tn" title="A search that compares the meaning of the question and the documents with embeddings, not the exact words.">Semantic search</span> finds documents with the same meaning, also when the words are different.</p>
+      <ol class="steps">
+        <li>A model changes each document into an embedding: a list of numbers that keeps its meaning. Refer to <a href="deep-learning.html#how-a-network-changes-words-into-numbers">Module 4, Section 7</a>.</li>
+        <li>The model changes the question into an embedding in the same way.</li>
+        <li>The system calculates the cosine similarity between the question and each document. Refer to <a href="mathematics.html#vectors">Module 2, Section 9</a>.</li>
+        <li>The system shows the documents with the highest similarity first.</li>
+      </ol>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Question: "My mango has black spots"</th><th>Same words?</th><th>Similarity (example)</th></tr></thead>
+          <tbody>
+            <tr><td>"Anthracnose: a fungus disease that makes dark marks on the fruit skin"</td><td>No</td><td>0.82</td></tr>
+            <tr><td>"How to keep mangoes fresh at home"</td><td>Yes: "mango"</td><td>0.41</td></tr>
+            <tr><td>"Prices of black pepper this week"</td><td>Yes: "black"</td><td>0.12</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The best answer does not contain any word of the question. A word search would show it last. RAG uses semantic search to find the parts of documents that go into the prompt.</p>
+      <h3>Speech</h3>
+      <p><span class="tn" title="A task that changes spoken words into text. Also called speech-to-text.">Speech recognition</span> changes speech into text. Then the system can use all the text tasks on it. Voice assistants do this: speech to text, then a language task, then text to speech for the answer.</p>
+    </div>
+  </section>
+
+  <section id="a-small-model-or-a-large-language-model">
+    <div class="num">5</div>
+    <div>
+      <h2>A small model or a large language model?</h2>
+      <p>You can do most text tasks in two ways. Refer to the table.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Point</th><th>Small special model</th><th>Large language model with a prompt</th></tr></thead>
+          <tbody>
+            <tr><td>Training</td><td>You fine-tune it with hundreds or thousands of labeled examples.</td><td>No training. You write a prompt with some examples.</td></tr>
+            <tr><td>Speed and cost</td><td>Very fast and cheap. It can run on your own computer.</td><td>Slower. You usually pay for each token.</td></tr>
+            <tr><td>Flexibility</td><td>It does one task only.</td><td>It can do many tasks, and new tasks immediately.</td></tr>
+            <tr><td>Output</td><td>Always in the same format.</td><td>Can change. Needs output checks.</td></tr>
+            <tr><td>Good for</td><td>Millions of texts each day, with a fixed task.</td><td>A new task, few examples, or a task that changes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>A usual plan: start with an LLM and a prompt, to test the idea quickly. Use its answers, checked by people, as labels. If the volume becomes large, train a small model with these labels. Always compare the two with the same evaluation set. Refer to <a href="ai-in-practice.html#build-with-large-language-models">Module 7, Section 8</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="where-people-use-language-ai">
+    <div class="num">6</div>
+    <div>
+      <h2>Where people use language AI</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Area</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Customer support</td><td>Sort incoming messages by subject and urgency. Suggest answers to the support team.</td></tr>
+            <tr><td>Business</td><td>Find the opinions in thousands of product reviews. Get data from invoices and contracts.</td></tr>
+            <tr><td>Government and health</td><td>Translate public information into many languages. Make notes from a doctor's conversation, for the doctor to check.</td></tr>
+            <tr><td>Search</td><td>Search by meaning in company documents, help pages, and laws.</td></tr>
+            <tr><td>Accessibility</td><td>Subtitles for videos, voice control for people who cannot use a keyboard.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="limits-and-risks">
+    <div class="num">7</div>
+    <div>
+      <h2>Limits and risks</h2>
+      <ul>
+        <li><b>Languages with less data.</b> Models are usually best in English. Many Indian languages have less training text, so the results can be worse. Text that mixes languages, for example Hindi and English in one sentence, is also more difficult. Test with your own users' language.</li>
+        <li><b>False content.</b> A summary or a translation can add, remove, or change facts. Check important texts.</li>
+        <li><b>Bias.</b> A sentiment model can give lower scores to some dialects or names. Measure the results for each group. Refer to <a href="responsible-ai.html#bias-and-fairness">Module 6, Section 3</a>.</li>
+        <li><b>Private data.</b> Emails, chats, and medical notes contain personal data. Remove it or get permission before you use it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="summary">
+    <div class="num">8</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>Language tasks give one label, a label for each word, new text, or an answer from documents.</li>
+        <li>NER gives each token a label. It needs the context of the full sentence.</li>
+        <li>Semantic search compares embeddings. It finds the same meaning with different words.</li>
+        <li>A small special model is fast and cheap for one fixed task. An LLM is flexible and needs no training.</li>
+        <li>Test with the languages of your users, and check important outputs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="knowledge-check">
+    <div class="num">9</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "A system finds the names of people, places, and dates in contracts. Which task is this?", "options": ["Named entity recognition", "Sentiment analysis", "Machine translation", "Speech recognition"], "answer": 0, "explain": "NER gives a label, for example PERSON or DATE, to each token.", "ref": "how-a-computer-finds-names-in-text"},
+ {"q": "Why can semantic search find a document that has none of the words of the question?", "options": ["It compares embeddings, which keep the meaning", "It searches each letter separately", "It always shows the longest document first", "It translates the question"], "answer": 0, "explain": "Texts with similar meaning have similar embeddings, also with different words.", "ref": "search-by-meaning"},
+ {"q": "A company must sort 5 million messages each day into 6 fixed categories. It has 20,000 labeled examples. What is probably the best choice?", "options": ["Train a small special model", "Send each message to a large language model", "Ask people to read all messages", "Use a word search"], "answer": 0, "explain": "For a fixed task with a very large volume and many labels, a small model is faster and much cheaper.", "ref": "a-small-model-or-a-large-language-model"},
+ {"q": "Which output shape is a summary of a report?", "options": ["New text from text", "One label for the text", "A label for each word", "A number"], "answer": 0, "explain": "Summaries, translations, and grammar correction all make new text.", "ref": "types-of-language-task"},
+ {"q": "A chatbot for farmers works well in English. The team wants to use it in Marathi. What must they do first?", "options": ["Test it with real questions in Marathi, because results are often worse in languages with less data", "Nothing, because all models know all languages equally well", "Make the temperature higher", "Use shorter prompts"], "answer": 0, "explain": "Many languages have less training data. Always test with the language of the users.", "ref": "limits-and-risks", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section id="technical-names">
+    <div class="num">10</div>
+    <div>
+      <h2>Technical names</h2>
+      <dl class="glossary">
+        <dt>Machine translation</dt><dd>A task that changes text from one language into another language.</dd>
+        <dt>Named entity recognition</dt><dd>A task that finds names of people, places, organizations, dates, and amounts in text.</dd>
+        <dt>Natural language processing</dt><dd>The part of AI that works with human language: text and speech.</dd>
+        <dt>Semantic search</dt><dd>A search that compares the meaning of the question and the documents with embeddings.</dd>
+        <dt>Sentiment analysis</dt><dd>A task that finds if a text is positive, negative, or neutral.</dd>
+        <dt>Speech recognition</dt><dd>A task that changes spoken words into text.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="topic-computer-vision.html"><small>Previous topic</small><b>Computer vision</b></a>
+    <a class="next" href="topic-recommendation-systems.html"><small>Next topic</small><b>Recommendation systems</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). A short topic of the AI learning manual.</span>
+  </footer>
+</div>
+</body>
+</html>

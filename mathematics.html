@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2. Mathematics for machine learning | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 2, Mathematics for machine learning: Statistics, distributions and correlation, probability and Bayes&#x27; rule, softmax, vectors and matrices, and derivatives and gradients.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="2. Mathematics for machine learning | AI learning manual">
+<meta property="og:description" content="Module 2, Mathematics for machine learning: Statistics, distributions and correlation, probability and Bayes&#x27; rule, softmax, vectors and matrices, and derivatives and gradients.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 2</span><span class="mods-t">Mathematics for machine learning</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" aria-current="page" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-05-00-00-040A</b></div>
+    <div>Subject<b>Mathematics for ML</b></div>
+    <div>Info type<b>Description</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Mathematics for machine learning</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai.html">Module 1, Artificial intelligence</a> before you read this module. This module gives the mathematics that the next modules use: statistics, probability, linear algebra, and basic calculus. You do not need to do the calculations by hand. Computers do them. But you must understand the ideas. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module gives a description of the mathematics that machine learning uses.</p>
+      <p>It tells you:</p>
+      <ul>
+        <li>Why AI needs mathematics, and which parts it needs.</li>
+        <li>How to describe data with statistics.</li>
+        <li>How to calculate and use probabilities.</li>
+        <li>How vectors and matrices keep and change data.</li>
+        <li>How calculus tells a model which direction makes its errors smaller.</li>
+      </ul>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>If mathematics is new for you, read each example slowly, and use the activities. You can also use the quick path on the home page. It shows only the most important sections.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="why-ai-needs-mathematics">
+    <div class="num">2</div>
+    <div>
+      <h2>Why AI needs mathematics</h2>
+      <p>A model is a mathematical function. It changes input numbers into output numbers. Training changes the numbers inside the function until the output is good. Four parts of mathematics do this work:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Part</th><th>What it does</th><th>Where the manual uses it</th></tr></thead>
+          <tbody>
+            <tr><td>Statistics</td><td>Describes data and measures results.</td><td>Data and evaluation. Refer to <a href="machine-learning.html#how-to-measure-a-model">Module 3, Section 10</a>.</td></tr>
+            <tr><td>Probability</td><td>Measures how certain or uncertain something is.</td><td>Predictions, next-token sampling, and temperature. Refer to <a href="generative-ai.html#how-a-model-selects-its-output">Module 5, Section 5</a>.</td></tr>
+            <tr><td>Linear algebra</td><td>Keeps data as lists and tables of numbers, and calculates with them quickly.</td><td>Features, embeddings, and the layers of neural networks. Refer to <a href="deep-learning.html#inside-a-neuron">Module 4, Section 3</a>.</td></tr>
+            <tr><td>Calculus</td><td>Measures how fast a value changes.</td><td>Gradient descent and backpropagation. Refer to <a href="machine-learning.html#how-a-model-makes-its-errors-smaller">Module 3, Section 8</a>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="variables-and-functions">
+    <div class="num">3</div>
+    <div>
+      <h2>Variables and functions</h2>
+      <p>A <span class="tn" title="A name, for example x, for a value that can change.">variable</span> is a name for a value that can change. Mathematics usually uses letters, for example <i>x</i> or <i>w</i>.</p>
+      <p>A <span class="tn" title="A rule that changes each input into exactly one output.">function</span> is a rule that changes each input into one output. Refer to Figure 1.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 170" role="img" aria-labelledby="m1t">
+            <title id="m1t">A function changes an input into an output</title>
+            <defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="30" y="55" width="130" height="60" rx="2"/><text class="lbl" x="95" y="80" text-anchor="middle">Input</text><text class="hd" x="95" y="102" text-anchor="middle">x = 3</text>
+            <path class="line" d="M160 85 H246" marker-end="url(#m1)"/>
+            <rect class="boxb" x="250" y="35" width="260" height="100" rx="6"/>
+            <text class="hd" x="380" y="72" text-anchor="middle">Function</text>
+            <text class="lbl" x="380" y="100" text-anchor="middle" style="font-family:var(--font-mono)">f(x) = 2x + 1</text>
+            <text class="sm" x="380" y="122" text-anchor="middle">2 and 1 are the parameters</text>
+            <path class="line" d="M510 85 H596" marker-end="url(#m1)"/>
+            <rect x="600" y="55" width="130" height="60" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="665" y="80" text-anchor="middle">Output</text><text class="hd" x="665" y="102" text-anchor="middle">f(3) = 7</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> A function. For the input 3, the function calculates 2 &times; 3 + 1 = 7.</figcaption>
+      </figure>
+
+      <p>In the function <i>f</i>(<i>x</i>) = 2<i>x</i> + 1, the numbers 2 and 1 are <span class="tn" title="A number inside a function that training can change. In a neural network, the weights and biases are the parameters.">parameters</span>. A model is a function with many parameters. In a neural network, the parameters are the weights and the biases. Training finds good values for them.</p>
+
+      <h3>The symbol &Sigma; (sum)</h3>
+      <p>Machine learning frequently adds many values. The symbol &Sigma; (the Greek letter sigma) means "add all of these".</p>
+      <p class="formula">&Sigma; x<sub>i</sub> = x<sub>1</sub> + x<sub>2</sub> + x<sub>3</sub> + &hellip;</p>
+      <p>Example: for the values 2, 5, and 3, &Sigma; x<sub>i</sub> = 2 + 5 + 3 = 10. The small <i>i</i> is a counter. It shows the position of each value in the list.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="statistics-describe-data">
+    <div class="num">4</div>
+    <div>
+      <h2>Statistics: describe data</h2>
+      <p>Before you train a model, you must know your data. Statistics gives a few numbers that describe many values. In this section, the data is the weight of seven mangoes from Asha's farm, in grams:</p>
+      <p class="formula">280, 290, 295, 300, 305, 310, 315</p>
+
+      <h3>The center of the data</h3>
+      <ul>
+        <li>The <span class="tn" title="The sum of all values, divided by the number of values. It is also called the average.">mean</span> (average) is the sum of the values, divided by the number of values: 2,095 &divide; 7 &asymp; 299 g.</li>
+        <li>The <span class="tn" title="The middle value when you put the values in order.">median</span> is the middle value when the values are in order: 300 g.</li>
+        <li>The <span class="tn" title="The value that occurs most frequently.">mode</span> is the value that occurs most frequently. Here, each value occurs one time, so there is no mode.</li>
+      </ul>
+
+      <h3>The spread of the data</h3>
+      <ul>
+        <li>The range is the largest value minus the smallest value: 315 &minus; 280 = 35 g.</li>
+        <li>The <span class="tn" title="The mean of the squared differences between each value and the mean.">variance</span> shows how far the values are from the mean. For each value, calculate the difference from the mean, and multiply the difference by itself. The variance is the mean of these results.</li>
+        <li>The <span class="tn" title="The square root of the variance. It shows the usual distance of a value from the mean, in the same units as the data.">standard deviation</span> is the square root of the variance. It has the same unit as the data. Here it is approximately 11 g. Thus most mangoes weigh between 288 g and 310 g.</li>
+      </ul>
+      <p class="formula">standard deviation = &radic;( &Sigma;(x<sub>i</sub> &minus; mean)&sup2; &divide; n )</p>
+
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>An <span class="tn" title="A value that is very different from the other values. It can be a real rare case or an error in the data.">outlier</span> is a value that is very different from the others. One outlier can change the mean very much. If a worker types 2,000 g in place of 315 g, the mean becomes 540 g. The median stays at 300 g. Always look for outliers before you train a model.</p>
+      </div>
+
+      <div class="playground" data-pg="stats" id="try-statistics">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Calculate the statistics</h3></div>
+        <p class="pg-intro">Change the numbers in the box, or select an example. Look at how the mean and the median change when you add an outlier.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <div class="video" data-seconds="862">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=SzZ6GpcfoQY" data-yt="SzZ6GpcfoQY" data-title="Calculating the Mean, Variance and Standard Deviation, Clearly Explained (StatQuest)"><img src="https://i.ytimg.com/vi/SzZ6GpcfoQY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Calculating the Mean, Variance and Standard Deviation, Clearly Explained (StatQuest)</span></a></div>
+        <div class="meta"><span><b>Video 1.</b> Calculating the mean, variance and standard deviation (StatQuest)</span><a href="https://www.youtube.com/watch?v=SzZ6GpcfoQY" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="distributions">
+    <div class="num">5</div>
+    <div>
+      <h2>Distributions</h2>
+      <p>A <span class="tn" title="A description of how frequently each value occurs in the data.">distribution</span> shows how frequently each value occurs. Many measurements in nature have a <span class="tn" title="A symmetrical, bell-shaped distribution. Most values are near the mean, and few values are far from it.">normal distribution</span>. Its shape is like a bell. Most values are near the mean. Few values are far from the mean. Refer to Figure 2.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 270" role="img" aria-labelledby="m2t">
+            <title id="m2t">A normal distribution with the 68, 95 and 99.7 percent ranges</title>
+            <polygon points="105.7,220.0 105.7,218.1 114.9,217.4 124.0,216.5 133.1,215.4 142.3,214.0 151.4,212.3 160.6,210.2 169.7,207.6 178.9,204.4 188.0,200.7 197.1,196.3 206.3,191.2 215.4,185.4 224.6,178.7 233.7,171.3 242.9,163.2 252.0,154.3 261.1,144.8 270.3,134.8 279.4,124.4 288.6,113.9 297.7,103.3 306.9,92.9 316.0,83.0 325.1,73.8 334.3,65.6 343.4,58.5 352.6,52.7 361.7,48.5 370.9,45.9 380.0,45.0 389.1,45.9 398.3,48.5 407.4,52.7 416.6,58.5 425.7,65.6 434.9,73.8 444.0,83.0 453.1,92.9 462.3,103.3 471.4,113.9 480.6,124.4 489.7,134.8 498.9,144.8 508.0,154.3 517.1,163.2 526.3,171.3 535.4,178.7 544.6,185.4 553.7,191.2 562.9,196.3 572.0,200.7 581.1,204.4 590.3,207.6 599.4,210.2 608.6,212.3 617.7,214.0 626.9,215.4 636.0,216.5 645.1,217.4 654.3,218.1 654.3,220.0" fill="color-mix(in srgb,var(--blue) 12%,transparent)"/>
+            <polygon points="197.1,220.0 197.1,196.3 203.2,193.0 209.3,189.4 215.4,185.4 221.5,181.0 227.6,176.4 233.7,171.3 239.8,166.0 245.9,160.3 252.0,154.3 258.1,148.1 264.2,141.5 270.3,134.8 276.4,127.9 282.5,120.9 288.6,113.9 294.7,106.8 300.8,99.8 306.9,92.9 313.0,86.3 319.0,79.9 325.1,73.8 331.2,68.2 337.3,63.1 343.4,58.5 349.5,54.5 355.6,51.1 361.7,48.5 367.8,46.5 373.9,45.4 380.0,45.0 386.1,45.4 392.2,46.5 398.3,48.5 404.4,51.1 410.5,54.5 416.6,58.5 422.7,63.1 428.8,68.2 434.9,73.8 441.0,79.9 447.0,86.3 453.1,92.9 459.2,99.8 465.3,106.8 471.4,113.9 477.5,120.9 483.6,127.9 489.7,134.8 495.8,141.5 501.9,148.1 508.0,154.3 514.1,160.3 520.2,166.0 526.3,171.3 532.4,176.4 538.5,181.0 544.6,185.4 550.7,189.4 556.8,193.0 562.9,196.3 562.9,220.0" fill="color-mix(in srgb,var(--blue) 22%,transparent)"/>
+            <polygon points="288.6,220.0 288.6,113.9 291.6,110.3 294.7,106.8 297.7,103.3 300.8,99.8 303.8,96.3 306.9,92.9 309.9,89.6 313.0,86.3 316.0,83.0 319.0,79.9 322.1,76.8 325.1,73.8 328.2,71.0 331.2,68.2 334.3,65.6 337.3,63.1 340.4,60.7 343.4,58.5 346.5,56.4 349.5,54.5 352.6,52.7 355.6,51.1 358.7,49.7 361.7,48.5 364.8,47.4 367.8,46.5 370.9,45.9 373.9,45.4 377.0,45.1 380.0,45.0 383.0,45.1 386.1,45.4 389.1,45.9 392.2,46.5 395.2,47.4 398.3,48.5 401.3,49.7 404.4,51.1 407.4,52.7 410.5,54.5 413.5,56.4 416.6,58.5 419.6,60.7 422.7,63.1 425.7,65.6 428.8,68.2 431.8,71.0 434.9,73.8 437.9,76.8 441.0,79.9 444.0,83.0 447.0,86.3 450.1,89.6 453.1,92.9 456.2,96.3 459.2,99.8 462.3,103.3 465.3,106.8 468.4,110.3 471.4,113.9 471.4,220.0" fill="color-mix(in srgb,var(--blue) 38%,transparent)"/>
+            <path d="M60.0 219.6 L64.6 219.5 L69.1 219.5 L73.7 219.4 L78.3 219.2 L82.9 219.1 L87.4 219.0 L92.0 218.8 L96.6 218.6 L101.1 218.3 L105.7 218.1 L110.3 217.7 L114.9 217.4 L119.4 217.0 L124.0 216.5 L128.6 216.0 L133.1 215.4 L137.7 214.8 L142.3 214.0 L146.9 213.2 L151.4 212.3 L156.0 211.3 L160.6 210.2 L165.1 208.9 L169.7 207.6 L174.3 206.1 L178.9 204.4 L183.4 202.7 L188.0 200.7 L192.6 198.6 L197.1 196.3 L201.7 193.9 L206.3 191.2 L210.9 188.4 L215.4 185.4 L220.0 182.2 L224.6 178.7 L229.1 175.1 L233.7 171.3 L238.3 167.4 L242.9 163.2 L247.4 158.8 L252.0 154.3 L256.6 149.6 L261.1 144.8 L265.7 139.9 L270.3 134.8 L274.9 129.7 L279.4 124.4 L284.0 119.2 L288.6 113.9 L293.1 108.6 L297.7 103.3 L302.3 98.1 L306.9 92.9 L311.4 87.9 L316.0 83.0 L320.6 78.3 L325.1 73.8 L329.7 69.6 L334.3 65.6 L338.9 61.9 L343.4 58.5 L348.0 55.4 L352.6 52.7 L357.1 50.4 L361.7 48.5 L366.3 47.0 L370.9 45.9 L375.4 45.2 L380.0 45.0 L384.6 45.2 L389.1 45.9 L393.7 47.0 L398.3 48.5 L402.9 50.4 L407.4 52.7 L412.0 55.4 L416.6 58.5 L421.1 61.9 L425.7 65.6 L430.3 69.6 L434.9 73.8 L439.4 78.3 L444.0 83.0 L448.6 87.9 L453.1 92.9 L457.7 98.1 L462.3 103.3 L466.9 108.6 L471.4 113.9 L476.0 119.2 L480.6 124.4 L485.1 129.7 L489.7 134.8 L494.3 139.9 L498.9 144.8 L503.4 149.6 L508.0 154.3 L512.6 158.8 L517.1 163.2 L521.7 167.4 L526.3 171.3 L530.9 175.1 L535.4 178.7 L540.0 182.2 L544.6 185.4 L549.1 188.4 L553.7 191.2 L558.3 193.9 L562.9 196.3 L567.4 198.6 L572.0 200.7 L576.6 202.7 L581.1 204.4 L585.7 206.1 L590.3 207.6 L594.9 208.9 L599.4 210.2 L604.0 211.3 L608.6 212.3 L613.1 213.2 L617.7 214.0 L622.3 214.8 L626.9 215.4 L631.4 216.0 L636.0 216.5 L640.6 217.0 L645.1 217.4 L649.7 217.7 L654.3 218.1 L658.9 218.3 L663.4 218.6 L668.0 218.8 L672.6 219.0 L677.1 219.1 L681.7 219.2 L686.3 219.4 L690.9 219.5 L695.4 219.5 L700.0 219.6" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+            <line x1="60" y1="220" x2="700" y2="220" class="line"/>
+            <line x1="105.7" y1="220" x2="105.7" y2="225" class="line"/>
+            <text class="sm" x="105.7" y="240" text-anchor="middle">267 g</text>
+            <text class="sm" x="105.7" y="256" text-anchor="middle" style="fill:var(--ink)">−3 SD</text>
+            <line x1="197.1" y1="220" x2="197.1" y2="225" class="line"/>
+            <text class="sm" x="197.1" y="240" text-anchor="middle">278 g</text>
+            <text class="sm" x="197.1" y="256" text-anchor="middle" style="fill:var(--ink)">−2 SD</text>
+            <line x1="288.6" y1="220" x2="288.6" y2="225" class="line"/>
+            <text class="sm" x="288.6" y="240" text-anchor="middle">289 g</text>
+            <text class="sm" x="288.6" y="256" text-anchor="middle" style="fill:var(--ink)">−1 SD</text>
+            <line x1="380.0" y1="220" x2="380.0" y2="225" class="line"/>
+            <text class="sm" x="380.0" y="240" text-anchor="middle">300 g</text>
+            <text class="sm" x="380.0" y="256" text-anchor="middle" style="fill:var(--ink)">mean</text>
+            <line x1="471.4" y1="220" x2="471.4" y2="225" class="line"/>
+            <text class="sm" x="471.4" y="240" text-anchor="middle">311 g</text>
+            <text class="sm" x="471.4" y="256" text-anchor="middle" style="fill:var(--ink)">+1 SD</text>
+            <line x1="562.9" y1="220" x2="562.9" y2="225" class="line"/>
+            <text class="sm" x="562.9" y="240" text-anchor="middle">322 g</text>
+            <text class="sm" x="562.9" y="256" text-anchor="middle" style="fill:var(--ink)">+2 SD</text>
+            <line x1="654.3" y1="220" x2="654.3" y2="225" class="line"/>
+            <text class="sm" x="654.3" y="240" text-anchor="middle">333 g</text>
+            <text class="sm" x="654.3" y="256" text-anchor="middle" style="fill:var(--ink)">+3 SD</text>
+            <text class="hd" x="380.0" y="120.0" text-anchor="middle">68%</text>
+            <path d="M197.1 40 V32 H562.9 V40" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+            <text class="sm" x="380.0" y="29" text-anchor="middle" style="fill:var(--ink);font-weight:600">95%</text>
+            <path d="M105.7 22 V14 H654.3 V22" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+            <text class="sm" x="380.0" y="11" text-anchor="middle" style="fill:var(--ink);font-weight:600">99.7%</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> A normal distribution of mango weights, with a mean of 300 g and a standard deviation of 11 g. 68% of the mangoes are within one standard deviation of the mean.</figcaption>
+      </figure>
+
+      <p>In a normal distribution:</p>
+      <ul>
+        <li>Approximately 68% of the values are within 1 standard deviation of the mean.</li>
+        <li>Approximately 95% are within 2 standard deviations.</li>
+        <li>Approximately 99.7% are within 3 standard deviations.</li>
+      </ul>
+
+      <h3>Standardization</h3>
+      <p>Features can have very different sizes. For example, the weight of a mango is approximately 300, but its ripeness score is between 0 and 1. Many models learn better when all features have a similar size. <span class="tn" title="A change of the values of a feature so that the mean is 0 and the standard deviation is 1.">Standardization</span> changes each value into a z-score:</p>
+      <p class="formula">z = (x &minus; mean) &divide; standard deviation</p>
+      <p>Example: a mango of 322 g has z = (322 &minus; 300) &divide; 11 = 2. It is 2 standard deviations heavier than the mean. This is unusual, but not an error.</p>
+
+      <div class="video" data-seconds="312">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=rzFX5NWojp0" data-yt="rzFX5NWojp0" data-title="The Normal Distribution, Clearly Explained (StatQuest)"><img src="https://i.ytimg.com/vi/rzFX5NWojp0/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: The Normal Distribution, Clearly Explained (StatQuest)</span></a></div>
+        <div class="meta"><span><b>Video 2.</b> The normal distribution, clearly explained (StatQuest)</span><a href="https://www.youtube.com/watch?v=rzFX5NWojp0" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="correlation">
+    <div class="num">6</div>
+    <div>
+      <h2>Correlation</h2>
+      <p><span class="tn" title="A measurement of how strongly two values increase or decrease together. It is between -1 and +1.">Correlation</span> shows how strongly two values change together. The correlation coefficient <i>r</i> is between &minus;1 and +1. Refer to Figure 3.</p>
+      <ul>
+        <li><b>r near +1:</b> when one value increases, the other also increases. Example: the length and the weight of a mango.</li>
+        <li><b>r near &minus;1:</b> when one value increases, the other decreases. Example: the days after picking and the firmness of a mango.</li>
+        <li><b>r near 0:</b> there is no straight-line relation. Example: the weight of a mango and the day of the week.</li>
+      </ul>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 240" role="img" aria-labelledby="m3t">
+            <title id="m3t">Three scatter plots with positive, negative and no correlation</title>
+            <text class="hd" x="30" y="24">A. Positive (r ≈ +0.9)</text>
+            <path class="line" d="M30 40 V190 H230"/>
+            <text class="sm" x="130.0" y="208" text-anchor="middle">Length</text>
+            <text class="sm" x="20" y="115.0" text-anchor="middle" transform="rotate(-90 20 115.0)">Weight</text>
+            <circle cx="121.4" cy="145.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="123.8" cy="129.2" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="131.4" cy="120.4" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="132.1" cy="117.4" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="153.4" cy="96.7" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="94.6" cy="145.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="56.3" cy="161.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="47.5" cy="176.1" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="216.8" cy="53.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="150.8" cy="103.7" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="68.3" cy="145.2" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="50.7" cy="170.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="74.2" cy="155.1" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="123.5" cy="116.8" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="119.3" cy="115.0" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="155.3" cy="108.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="130.0" cy="121.8" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="90.1" cy="154.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="219.6" cy="53.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="167.4" cy="88.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="96.7" cy="137.8" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="52.6" cy="161.3" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="177.9" cy="98.7" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="109.6" cy="116.5" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="212.4" cy="55.2" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="77.7" cy="153.1" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <text class="hd" x="275" y="24">B. Negative (r ≈ −0.9)</text>
+            <path class="line" d="M275 40 V190 H475"/>
+            <text class="sm" x="375.0" y="208" text-anchor="middle">Days after picking</text>
+            <text class="sm" x="265" y="115.0" text-anchor="middle" transform="rotate(-90 265 115.0)">Firmness</text>
+            <circle cx="448.8" cy="176.1" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="356.5" cy="95.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="298.1" cy="73.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="333.6" cy="99.8" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="300.7" cy="76.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="421.4" cy="122.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="306.2" cy="65.2" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="295.8" cy="53.9" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="428.5" cy="147.0" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="365.5" cy="94.7" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="319.3" cy="75.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="400.9" cy="139.8" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="306.0" cy="72.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="333.6" cy="81.2" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="459.8" cy="172.9" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="444.3" cy="174.4" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="322.9" cy="95.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="400.5" cy="119.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="303.1" cy="55.0" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="331.5" cy="84.1" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="424.1" cy="155.1" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="298.2" cy="53.9" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="301.2" cy="69.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="393.2" cy="132.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="351.9" cy="126.6" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="372.1" cy="104.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <text class="hd" x="520" y="24">C. No correlation (r ≈ 0)</text>
+            <path class="line" d="M520 40 V190 H720"/>
+            <text class="sm" x="620.0" y="208" text-anchor="middle">Weight</text>
+            <text class="sm" x="510" y="115.0" text-anchor="middle" transform="rotate(-90 510 115.0)">Day of the week</text>
+            <circle cx="633.4" cy="67.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="562.9" cy="160.0" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="693.5" cy="73.7" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="574.9" cy="155.3" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="663.1" cy="57.7" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="565.4" cy="56.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="688.8" cy="101.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="605.9" cy="166.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="537.0" cy="54.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="572.9" cy="88.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="576.3" cy="72.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="637.4" cy="141.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="561.6" cy="86.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="542.4" cy="150.3" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="630.7" cy="69.2" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="640.6" cy="143.6" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="695.1" cy="153.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="533.0" cy="145.0" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="610.2" cy="172.1" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="561.7" cy="132.1" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="633.0" cy="162.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="595.2" cy="64.2" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="706.5" cy="94.6" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="654.4" cy="104.0" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="555.3" cy="175.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="533.2" cy="61.7" r="4" fill="var(--muted)" fill-opacity=".8"/>
+          </svg>
+        </div>
+        <figcaption><b>Figure 3.</b> Positive correlation, negative correlation, and no correlation. Each point is one mango.</figcaption>
+      </figure>
+
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Correlation does not show cause. In summer, people buy more ice cream, and more people swim and have accidents in the water. The two values have a strong correlation, but ice cream does not cause the accidents. The hot weather causes both. A model learns correlations. It does not know causes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="probability">
+    <div class="num">7</div>
+    <div>
+      <h2>Probability</h2>
+      <p>A <span class="tn" title="A number between 0 and 1 that shows how possible an event is. 0 means impossible. 1 means certain.">probability</span> is a number between 0 and 1. It shows how possible an event is. 0 means "impossible". 1 means "certain". We write P(A) for "the probability of A".</p>
+      <ul>
+        <li>A usual die has 6 sides. P(you throw a 6) = 1 &divide; 6 &asymp; 0.17.</li>
+        <li>The probability that A does not occur is 1 &minus; P(A). P(no 6) = 1 &minus; 0.17 = 0.83.</li>
+        <li>If two events do not have an effect on each other, they are <span class="tn" title="Two events are independent when one event does not change the probability of the other event.">independent</span>. The probability that both occur is P(A) &times; P(B). Two coins both show heads: 0.5 &times; 0.5 = 0.25.</li>
+      </ul>
+
+      <h3>Conditional probability</h3>
+      <p>A <span class="tn" title="The probability of an event when you know that a different event occurred. It is written P(A | B).">conditional probability</span> is the probability of A when you know that B occurred. We write P(A | B), and we say "the probability of A, given B".</p>
+
+      <h3>Bayes' rule</h3>
+      <p><span class="tn" title="A rule to calculate P(A | B) from P(B | A), P(A), and P(B).">Bayes' rule</span> changes a probability when you get new information:</p>
+      <p class="formula">P(A | B) = P(B | A) &times; P(A) &divide; P(B)</p>
+      <p>Example: 3% of Asha's mangoes are damaged. The checker finds 90% of the damaged mangoes. But it also puts 5% of the good mangoes into the damaged box. If a mango is in the damaged box, what is the probability that it is really damaged? Think of 1,000 mangoes:</p>
+      <ol>
+        <li>30 mangoes are damaged. The checker finds 90% of them: 27 mangoes.</li>
+        <li>970 mangoes are good. The checker puts 5% of them in the damaged box: approximately 49 mangoes.</li>
+        <li>The damaged box contains 27 + 49 = 76 mangoes. Only 27 of them are damaged.</li>
+        <li>P(damaged | in the damaged box) = 27 &divide; 76 &asymp; 0.36.</li>
+      </ol>
+      <p>Thus only 36% of the mangoes in the damaged box are really damaged. This is the precision of the checker. Refer to <a href="machine-learning.html#how-to-measure-a-model">Module 3, Section 10</a>.</p>
+
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>When an event is rare, even a good test gives many false alarms. This is true for disease tests, fraud detection, and damaged mangoes.</p>
+      </div>
+
+      <div class="playground" data-pg="bayes" id="try-bayes">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>See Bayes' rule in 1,000 mangoes</h3></div>
+        <p class="pg-intro">Move the sliders. Each square is one mango. Look at how many mangoes in the damaged box are really damaged.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <div class="video" data-seconds="911">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=HZGCoVF3YvM" data-yt="HZGCoVF3YvM" data-title="Bayes theorem, the geometry of changing beliefs (3Blue1Brown)"><img src="https://i.ytimg.com/vi/HZGCoVF3YvM/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Bayes theorem, the geometry of changing beliefs (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>Video 3.</b> Bayes theorem, the geometry of changing beliefs (3Blue1Brown)</span><a href="https://www.youtube.com/watch?v=HZGCoVF3YvM" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="probability-in-ai-models">
+    <div class="num">8</div>
+    <div>
+      <h2>Probability in AI models</h2>
+      <h3>From scores to probabilities: softmax</h3>
+      <p>A classification model first calculates a score for each category. A function with the name <span class="tn" title="A function that changes a list of scores into probabilities. The probabilities are between 0 and 1, and their sum is 1.">softmax</span> changes the scores into probabilities:</p>
+      <ol>
+        <li>Calculate e<sup>score</sup> for each score. The number e is approximately 2.718.</li>
+        <li>Add all the results.</li>
+        <li>Divide each result by the sum.</li>
+      </ol>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Category</th><th>Score</th><th>e<sup>score</sup></th><th>Probability</th></tr></thead>
+          <tbody>
+            <tr><td>Ripe</td><td>2</td><td>7.39</td><td>7.39 &divide; 11.11 = 0.67</td></tr>
+            <tr><td>Not ripe</td><td>1</td><td>2.72</td><td>2.72 &divide; 11.11 = 0.24</td></tr>
+            <tr><td>Damaged</td><td>0</td><td>1.00</td><td>1.00 &divide; 11.11 = 0.09</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The sum of the probabilities is 1. A chat AI uses the same function for the next token. The temperature divides the scores before softmax. A low temperature makes the largest probability larger. Refer to <a href="generative-ai.html#how-a-model-selects-its-output">Module 5, Section 5</a>.</p>
+
+      <h3>The loss for a probability</h3>
+      <p>During training, the loss measures how much probability the model gave to the correct answer. A frequent loss is <span class="tn" title="A loss for classification. It is the negative logarithm of the probability that the model gives to the correct answer.">cross-entropy</span>: loss = &minus;log(probability of the correct answer).</p>
+      <ul>
+        <li>The correct answer gets 0.9: loss = &minus;log(0.9) &asymp; 0.11. This is a small loss.</li>
+        <li>The correct answer gets 0.1: loss = &minus;log(0.1) &asymp; 2.30. This is a large loss.</li>
+      </ul>
+      <p>Thus the model gets a large loss when it is sure but wrong. Training makes this loss smaller.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="vectors">
+    <div class="num">9</div>
+    <div>
+      <h2>Vectors</h2>
+      <p>A <span class="tn" title="An ordered list of numbers.">vector</span> is an ordered list of numbers. One example in the data is a vector of its features. For example, a mango with a weight of 300 g, a length of 12 cm, and a ripeness score of 0.8 is the vector [300, 12, 0.8]. An embedding is also a vector. Refer to <a href="deep-learning.html#how-a-network-changes-words-into-numbers">Module 4, Section 7</a>.</p>
+      <h3>Calculations with vectors</h3>
+      <ul>
+        <li><b>Add</b> two vectors: add the numbers in the same position. [1, 2] + [3, 1] = [4, 3].</li>
+        <li><b>Multiply</b> a vector by a number: multiply each number. 2 &times; [1, 2] = [2, 4].</li>
+        <li>The <b>length</b> of a vector: &radic;(sum of the squares). The length of [3, 4] is &radic;(9 + 16) = 5.</li>
+      </ul>
+      <h3>The dot product</h3>
+      <p>The <span class="tn" title="The sum of the products of the numbers in the same positions of two vectors.">dot product</span> multiplies the numbers in the same positions, and then adds the results:</p>
+      <p class="formula">a &middot; b = a<sub>1</sub>b<sub>1</sub> + a<sub>2</sub>b<sub>2</sub> + &hellip;</p>
+      <p>Example: [1, 2] &middot; [3, 1] = 1 &times; 3 + 2 &times; 1 = 5. A neuron calculates a dot product: its inputs &middot; its weights. Refer to <a href="deep-learning.html#inside-a-neuron">Module 4, Section 3</a>.</p>
+      <h3>Cosine similarity</h3>
+      <p><span class="tn" title="The dot product of two vectors divided by the product of their lengths. It is near 1 when the vectors point in the same direction.">Cosine similarity</span> measures if two vectors point in the same direction. It is the dot product divided by the two lengths:</p>
+      <p class="formula">cosine similarity = (a &middot; b) &divide; (|a| &times; |b|)</p>
+      <p>The result is between &minus;1 and +1. A value near 1 means "very similar". Search systems with embeddings use this measurement to find text with the same meaning.</p>
+
+      <div class="playground" data-pg="vectors" id="try-vectors">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Change two vectors</h3></div>
+        <p class="pg-intro">Move the sliders to change the direction and the length of the two vectors. Look at the dot product and the cosine similarity.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <div class="video" data-seconds="591">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=fNk_zzaMoSs" data-yt="fNk_zzaMoSs" data-title="Vectors, Chapter 1, Essence of linear algebra (3Blue1Brown)"><img src="https://i.ytimg.com/vi/fNk_zzaMoSs/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Vectors, Chapter 1, Essence of linear algebra (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>Video 4.</b> Vectors, chapter 1 of Essence of linear algebra (3Blue1Brown)</span><a href="https://www.youtube.com/watch?v=fNk_zzaMoSs" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="matrices">
+    <div class="num">10</div>
+    <div>
+      <h2>Matrices</h2>
+      <p>A <span class="tn" title="A table of numbers with rows and columns.">matrix</span> is a table of numbers, with rows and columns. A data set is a matrix: each row is one example, and each column is one feature. A matrix with 6,000 rows and 3 columns has the shape 6,000 &times; 3.</p>
+      <h3>A matrix times a vector</h3>
+      <p>To multiply a matrix by a vector, calculate the dot product of each row with the vector. Each row gives one number. Refer to Figure 4.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 210" role="img" aria-labelledby="m4t">
+            <title id="m4t">A matrix multiplied by a vector gives one dot product for each row</title>
+            <text class="hd" x="40" y="30">Weights W (2 × 3)</text>
+            <text class="hd" x="262" y="30">Inputs x</text>
+            <text class="hd" x="370" y="30">Result</text>
+            <rect x="44" y="62" width="166" height="36" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text class="lbl" x="69.0" y="86" text-anchor="middle" style="font-family:var(--font-mono)">0.4</text>
+            <text class="lbl" x="127.0" y="86" text-anchor="middle" style="font-family:var(--font-mono)">0.6</text>
+            <text class="lbl" x="185.0" y="86" text-anchor="middle" style="font-family:var(--font-mono)">−0.5</text>
+            <text class="lbl" x="69.0" y="126" text-anchor="middle" style="font-family:var(--font-mono)">0.1</text>
+            <text class="lbl" x="127.0" y="126" text-anchor="middle" style="font-family:var(--font-mono)">0.2</text>
+            <text class="lbl" x="185.0" y="126" text-anchor="middle" style="font-family:var(--font-mono)">0.3</text>
+            <path d="M48 60 H40 V140 H48" class="line"/><path d="M206 60 H214 V140 H206" class="line"/>
+            <text class="hd" x="234" y="106" text-anchor="middle" style="font-size:22px">×</text>
+            <rect x="266" y="42" width="50" height="116" rx="5" fill="var(--blue-soft)" stroke="var(--blue)"/>
+            <text class="lbl" x="291.0" y="66" text-anchor="middle" style="font-family:var(--font-mono)">0.5</text>
+            <text class="lbl" x="291.0" y="106" text-anchor="middle" style="font-family:var(--font-mono)">0.8</text>
+            <text class="lbl" x="291.0" y="146" text-anchor="middle" style="font-family:var(--font-mono)">0.2</text>
+            <path d="M270 40 H262 V160 H270" class="line"/><path d="M312 40 H320 V160 H312" class="line"/>
+            <text class="hd" x="342" y="106" text-anchor="middle" style="font-size:22px">=</text>
+            <rect x="374" y="62" width="70" height="36" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text class="lbl" x="409.0" y="86" text-anchor="middle" style="font-family:var(--font-mono);font-weight:600">0.58</text>
+            <text class="lbl" x="409.0" y="126" text-anchor="middle" style="font-family:var(--font-mono);font-weight:600">0.27</text>
+            <path d="M378 60 H370 V140 H378" class="line"/><path d="M440 60 H448 V140 H440" class="line"/>
+            <text class="sm" x="480" y="72" style="fill:var(--ink);font-weight:600">Row 1 (one neuron):</text>
+            <text class="sm" x="480" y="90" style="fill:var(--ink)">0.4 × 0.5 + 0.6 × 0.8 + (−0.5) × 0.2 = 0.58</text>
+            <text class="sm" x="480" y="118">Row 2 (a second neuron):</text>
+            <text class="sm" x="480" y="136">0.1 × 0.5 + 0.2 × 0.8 + 0.3 × 0.2 = 0.27</text>
+            <text class="sm" x="40" y="190">Each row of W gives one number: the dot product of the row and x.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 4.</b> A matrix of weights times a vector of inputs. The first row is the neuron from Module 4, Figure 2. The result is the total of each neuron before its bias.</figcaption>
+      </figure>
+
+      <p>A layer of a neural network does exactly this calculation. Each row of the matrix contains the weights of one neuron. Then the layer adds the biases and applies the activation function:</p>
+      <p class="formula">outputs = activation( W &middot; x + b )</p>
+      <p>A large model does billions of these multiplications for each answer. GPUs can do many of them at the same time. This is why AI uses GPUs.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="calculus-rates-of-change">
+    <div class="num">11</div>
+    <div>
+      <h2>Calculus: rates of change</h2>
+      <h3>Slope</h3>
+      <p>The slope of a straight line shows how much the output changes when the input increases by 1. For <i>f</i>(<i>x</i>) = 2<i>x</i> + 1, the slope is 2.</p>
+      <h3>The derivative</h3>
+      <p>A curve does not have one slope. Its slope changes at each point. The <span class="tn" title="The slope of a function at one point. It shows how fast the output changes when the input changes a very small quantity.">derivative</span> is the slope of the curve at one point. For <i>f</i>(<i>x</i>) = <i>x</i>&sup2;, the derivative is <i>f</i>&prime;(<i>x</i>) = 2<i>x</i>:</p>
+      <ul>
+        <li>At <i>x</i> = 3, the slope is 6. The curve goes up quickly.</li>
+        <li>At <i>x</i> = &minus;1, the slope is &minus;2. The curve goes down.</li>
+        <li>At <i>x</i> = 0, the slope is 0. This is the bottom of the curve.</li>
+      </ul>
+      <p>Gradient descent uses this information. If the slope of the loss is positive, a smaller weight decreases the loss. If the slope is negative, a larger weight decreases the loss. Thus each step moves the weight in the direction opposite to the slope:</p>
+      <p class="formula">new weight = weight &minus; learning rate &times; slope</p>
+      <p>Refer to <a href="machine-learning.html#how-a-model-makes-its-errors-smaller">Module 3, Section 8</a>.</p>
+
+      <div class="playground" data-pg="slope" id="try-slope">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Find the slope of a curve</h3></div>
+        <p class="pg-intro">Move the point along the curve. Look at the tangent line and its slope. Find the point where the slope is 0.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <h3>The gradient</h3>
+      <p>A model has many weights, not one. A <span class="tn" title="The slope of a function for one input, when the other inputs do not change.">partial derivative</span> is the slope for one weight, when the other weights do not change. The gradient is the vector of all the partial derivatives. It points in the direction in which the loss increases fastest. Gradient descent goes in the opposite direction.</p>
+      <h3>The chain rule</h3>
+      <p>In a neural network, each layer uses the output of the previous layer. The <span class="tn" title="A rule to find the derivative of a function inside a function: multiply the derivatives of the parts.">chain rule</span> finds the slope through many steps: multiply the slopes of the steps.</p>
+      <p class="formula">if y depends on u, and u depends on x: (slope of y for x) = (slope of y for u) &times; (slope of u for x)</p>
+      <p>Example: three gears. Gear A turns gear B 2 times faster. Gear B turns gear C 3 times faster. Thus gear C turns 2 &times; 3 = 6 times faster than gear A. Backpropagation uses the chain rule from the last layer back to the first layer. Refer to <a href="deep-learning.html#how-a-deep-network-learns">Module 4, Section 4</a>.</p>
+
+      <div class="video" data-seconds="1024">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=WUvTyaaNkzM" data-yt="WUvTyaaNkzM" data-title="The essence of calculus (3Blue1Brown)"><img src="https://i.ytimg.com/vi/WUvTyaaNkzM/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: The essence of calculus (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>Video 5.</b> The essence of calculus (3Blue1Brown)</span><a href="https://www.youtube.com/watch?v=WUvTyaaNkzM" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="summary">
+    <div class="num">12</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>A model is a function with parameters. Training finds good values for the parameters.</li>
+        <li>The mean, the median, and the standard deviation describe data. Look for outliers.</li>
+        <li>Many measurements have a normal distribution. Standardization gives features a similar size.</li>
+        <li>Correlation shows that two values change together. It does not show cause.</li>
+        <li>Bayes' rule changes a probability with new information. Rare events give many false alarms.</li>
+        <li>Softmax changes scores into probabilities. Cross-entropy measures the loss.</li>
+        <li>Vectors and matrices keep data. A neural layer multiplies a matrix by a vector.</li>
+        <li>The derivative is the slope. Gradient descent moves opposite to the slope. The chain rule makes backpropagation possible.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="knowledge-check">
+    <div class="num">13</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "What is the mean of the values 2, 4, and 9?", "options": ["5", "4", "15", "9"], "answer": 0, "explain": "The sum is 2 + 4 + 9 = 15. Divide by the number of values: 15 ÷ 3 = 5.", "ref": "statistics-describe-data"},
+ {"q": "The data contains one very large error. Which value changes the least?", "options": ["The median", "The mean", "The range", "The standard deviation"], "answer": 0, "explain": "The median is the middle value. One outlier at the end does not change the middle value much.", "ref": "statistics-describe-data"},
+ {"q": "In a normal distribution, approximately how many values are within 2 standard deviations of the mean?", "options": ["95%", "50%", "68%", "100%"], "answer": 0, "explain": "68% are within 1 standard deviation, 95% within 2, and 99.7% within 3.", "ref": "distributions"},
+ {"q": "Two values have a correlation of −0.9. What is true?", "options": ["When one increases, the other usually decreases.", "One value causes the other.", "There is no relation.", "Both values always increase together."], "answer": 0, "explain": "A correlation near −1 is a strong negative relation. Correlation does not show cause.", "ref": "correlation"},
+ {"q": "You throw two coins. What is the probability that both show heads?", "options": ["0.25", "0.5", "1", "0.75"], "answer": 0, "explain": "The coins are independent: 0.5 × 0.5 = 0.25.", "ref": "probability"},
+ {"q": "Softmax gives these probabilities for three categories: 0.6, 0.3, and one more. What is the third probability?", "options": ["0.1", "0.3", "0.6", "It is not possible to know"], "answer": 0, "explain": "The sum of the probabilities from softmax is always 1: 1 − 0.6 − 0.3 = 0.1.", "ref": "probability-in-ai-models"},
+ {"q": "What is the dot product of [2, 3] and [4, 1]?", "options": ["11", "10", "[8, 3]", "6"], "answer": 0, "explain": "2 × 4 + 3 × 1 = 8 + 3 = 11.", "ref": "vectors"},
+ {"q": "For f(x) = x², what is the slope at x = 4?", "options": ["8", "16", "4", "2"], "answer": 0, "explain": "The derivative of x² is 2x. At x = 4, the slope is 2 × 4 = 8.", "ref": "calculus-rates-of-change"},
+ {"q": "A worker types the weight of one mango as 3,000 g in place of 300 g. Which statistic is the best to describe the usual weight of the mangoes now?", "options": ["The median", "The mean", "The largest value", "The range"], "answer": 0, "explain": "The outlier makes the mean much too large. The median does not change much.", "ref": "statistics-describe-data", "scenario": true},
+ {"q": "Only 1% of mangoes are damaged. The checker finds 99% of them, and it puts 2% of the good mangoes into the damaged box. Is most of the damaged box really damaged?", "options": ["No. About 1,980 good mangoes and only 990 damaged mangoes in each 100,000 go into the damaged box.", "Yes. The checker is 99% accurate.", "Yes. All mangoes in the damaged box are damaged.", "It is not possible to calculate."], "answer": 0, "explain": "In 100,000 mangoes: 1,000 are damaged and the checker finds 990. 99,000 are good and 2% of them, 1,980, are false alarms. Thus only 990 ÷ 2,970 ≈ 33% of the box is damaged.", "ref": "probability", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="technical-names">
+    <div class="num">14</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>Bayes' rule</dt><dd>A rule to calculate P(A | B) from P(B | A), P(A), and P(B).</dd>
+        <dt>Chain rule</dt><dd>A rule to find the slope through many steps: multiply the slopes of the steps.</dd>
+        <dt>Conditional probability</dt><dd>The probability of an event when you know that a different event occurred.</dd>
+        <dt>Correlation</dt><dd>A measurement of how strongly two values change together, between −1 and +1.</dd>
+        <dt>Cosine similarity</dt><dd>The dot product of two vectors divided by the product of their lengths.</dd>
+        <dt>Cross-entropy</dt><dd>A loss for classification: −log(probability of the correct answer).</dd>
+        <dt>Derivative</dt><dd>The slope of a function at one point.</dd>
+        <dt>Distribution</dt><dd>A description of how frequently each value occurs.</dd>
+        <dt>Dot product</dt><dd>The sum of the products of the numbers in the same positions of two vectors.</dd>
+        <dt>Function</dt><dd>A rule that changes each input into exactly one output.</dd>
+        <dt>Independent</dt><dd>Two events are independent when one does not change the probability of the other.</dd>
+        <dt>Matrix</dt><dd>A table of numbers with rows and columns.</dd>
+        <dt>Mean</dt><dd>The sum of all values, divided by the number of values.</dd>
+        <dt>Median</dt><dd>The middle value when the values are in order.</dd>
+        <dt>Mode</dt><dd>The value that occurs most frequently.</dd>
+        <dt>Normal distribution</dt><dd>A bell-shaped distribution. Most values are near the mean.</dd>
+        <dt>Outlier</dt><dd>A value that is very different from the other values.</dd>
+        <dt>Parameter</dt><dd>A number inside a function that training can change.</dd>
+        <dt>Partial derivative</dt><dd>The slope for one input, when the other inputs do not change.</dd>
+        <dt>Probability</dt><dd>A number between 0 and 1 that shows how possible an event is.</dd>
+        <dt>Softmax</dt><dd>A function that changes scores into probabilities with a sum of 1.</dd>
+        <dt>Standard deviation</dt><dd>The square root of the variance. The usual distance of a value from the mean.</dd>
+        <dt>Standardization</dt><dd>A change of a feature so that its mean is 0 and its standard deviation is 1.</dd>
+        <dt>Variable</dt><dd>A name, for example x, for a value that can change.</dd>
+        <dt>Variance</dt><dd>The mean of the squared differences between each value and the mean.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="ai.html"><small>Previous module</small><b>1. Artificial intelligence</b></a>
+    <a class="next" href="machine-learning.html"><small>Next module</small><b>3. Machine learning</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Videos: StatQuest and 3Blue1Brown on YouTube.</span>
+  </footer>
+</div>
+</body>
+</html>

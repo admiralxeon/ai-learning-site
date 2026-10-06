@@ -9,6 +9,8 @@
 <meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI learning manual">
 <meta property="og:title" content="1. Artificial intelligence | AI learning manual">
@@ -24,13 +26,28 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="sitebar"><div class="in">
   <a class="brand" href="index.html">AI learning manual</a>
-  <nav aria-label="Modules">
-    <a href="index.html">Home</a>
-    <a href="ai.html" aria-current="page">1. Artificial intelligence</a>
-    <a href="machine-learning.html">2. Machine learning</a>
-    <a href="deep-learning.html">3. Deep learning</a>
-    <a href="generative-ai.html">4. Generative AI</a>
-    <a href="glossary.html">Glossary</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 1</span><span class="mods-t">Artificial intelligence</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" aria-current="page" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
   </nav>
 </div></header>
 <div class="sheet">
@@ -110,6 +127,20 @@
         </div>
         <figcaption><b>Figure 1.</b> In a usual program, a person writes the rules. In machine learning, the computer finds the rules in the data.</figcaption>
       </figure>
+
+      <div class="story" id="project-part-1">
+        <div class="story-head"><span class="story-icon" aria-hidden="true">🥭</span><div><span class="story-kicker">Project: the mango checker · Part 1 of 7</span><h3>Rules or learning?</h3></div></div>
+        <p>Asha has a mango farm near Ratnagiri. Each day, her workers sort thousands of mangoes into three boxes: ripe, not ripe, and damaged. This work is slow, and tired workers make errors.</p>
+        <p>Asha's nephew writes a usual computer program. It obeys one rule: "If the skin is yellow, the mango is ripe." The rule does not work well:</p>
+        <ul>
+          <li>Some types of ripe mango stay green.</li>
+          <li>In the evening light, green mangoes look yellow.</li>
+          <li>The rule cannot find small black spots of damage.</li>
+        </ul>
+        <p>Thus Asha decides to use AI. A model will learn the rules from many photographs that experienced workers sort.</p>
+        <details class="story-think"><summary><b>Think:</b> why is it difficult to write rules for this task?</summary><p>Ripeness depends on many small signs together: the color, small spots, the shape, and the light in the photograph. A person cannot write a rule for each combination. A model can find these patterns in many examples.</p></details>
+        <nav class="story-nav" aria-label="Project, part 1 of 7: previous and next part"><span></span><a href="machine-learning.html#project-part-2">Part 2 →</a></nav>
+      </div>
     </div>
   </section>
 
@@ -125,7 +156,7 @@
         <li><b><span class="tn" title="Machine learning that uses neural networks with many layers.">Deep learning</span></b> is one part of ML. It uses a large <span class="tn" title="Software that has many small connected units. The units pass numbers to each other.">neural network</span>.</li>
         <li><b><span class="tn" title="AI that makes new content: text, images, sound, or code.">Generative AI</span></b> is one part of deep learning. It makes new text, images, sound, or code. A chat AI is an example.</li>
       </ul>
-      <p>Each of these areas has its own module. Refer to <a href="machine-learning.html">Module 2, Machine learning</a>, <a href="deep-learning.html">Module 3, Deep learning</a>, and <a href="generative-ai.html">Module 4, Generative AI</a>.</p>
+      <p>Each of these areas has its own module. <a href="mathematics.html">Module 2</a> gives the mathematics that they use. Refer to <a href="machine-learning.html">Module 3, Machine learning</a>, <a href="deep-learning.html">Module 4, Deep learning</a>, and <a href="generative-ai.html">Module 5, Generative AI</a>.</p>
 
       <figure>
         <div class="art">
@@ -171,7 +202,7 @@
         <li>The loop starts again with the next example.</li>
       </ol>
       <p>The loop can occur millions or billions of times. After many loops, the guesses become accurate.</p>
-      <p>For more information about training, refer to <a href="machine-learning.html">Module 2, Machine learning</a>.</p>
+      <p>For more information about training, refer to <a href="machine-learning.html">Module 3, Machine learning</a>.</p>
 
       <figure>
         <div class="art">
@@ -222,7 +253,7 @@
         <li>The <b>output layer</b> gives the result. For example: "cat: 92%".</li>
       </ul>
       <p>Each line between two neurons has a weight. A large weight makes the connection strong. A small weight makes it weak. Training adjusts all these weights.</p>
-      <p>For more information about how a neural network calculates and learns, refer to <a href="deep-learning.html">Module 3, Deep learning</a>.</p>
+      <p>For more information about how a neural network calculates and learns, refer to <a href="deep-learning.html">Module 4, Deep learning</a>.</p>
 
       <figure>
         <div class="art">
@@ -266,6 +297,12 @@
         <li>The system goes back to step 3. It stops at the end of the answer.</li>
       </ol>
 
+      <div class="playground" data-pg="tokenizer" id="try-tokens">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Cut text into tokens</h3></div>
+        <p class="pg-intro">Write a sentence in the box. Look at how the system cuts it into tokens. Then try the examples below. Look at long words and numbers.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
       <figure>
         <div class="art">
           <svg viewBox="0 0 760 320" role="img" aria-labelledby="f5t">
@@ -305,7 +342,7 @@
 
       <h3>The transformer</h3>
       <p>Most LLMs use a design that has the name <span class="tn" title="A neural network design from 2017. It uses attention to connect each token to the other tokens in the text.">transformer</span>. A transformer uses a method with the name <span class="tn" title="A method that lets each token use information from the other tokens in the text.">attention</span>. Attention lets each word "look at" the other words in the text. Thus the model knows that "bank" in "river bank" is different from "bank" in "bank account".</p>
-      <p>For more information about transformers, refer to <a href="deep-learning.html#how-a-transformer-uses-attention">Module 3, Section 8</a>. For more information about chat AI, refer to <a href="generative-ai.html">Module 4, Generative AI</a>.</p>
+      <p>For more information about transformers, refer to <a href="deep-learning.html#how-a-transformer-uses-attention">Module 4, Section 8</a>. For more information about chat AI, refer to <a href="generative-ai.html">Module 5, Generative AI</a>.</p>
 
       <div class="video" data-seconds="478">
         <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=LPZh9BOjkQs" data-yt="LPZh9BOjkQs" data-title="Large Language Models explained briefly (3Blue1Brown)"><img src="https://i.ytimg.com/vi/LPZh9BOjkQs/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Large Language Models explained briefly (3Blue1Brown)</span></a></div>
@@ -375,8 +412,42 @@
   </section>
 
   <!-- 9 -->
-  <section id="summary">
+  <section id="a-short-history-of-ai">
     <div class="num">9</div>
+    <div>
+      <h2>A short history of AI</h2>
+      <p>AI is not new. Researchers started to work on it in the 1950s. There were periods of large hopes and periods of disappointment. The large changes came when three things became available together: large quantities of data, fast computer chips, and better methods.</p>
+      <div class="timeline" id="timeline">
+        <ul class="tl-legend" aria-label="Periods"><li class="tl-start">1950–1969: the start</li><li class="tl-winters">1970–1993: hopes and winters</li><li class="tl-learning">1994–2011: learning from data</li><li class="tl-deep">2012–2019: deep learning</li><li class="tl-gen">2020 to now: generative AI</li></ul>
+        <ol class="tl-list">
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1950</span><div class="tl-body"><b>Alan Turing asks: can machines think?</b><p>In his paper “Computing Machinery and Intelligence”, Turing describes a test. Can a person find the difference between a computer and a human in a written conversation?</p></div></li>
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1956</span><div class="tl-body"><b>The name “artificial intelligence”</b><p>At a workshop at Dartmouth College in the USA, researchers use the name “artificial intelligence” for the new subject. John McCarthy suggested the name.</p></div></li>
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1958</span><div class="tl-body"><b>The perceptron</b><p>Frank Rosenblatt makes the perceptron, one of the first machines that learns from examples. It is a very simple neural network.</p></div></li>
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1966</span><div class="tl-body"><b>ELIZA, an early chatbot</b><p>Joseph Weizenbaum makes ELIZA. It uses simple rules to answer like a therapist. Many users think that it understands them, but it does not.</p></div></li>
+          <li class="tl-item tl-winters" data-era="winters"><span class="tl-year">1974</span><div class="tl-body"><b>The first “AI winter”</b><p>The results are smaller than the promises. Governments give less money for AI research. We call this period an “AI winter”.</p></div></li>
+          <li class="tl-item tl-winters" data-era="winters"><span class="tl-year">1980s</span><div class="tl-body"><b>Expert systems</b><p>Companies use expert systems: programs with thousands of rules that people write. The rules are expensive to keep up to date. A second AI winter starts at the end of the 1980s.</p></div></li>
+          <li class="tl-item tl-winters" data-era="winters"><span class="tl-year">1986</span><div class="tl-body"><b>Backpropagation</b><p>David Rumelhart, Geoffrey Hinton, and Ronald Williams show how backpropagation trains neural networks with many layers. Refer to Module 4.</p></div></li>
+          <li class="tl-item tl-learning" data-era="learning"><span class="tl-year">1997</span><div class="tl-body"><b>A computer wins at chess</b><p>IBM’s Deep Blue wins a chess match against the world champion, Garry Kasparov.</p></div></li>
+          <li class="tl-item tl-learning" data-era="learning"><span class="tl-year">2009</span><div class="tl-body"><b>ImageNet</b><p>Researchers publish ImageNet, a data set with millions of labeled photographs. Large data sets make deep learning possible.</p></div></li>
+          <li class="tl-item tl-deep" data-era="deep"><span class="tl-year">2012</span><div class="tl-body"><b>Deep learning starts to win</b><p>A deep CNN wins the ImageNet image competition with far fewer errors than the other methods. It trains on GPUs.</p></div></li>
+          <li class="tl-item tl-deep" data-era="deep"><span class="tl-year">2016</span><div class="tl-body"><b>AlphaGo</b><p>DeepMind’s AlphaGo wins against Lee Sedol, one of the best players of the game Go. It uses deep learning and reinforcement learning.</p></div></li>
+          <li class="tl-item tl-deep" data-era="deep"><span class="tl-year">2017</span><div class="tl-body"><b>The transformer</b><p>Google researchers publish “Attention Is All You Need”. The transformer becomes the base of most LLMs.</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2020</span><div class="tl-body"><b>GPT-3</b><p>OpenAI shows GPT-3, an LLM with 175 billion weights. It can do many tasks from a short prompt.</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2022</span><div class="tl-body"><b>ChatGPT and image generators</b><p>Diffusion image generators become available to the public. In November, ChatGPT is released. It gets approximately 100 million users in two months.</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2024</span><div class="tl-body"><b>Laws for AI</b><p>The European Union adopts the EU AI Act, the first large law about AI. Refer to Module 6.</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2025</span><div class="tl-body"><b>Reasoning models and agents</b><p>Models that work through problems in steps, and AI agents that use tools, become common.</p></div></li>
+        </ol>
+      </div>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Each new method in this list uses the methods before it. A chat AI in 2025 still uses neurons from 1958 and backpropagation from 1986.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="summary">
+    <div class="num">10</div>
     <div>
       <h2>Summary</h2>
       <ul>
@@ -390,9 +461,9 @@
     </div>
   </section>
 
-  <!-- 10 -->
+  <!-- 11 -->
   <section id="knowledge-check">
-    <div class="num">10</div>
+    <div class="num">11</div>
     <div>
       <h2>Knowledge check</h2>
       <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
@@ -406,7 +477,9 @@
  {"q": "In a neural network, which layer gives the result?", "options": ["The output layer", "The input layer", "The first hidden layer", "No layer gives a result"], "answer": 0, "explain": "The input layer receives the data. The hidden layers do the calculations. The output layer gives the result.", "ref": "neural-networks"},
  {"q": "What is the main task of a large language model?", "options": ["To predict the next token in a text.", "To look up facts in a database.", "To copy full pages from websites.", "To count the words in a text."], "answer": 0, "explain": "An LLM predicts the next token again and again. This makes full sentences and answers.", "ref": "how-a-chat-ai-makes-text"},
  {"q": "A chat AI can give an answer that sounds correct but is false.", "options": ["True", "False"], "answer": 0, "explain": "This is a hallucination. Always do a check of important information.", "ref": "limits-and-risks"},
- {"q": "Which data must you not give to an AI tool if you do not know how the tool keeps it?", "options": ["Passwords and ID numbers.", "A public news article.", "A question about the weather.", "A recipe for a cake."], "answer": 0, "explain": "Private data includes passwords, ID numbers, and company secrets.", "ref": "limits-and-risks"}
+ {"q": "Which data must you not give to an AI tool if you do not know how the tool keeps it?", "options": ["Passwords and ID numbers.", "A public news article.", "A question about the weather.", "A recipe for a cake."], "answer": 0, "explain": "Private data includes passwords, ID numbers, and company secrets.", "ref": "limits-and-risks"},
+ {"q": "Asha's team uses the rule \"If the skin is yellow, the mango is ripe.\" The rule makes many errors. What is the best next step?", "options": ["Collect many labeled photographs and let a model find the rules.", "Write a longer list of color rules.", "Use only photographs from the morning.", "Stop. A computer cannot sort fruit."], "answer": 0, "explain": "Ripeness depends on many small signs together. A model can find these patterns in labeled examples.", "ref": "what-ai-is", "scenario": true},
+ {"q": "The team asks a chat AI for the correct pesticide dose for mango trees. The answer sounds sure. What must they do?", "options": ["Do a check of the answer with a reliable source, for example an agricultural expert.", "Use the answer, because it sounds sure.", "Ask the same question again and use the second answer.", "Use a higher temperature."], "answer": 0, "explain": "A chat AI can give incorrect information that looks correct. For safety decisions, a qualified person must do a check.", "ref": "limits-and-risks", "scenario": true}
 ]}
         </script>
         <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
@@ -414,9 +487,9 @@
     </div>
   </section>
 
-  <!-- 11 -->
+  <!-- 12 -->
   <section id="technical-names">
-    <div class="num">11</div>
+    <div class="num">12</div>
     <div>
       <h2>Technical names</h2>
       <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
@@ -440,7 +513,7 @@
 
   <nav class="pager" aria-label="Previous and next module">
     <a href="index.html"><small>Previous</small><b>Home</b></a>
-    <a class="next" href="machine-learning.html"><small>Next module</small><b>2. Machine learning</b></a>
+    <a class="next" href="mathematics.html"><small>Next module</small><b>2. Mathematics for machine learning</b></a>
   </nav>
 
   <footer>

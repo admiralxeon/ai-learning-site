@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Forecasting | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Short topic, Forecasting: Trend, season, and noise in time series, baselines, how to test a forecast, and ranges of uncertainty.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Forecasting | AI learning manual">
+<meta property="og:description" content="Short topic, Forecasting: Trend, season, and noise in time series, baselines, how to test a forecast, and ranges of uncertainty.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html" aria-current="page">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-60-00-00-040A</b></div>
+    <div>Subject<b>Forecasting</b></div>
+    <div>Info type<b>Short topic</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Forecasting: predict what comes next</h1>
+    <p>This short topic is written in ASD-STE100 Simplified Technical English. Read <a href="machine-learning.html">Module 3, Machine learning</a> and <a href="ai-in-practice.html">Module 7, AI in practice</a> first. Shops must know how many mangoes to order. Power companies must know how much electricity people will use tomorrow. This topic tells you how forecasts work, how to test them, and why a range is better than one number.</p>
+  </div>
+
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>A <span class="tn" title="A prediction of future values of a time series.">forecast</span> predicts future values from past values. This topic gives a description of the parts of a time series, baselines, features and models, the correct test of a forecast, and ranges of uncertainty.</p>
+    </div>
+  </section>
+
+  <section id="the-parts-of-a-time-series">
+    <div class="num">2</div>
+    <div>
+      <h2>The parts of a time series</h2>
+      <p>A <span class="tn" title="A sequence of measurements in time order, for example the sales of each day or the temperature of each hour.">time series</span> is a sequence of measurements in time order, for example the sales of each month. Most time series have three parts. Refer to Figure 1.</p>
+      <ul>
+        <li><b><span class="tn" title="The slow, long-term increase or decrease of a time series.">Trend</span>:</b> the slow, long-term increase or decrease. The farm sells a little more each year.</li>
+        <li><b><span class="tn" title="A pattern that repeats at the same time each day, week, or year.">Seasonality</span>:</b> a pattern that repeats at the same time each day, week, or year. Mango sales have a peak each April to June.</li>
+        <li><b>Noise:</b> the random changes that nobody can predict.</li>
+      </ul>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 270" role="img" aria-labelledby="fc1t">
+            <title id="fc1t">Three years of monthly mango sales with a trend and a season, and a forecast for one year with a range</title>
+            <line class="faint" x1="50" y1="224.0" x2="740" y2="224.0"/><text class="sm" x="42" y="228.0" text-anchor="end">0</text>
+            <line class="faint" x1="50" y1="181.5" x2="740" y2="181.5"/><text class="sm" x="42" y="185.5" text-anchor="end">50</text>
+            <line class="faint" x1="50" y1="139.0" x2="740" y2="139.0"/><text class="sm" x="42" y="143.0" text-anchor="end">100</text>
+            <line class="faint" x1="50" y1="96.5" x2="740" y2="96.5"/><text class="sm" x="42" y="100.5" text-anchor="end">150</text>
+            <line class="faint" x1="50" y1="54.0" x2="740" y2="54.0"/><text class="sm" x="42" y="58.0" text-anchor="end">200</text>
+            <line class="faint" x1="50.0" y1="20" x2="50.0" y2="224"/><text class="sm" x="54.0" y="240">2023</text>
+            <line class="faint" x1="226.2" y1="20" x2="226.2" y2="224"/><text class="sm" x="230.2" y="240">2024</text>
+            <line class="faint" x1="402.3" y1="20" x2="402.3" y2="224"/><text class="sm" x="406.3" y="240">2025</text>
+            <line class="faint" x1="578.5" y1="20" x2="578.5" y2="224"/><text class="sm" x="582.5" y="240">2026</text>
+            <path d="M578.5 126.1 L593.2 123.2 L607.9 99.0 L622.6 57.9 L637.2 21.0 L651.9 43.6 L666.6 91.7 L681.3 105.8 L696.0 103.0 L710.6 100.1 L725.3 97.2 L740.0 94.3 L740.0 155.8 L725.3 155.0 L710.6 154.1 L696.0 153.3 L681.3 152.4 L666.6 134.6 L651.9 82.7 L637.2 56.4 L622.6 89.5 L607.9 126.9 L593.2 147.3 L578.5 146.5 z" fill="var(--amber-soft)" stroke="none"/>
+            <path d="M50.0 157.7 L740.0 109.8" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="6 5"/>
+            <path d="M50.0 177.0 L64.7 178.1 L79.4 151.3 L94.0 115.7 L108.7 82.1 L123.4 101.4 L138.1 143.5 L152.8 161.3 L167.4 160.8 L182.1 168.1 L196.8 162.2 L211.5 165.2 L226.2 165.8 L240.9 165.8 L255.5 141.8 L270.2 91.7 L284.9 58.1 L299.6 83.0 L314.3 133.0 L328.9 158.3 L343.6 155.5 L358.3 149.6 L373.0 147.0 L387.7 144.1 L402.3 142.7 L417.0 153.8 L431.7 123.6 L446.4 83.3 L461.1 50.8 L475.7 80.3 L490.4 125.8 L505.1 147.7 L519.8 133.7 L534.5 133.7 L549.1 137.6 L563.8 140.4" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+            <path d="M563.8 140.4 L578.5 136.3 L593.2 135.3 L607.9 113.0 L622.6 73.7 L637.2 38.7 L651.9 63.2 L666.6 113.2 L681.3 129.1 L696.0 128.1 L710.6 127.1 L725.3 126.1 L740.0 125.1" fill="none" stroke="var(--amber-ink)" stroke-width="2.5" stroke-dasharray="7 5"/>
+            <line x1="571.2" y1="20" x2="571.2" y2="224" stroke="var(--ink)" stroke-width="1.5"/>
+            <text class="sm" x="557.8" y="32" text-anchor="end" style="font-weight:600">History</text><text class="sm" x="580.5" y="32" style="font-weight:600">Forecast</text>
+            <text class="sm" x="50" y="262">Boxes sold each month (example data)</text>
+            <line x1="400" y1="258" x2="424" y2="258" stroke="var(--blue)" stroke-width="2.5"/><text class="sm" x="430" y="262">History</text><line x1="490" y1="258" x2="514" y2="258" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="6 5"/><text class="sm" x="520" y="262">Trend</text><line x1="568" y1="258" x2="592" y2="258" stroke="var(--amber-ink)" stroke-width="2.5" stroke-dasharray="7 5"/><text class="sm" x="598" y="262">Forecast</text><rect x="660" y="251" width="16" height="12" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="682" y="262">80% range</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> Monthly sales of mango boxes. Each year has a peak from April to June (the season), and the sales slowly increase (the trend). The forecast continues the trend and the season. The orange range becomes wider further into the future. All values are only examples.</figcaption>
+      </figure>
+      <p>The number of steps into the future is the <span class="tn" title="How far into the future a forecast predicts, for example 7 days or 12 months.">forecast horizon</span>. A forecast for tomorrow is usually much more accurate than a forecast for next year.</p>
+    </div>
+  </section>
+
+  <section id="start-with-a-baseline">
+    <div class="num">3</div>
+    <div>
+      <h2>Start with a baseline</h2>
+      <p>Simple forecasts are frequently difficult to beat. Always calculate them first. Refer to <a href="ai-in-practice.html#start-with-a-baseline">Module 7, Section 4</a>.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Baseline</th><th>Forecast</th><th>Good when</th></tr></thead>
+          <tbody>
+            <tr><td>Last value</td><td>The same as the last measurement.</td><td>The values change slowly, for example the temperature in the next hour.</td></tr>
+            <tr><td>Same time last season</td><td>The value of the same month last year, or the same day last week.</td><td>There is a strong season, for example mango sales.</td></tr>
+            <tr><td>Moving average</td><td>The mean of the last few values, for example the last 4 weeks.</td><td>There is much noise and no strong season.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="features-and-models">
+    <div class="num">4</div>
+    <div>
+      <h2>Features and models</h2>
+      <h3>Features</h3>
+      <p>To use usual ML models, change the time series into a table. Each row is one time step. Useful features are:</p>
+      <ul>
+        <li><b>Lag features:</b> the values of the last steps, for example the sales of last week and of the same week last year.</li>
+        <li><b>Calendar:</b> the day of the week, the month, holidays, and festivals such as Diwali.</li>
+        <li><b>Other known values:</b> the price, a planned discount, the weather forecast.</li>
+      </ul>
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Use only values that are known at the time of the forecast. The real weather of next week is not known today. Only the weather forecast is known. Otherwise this is data leakage. Refer to <a href="ai-in-practice.html#prepare-the-data">Module 7, Section 3</a>.</p>
+      </div>
+      <h3>Models</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Model</th><th>How it works</th></tr></thead>
+          <tbody>
+            <tr><td>Exponential smoothing</td><td>A weighted mean of the past. New values have more weight. It can also model trend and season.</td></tr>
+            <tr><td>ARIMA</td><td>A classic statistical model that uses the past values and the past errors.</td></tr>
+            <tr><td>Gradient boosting</td><td>Many decision trees, trained on the table with lag and calendar features. Often very good for sales.</td></tr>
+            <tr><td>Neural networks</td><td>Good when there are thousands of related series, for example the sales of each product in each shop. New pretrained models for time series also exist.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="test-a-forecast-correctly">
+    <div class="num">5</div>
+    <div>
+      <h2>Test a forecast correctly</h2>
+      <p>Do not divide a time series at random. A random division puts future values into the training set. Always train on the past and test on the future.</p>
+      <h3>Procedure: backtesting</h3>
+      <ol class="steps">
+        <li>Select a date in the past, for example 1 January 2025.</li>
+        <li>Train the model only with the data before that date.</li>
+        <li>Make a forecast for the next steps, for example 3 months.</li>
+        <li>Compare it with what really occurred.</li>
+        <li>Move the date forward one month, and do steps 2 to 4 again. Calculate the mean error of all the tests.</li>
+      </ol>
+      <p>We call this <span class="tn" title="A test of a forecast method on past data: train on the data before a date, forecast the period after it, and compare. Repeat for many dates.">backtesting</span>. It is the cross-validation of time series. Refer to <a href="ai-in-practice.html#test-fairly-with-cross-validation">Module 7, Section 5</a>.</p>
+      <h3>Measure the error</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Month</th><th>Real</th><th>Forecast</th><th>Error</th><th>Error as % of real</th></tr></thead>
+          <tbody>
+            <tr><td>April</td><td>120</td><td>100</td><td>20</td><td>16.7%</td></tr>
+            <tr><td>May</td><td>150</td><td>140</td><td>10</td><td>6.7%</td></tr>
+            <tr><td>June</td><td>90</td><td>110</td><td>20</td><td>22.2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b><span class="tn" title="Mean absolute error: the mean of the sizes of the errors, in the unit of the data.">MAE</span></b> (mean absolute error) = (20 + 10 + 20) &divide; 3 = 16.7 boxes. It is in the unit of the data.</li>
+        <li><b><span class="tn" title="Mean absolute percentage error: the mean of the errors as a percentage of the real values.">MAPE</span></b> (mean absolute percentage error) = (16.7% + 6.7% + 22.2%) &divide; 3 = 15.2%. It lets you compare series of different sizes. Do not use it when real values can be 0.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="give-a-range-not-one-number">
+    <div class="num">6</div>
+    <div>
+      <h2>Give a range, not one number</h2>
+      <p>No forecast is exact. A <span class="tn" title="A range in which the real value will probably be, with a stated probability, for example 80%.">prediction interval</span> gives a range with a probability. Example: "Next May: 140 boxes. With 80% probability, between 115 and 165 boxes."</p>
+      <p>The range helps people to make decisions:</p>
+      <ul>
+        <li>Mangoes spoil quickly. If too many are left, the farm loses money. If there are too few, it loses customers. The range shows the risk on each side.</li>
+        <li>The range becomes wider further into the future. Plan again when new data comes.</li>
+      </ul>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Check the range with backtesting too. If you say "80%", then approximately 80% of the real values must be in the ranges.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="where-people-use-forecasting">
+    <div class="num">7</div>
+    <div>
+      <h2>Where people use forecasting</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Area</th><th>Forecast</th><th>Usual horizon</th></tr></thead>
+          <tbody>
+            <tr><td>Shops and farms</td><td>Demand for each product, to order the correct quantity.</td><td>Days to months</td></tr>
+            <tr><td>Electricity</td><td>Power use, and power from sun and wind.</td><td>Hours to days</td></tr>
+            <tr><td>Weather</td><td>Temperature, rain, storms. New AI weather models now compete with physics models.</td><td>Hours to 2 weeks</td></tr>
+            <tr><td>Hospitals and call centers</td><td>The number of patients or calls, to plan the staff.</td><td>Hours to weeks</td></tr>
+            <tr><td>Transport</td><td>Traffic and travel time, the number of passengers.</td><td>Minutes to months</td></tr>
+            <tr><td>Finance</td><td>Cash flow of a company. Prices of shares are very difficult to forecast.</td><td>Weeks to years</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="limits-of-forecasting">
+    <div class="num">8</div>
+    <div>
+      <h2>Limits of forecasting</h2>
+      <ul>
+        <li><b>Sudden events.</b> A pandemic, a strike, a flood, or a new law changes the pattern. A model that learned from the past cannot know this. A person must adjust the forecast.</li>
+        <li><b>Too little history.</b> To learn a yearly season, you need at least two or three years of data.</li>
+        <li><b>The forecast changes the future.</b> If the shop orders less because of a low forecast, it also sells less. The data then seems to agree with the forecast.</li>
+        <li><b>Records of sales are not demand.</b> When a product is sold out, the sales show 0, but people still wanted it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="summary">
+    <div class="num">9</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>A time series has a trend, a season, and noise.</li>
+        <li>Compare each model with simple baselines: the last value, the same time last season, a moving average.</li>
+        <li>Lag and calendar features change a series into a table for usual ML models.</li>
+        <li>Never divide a time series at random. Use backtesting: train on the past, test on the future.</li>
+        <li>MAE is in the unit of the data. MAPE is a percentage.</li>
+        <li>Give a prediction interval, and adjust for sudden events.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="knowledge-check">
+    <div class="num">10</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "Mango sales have a peak each April to June. Which part of a time series is this?", "options": ["Seasonality", "Trend", "Noise", "A prediction interval"], "answer": 0, "explain": "A pattern that repeats at the same time each year is seasonality.", "ref": "the-parts-of-a-time-series"},
+ {"q": "Why must you not divide a time series into training and test data at random?", "options": ["Future values go into the training set, so the test result is too good", "Random division is too slow", "Time series cannot have a test set", "The model becomes too simple"], "answer": 0, "explain": "This is data leakage. Train on the past and test on the future, with backtesting.", "ref": "test-a-forecast-correctly"},
+ {"q": "The real values are 100 and 200. The forecasts are 110 and 170. What is the MAE?", "options": ["20", "40", "15", "30"], "answer": 0, "explain": "The errors are 10 and 30. MAE = (10 + 30) divided by 2 = 20.", "ref": "test-a-forecast-correctly"},
+ {"q": "Which baseline is probably best for a product with a strong yearly season?", "options": ["The value of the same time last season", "The last value", "Always 0", "The mean of all years"], "answer": 0, "explain": "The same month last year already contains the season.", "ref": "start-with-a-baseline"},
+ {"q": "The farm must decide how many mangoes to order for May. Why is \"between 115 and 165 boxes, with 80% probability\" more useful than \"140 boxes\"?", "options": ["It shows the risk of too many and of too few mangoes", "It is always more accurate", "It removes the need for data", "It makes the order smaller"], "answer": 0, "explain": "A prediction interval shows the uncertainty, so the farm can balance the cost of spoiled mangoes and lost customers.", "ref": "give-a-range-not-one-number", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section id="technical-names">
+    <div class="num">11</div>
+    <div>
+      <h2>Technical names</h2>
+      <dl class="glossary">
+        <dt>Backtesting</dt><dd>A test of a forecast method on past data: train on the data before a date, forecast after it, and compare. Repeat for many dates.</dd>
+        <dt>Forecast</dt><dd>A prediction of future values of a time series.</dd>
+        <dt>Forecast horizon</dt><dd>How far into the future a forecast predicts.</dd>
+        <dt>MAE</dt><dd>Mean absolute error: the mean of the sizes of the errors, in the unit of the data.</dd>
+        <dt>MAPE</dt><dd>Mean absolute percentage error: the mean of the errors as a percentage of the real values.</dd>
+        <dt>Prediction interval</dt><dd>A range in which the real value will probably be, with a stated probability.</dd>
+        <dt>Seasonality</dt><dd>A pattern that repeats at the same time each day, week, or year.</dd>
+        <dt>Time series</dt><dd>A sequence of measurements in time order.</dd>
+        <dt>Trend</dt><dd>The slow, long-term increase or decrease of a time series.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="topic-recommendation-systems.html"><small>Previous topic</small><b>Recommendation systems</b></a>
+    <a class="next" href="index.html"><small>Back to</small><b>Home</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). A short topic of the AI learning manual.</span>
+  </footer>
+</div>
+</body>
+</html>

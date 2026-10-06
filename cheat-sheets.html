@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cheat sheets | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Cheat sheets | AI learning manual">
+<meta property="og:description" content="One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html" aria-current="page">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main" data-reference data-sheets>
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-00-00-00-005A</b></div>
+    <div>Subject<b>Cheat sheets</b></div>
+    <div>Info type<b>Quick reference</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Cheat sheets</h1>
+    <p>Each sheet gives the most important points of one module on one page. The last sheet contains all the formulas of the mathematics module. Use the sheets to revise before a knowledge check or the <a href="review.html">final review</a>. To print one sheet, use the button below that sheet. Each sheet prints on its own page.</p>
+    <div class="cs-actions"><button class="pg-btn pg-btn-primary" type="button" data-print="all">Print all sheets</button></div>
+  </div>
+
+  <!-- 1 -->
+  <section id="sheet-1-artificial-intelligence">
+    <div class="num">1</div>
+    <div>
+      <h2>Module 1: Artificial intelligence</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Key ideas</h3>
+          <ul>
+            <li>AI is software that does tasks that usually need a human mind.</li>
+            <li>The parts: AI &gt; machine learning &gt; deep learning &gt; generative AI. Each is a part of the larger area.</li>
+            <li>In ML, the computer finds the rules in data. A person does not write the rules.</li>
+            <li>Training is a loop: guess, compare, adjust, repeat.</li>
+            <li>A chat AI predicts the next token again and again.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Remember</h3>
+          <ul>
+            <li>All AI today is narrow AI. AGI does not exist at this time.</li>
+            <li>A neural network has layers of neurons. Weights connect the neurons.</li>
+            <li>AI became strong when data, fast chips, and better methods came together.</li>
+            <li>Dates: 1950 Turing test, 1956 the name "AI", 2012 deep learning, 2017 transformer, 2022 public chat AI.</li>
+          </ul>
+        </div>
+        <div class="cs-box cs-wide">
+          <h3>Watch out</h3>
+          <p>AI can make errors and can sound sure when it is wrong (hallucination). It can learn bias from its data. Always do a check of important information.</p>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-1-artificial-intelligence">Print this sheet</button> <a href="ai.html">Open Module 1</a></p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sheet-2-mathematics">
+    <div class="num">2</div>
+    <div>
+      <h2>Module 2: Mathematics for machine learning</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Statistics and probability</h3>
+          <ul>
+            <li>A model is a function with parameters. Training finds good values for them.</li>
+            <li>Mean, median, and standard deviation describe data. The median is not changed much by outliers.</li>
+            <li>Many measurements have a normal distribution: 68% of values are less than 1 standard deviation from the mean, 95% less than 2.</li>
+            <li>Correlation shows that two values change together. It does not show cause.</li>
+            <li>Bayes' rule changes a probability with new information. Rare events give many false alarms.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Vectors and calculus</h3>
+          <ul>
+            <li>A vector is a list of numbers. A matrix is a table of numbers.</li>
+            <li>A neural layer multiplies a matrix by a vector, and adds a bias.</li>
+            <li>Softmax changes scores into probabilities. Cross-entropy measures the loss.</li>
+            <li>The derivative is the slope. Gradient descent moves opposite to the slope.</li>
+            <li>The chain rule makes backpropagation possible.</li>
+          </ul>
+        </div>
+        <div class="cs-box cs-wide">
+          <h3>Watch out</h3>
+          <p>Standardize features that have very different sizes. Otherwise the largest feature hides the others. For all formulas, refer to <a href="#formula-sheet">Sheet 8, Formula sheet</a>.</p>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-2-mathematics">Print this sheet</button> <a href="mathematics.html">Open Module 2</a></p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sheet-3-machine-learning">
+    <div class="num">3</div>
+    <div>
+      <h2>Module 3: Machine learning</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>The workflow</h3>
+          <ol>
+            <li>Define the problem.</li>
+            <li>Collect data.</li>
+            <li>Prepare the data, and divide it: training, validation, test.</li>
+            <li>Select a type of model.</li>
+            <li>Train the model.</li>
+            <li>Evaluate it with data that it did not see.</li>
+            <li>Put it into use.</li>
+            <li>Monitor its results.</li>
+          </ol>
+        </div>
+        <div class="cs-box">
+          <h3>Types of learning</h3>
+          <ul>
+            <li><b>Supervised:</b> examples with labels. Classification (a category) or regression (a number).</li>
+            <li><b>Unsupervised:</b> no labels. Find groups (clustering).</li>
+            <li><b>Reinforcement:</b> actions and rewards.</li>
+          </ul>
+          <h3 style="margin-top:.6rem">Fit</h3>
+          <ul>
+            <li><b>Underfitting:</b> errors on training and new data. Model too simple.</li>
+            <li><b>Overfitting:</b> good on training, bad on new data. Use more data, a simpler model, or stop early.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Measure a classifier</h3>
+          <ul>
+            <li><b>Accuracy:</b> correct predictions &divide; all predictions.</li>
+            <li><b>Precision:</b> TP &divide; (TP + FP). Important when a false alarm is expensive.</li>
+            <li><b>Recall:</b> TP &divide; (TP + FN). Important when a missed item is dangerous.</li>
+            <li>High accuracy is not always good when one category is rare.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Common methods</h3>
+          <ul>
+            <li>Linear regression: a straight line. Prices.</li>
+            <li>Logistic regression: a probability for a category.</li>
+            <li>Decision tree and random forest: yes/no questions, many trees vote.</li>
+            <li>k-nearest neighbors: the most similar examples.</li>
+            <li>k-means: k groups around k centers.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-3-machine-learning">Print this sheet</button> <a href="machine-learning.html">Open Module 3</a></p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sheet-4-deep-learning">
+    <div class="num">4</div>
+    <div>
+      <h2>Module 4: Deep learning</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Key ideas</h3>
+          <ul>
+            <li>Deep learning uses neural networks with many layers. The network finds the features in the raw data.</li>
+            <li>A neuron multiplies its inputs by weights, adds a bias, and applies an activation function.</li>
+            <li>Backpropagation finds the gradient for each weight. Gradient descent adjusts the weights.</li>
+            <li>Embeddings change items into lists of numbers. Similar items have similar embeddings.</li>
+            <li>Transformers use attention to connect each token to the other tokens.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Types of network</h3>
+          <ul>
+            <li><b>Feedforward:</b> numbers in a table.</li>
+            <li><b>CNN:</b> images. Filters find patterns.</li>
+            <li><b>RNN:</b> sequences, one item at a time. Mostly replaced by transformers.</li>
+            <li><b>Transformer:</b> text, and now also images and sound.</li>
+          </ul>
+        </div>
+        <div class="cs-box cs-wide">
+          <h3>In practice</h3>
+          <p>Training needs GPUs. To prevent overfitting, use dropout, data augmentation, and early stopping. With little data, use transfer learning: start from a network that is already trained, and train it a little more on your data.</p>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-4-deep-learning">Print this sheet</button> <a href="deep-learning.html">Open Module 4</a></p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sheet-5-generative-ai">
+    <div class="num">5</div>
+    <div>
+      <h2>Module 5: Generative AI</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>How it is made and how it answers</h3>
+          <ul>
+            <li>Generative AI makes new text, images, sound, video, and code.</li>
+            <li>Three stages: pretraining, fine-tuning, human feedback.</li>
+            <li>The context window limits how much text the model can use at one time.</li>
+            <li>An image generator starts from noise and removes it step by step.</li>
+            <li>RAG lets a model use your documents and show its sources.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Temperature</h3>
+          <ul>
+            <li><b>Low (0 to 0.3):</b> almost the same answer each time. Facts, code, data.</li>
+            <li><b>Medium (0.5 to 0.8):</b> usual chat and writing.</li>
+            <li><b>High (1.0 or more):</b> varied, more errors. Ideas and stories.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>A good prompt</h3>
+          <ul>
+            <li>The task (always necessary).</li>
+            <li>The context and the audience.</li>
+            <li>The format of the answer.</li>
+            <li>One to three examples (few-shot prompting).</li>
+            <li>For logic, ask for the steps. Divide a large task.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Watch out</h3>
+          <ul>
+            <li>AI-made content can be false. Always do a check before you use it.</li>
+            <li>Do not put private data into a public AI tool.</li>
+            <li>Text in web pages and documents can contain hidden instructions (prompt injection).</li>
+          </ul>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-5-generative-ai">Print this sheet</button> <a href="generative-ai.html">Open Module 5</a></p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sheet-6-responsible-ai">
+    <div class="num">6</div>
+    <div>
+      <h2>Module 6: Responsible AI</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Principles</h3>
+          <ul>
+            <li><b>Fairness:</b> works equally well for all groups.</li>
+            <li><b>Transparency:</b> people know that AI is used.</li>
+            <li><b>Privacy:</b> personal data only with permission.</li>
+            <li><b>Safety:</b> no physical or financial harm.</li>
+            <li><b>Accountability:</b> a person is responsible, not the AI.</li>
+            <li><b>Human oversight:</b> a person can check, change, or stop decisions.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Bias and law</h3>
+          <ul>
+            <li>Bias comes from the data, the labels, the design, or the use.</li>
+            <li>Measure the results for each group separately.</li>
+            <li>India: DPDP Act (2023). EU: GDPR (2018) and the EU AI Act (2024), with four levels of risk.</li>
+            <li>Data minimization: collect only the data that you need.</li>
+          </ul>
+        </div>
+        <div class="cs-box cs-wide">
+          <h3>Do not use AI when</h3>
+          <p>A simple rule works. There is no good data. Nobody can check the errors. The law requires an explanation that you cannot give. The task needs human care. The cost is larger than the benefit. "Do not use AI" is a correct result of a careful plan.</p>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-6-responsible-ai">Print this sheet</button> <a href="responsible-ai.html">Open Module 6</a></p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sheet-7-ai-in-practice">
+    <div class="num">7</div>
+    <div>
+      <h2>Module 7: AI in practice</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Before training</h3>
+          <ul>
+            <li>Missing values: remove, fill with the median (imputation), or add a "missing" feature.</li>
+            <li>Categories: one-hot encoding, not 1, 2, 3.</li>
+            <li>Data leakage: divide the data first. Use only information that is available at the time of the prediction.</li>
+            <li>Compare each model with a simple baseline.</li>
+            <li>Use cross-validation to select hyperparameters. Use the test set only one time.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>After training</h3>
+          <ul>
+            <li>Ways of deployment: batch, online, on the device.</li>
+            <li>Release: version number, shadow mode, A/B test, then all users. Keep the old version.</li>
+            <li>Data drift: the inputs change. Concept drift: the correct answers change.</li>
+            <li>Monitor real results, set alert limits, and train again with new data.</li>
+          </ul>
+        </div>
+        <div class="cs-box cs-wide">
+          <h3>LLM applications and agents</h3>
+          <p>Test each new prompt or model with a fixed evaluation set. Use guardrails before and after the model. Calculate the cost: tokens &times; price. Use an agent only when the steps must change. Give it limited tools, a maximum number of steps, a record of each step, and human approval for important actions.</p>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-7-ai-in-practice">Print this sheet</button> <a href="ai-in-practice.html">Open Module 7</a></p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="formula-sheet">
+    <div class="num">8</div>
+    <div>
+      <h2>Formula sheet</h2>
+      <p>All formulas of <a href="mathematics.html">Module 2</a> and the measurements of <a href="machine-learning.html#how-to-measure-a-model">Module 3</a>. Σ means "add all the values".</p>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Statistics</h3>
+          <dl class="cs-f">
+            <dt>Mean</dt><dd>mean = Σx &divide; n</dd>
+            <dt>Median</dt><dd>the middle value after you sort the values<small>With an even number of values: the mean of the two middle values.</small></dd>
+            <dt>Standard deviation</dt><dd>√( Σ(x − mean)² &divide; n )</dd>
+            <dt>z-score</dt><dd>z = (x − mean) &divide; standard deviation<small>Used for standardization.</small></dd>
+            <dt>Correlation r</dt><dd>from −1 to +1<small>+1: up together. 0: no straight-line relation. −1: one up, one down.</small></dd>
+          </dl>
+        </div>
+        <div class="cs-box">
+          <h3>Probability</h3>
+          <dl class="cs-f">
+            <dt>Probability</dt><dd>P = favorable results &divide; all results<small>Always from 0 to 1.</small></dd>
+            <dt>Not A</dt><dd>P(not A) = 1 − P(A)</dd>
+            <dt>Bayes' rule</dt><dd>P(A | B) = P(B | A) &times; P(A) &divide; P(B)</dd>
+            <dt>Softmax</dt><dd>p<sub>i</sub> = e<sup>s<sub>i</sub></sup> &divide; Σ e<sup>s<sub>j</sub></sup><small>Changes scores into probabilities that add up to 1.</small></dd>
+            <dt>Cross-entropy</dt><dd>loss = −log(p of the correct answer)<small>Small when the model gives the correct answer a high probability.</small></dd>
+          </dl>
+        </div>
+        <div class="cs-box">
+          <h3>Vectors and matrices</h3>
+          <dl class="cs-f">
+            <dt>Dot product</dt><dd>a · b = a<sub>1</sub>b<sub>1</sub> + a<sub>2</sub>b<sub>2</sub> + …</dd>
+            <dt>Length</dt><dd>|a| = √(a · a)</dd>
+            <dt>Cosine similarity</dt><dd>(a · b) &divide; (|a| &times; |b|)<small>1: same direction. 0: not related.</small></dd>
+            <dt>Neural layer</dt><dd>outputs = activation( W · x + b )</dd>
+          </dl>
+        </div>
+        <div class="cs-box">
+          <h3>Calculus and training</h3>
+          <dl class="cs-f">
+            <dt>Slope</dt><dd>change in y &divide; change in x</dd>
+            <dt>Example derivative</dt><dd>f(x) = x² &rarr; f′(x) = 2x</dd>
+            <dt>Gradient descent</dt><dd>new weight = weight − learning rate &times; slope</dd>
+            <dt>Chain rule</dt><dd>slope of y for x = (slope of y for u) &times; (slope of u for x)</dd>
+          </dl>
+        </div>
+        <div class="cs-box cs-wide">
+          <h3>Measure a model</h3>
+          <dl class="cs-f">
+            <dt>Accuracy</dt><dd>(TP + TN) &divide; all predictions</dd>
+            <dt>Precision</dt><dd>TP &divide; (TP + FP)</dd>
+            <dt>Recall</dt><dd>TP &divide; (TP + FN)</dd>
+            <dt>Mean absolute error</dt><dd>Σ|real − predicted| &divide; n<small>For regression and forecasts. Refer to the <a href="topic-forecasting.html">forecasting topic</a>.</small></dd>
+          </dl>
+          <p>TP: true positive. TN: true negative. FP: false positive (false alarm). FN: false negative (missed item).</p>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="formula-sheet">Print this sheet</button> <a href="mathematics.html">Open Module 2</a></p>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="index.html"><small>Back to</small><b>Home</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Made from the modules of the AI learning manual.</span>
+  </footer>
+</div>
+</body>
+</html>

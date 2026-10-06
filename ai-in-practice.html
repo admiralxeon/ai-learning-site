@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>7. AI in practice | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 7, AI in practice: From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="7. AI in practice | AI learning manual">
+<meta property="og:description" content="Module 7, AI in practice: From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 7</span><span class="mods-t">AI in practice</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" aria-current="page" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-50-00-00-040A</b></div>
+    <div>Subject<b>AI in practice</b></div>
+    <div>Info type<b>Description</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>AI in practice: from a model to a product</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="machine-learning.html">Module 3, Machine learning</a> and <a href="generative-ai.html">Module 5, Generative AI</a> before you read this module. The other modules tell you how a model works. This module tells you how to make a model work reliably for real users, every day. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module gives a description of the work that changes a model into a product.</p>
+      <p>It tells you:</p>
+      <ul>
+        <li>The steps of the life of an AI system.</li>
+        <li>How to prepare data, and how to prevent data leakage.</li>
+        <li>Why each model needs a baseline.</li>
+        <li>How to test a model fairly with cross-validation.</li>
+        <li>How to put a model into use, and how to monitor it.</li>
+        <li>How to build, test, and control an application that uses an LLM.</li>
+        <li>How to use AI agents safely.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="from-a-model-to-a-product">
+    <div class="num">2</div>
+    <div>
+      <h2>From a model to a product</h2>
+      <p>In a project notebook, a model is finished when its test result is good. In a product, that is only the start. Real users send new data each day. The world changes. The model must stay correct, fast, safe, and affordable.</p>
+      <p>The life of an AI system is a loop, not a line. Refer to Figure 1.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 250" role="img" aria-labelledby="p1t">
+            <title id="p1t">The life of an AI system is a loop of six steps</title>
+            <defs><marker id="p1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+              <marker id="p1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--green)"/></marker></defs>
+            <rect class="box" x="20" y="50" width="105" height="64" rx="4"/><text class="lbl" x="72" y="78" text-anchor="middle" style="font-weight:600">Problem</text><text class="sm" x="72" y="97" text-anchor="middle">what and why</text>
+            <rect class="box" x="145" y="50" width="105" height="64" rx="4"/><text class="lbl" x="197" y="78" text-anchor="middle" style="font-weight:600">Data</text><text class="sm" x="197" y="97" text-anchor="middle">collect, clean</text>
+            <rect class="boxb" x="270" y="50" width="105" height="64" rx="4"/><text class="lbl" x="322" y="78" text-anchor="middle" style="font-weight:600">Train</text><text class="sm" x="322" y="97" text-anchor="middle">the model</text>
+            <rect class="box" x="395" y="50" width="105" height="64" rx="4"/><text class="lbl" x="447" y="78" text-anchor="middle" style="font-weight:600">Evaluate</text><text class="sm" x="447" y="97" text-anchor="middle">baseline, tests</text>
+            <rect class="box" x="520" y="50" width="105" height="64" rx="4"/><text class="lbl" x="572" y="78" text-anchor="middle" style="font-weight:600">Deploy</text><text class="sm" x="572" y="97" text-anchor="middle">put into use</text>
+            <rect x="645" y="50" width="100" height="64" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="695" y="78" text-anchor="middle" style="font-weight:600">Monitor</text><text class="sm" x="695" y="97" text-anchor="middle">watch results</text>
+            <g class="line" marker-end="url(#p1)"><path d="M125 82 H141"/><path d="M250 82 H266"/><path d="M375 82 H391"/><path d="M500 82 H516"/><path d="M625 82 H641"/></g>
+            <path d="M695 114 V170 H197 V118" fill="none" stroke="var(--green)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#p1g)"/>
+            <text class="sm" x="446" y="190" text-anchor="middle" style="fill:var(--green);font-weight:600">New data and new problems go back into the loop</text>
+            <text class="sm" x="380" y="232" text-anchor="middle">The model is only one step of six. Most of the work is in the other steps.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> The life of an AI system. After deployment, monitoring finds new problems, and the loop starts again.</figcaption>
+      </figure>
+
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>In 2015, Google engineers wrote that in real ML systems, the model code is only a small part of all the code. The data pipelines, tests, monitoring, and settings around it are much larger. Thus plan time for all six steps, not only for training.</p>
+      </div>
+
+      <div class="video" data-seconds="3610">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=06-AZXmwHjo" data-yt="06-AZXmwHjo" data-title="A Chat with Andrew on MLOps: From Model-centric to Data-centric AI (DeepLearningAI)"><img src="https://i.ytimg.com/vi/06-AZXmwHjo/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: A Chat with Andrew on MLOps: From Model-centric to Data-centric AI (DeepLearningAI)</span></a></div>
+        <div class="meta"><span><b>Video 1.</b> From model-centric to data-centric AI (Andrew Ng, DeepLearning.AI)</span><a href="https://www.youtube.com/watch?v=06-AZXmwHjo" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="prepare-the-data">
+    <div class="num">3</div>
+    <div>
+      <h2>Prepare the data</h2>
+      <p>Real data is never clean. Before training, do these checks. Refer also to <a href="machine-learning.html#data">Module 3, Section 4</a>.</p>
+      <h3>Missing values</h3>
+      <p>Some examples do not have a value for a feature. For example, the camera did not measure the weight of some mangoes. You can:</p>
+      <ul>
+        <li>Remove the examples with missing values, if there are only a few.</li>
+        <li>Put the median of the feature in the empty places. We call this <span class="tn" title="To fill missing values with an estimate, for example the median of the feature.">imputation</span>.</li>
+        <li>Add a feature "value is missing" (yes or no). Sometimes the fact that a value is missing is useful information.</li>
+      </ul>
+      <h3>Categories</h3>
+      <p>A model can use only numbers. A feature such as "type of mango" contains words. <span class="tn" title="A method that changes one feature with categories into many features with the values 0 or 1, one for each category.">One-hot encoding</span> changes each category into its own column with 0 or 1:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Type of mango</th><th>Alphonso</th><th>Kesar</th><th>Totapuri</th></tr></thead>
+          <tbody>
+            <tr><td>Alphonso</td><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>Kesar</td><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td>Totapuri</td><td>0</td><td>0</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Do not change categories into 1, 2, and 3. The model would think that Totapuri is "more" than Alphonso.</p>
+      <h3>Other checks</h3>
+      <ul>
+        <li><b>Duplicates.</b> Remove examples that occur two times.</li>
+        <li><b>Units.</b> Make sure that all values use the same unit, for example grams and not grams and kilograms together.</li>
+        <li><b>Scale.</b> Standardize features that have very different sizes. Refer to <a href="mathematics.html#distributions">Module 2, Section 5</a>.</li>
+      </ul>
+
+      <h3>Data leakage</h3>
+      <p><span class="tn" title="An error in which the training data contains information that will not be available when the model is used, or information from the test set. The test results become too good.">Data leakage</span> occurs when the model learns from information that it will not have in real use. The test result is excellent, but the model fails with real users.</p>
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>Examples of data leakage: (1) A feature "customer complained" helps to predict damaged mangoes, but a complaint occurs only after the sale. (2) The same mango is photographed two times, and one photograph goes into the training set and one into the test set. (3) You calculate the mean for standardization with all the data, before you divide it. Always divide the data first. Then calculate everything from the training set only.</p>
+      </div>
+      <h3>Procedure: check for data leakage</h3>
+      <ol class="steps">
+        <li>For each feature, ask: "Will this value be available at the time of the prediction?" If not, remove it.</li>
+        <li>Make sure that copies of the same item cannot go into two different sets. Divide by item, by customer, or by date.</li>
+        <li>Divide the data before you clean, scale, or select features.</li>
+        <li>If a result looks too good, for example 100% accuracy, look for leakage first.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="start-with-a-baseline">
+    <div class="num">4</div>
+    <div>
+      <h2>Start with a baseline</h2>
+      <p>A <span class="tn" title="A very simple method that gives a minimum result. A useful model must be better than the baseline.">baseline</span> is a very simple method that you compare your model with. If your model is not better than the baseline, it is not useful.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Task</th><th>A usual baseline</th></tr></thead>
+          <tbody>
+            <tr><td>Classification</td><td>Always predict the most frequent category.</td></tr>
+            <tr><td>Regression</td><td>Always predict the mean of the training labels.</td></tr>
+            <tr><td>Forecast for tomorrow</td><td>Predict the same value as today.</td></tr>
+            <tr><td>Any task</td><td>A simple rule that an expert writes, or the result of a person.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Example: in the spam data of <a href="projects.html#project-3-build-a-spam-filter">Project 3</a>, 4,825 of 5,572 messages are not spam. A "model" that always says "not spam" is 86.6% accurate. Thus a real model with 90% accuracy is only a small improvement. The model in Project 3 has 99%, so it is much better than the baseline. But also remember: the baseline finds zero spam. Its recall is 0%.</p>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Start each project with the simplest model that can work. Use a complex model only if it is clearly better. A simple model is cheaper, faster, and easier to explain.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="test-fairly-with-cross-validation">
+    <div class="num">5</div>
+    <div>
+      <h2>Test fairly with cross-validation</h2>
+      <p>With one division of the data, the result depends on luck: some test sets are easier than others. <span class="tn" title="A method that divides the data into k parts, trains k times, and each time tests on a different part. The mean of the k results is more reliable than one result.">Cross-validation</span> gives a more reliable result. Refer to Figure 2.</p>
+      <ol>
+        <li>Divide the training data into 5 equal parts. We call each part a fold.</li>
+        <li>Train the model on 4 parts. Test it on the fifth part.</li>
+        <li>Do this 5 times. Each time, use a different part for the test.</li>
+        <li>Calculate the mean and the spread of the 5 results.</li>
+      </ol>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 230" role="img" aria-labelledby="p2t">
+            <title id="p2t">Five-fold cross-validation</title>
+            <text class="sm" x="20" y="22" style="font-weight:600">Training data (divided into 5 parts)</text><text class="sm" x="600" y="22" style="font-weight:600">Final test set</text>
+            <text class="sm" x="20" y="53">Round 1</text>
+            <rect x="86" y="34" width="92" height="28" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="sm" x="132" y="52" text-anchor="middle" style="font-weight:600">Test</text>
+            <rect class="boxb" x="184" y="34" width="92" height="28" rx="3"/><text class="sm" x="230" y="52" text-anchor="middle">Train</text>
+            <rect class="boxb" x="282" y="34" width="92" height="28" rx="3"/><text class="sm" x="328" y="52" text-anchor="middle">Train</text>
+            <rect class="boxb" x="380" y="34" width="92" height="28" rx="3"/><text class="sm" x="426" y="52" text-anchor="middle">Train</text>
+            <rect class="boxb" x="478" y="34" width="92" height="28" rx="3"/><text class="sm" x="524" y="52" text-anchor="middle">Train</text>
+            <text class="sm" x="20" y="89">Round 2</text>
+            <rect class="boxb" x="86" y="70" width="92" height="28" rx="3"/><text class="sm" x="132" y="88" text-anchor="middle">Train</text>
+            <rect x="184" y="70" width="92" height="28" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="sm" x="230" y="88" text-anchor="middle" style="font-weight:600">Test</text>
+            <rect class="boxb" x="282" y="70" width="92" height="28" rx="3"/><text class="sm" x="328" y="88" text-anchor="middle">Train</text>
+            <rect class="boxb" x="380" y="70" width="92" height="28" rx="3"/><text class="sm" x="426" y="88" text-anchor="middle">Train</text>
+            <rect class="boxb" x="478" y="70" width="92" height="28" rx="3"/><text class="sm" x="524" y="88" text-anchor="middle">Train</text>
+            <text class="sm" x="20" y="125">Round 3</text>
+            <rect class="boxb" x="86" y="106" width="92" height="28" rx="3"/><text class="sm" x="132" y="124" text-anchor="middle">Train</text>
+            <rect class="boxb" x="184" y="106" width="92" height="28" rx="3"/><text class="sm" x="230" y="124" text-anchor="middle">Train</text>
+            <rect x="282" y="106" width="92" height="28" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="sm" x="328" y="124" text-anchor="middle" style="font-weight:600">Test</text>
+            <rect class="boxb" x="380" y="106" width="92" height="28" rx="3"/><text class="sm" x="426" y="124" text-anchor="middle">Train</text>
+            <rect class="boxb" x="478" y="106" width="92" height="28" rx="3"/><text class="sm" x="524" y="124" text-anchor="middle">Train</text>
+            <text class="sm" x="20" y="161">Round 4</text>
+            <rect class="boxb" x="86" y="142" width="92" height="28" rx="3"/><text class="sm" x="132" y="160" text-anchor="middle">Train</text>
+            <rect class="boxb" x="184" y="142" width="92" height="28" rx="3"/><text class="sm" x="230" y="160" text-anchor="middle">Train</text>
+            <rect class="boxb" x="282" y="142" width="92" height="28" rx="3"/><text class="sm" x="328" y="160" text-anchor="middle">Train</text>
+            <rect x="380" y="142" width="92" height="28" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="sm" x="426" y="160" text-anchor="middle" style="font-weight:600">Test</text>
+            <rect class="boxb" x="478" y="142" width="92" height="28" rx="3"/><text class="sm" x="524" y="160" text-anchor="middle">Train</text>
+            <text class="sm" x="20" y="197">Round 5</text>
+            <rect class="boxb" x="86" y="178" width="92" height="28" rx="3"/><text class="sm" x="132" y="196" text-anchor="middle">Train</text>
+            <rect class="boxb" x="184" y="178" width="92" height="28" rx="3"/><text class="sm" x="230" y="196" text-anchor="middle">Train</text>
+            <rect class="boxb" x="282" y="178" width="92" height="28" rx="3"/><text class="sm" x="328" y="196" text-anchor="middle">Train</text>
+            <rect class="boxb" x="380" y="178" width="92" height="28" rx="3"/><text class="sm" x="426" y="196" text-anchor="middle">Train</text>
+            <rect x="478" y="178" width="92" height="28" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="sm" x="524" y="196" text-anchor="middle" style="font-weight:600">Test</text>
+            <rect x="600" y="34" width="140" height="172" rx="4" fill="var(--sheet-2)" stroke="var(--rule-strong)" stroke-dasharray="5 4"/><text class="sm" x="670" y="112" text-anchor="middle">Do not use</text><text class="sm" x="670" y="130" text-anchor="middle">until the end</text>
+            <text class="sm" x="86" y="224">Result = the mean of the 5 test results, for example 91% &#177; 2%</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> Five-fold cross-validation. Each part is the test part one time. The final test set stays separate. Use it only one time, at the end.</figcaption>
+      </figure>
+
+      <h3>Hyperparameters</h3>
+      <p>Training finds the weights. But a person selects some settings before training, for example the learning rate, the number of layers, or the number of groups in k-means. We call these settings <span class="tn" title="A setting that a person selects before training, for example the learning rate or the number of layers. Training does not change it.">hyperparameters</span>. To select them, try different values, and compare the cross-validation results. Never use the final test set for this. Refer to <a href="machine-learning.html#data">Module 3, Section 4</a>.</p>
+
+      <div class="video" data-seconds="364">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=fSytzGwwBVw" data-yt="fSytzGwwBVw" data-title="Machine Learning Fundamentals: Cross Validation (StatQuest)"><img src="https://i.ytimg.com/vi/fSytzGwwBVw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Machine Learning Fundamentals: Cross Validation (StatQuest)</span></a></div>
+        <div class="meta"><span><b>Video 2.</b> Machine learning fundamentals: cross validation (StatQuest)</span><a href="https://www.youtube.com/watch?v=fSytzGwwBVw" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="put-a-model-into-use">
+    <div class="num">6</div>
+    <div>
+      <h2>Put a model into use</h2>
+      <p><span class="tn" title="The work that makes a trained model available to its users, for example in an app or on a machine.">Deployment</span> makes the model available to its users. There are three usual ways:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Way</th><th>How it works</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>Batch</td><td>The model makes many predictions at one time, for example each night.</td><td>Reports, recommendations, risk lists.</td></tr>
+            <tr><td>Online (server)</td><td>An app sends one request. The model answers in less than one second.</td><td>Chat AI, search, fraud checks during a payment.</td></tr>
+            <tr><td>On the device</td><td>The model runs on a phone, a camera, or a machine.</td><td>Work without internet, privacy, very fast answers. The mango checker at the sorting table.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Important measurements in use</h3>
+      <ul>
+        <li><b><span class="tn" title="The time between a request and its answer.">Latency</span>:</b> the time for one answer. A sorting machine needs an answer in milliseconds.</li>
+        <li><b>Cost:</b> the price of computers or of an AI service for each prediction.</li>
+        <li><b>Availability:</b> what occurs when the model or the internet does not work. Always have a fallback, for example a person or a simple rule.</li>
+      </ul>
+      <h3>Procedure: release a new model safely</h3>
+      <ol class="steps">
+        <li>Give each model a version number. Keep the old version.</li>
+        <li>Run the new model in <span class="tn" title="A test in which a new model makes predictions on real data, but its predictions are not used. People compare them with the predictions of the current system.">shadow mode</span> first: it makes predictions on real data, but nobody uses them. Compare them with the current system.</li>
+        <li>Give the new model to a small part of the users, for example 5%. Compare the results of the two groups. We call this an A/B test.</li>
+        <li>If the results are good, give the new model to all users.</li>
+        <li>If a problem occurs, go back to the old version immediately.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="monitor-the-model">
+    <div class="num">7</div>
+    <div>
+      <h2>Monitor the model</h2>
+      <p>A model does not change after training. But the world changes. Then the model becomes less accurate, often without an error message. There are two types of change:</p>
+      <ul>
+        <li><b><span class="tn" title="A change in the input data, for example new types of products or new camera lighting.">Data drift</span>:</b> the inputs change. Example: a new type of mango, a new camera, or summer light in place of winter light.</li>
+        <li><b><span class="tn" title="A change in the relation between the inputs and the correct answer. The same input now needs a different answer.">Concept drift</span>:</b> the meaning of the correct answer changes. Example: spam senders change their words, so old spam words do not work any more.</li>
+      </ul>
+      <h3>What to monitor</h3>
+      <ul>
+        <li>The results that you can check: a sample of predictions each week, checked by a person.</li>
+        <li>The inputs: are the means and the distributions still similar to the training data?</li>
+        <li>The outputs: did the percentage of "damaged" predictions suddenly change?</li>
+        <li>Complaints, latency, and cost.</li>
+      </ul>
+      <p>Set a limit for each measurement. If a value goes past the limit, the system sends an alert, and a person examines the problem. Often the solution is to collect new data and train the model again.</p>
+
+      <div class="playground" data-pg="drift" id="try-drift">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Keep a model accurate for 18 months</h3></div>
+        <p class="pg-intro">After month 6, a new type of mango comes to the farm, and the recall of the checker starts to decrease. Turn monitoring on or off, and change the alert limit. Find a good balance between the recall and the cost of training again.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <div class="story" id="project-part-7">
+        <div class="story-head"><span class="story-icon" aria-hidden="true">&#x1F96D;</span><div><span class="story-kicker">Project: the mango checker &middot; Part 7 of 7</span><h3>One year later</h3></div></div>
+        <p>The mango checker now works on 12 farms. One year after the first release, the team looks at its monitoring dashboard:</p>
+        <ul>
+          <li>Each week, a worker checks 200 random mangoes from each box. The recall for damaged mangoes was 97%. In the last month, it decreased to 88%.</li>
+          <li>The cause: a new camera on three farms. Its pictures are brighter. This is data drift.</li>
+          <li>The team collects 1,500 photographs from the new cameras, trains the model again, and tests it in shadow mode for one week. Then they release version 2.1. The recall is 96% again.</li>
+          <li>The farmers' chatbot from Part 5 now answers 3,000 questions each day. The team tests each new prompt on a set of 50 questions before they change it.</li>
+        </ul>
+        <details class="story-think"><summary><b>Think:</b> why did the team find the problem only through the weekly check, and not through an error message?</summary><p>The model did not stop. It continued to give answers, but more of them were wrong. A model that gets worse looks the same as a good model. Only a check of real results shows the problem.</p></details>
+        <nav class="story-nav" aria-label="Project, part 7 of 7: previous and next part"><a href="responsible-ai.html#project-part-6">&larr; Part 6</a><span class="story-end">This is the last part of the project.</span></nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="build-with-large-language-models">
+    <div class="num">8</div>
+    <div>
+      <h2>Build with large language models</h2>
+      <p>Many AI products today do not train a model. They use an LLM from a company, and add a prompt, documents (RAG), and tools. Refer to <a href="generative-ai.html#connect-a-model-to-documents-and-tools">Module 5, Section 8</a>. This is fast, but it needs its own tests and controls.</p>
+
+      <h3>Test an LLM application</h3>
+      <p>An LLM gives different answers each time, and a small change in the prompt can change many answers. Thus make an <span class="tn" title="A fixed set of example inputs with the correct or good answers. You test each new version of a prompt or model with it.">evaluation set</span>: a fixed list of example questions with good answers. Use it like the test in <a href="projects.html#project-6-a-prompt-lab">Project 6</a>.</p>
+      <ol class="steps">
+        <li>Collect 50 to 200 real questions, including difficult ones and questions that the system must refuse.</li>
+        <li>For each question, write what a good answer must contain.</li>
+        <li>Each time you change the prompt, the documents, or the model, run all the questions again.</li>
+        <li>Compare the score with the previous version. Do not release a version with a lower score.</li>
+      </ol>
+      <p>Some teams use a second LLM to grade the answers. This saves time, but check a sample of its grades by hand. The grader can also make errors.</p>
+
+      <h3>Guardrails</h3>
+      <p><span class="tn" title="A check before or after the model that stops unsafe, private, or wrong inputs and outputs.">Guardrails</span> are checks around the model:</p>
+      <ul>
+        <li><b>Input checks:</b> remove private data, and stop requests that are not allowed.</li>
+        <li><b>Output checks:</b> check the format, check that the answer uses the documents, and stop harmful content.</li>
+        <li><b>Defense against prompt injection:</b> treat text from web pages and documents as data, not as instructions. Refer to <a href="generative-ai.html#risks-of-generative-ai">Module 5, Section 9</a>.</li>
+      </ul>
+
+      <h3>Calculate the cost</h3>
+      <p>AI services usually charge for each token, and output tokens cost more than input tokens. Example, with prices that are only for this calculation: input costs &#8377;250 for 1 million tokens, and output costs &#8377;1,000 for 1 million tokens.</p>
+      <p class="formula">one answer = 2,000 input tokens &times; &#8377;250 &divide; 1,000,000 + 300 output tokens &times; &#8377;1,000 &divide; 1,000,000 = &#8377;0.50 + &#8377;0.30 = &#8377;0.80</p>
+      <p>For 3,000 answers each day, the cost is approximately &#8377;2,400 each day. RAG adds input tokens, because the found text goes into each prompt. Thus send only the parts of the documents that are necessary.</p>
+
+      <div class="video" data-seconds="2560">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=bZQun8Y4L2A" data-yt="bZQun8Y4L2A" data-title="State of GPT (Andrej Karpathy, Microsoft Build)"><img src="https://i.ytimg.com/vi/bZQun8Y4L2A/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: State of GPT (Andrej Karpathy, Microsoft Build)</span></a></div>
+        <div class="meta"><span><b>Video 3.</b> State of GPT (Andrej Karpathy, Microsoft Build)</span><a href="https://www.youtube.com/watch?v=bZQun8Y4L2A" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="agents-in-practice">
+    <div class="num">9</div>
+    <div>
+      <h2>Agents in practice</h2>
+      <p>An AI agent works in a loop. It plans a step, uses a tool, looks at the result, and plans the next step. Refer to Figure 3.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 260" role="img" aria-labelledby="p3t">
+            <title id="p3t">The loop of an AI agent</title>
+            <defs><marker id="p3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="20" y="95" width="110" height="60" rx="4"/><text class="lbl" x="75" y="121" text-anchor="middle" style="font-weight:600">Goal</text><text class="sm" x="75" y="140" text-anchor="middle">from the user</text>
+            <path class="line" d="M130 125 H160 V60 H186" marker-end="url(#p3)"/>
+            <rect class="boxb" x="190" y="30" width="130" height="60" rx="4"/><text class="lbl" x="255" y="56" text-anchor="middle" style="font-weight:600">(1) Plan</text><text class="sm" x="255" y="75" text-anchor="middle">the LLM selects a step</text>
+            <rect class="box" x="400" y="30" width="140" height="60" rx="4"/><text class="lbl" x="470" y="56" text-anchor="middle" style="font-weight:600">(2) Act</text><text class="sm" x="470" y="75" text-anchor="middle">use a tool</text>
+            <rect class="box" x="300" y="160" width="140" height="60" rx="4"/><text class="lbl" x="370" y="186" text-anchor="middle" style="font-weight:600">(3) Observe</text><text class="sm" x="370" y="205" text-anchor="middle">read the result</text>
+            <path class="line" d="M320 60 H396" marker-end="url(#p3)"/>
+            <path class="line" d="M470 90 V190 H444" marker-end="url(#p3)"/>
+            <path class="line" d="M300 190 H255 V94" marker-end="url(#p3)"/>
+            <text class="sm" x="235" y="140" text-anchor="end">repeat</text>
+            <rect x="600" y="30" width="140" height="60" rx="4" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="lbl" x="670" y="56" text-anchor="middle" style="font-weight:600">Person approves</text><text class="sm" x="670" y="75" text-anchor="middle">payments, emails</text>
+            <path d="M540 60 H596" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#p3)"/>
+            <rect x="600" y="160" width="140" height="60" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="670" y="186" text-anchor="middle" style="font-weight:600">Answer</text><text class="sm" x="670" y="205" text-anchor="middle">when the goal is met</text>
+            <path class="line" d="M440 200 H596" marker-end="url(#p3)"/>
+            <text class="sm" x="518" y="246" text-anchor="middle">Limits: a maximum number of steps, a list of allowed tools, and a record of each step.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 3.</b> The loop of an AI agent. Important actions wait for a person. The loop stops at a maximum number of steps.</figcaption>
+      </figure>
+
+      <h3>Workflow or agent?</h3>
+      <p>If the steps are always the same, use a fixed workflow: step 1, then step 2, then step 3. It is cheaper, faster, and easier to test. Use an agent only when the steps must change for each task.</p>
+      <h3>Rules for safe agents</h3>
+      <ul>
+        <li>Give the agent only the tools and the permissions that it needs. For example, it can read the calendar, but it cannot delete events.</li>
+        <li>Let a person approve each important action. Refer to <a href="responsible-ai.html#explanations-and-human-oversight">Module 6, Section 5</a>.</li>
+        <li>Set a maximum number of steps and a maximum cost for each task.</li>
+        <li>Keep a record of each step, so that you can find the cause of an error.</li>
+        <li>Test the agent with an evaluation set, as for each LLM application.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="summary">
+    <div class="num">10</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>The model is only one step in the life of an AI system. Plan for data, evaluation, deployment, and monitoring.</li>
+        <li>Clean the data, and look for data leakage. Divide the data before you prepare it.</li>
+        <li>Compare each model with a simple baseline.</li>
+        <li>Cross-validation gives a more reliable result than one test. Select hyperparameters with it, not with the final test set.</li>
+        <li>Release new models step by step: shadow mode, a small A/B test, then all users. Keep the old version.</li>
+        <li>Monitor real results. Data drift and concept drift make a model worse without an error message.</li>
+        <li>Test LLM applications with an evaluation set, use guardrails, and calculate the cost.</li>
+        <li>Use agents only when necessary, with limited tools, limits, records, and human approval.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="knowledge-check">
+    <div class="num">11</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "Which step of the life of an AI system comes after deployment?", "options": ["Monitoring", "Training", "Collecting the first data", "Nothing. The work is finished."], "answer": 0, "explain": "After deployment, monitor the real results. Problems send the system back into the loop.", "ref": "from-a-model-to-a-product"},
+ {"q": "A feature \"type of mango\" has the values Alphonso, Kesar, and Totapuri. What is the best way to give it to a model?", "options": ["One-hot encoding: one column with 0 or 1 for each type", "Change the types into 1, 2, and 3", "Remove the feature", "Use the first letter of each type"], "answer": 0, "explain": "Numbers 1, 2, and 3 tell the model that one type is \"more\" than another. One-hot encoding does not.", "ref": "prepare-the-data"},
+ {"q": "A model is 100% accurate on the test set, but it makes many errors with real users. What is the most probable cause?", "options": ["Data leakage", "The learning rate is too small", "The baseline is too high", "The model has too few users"], "answer": 0, "explain": "A result that is too good is frequently a sign of data leakage: the model used information that it does not have in real use.", "ref": "prepare-the-data"},
+ {"q": "90% of the emails are not spam. Your model is 91% accurate. What is true?", "options": ["The model is only a little better than a baseline that always says \"not spam\".", "The model is excellent.", "The model is worse than the baseline.", "Accuracy cannot be compared."], "answer": 0, "explain": "A baseline that always predicts the most frequent category is already 90% accurate.", "ref": "start-with-a-baseline"},
+ {"q": "Why use cross-validation?", "options": ["One division of the data can give a lucky or unlucky result. The mean of many tests is more reliable.", "It makes training faster.", "It removes the need for a test set.", "It makes the model larger."], "answer": 0, "explain": "Cross-validation tests the model on each part of the data and gives the mean and the spread of the results.", "ref": "test-fairly-with-cross-validation"},
+ {"q": "What is a hyperparameter?", "options": ["A setting that a person selects before training, for example the learning rate", "A weight that training changes", "A feature of the data", "A type of test set"], "answer": 0, "explain": "Training changes the weights. A person selects the hyperparameters, and compares them with cross-validation.", "ref": "test-fairly-with-cross-validation"},
+ {"q": "What is shadow mode?", "options": ["The new model makes predictions on real data, but nobody uses them yet.", "The model runs only at night.", "The model hides its answers from users.", "A dark theme for the app."], "answer": 0, "explain": "Shadow mode lets you compare a new model with the current system without risk.", "ref": "put-a-model-into-use"},
+ {"q": "Spam senders change their words, and the spam filter becomes less accurate. What is this?", "options": ["Concept drift", "Data leakage", "One-hot encoding", "A baseline"], "answer": 0, "explain": "The relation between the inputs and the correct answer changed. This is concept drift.", "ref": "monitor-the-model"},
+ {"q": "The farmers' chatbot gets a new prompt. What must the team do before they release it?", "options": ["Run the evaluation set with the new prompt, and compare the score with the old prompt.", "Release it, because the new prompt is longer.", "Ask the chatbot if the new prompt is better.", "Nothing. Prompts do not change answers."], "answer": 0, "explain": "A small change in a prompt can change many answers. Test each version with the same evaluation set.", "ref": "build-with-large-language-models", "scenario": true},
+ {"q": "The mango checker's recall decreases from 97% to 88% after new cameras are installed. What is the best response?", "options": ["Collect photographs from the new cameras, train again, test in shadow mode, then release.", "Wait. The recall will become better without changes.", "Remove the monitoring, because it shows bad results.", "Use the model only in the morning."], "answer": 0, "explain": "This is data drift. New data from the new cameras fixes it. Shadow mode tests the new version safely.", "ref": "monitor-the-model", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="technical-names">
+    <div class="num">12</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>A/B test</dt><dd>A test that gives a new version to a small group of users and compares their results with the other users.</dd>
+        <dt>Baseline</dt><dd>A very simple method that gives a minimum result to compare with.</dd>
+        <dt>Concept drift</dt><dd>A change in the relation between the inputs and the correct answer.</dd>
+        <dt>Cross-validation</dt><dd>A method that trains and tests k times, each time on a different part of the data.</dd>
+        <dt>Data drift</dt><dd>A change in the input data after deployment.</dd>
+        <dt>Data leakage</dt><dd>Training data that contains information that is not available in real use, or that comes from the test set.</dd>
+        <dt>Deployment</dt><dd>The work that makes a trained model available to its users.</dd>
+        <dt>Evaluation set</dt><dd>A fixed set of example inputs with good answers, to test each new version.</dd>
+        <dt>Guardrail</dt><dd>A check before or after the model that stops unsafe inputs and outputs.</dd>
+        <dt>Hyperparameter</dt><dd>A setting that a person selects before training.</dd>
+        <dt>Imputation</dt><dd>To fill missing values with an estimate, for example the median.</dd>
+        <dt>Latency</dt><dd>The time between a request and its answer.</dd>
+        <dt>One-hot encoding</dt><dd>A method that changes one feature with categories into columns with 0 or 1.</dd>
+        <dt>Shadow mode</dt><dd>A test in which a new model makes predictions on real data that nobody uses yet.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="responsible-ai.html"><small>Previous module</small><b>6. Responsible AI</b></a>
+    <a class="next" href="review.html"><small>Last step</small><b>Final review</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Videos: DeepLearning.AI, StatQuest, and Microsoft Developer on YouTube.</span>
+  </footer>
+</div>
+</body>
+</html>
