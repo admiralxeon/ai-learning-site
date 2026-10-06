@@ -1,0 +1,3 @@
+# Keep line endings the same on every computer. tools/build.py writes LF.
+* text=auto eol=lf
+*.svg text eol=lf

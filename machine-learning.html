@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2. Machine learning | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 2, Machine learning: The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="2. Machine learning | AI learning manual">
+<meta property="og:description" content="Module 2, Machine learning: The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav aria-label="Modules">
+    <a href="index.html">Home</a>
+    <a href="ai.html">1. Artificial intelligence</a>
+    <a href="machine-learning.html" aria-current="page">2. Machine learning</a>
+    <a href="deep-learning.html">3. Deep learning</a>
+    <a href="generative-ai.html">4. Generative AI</a>
+    <a href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-10-00-00-040A</b></div>
+    <div>Subject<b>Machine learning</b></div>
+    <div>Info type<b>Description</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Machine learning: general description</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai.html">Module 1, Artificial intelligence</a> before you read this module. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module gives a description of machine learning (ML).</p>
+      <p>It tells you:</p>
+      <ul>
+        <li>The steps that make an ML system.</li>
+        <li>The types of data that ML uses.</li>
+        <li>The three types of learning.</li>
+        <li>How a model finds its errors and makes them smaller.</li>
+        <li>How to measure the quality of a model.</li>
+        <li>Some common ML methods.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="what-machine-learning-is">
+    <div class="num">2</div>
+    <div>
+      <h2>What machine learning is</h2>
+      <p>Machine learning is one part of AI. In ML, a computer learns from examples. A person does not write the rules. The computer finds the rules in the data.</p>
+      <p>Think of a person who learns to identify ripe mangoes. Nobody gives that person a list of rules. The person looks at many mangoes. Each time, somebody tells the person "ripe" or "not ripe". After many examples, the person can identify a ripe mango alone. ML uses the same principle.</p>
+
+      <div class="video" data-seconds="765">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=Gv9_4yMHFhI" data-yt="Gv9_4yMHFhI" data-title="A Gentle Introduction to Machine Learning (StatQuest)"><img src="https://i.ytimg.com/vi/Gv9_4yMHFhI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: A Gentle Introduction to Machine Learning (StatQuest)</span></a></div>
+        <div class="meta"><span><b>Video 1.</b> A gentle introduction to machine learning (StatQuest)</span><span><a href="https://www.youtube.com/watch?v=Gv9_4yMHFhI" target="_blank" rel="noopener">Open on YouTube</a> | <a href="https://www.youtube.com/results?search_query=StatQuest+A+Gentle+Introduction+to+Machine+Learning" target="_blank" rel="noopener">Find by title</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="the-machine-learning-workflow">
+    <div class="num">3</div>
+    <div>
+      <h2>The machine learning workflow</h2>
+      <p>A team does these steps to make an ML system. Refer to Figure 1.</p>
+      <ol class="steps">
+        <li>Define the problem. Write what the system must predict.</li>
+        <li>Collect data. Get many examples of the problem.</li>
+        <li>Prepare the data. Remove errors and examples that occur two times.</li>
+        <li>Divide the data into three sets. Refer to Section 4.</li>
+        <li>Select a type of model.</li>
+        <li>Train the model with the training data.</li>
+        <li>Evaluate the model with data that it did not see before.</li>
+        <li>Put the model into use. Monitor its results.</li>
+      </ol>
+      <p>If the model is not sufficiently accurate at step 7, adjust it and train it again. When new data becomes available, go back to step 2.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 770 270" role="img" aria-labelledby="mf1">
+            <title id="mf1">The eight steps of the machine learning workflow</title>
+            <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+            <marker id="a1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--blue)"/></marker></defs>
+            <rect class="box" x="20" y="30" width="160" height="56"/><text class="lbl" x="100" y="63" text-anchor="middle">(1) Define problem</text>
+            <rect class="box" x="210" y="30" width="160" height="56"/><text class="lbl" x="290" y="63" text-anchor="middle">(2) Collect data</text>
+            <rect class="box" x="400" y="30" width="160" height="56"/><text class="lbl" x="480" y="63" text-anchor="middle">(3) Prepare data</text>
+            <rect class="box" x="590" y="30" width="160" height="56"/><text class="lbl" x="670" y="63" text-anchor="middle">(4) Divide data</text>
+            <rect class="boxb" x="590" y="160" width="160" height="56"/><text class="lbl" x="670" y="193" text-anchor="middle">(5) Select model</text>
+            <rect class="boxb" x="400" y="160" width="160" height="56"/><text class="lbl" x="480" y="193" text-anchor="middle">(6) Train</text>
+            <rect class="boxb" x="210" y="160" width="160" height="56"/><text class="lbl" x="290" y="193" text-anchor="middle">(7) Evaluate</text>
+            <rect class="box" x="20" y="160" width="160" height="56" style="stroke:var(--green);stroke-width:2"/><text class="lbl" x="100" y="193" text-anchor="middle">(8) Use and monitor</text>
+            <path class="line" d="M180 58 H206" marker-end="url(#a1)"/>
+            <path class="line" d="M370 58 H396" marker-end="url(#a1)"/>
+            <path class="line" d="M560 58 H586" marker-end="url(#a1)"/>
+            <path class="line" d="M670 86 V156" marker-end="url(#a1)"/>
+            <path class="line" d="M590 188 H564" marker-end="url(#a1)"/>
+            <path class="line" d="M400 188 H374" marker-end="url(#a1)"/>
+            <path class="line" d="M210 188 H184" marker-end="url(#a1)"/>
+            <path class="lineb" d="M290 216 C290 252 480 252 480 220" stroke-dasharray="5 4" marker-end="url(#a1b)"/>
+            <text class="sm" x="385" y="264" text-anchor="middle">Not accurate: adjust and train again</text>
+            <path class="lineb" d="M100 160 V122 H290 V90" stroke-dasharray="5 4" marker-end="url(#a1b)"/>
+            <text class="sm" x="120" y="116">New data</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> The ML workflow. The dashed lines show the two loops back.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="data">
+    <div class="num">4</div>
+    <div>
+      <h2>Data</h2>
+      <h3>Features and labels</h3>
+      <p>ML data is usually a table. Each row is one example. Each column gives one item of information about the example. We call these columns <span class="tn" title="An input value that the model uses to make a prediction. For example: the area of a flat.">features</span>. The value that the model must predict is the <span class="tn" title="The correct answer for an example. The model must learn to predict it.">label</span>. Refer to Figure 2.</p>
+
+      <figure>
+        <div class="art">
+          <div class="tablewrap" style="margin:0">
+            <table>
+              <thead>
+                <tr class="th-groups"><th colspan="4" scope="colgroup">Features: the inputs</th><th scope="col" class="th-label">Label: the answer</th></tr>
+                <tr><th>Area (m²)</th><th>Bedrooms</th><th>Floor</th><th>Distance to station (km)</th><th class="th-label">Price (₹ lakh)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>650</td><td>2</td><td>4</td><td>0.8</td><td>142</td></tr>
+                <tr><td>420</td><td>1</td><td>2</td><td>2.5</td><td>78</td></tr>
+                <tr><td>980</td><td>3</td><td>11</td><td>1.2</td><td>235</td></tr>
+                <tr><td>700</td><td>2</td><td>7</td><td>3.1</td><td>?</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <figcaption><b>Figure 2.</b> Data to predict the price of a flat. The blue columns are features. The green column is the label. The model must predict the "?" in the last row. All values are only examples.</figcaption>
+      </figure>
+
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>Bad data makes a bad model. If the data has errors, gaps, or bias, the model learns them. Always do a check of the data before training.</p>
+      </div>
+
+      <h3>Three sets of data</h3>
+      <p>Before training, divide the data into three sets. Refer to Figure 3.</p>
+      <ul>
+        <li><b>Training set.</b> The model learns from this set.</li>
+        <li><b>Validation set.</b> You use this set to adjust the model during development.</li>
+        <li><b>Test set.</b> You use this set one time, at the end. It shows the real accuracy of the model.</li>
+      </ul>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 130" role="img" aria-labelledby="mf3">
+            <title id="mf3">Data divided into training, validation and test sets</title>
+            <rect x="20" y="30" width="504" height="50" fill="var(--blue)"/>
+            <rect x="524" y="30" width="108" height="50" fill="var(--blue-soft)" stroke="var(--blue)"/>
+            <rect x="632" y="30" width="108" height="50" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <text class="lbl" x="272" y="60" text-anchor="middle" style="fill:var(--on-blue);font-weight:600">Training set: 70%</text>
+            <text class="lbl" x="578" y="60" text-anchor="middle">Validation: 15%</text>
+            <text class="lbl" x="686" y="60" text-anchor="middle">Test: 15%</text>
+            <text class="sm" x="20" y="105">The model learns from this data.</text>
+            <text class="sm" x="524" y="105">Adjust the model.</text>
+            <text class="sm" x="632" y="105">Final check only.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 3.</b> A usual division of the data. The percentages can change for different projects.</figcaption>
+      </figure>
+
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Do not let the model see the test set during training. If it sees the test set, the test result will be too good. It will not show the real accuracy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="supervised-learning">
+    <div class="num">5</div>
+    <div>
+      <h2>Supervised learning</h2>
+      <p>In supervised learning, each example has a label. The model learns the relation between the features and the label. There are two main types. Refer to Figure 4.</p>
+      <ul>
+        <li><b><span class="tn" title="Supervised learning that predicts a number.">Regression</span></b> predicts a number. Example: the price of a flat.</li>
+        <li><b><span class="tn" title="Supervised learning that predicts a category.">Classification</span></b> predicts a category. Example: "spam" or "not spam".</li>
+      </ul>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 280" role="img" aria-labelledby="mf4">
+            <title id="mf4">Regression with a line through points, and classification with a boundary between two groups</title>
+            <text class="hd" x="50" y="26">A. Regression</text>
+            <path class="line" d="M50 40 V230 H340"/>
+            <text class="sm" x="195" y="255" text-anchor="middle">Area of the flat</text>
+            <text class="sm" x="40" y="135" text-anchor="middle" transform="rotate(-90 40 135)">Price</text>
+            <g fill="var(--ink)">
+              <circle cx="70" cy="205" r="4"/><circle cx="95" cy="195" r="4"/><circle cx="120" cy="178" r="4"/><circle cx="140" cy="182" r="4"/>
+              <circle cx="165" cy="160" r="4"/><circle cx="190" cy="152" r="4"/><circle cx="210" cy="146" r="4"/><circle cx="235" cy="128" r="4"/>
+              <circle cx="260" cy="122" r="4"/><circle cx="285" cy="106" r="4"/><circle cx="310" cy="94" r="4"/><circle cx="330" cy="88" r="4"/>
+            </g>
+            <path d="M60 214 L338 80" stroke="var(--green)" stroke-width="3" fill="none"/>
+            <text class="sm" x="230" y="70" style="fill:var(--green)">Learned line</text>
+
+            <text class="hd" x="430" y="26">B. Classification</text>
+            <path class="line" d="M430 40 V230 H720"/>
+            <text class="sm" x="575" y="255" text-anchor="middle">Feature 1</text>
+            <text class="sm" x="420" y="135" text-anchor="middle" transform="rotate(-90 420 135)">Feature 2</text>
+            <g fill="var(--blue)">
+              <circle cx="470" cy="190" r="5"/><circle cx="490" cy="210" r="5"/><circle cx="510" cy="180" r="5"/><circle cx="480" cy="160" r="5"/>
+              <circle cx="530" cy="205" r="5"/><circle cx="550" cy="172" r="5"/><circle cx="500" cy="140" r="5"/>
+            </g>
+            <g fill="none" stroke="var(--red)" stroke-width="2">
+              <rect x="596" y="86" width="9" height="9"/><rect x="626" y="106" width="9" height="9"/><rect x="656" y="66" width="9" height="9"/>
+              <rect x="686" y="96" width="9" height="9"/><rect x="616" y="56" width="9" height="9"/><rect x="666" y="136" width="9" height="9"/><rect x="696" y="56" width="9" height="9"/>
+            </g>
+            <path d="M440 70 L712 220" stroke="var(--green)" stroke-width="3" stroke-dasharray="8 5" fill="none"/>
+            <text class="sm" x="600" y="216" style="fill:var(--blue)">Not spam</text>
+            <text class="sm" x="640" y="40" style="fill:var(--red)">Spam</text>
+            <text class="sm" x="455" y="60" style="fill:var(--green)">Learned boundary</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 4.</b> Regression finds a line that predicts a number. Classification finds a boundary that divides the categories.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="unsupervised-learning">
+    <div class="num">6</div>
+    <div>
+      <h2>Unsupervised learning</h2>
+      <p>In unsupervised learning, the examples do not have labels. The model finds patterns alone. A usual task is <span class="tn" title="A task that puts similar examples into the same group.">clustering</span>. The model puts similar examples into groups. Refer to Figure 5.</p>
+      <p>Example: a shop has data about its customers. Nobody knows the types of customer. The model finds three groups: students, families, and office workers. Then the shop can send different offers to each group.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 260" role="img" aria-labelledby="mf5">
+            <title id="mf5">Points with no labels, then the same points in three clusters</title>
+            <defs>
+              <g id="cl1"><circle cx="110" cy="80" r="5"/><circle cx="130" cy="95" r="5"/><circle cx="100" cy="105" r="5"/><circle cx="140" cy="70" r="5"/><circle cx="120" cy="115" r="5"/><circle cx="150" cy="100" r="5"/></g>
+              <g id="cl2"><circle cx="250" cy="85" r="5"/><circle cx="270" cy="100" r="5"/><circle cx="285" cy="80" r="5"/><circle cx="260" cy="120" r="5"/><circle cx="295" cy="110" r="5"/><circle cx="240" cy="105" r="5"/></g>
+              <g id="cl3"><circle cx="180" cy="190" r="5"/><circle cx="200" cy="205" r="5"/><circle cx="170" cy="215" r="5"/><circle cx="215" cy="185" r="5"/><circle cx="195" cy="175" r="5"/><circle cx="225" cy="210" r="5"/></g>
+            </defs>
+            <text class="hd" x="40" y="30">A. Data with no labels</text>
+            <rect x="40" y="45" width="300" height="200" fill="none" class="faint"/>
+            <g fill="var(--muted)"><use href="#cl1"/><use href="#cl2"/><use href="#cl3"/></g>
+
+            <path class="line" d="M352 145 H400" marker-end="url(#a1)"/>
+
+            <text class="hd" x="420" y="30">B. Three clusters found</text>
+            <rect x="420" y="45" width="300" height="200" fill="none" class="faint"/>
+            <g transform="translate(380 0)">
+              <g fill="var(--blue)"><use href="#cl1"/></g>
+              <g fill="var(--red)"><use href="#cl2"/></g>
+              <g fill="var(--green)"><use href="#cl3"/></g>
+              <ellipse cx="125" cy="93" rx="42" ry="35" fill="none" stroke="var(--blue)" stroke-dasharray="4 3"/>
+              <ellipse cx="267" cy="100" rx="42" ry="34" fill="none" stroke="var(--red)" stroke-dasharray="4 3"/>
+              <ellipse cx="198" cy="195" rx="44" ry="33" fill="none" stroke="var(--green)" stroke-dasharray="4 3"/>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 5.</b> Clustering. The model finds the groups. It does not know the names of the groups. A person gives the names after.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="reinforcement-learning">
+    <div class="num">7</div>
+    <div>
+      <h2>Reinforcement learning</h2>
+      <p>In reinforcement learning, an <span class="tn" title="The program that learns and makes decisions in reinforcement learning.">agent</span> learns by trial and error. The agent is in an <span class="tn" title="The world that the agent acts in. It can be a game, a simulation, or the real world.">environment</span>. Refer to Figure 6.</p>
+      <ol>
+        <li>The agent sees the current condition of the environment. We call this the <span class="tn" title="The current condition of the environment.">state</span>.</li>
+        <li>The agent does an action.</li>
+        <li>The environment changes.</li>
+        <li>The agent gets a <span class="tn" title="A number that tells the agent if an action was good or bad.">reward</span>. A good action gives a high reward. A bad action gives a low reward.</li>
+        <li>The agent changes its behavior to get more reward in the future.</li>
+      </ol>
+      <p>Robots, game programs, and some parts of chat AI training use this method.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 240" role="img" aria-labelledby="mf6">
+            <title id="mf6">The agent and environment loop in reinforcement learning</title>
+            <rect class="boxb" x="70" y="80" width="190" height="80"/><text class="hd" x="165" y="118" text-anchor="middle">Agent</text><text class="sm" x="165" y="138" text-anchor="middle">makes decisions</text>
+            <rect class="box" x="500" y="80" width="190" height="80"/><text class="hd" x="595" y="118" text-anchor="middle">Environment</text><text class="sm" x="595" y="138" text-anchor="middle">game, robot area, simulation</text>
+            <path class="line" d="M165 80 V40 H595 V76" marker-end="url(#a1)"/>
+            <text class="lbl" x="380" y="32" text-anchor="middle">Action</text>
+            <path class="line" d="M595 160 V200 H165 V164" marker-end="url(#a1)"/>
+            <text class="lbl" x="380" y="222" text-anchor="middle">New state + reward</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 6.</b> The reinforcement learning loop. The agent tries to get the maximum total reward.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="how-a-model-makes-its-errors-smaller">
+    <div class="num">8</div>
+    <div>
+      <h2>How a model makes its errors smaller</h2>
+      <h3>The loss</h3>
+      <p>During training, the system measures the errors of the model. The result is one number. We call this number the <span class="tn" title="A number that shows how wrong the model is. Training tries to make it as small as possible.">loss</span>. A high loss shows many errors. A low loss shows few errors. The objective of training is to make the loss as low as possible.</p>
+
+      <h3>Gradient descent</h3>
+      <p>Most models use a method with the name <span class="tn" title="A method that adjusts the weights step by step, in the direction that decreases the loss.">gradient descent</span>. Think of a person on a hill in fog. The person cannot see the bottom. But the person can feel the slope under the feet. The person takes a step downhill. Then the person feels the slope again and takes the next step. Gradient descent does the same thing with the loss. Refer to Figure 7.</p>
+      <ol>
+        <li>Calculate the loss for the current weights.</li>
+        <li>Calculate the slope of the loss. This slope is the <span class="tn" title="The slope of the loss. It shows which direction makes the loss increase.">gradient</span>.</li>
+        <li>Move the weights a small step in the downhill direction.</li>
+        <li>Do steps 1 to 3 again until the loss stops decreasing.</li>
+      </ol>
+      <p>The size of each step is the <span class="tn" title="A setting that controls the size of each step in gradient descent.">learning rate</span>.</p>
+      <p>Neural networks also use gradient descent. They use a method with the name backpropagation to calculate the gradient. Refer to <a href="deep-learning.html#how-a-deep-network-learns">Module 3, Section 4</a>.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 290" role="img" aria-labelledby="mf7">
+            <title id="mf7">Gradient descent steps going down a loss curve to the minimum</title>
+            <defs><marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--green)"/></marker></defs>
+            <path class="line" d="M80 20 V250 H700"/>
+            <text class="sm" x="390" y="275" text-anchor="middle">Value of a weight</text>
+            <text class="sm" x="66" y="135" text-anchor="middle" transform="rotate(-90 66 135)">Loss</text>
+            <path d="M100 240 Q380 -160 660 240" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+            <g fill="var(--green)">
+              <circle cx="140" cy="187" r="7"/><circle cx="220" cy="105" r="7"/><circle cx="280" cy="66" r="7"/><circle cx="330" cy="46" r="7"/><circle cx="362" cy="41" r="7"/>
+            </g>
+            <g stroke="var(--green)" stroke-width="2" fill="none" marker-end="url(#a7)">
+              <path d="M150 177 Q170 130 210 112"/><path d="M230 98 Q250 75 270 70"/><path d="M290 62 Q308 50 320 48"/><path d="M340 44 Q350 40 353 41"/>
+            </g>
+            <text class="lbl" x="150" y="210">Start: high loss</text>
+            <line x1="380" y1="40" x2="380" y2="250" stroke="var(--rule)" stroke-dasharray="4 4"/>
+            <text class="lbl" x="390" y="72">Minimum loss</text>
+            <text class="sm" x="390" y="90">best weight value</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 7.</b> Gradient descent. Each green step moves downhill. The steps become smaller near the bottom because the slope becomes smaller.</figcaption>
+      </figure>
+
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Select the learning rate carefully. If it is too large, the model jumps over the bottom and does not become accurate. If it is too small, training is very slow.</p>
+      </div>
+
+      <div class="video" data-seconds="1233">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=IHZwWFHWa-w" data-yt="IHZwWFHWa-w" data-title="Gradient descent, how neural networks learn (3Blue1Brown)"><img src="https://i.ytimg.com/vi/IHZwWFHWa-w/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Gradient descent, how neural networks learn (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>Video 2.</b> Gradient descent, how neural networks learn (3Blue1Brown)</span><span><a href="https://www.youtube.com/watch?v=IHZwWFHWa-w" target="_blank" rel="noopener">Open on YouTube</a> | <a href="https://www.youtube.com/results?search_query=3Blue1Brown+Gradient+descent+how+neural+networks+learn" target="_blank" rel="noopener">Find by title</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="overfitting-and-underfitting">
+    <div class="num">9</div>
+    <div>
+      <h2>Overfitting and underfitting</h2>
+      <p>A good model works correctly on new data. It does not only remember the training data. Refer to Figure 8.</p>
+      <ul>
+        <li><b><span class="tn" title="The model is too simple. It does not find the pattern in the data.">Underfitting</span>.</b> The model is too simple. It does not find the pattern. It makes errors on the training data and on new data.</li>
+        <li><b>Good fit.</b> The model finds the general pattern. It works correctly on new data.</li>
+        <li><b><span class="tn" title="The model remembers the training data, including its noise. It does not work well on new data.">Overfitting</span>.</b> The model is too complex. It remembers each training example, also the random errors. It makes many errors on new data.</li>
+      </ul>
+      <p>Overfitting is like a student who memorizes the answers to old exam papers. That student cannot answer a new question.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 240" role="img" aria-labelledby="mf8">
+            <title id="mf8">Three panels: underfitting, good fit, overfitting</title>
+            <defs>
+              <g id="ofp" fill="var(--ink)">
+                <circle cx="30" cy="155" r="4"/><circle cx="55" cy="115" r="4"/><circle cx="80" cy="105" r="4"/><circle cx="105" cy="88" r="4"/>
+                <circle cx="130" cy="102" r="4"/><circle cx="155" cy="112" r="4"/><circle cx="180" cy="145" r="4"/><circle cx="205" cy="158" r="4"/>
+              </g>
+              <path id="ofax" d="M15 40 V185 H225" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+            </defs>
+            <g transform="translate(20 10)">
+              <text class="hd" x="15" y="20">A. Underfitting</text>
+              <use href="#ofax"/><use href="#ofp"/>
+              <path d="M25 128 L215 128" stroke="var(--red)" stroke-width="3" fill="none"/>
+              <text class="sm" x="15" y="210">Too simple</text>
+            </g>
+            <g transform="translate(270 10)">
+              <text class="hd" x="15" y="20">B. Good fit</text>
+              <use href="#ofax"/><use href="#ofp"/>
+              <path d="M25 160 Q117 40 215 170" stroke="var(--green)" stroke-width="3" fill="none"/>
+              <text class="sm" x="15" y="210">Finds the general pattern</text>
+            </g>
+            <g transform="translate(520 10)">
+              <text class="hd" x="15" y="20">C. Overfitting</text>
+              <use href="#ofax"/><use href="#ofp"/>
+              <path d="M22 168 L30 155 C40 90 45 90 55 115 C65 140 70 130 80 105 C90 70 95 70 105 88 C115 110 120 120 130 102 C140 80 145 90 155 112 C165 150 170 160 180 145 C190 120 195 140 205 158 L215 178" stroke="var(--red)" stroke-width="3" fill="none"/>
+              <text class="sm" x="15" y="210">Remembers the noise</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 8.</b> The same data with three different models. Only model B will give good predictions for new data.</figcaption>
+      </figure>
+
+      <p>To prevent overfitting:</p>
+      <ul>
+        <li>Use more training data.</li>
+        <li>Use a simpler model.</li>
+        <li>Stop training when the validation loss starts to increase.</li>
+      </ul>
+
+      <div class="video" data-seconds="396">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=EuBBz3bI-aA" data-yt="EuBBz3bI-aA" data-title="Machine Learning Fundamentals: Bias and Variance (StatQuest)"><img src="https://i.ytimg.com/vi/EuBBz3bI-aA/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Machine Learning Fundamentals: Bias and Variance (StatQuest)</span></a></div>
+        <div class="meta"><span><b>Video 3.</b> Machine learning fundamentals: bias and variance (StatQuest)</span><span><a href="https://www.youtube.com/watch?v=EuBBz3bI-aA" target="_blank" rel="noopener">Open on YouTube</a> | <a href="https://www.youtube.com/results?search_query=StatQuest+Machine+Learning+Fundamentals+Bias+and+Variance" target="_blank" rel="noopener">Find by title</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="how-to-measure-a-model">
+    <div class="num">10</div>
+    <div>
+      <h2>How to measure a model</h2>
+      <p>After training, measure the model with the test set. For a classification model, use a <span class="tn" title="A table that compares the predictions of a model with the correct answers.">confusion matrix</span>. It compares the predictions with the correct answers. Refer to Figure 9.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 800 300" role="img" aria-labelledby="mf9">
+            <title id="mf9">Confusion matrix for a spam filter tested on 100 emails</title>
+            <text class="hd" x="370" y="30" text-anchor="middle">Prediction of the model</text>
+            <text class="lbl" x="300" y="58" text-anchor="middle">Spam</text>
+            <text class="lbl" x="460" y="58" text-anchor="middle">Not spam</text>
+            <text class="hd" x="110" y="170" text-anchor="middle" transform="rotate(-90 110 170)">Correct answer</text>
+            <text class="lbl" x="210" y="118" text-anchor="end">Spam</text>
+            <text class="lbl" x="210" y="218" text-anchor="end">Not spam</text>
+            <rect x="220" y="70" width="160" height="90" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <rect x="380" y="70" width="160" height="90" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.5"/>
+            <rect x="220" y="160" width="160" height="90" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.5"/>
+            <rect x="380" y="160" width="160" height="90" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <text x="300" y="112" text-anchor="middle" style="font-size:28px;font-weight:600;fill:var(--green)">40</text><text class="sm" x="300" y="136" text-anchor="middle">True positive</text>
+            <text x="460" y="112" text-anchor="middle" style="font-size:28px;font-weight:600;fill:var(--red)">10</text><text class="sm" x="460" y="136" text-anchor="middle">False negative (missed)</text>
+            <text x="300" y="202" text-anchor="middle" style="font-size:28px;font-weight:600;fill:var(--red)">5</text><text class="sm" x="300" y="226" text-anchor="middle">False positive (false alarm)</text>
+            <text x="460" y="202" text-anchor="middle" style="font-size:28px;font-weight:600;fill:var(--green)">45</text><text class="sm" x="460" y="226" text-anchor="middle">True negative</text>
+            <text class="sm" x="570" y="105">Accuracy = (40 + 45) / 100 = 85%</text>
+            <text class="sm" x="570" y="135">Precision = 40 / (40 + 5) = 89%</text>
+            <text class="sm" x="570" y="165">Recall = 40 / (40 + 10) = 80%</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 9.</b> A confusion matrix for a spam filter. The filter examined 100 emails. Green cells are correct. Red cells are errors.</figcaption>
+      </figure>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Measurement</th><th>Question that it answers</th><th>When it is important</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tn" title="The percentage of all predictions that are correct.">Accuracy</span></td><td>How many of all predictions are correct?</td><td>When the categories have approximately the same size.</td></tr>
+            <tr><td><span class="tn" title="Of all the positive predictions, the percentage that is correct.">Precision</span></td><td>When the model says "spam", how frequently is it correct?</td><td>When a false alarm is expensive. Example: a good email goes to the spam folder.</td></tr>
+            <tr><td><span class="tn" title="Of all the real positive examples, the percentage that the model finds.">Recall</span></td><td>Of all the real spam, how much does the model find?</td><td>When a missed item is dangerous. Example: a test for a disease.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>High accuracy is not always good. Think of a disease that occurs in 1 of 100 persons. A model that always says "no disease" is 99% accurate. But it finds zero sick persons. Thus, also look at precision and recall.</p>
+      </div>
+
+      <div class="video" data-seconds="432">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=Kdsp6soqA7o" data-yt="Kdsp6soqA7o" data-title="Machine Learning Fundamentals: The Confusion Matrix (StatQuest)"><img src="https://i.ytimg.com/vi/Kdsp6soqA7o/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Machine Learning Fundamentals: The Confusion Matrix (StatQuest)</span></a></div>
+        <div class="meta"><span><b>Video 4.</b> Machine learning fundamentals: the confusion matrix (StatQuest)</span><span><a href="https://www.youtube.com/watch?v=Kdsp6soqA7o" target="_blank" rel="noopener">Open on YouTube</a> | <a href="https://www.youtube.com/results?search_query=StatQuest+Machine+Learning+Fundamentals+The+Confusion+Matrix" target="_blank" rel="noopener">Find by title</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="common-machine-learning-methods">
+    <div class="num">11</div>
+    <div>
+      <h2>Common machine learning methods</h2>
+      <p>There are many types of ML model. Each type is good for some tasks. This table shows some common types.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>Type</th><th>How it works</th><th>Example use</th></tr></thead>
+          <tbody>
+            <tr><td>Linear regression</td><td>Supervised, regression</td><td>Finds the straight line that is nearest to the data points.</td><td>Predict the price of a flat.</td></tr>
+            <tr><td>Logistic regression</td><td>Supervised, classification</td><td>Calculates the probability that an example is in a category.</td><td>Predict if a customer will stop a subscription.</td></tr>
+            <tr><td>Decision tree</td><td>Supervised, both</td><td>Asks a sequence of yes/no questions about the features.</td><td>Approve or refuse a loan application.</td></tr>
+            <tr><td>Random forest</td><td>Supervised, both</td><td>Uses many decision trees. Each tree gives a vote.</td><td>Find fraud in card payments.</td></tr>
+            <tr><td>k-nearest neighbors</td><td>Supervised, both</td><td>Looks at the most similar examples in the training data.</td><td>Recommend similar products.</td></tr>
+            <tr><td>k-means</td><td>Unsupervised, clustering</td><td>Puts the data into k groups around k center points.</td><td>Put customers into groups.</td></tr>
+            <tr><td>Neural network</td><td>All types</td><td>Many layers of connected neurons. Refer to <a href="deep-learning.html">Module 3, Deep learning</a>.</td><td>Images, speech, text, and chat AI.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="summary">
+    <div class="num">12</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>In ML, the computer finds the rules in data.</li>
+        <li>The ML workflow has eight steps, from the problem definition to monitoring.</li>
+        <li>Features are the inputs. The label is the correct answer.</li>
+        <li>Divide the data into training, validation, and test sets.</li>
+        <li>Supervised learning uses labels. Unsupervised learning finds groups. Reinforcement learning uses rewards.</li>
+        <li>Gradient descent makes the loss smaller, step by step.</li>
+        <li>A good model works on new data. Prevent overfitting.</li>
+        <li>Measure a model with accuracy, precision, and recall.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="knowledge-check">
+    <div class="num">13</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "In ML data, what is the label?", "options": ["The value that the model must predict.", "An input column that the model uses.", "The name of the data file.", "One row of the table."], "answer": 0, "explain": "The features are the inputs. The label is the correct answer that the model must learn to predict.", "ref": "data"},
+ {"q": "Which data set do you use only one time, at the end?", "options": ["The test set", "The training set", "The validation set", "All three sets"], "answer": 0, "explain": "The test set shows the real accuracy. If the model sees it during training, the result is too good.", "ref": "data"},
+ {"q": "A model predicts the price of a flat. What type of task is this?", "options": ["Regression", "Classification", "Clustering", "Reinforcement learning"], "answer": 0, "explain": "Regression predicts a number. Classification predicts a category.", "ref": "supervised-learning"},
+ {"q": "A shop puts its customers into groups. The data has no labels. Which type of learning is this?", "options": ["Unsupervised learning", "Supervised learning", "Reinforcement learning", "Regression"], "answer": 0, "explain": "Clustering finds groups in data that has no labels. It is a type of unsupervised learning.", "ref": "unsupervised-learning"},
+ {"q": "In reinforcement learning, what tells the agent if an action was good or bad?", "options": ["The reward", "The label", "The feature", "The test set"], "answer": 0, "explain": "The agent gets a reward after each action. It learns to get the maximum total reward.", "ref": "reinforcement-learning"},
+ {"q": "What does gradient descent do?", "options": ["It changes the weights step by step to make the loss smaller.", "It makes the training data larger.", "It removes errors from the data.", "It divides the data into three sets."], "answer": 0, "explain": "Gradient descent finds the slope of the loss and moves the weights a small step downhill.", "ref": "how-a-model-makes-its-errors-smaller"},
+ {"q": "What occurs if the learning rate is too large?", "options": ["The model jumps over the bottom and does not become accurate.", "Training becomes very slow.", "The model uses less data.", "Nothing changes."], "answer": 0, "explain": "A large step can jump over the minimum. A very small step makes training slow.", "ref": "how-a-model-makes-its-errors-smaller"},
+ {"q": "A model is very accurate on the training data but makes many errors on new data. What is the problem?", "options": ["Overfitting", "Underfitting", "Clustering", "Good fit"], "answer": 0, "explain": "An overfitted model remembers the training data, also its noise. It does not work well on new data.", "ref": "overfitting-and-underfitting"},
+ {"q": "A test must find as many sick persons as possible. Which measurement is the most important?", "options": ["Recall", "Precision", "Accuracy", "Learning rate"], "answer": 0, "explain": "Recall shows how many of the real positive examples the model finds. Use it when a missed item is dangerous.", "ref": "how-to-measure-a-model"},
+ {"q": "A spam filter has 40 true positives and 5 false positives. What is its precision?", "options": ["89%", "80%", "85%", "45%"], "answer": 0, "explain": "Precision = 40 / (40 + 5) = 89%.", "ref": "how-to-measure-a-model"}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="technical-names">
+    <div class="num">14</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>Accuracy</dt><dd>The percentage of all predictions that are correct.</dd>
+        <dt>Agent</dt><dd>The program that learns and makes decisions in reinforcement learning.</dd>
+        <dt>Classification</dt><dd>Supervised learning that predicts a category.</dd>
+        <dt>Clustering</dt><dd>A task that puts similar examples into the same group.</dd>
+        <dt>Confusion matrix</dt><dd>A table that compares the predictions with the correct answers.</dd>
+        <dt>Feature</dt><dd>An input value that the model uses to make a prediction.</dd>
+        <dt>Gradient</dt><dd>The slope of the loss.</dd>
+        <dt>Gradient descent</dt><dd>A method that adjusts the weights step by step to decrease the loss.</dd>
+        <dt>Label</dt><dd>The correct answer for an example.</dd>
+        <dt>Learning rate</dt><dd>A setting that controls the size of each step in gradient descent.</dd>
+        <dt>Loss</dt><dd>A number that shows how wrong the model is.</dd>
+        <dt>Overfitting</dt><dd>The model remembers the training data and does not work well on new data.</dd>
+        <dt>Precision</dt><dd>Of all positive predictions, the percentage that is correct.</dd>
+        <dt>Recall</dt><dd>Of all real positive examples, the percentage that the model finds.</dd>
+        <dt>Regression</dt><dd>Supervised learning that predicts a number.</dd>
+        <dt>Reward</dt><dd>A number that tells an agent if an action was good or bad.</dd>
+        <dt>Underfitting</dt><dd>The model is too simple to find the pattern in the data.</dd>
+      </dl>
+    </div>
+  </section>
+
+  </main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="ai.html"><small>Previous module</small><b>1. Artificial intelligence</b></a>
+    <a class="next" href="deep-learning.html"><small>Next module</small><b>3. Deep learning</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Videos: StatQuest and 3Blue1Brown on YouTube.</span>
+  </footer>
+</div>
+</body>
+</html>

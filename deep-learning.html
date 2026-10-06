@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3. Deep learning | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 3, Deep learning: Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="3. Deep learning | AI learning manual">
+<meta property="og:description" content="Module 3, Deep learning: Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav aria-label="Modules">
+    <a href="index.html">Home</a>
+    <a href="ai.html">1. Artificial intelligence</a>
+    <a href="machine-learning.html">2. Machine learning</a>
+    <a href="deep-learning.html" aria-current="page">3. Deep learning</a>
+    <a href="generative-ai.html">4. Generative AI</a>
+    <a href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-20-00-00-040A</b></div>
+    <div>Subject<b>Deep learning</b></div>
+    <div>Info type<b>Description</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Deep learning: general description</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai.html">Module 1, Artificial intelligence</a> and <a href="machine-learning.html">Module 2, Machine learning</a> before you read this module. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module gives a description of deep learning.</p>
+      <p>It tells you:</p>
+      <ul>
+        <li>What deep learning is, and how it is different from classic machine learning.</li>
+        <li>How one neuron calculates its output.</li>
+        <li>How a deep network learns with backpropagation.</li>
+        <li>The main types of neural network.</li>
+        <li>How a network finds patterns in images.</li>
+        <li>How a network changes words into numbers.</li>
+        <li>How a transformer uses attention.</li>
+        <li>How to train a deep network in practice.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="what-deep-learning-is">
+    <div class="num">2</div>
+    <div>
+      <h2>What deep learning is</h2>
+      <p><span class="tn" title="Machine learning that uses neural networks with many layers.">Deep learning</span> is a part of machine learning. It uses neural networks with many layers. The word "deep" refers to the number of layers. A deep network can have from ten to more than one hundred layers.</p>
+      <p>In classic machine learning, a person usually selects the features. For example, to identify a cat, a person can tell the model to measure the shape of the ears. In deep learning, the network finds the useful features in the raw data. Refer to Figure 1.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 285" role="img" aria-labelledby="d1t">
+            <title id="d1t">Classic machine learning compared with deep learning</title>
+            <defs><marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <text class="hd" x="20" y="28">A. Classic machine learning</text>
+            <rect class="box" x="20" y="45" width="120" height="60" rx="2"/><text class="lbl" x="80" y="71" text-anchor="middle">Raw data</text><text class="sm" x="80" y="89" text-anchor="middle">a photo</text>
+            <path class="line" d="M140 75 H176" marker-end="url(#d1)"/>
+            <rect class="box" x="180" y="45" width="170" height="60" rx="2"/><text class="lbl" x="265" y="71" text-anchor="middle">A person selects features</text><text class="sm" x="265" y="89" text-anchor="middle">ear shape, color, size</text>
+            <path class="line" d="M350 75 H386" marker-end="url(#d1)"/>
+            <rect class="boxb" x="390" y="45" width="130" height="60" rx="2"/><text class="hd" x="455" y="80" text-anchor="middle">ML model</text>
+            <path class="line" d="M520 75 H556" marker-end="url(#d1)"/>
+            <rect class="box" x="560" y="55" width="90" height="40" rx="2"/><text class="lbl" x="605" y="80" text-anchor="middle">"cat"</text>
+            <text class="sm" x="666" y="72">Features made</text><text class="sm" x="666" y="88">by a person</text>
+
+            <line class="faint" x1="20" y1="140" x2="740" y2="140"/>
+
+            <text class="hd" x="20" y="168">B. Deep learning</text>
+            <rect class="box" x="20" y="185" width="120" height="60" rx="2"/><text class="lbl" x="80" y="211" text-anchor="middle">Raw data</text><text class="sm" x="80" y="229" text-anchor="middle">a photo</text>
+            <path class="line" d="M140 215 H176" marker-end="url(#d1)"/>
+            <rect x="180" y="175" width="340" height="80" rx="4" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <rect x="192" y="190" width="98" height="50" rx="2" fill="var(--sheet)" stroke="var(--blue)"/><text class="lbl" x="241" y="211" text-anchor="middle">Layer 1</text><text class="sm" x="241" y="229" text-anchor="middle">edges</text>
+            <rect x="301" y="190" width="98" height="50" rx="2" fill="var(--sheet)" stroke="var(--blue)"/><text class="lbl" x="350" y="211" text-anchor="middle">Layer 2</text><text class="sm" x="350" y="229" text-anchor="middle">shapes</text>
+            <rect x="410" y="190" width="98" height="50" rx="2" fill="var(--sheet)" stroke="var(--blue)"/><text class="lbl" x="459" y="211" text-anchor="middle">Layer 3</text><text class="sm" x="459" y="229" text-anchor="middle">parts: ears, eyes</text>
+            <path class="line" d="M520 215 H556" marker-end="url(#d1)"/>
+            <rect x="560" y="195" width="90" height="40" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="605" y="220" text-anchor="middle">"cat"</text>
+            <text class="sm" x="666" y="212" style="fill:var(--green)">Features found</text><text class="sm" x="666" y="228" style="fill:var(--green)">by the network</text>
+            <text class="sm" x="350" y="275" text-anchor="middle">Deep neural network: training finds what each layer looks for.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> In classic ML, a person selects the features. In deep learning, the layers of the network learn the features from the raw data.</figcaption>
+      </figure>
+
+      <p>Deep learning is the best method for data that does not have a clear structure, for example images, sound, and text.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Item</th><th>Classic machine learning</th><th>Deep learning</th></tr></thead>
+          <tbody>
+            <tr><td>Features</td><td>A person selects them.</td><td>The network finds them.</td></tr>
+            <tr><td>Quantity of data</td><td>Hundreds to thousands of examples.</td><td>Thousands to billions of examples.</td></tr>
+            <tr><td>Computer power</td><td>A usual computer.</td><td>Special chips (GPUs). Refer to Section 9.</td></tr>
+            <tr><td>Explanation of results</td><td>Usually easy.</td><td>Difficult.</td></tr>
+            <tr><td>Best for</td><td>Tables of numbers.</td><td>Images, sound, and text.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>For data in tables, classic methods are frequently as accurate as deep learning. They are also faster and easier to explain. Refer to <a href="machine-learning.html#common-machine-learning-methods">Module 2, Section 11</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="inside-a-neuron">
+    <div class="num">3</div>
+    <div>
+      <h2>Inside a neuron</h2>
+      <p>Module 1 tells you that a neural network has neurons in layers. Each neuron does a small calculation. Refer to Figure 2.</p>
+      <ol>
+        <li>The neuron receives numbers from the previous layer.</li>
+        <li>It multiplies each number by its weight.</li>
+        <li>It adds all the results.</li>
+        <li>It adds one more number. We call this number the <span class="tn" title="A number that a neuron adds to its total. Training adjusts it, as it adjusts the weights.">bias</span>.</li>
+        <li>It applies an <span class="tn" title="A simple function that a neuron applies to its total. It lets the network learn patterns that are not straight lines.">activation function</span> to the total.</li>
+        <li>It sends the result to the neurons in the next layer.</li>
+      </ol>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 235" role="img" aria-labelledby="d2t">
+            <title id="d2t">The calculation in one neuron, with example numbers</title>
+            <defs><marker id="d2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <text class="hd" x="55" y="26" text-anchor="middle">Inputs</text>
+            <rect class="box" x="20" y="40" width="70" height="34" rx="2"/><text class="lbl" x="55" y="62" text-anchor="middle">0.5</text>
+            <rect class="box" x="20" y="111" width="70" height="34" rx="2"/><text class="lbl" x="55" y="133" text-anchor="middle">0.8</text>
+            <rect class="box" x="20" y="182" width="70" height="34" rx="2"/><text class="lbl" x="55" y="204" text-anchor="middle">0.2</text>
+            <path class="line" d="M90 57 L297 122"/><path class="line" d="M90 128 L296 128"/><path class="line" d="M90 199 L297 135"/>
+            <rect x="152" y="66" width="60" height="22" rx="3" fill="var(--blue-soft)" stroke="var(--blue)"/><text class="sm" x="182" y="81" text-anchor="middle" style="fill:var(--ink)">× 0.4</text>
+            <rect x="152" y="117" width="60" height="22" rx="3" fill="var(--blue-soft)" stroke="var(--blue)"/><text class="sm" x="182" y="132" text-anchor="middle" style="fill:var(--ink)">× 0.6</text>
+            <rect x="152" y="160" width="60" height="22" rx="3" fill="var(--blue-soft)" stroke="var(--blue)"/><text class="sm" x="182" y="175" text-anchor="middle" style="fill:var(--ink)">× −0.5</text>
+            <text class="sm" x="182" y="58" text-anchor="middle">weights</text>
+
+            <rect x="290" y="14" width="80" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="330" y="31" text-anchor="middle" style="fill:var(--ink)">bias + 0.1</text>
+            <path class="line" d="M330 40 V92" marker-end="url(#d2)"/>
+            <circle class="node" cx="330" cy="128" r="34"/><text class="hd" x="330" y="135" text-anchor="middle" style="font-size:22px">Σ</text>
+            <text class="sm" x="330" y="184" text-anchor="middle">0.2 + 0.48 − 0.1 + 0.1</text>
+            <text class="sm" x="330" y="200" text-anchor="middle" style="fill:var(--ink);font-weight:600">= 0.68</text>
+
+            <path class="line" d="M364 128 H406" marker-end="url(#d2)"/>
+            <rect class="boxb" x="410" y="80" width="150" height="96" rx="2"/>
+            <text class="hd" x="485" y="100" text-anchor="middle">Activation (ReLU)</text>
+            <path d="M440 160 H520" stroke="var(--rule-strong)" stroke-width="1"/><path d="M485 112 V164" stroke="var(--rule-strong)" stroke-width="1"/>
+            <path d="M442 160 H485 L525 118" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+            <text class="sm" x="485" y="196" text-anchor="middle">Negative number → 0</text>
+            <text class="sm" x="485" y="212" text-anchor="middle">Positive number → no change</text>
+
+            <path class="line" d="M560 128 H606" marker-end="url(#d2)"/>
+            <rect x="610" y="103" width="130" height="50" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="675" y="133" text-anchor="middle" style="font-weight:600">Output: 0.68</text>
+            <text class="sm" x="675" y="172" text-anchor="middle">to the next layer</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> One neuron. It multiplies each input by its weight, adds the results and the bias, and applies the activation function. The numbers are only an example.</figcaption>
+      </figure>
+
+      <p>The most common activation function is <span class="tn" title="Rectified linear unit: an activation function that changes negative numbers to zero and does not change positive numbers.">ReLU</span>. ReLU changes negative numbers to zero. It does not change positive numbers.</p>
+
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Without an activation function, many layers act the same as one layer. The activation function lets the network learn complex patterns, for example curves, and not only straight lines.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="how-a-deep-network-learns">
+    <div class="num">4</div>
+    <div>
+      <h2>How a deep network learns</h2>
+      <p>A deep network learns with gradient descent. Refer to <a href="machine-learning.html#how-a-model-makes-its-errors-smaller">Module 2, Section 8</a>. But a deep network has millions or billions of weights. The system must find the gradient for each weight. A method with the name <span class="tn" title="A method that calculates the gradient for each weight. It starts at the output layer and goes back through the network, layer by layer.">backpropagation</span> does this quickly. Refer to Figure 3.</p>
+      <ol>
+        <li>The data goes through the layers, from the input to the output. The network makes a prediction. We call this the <span class="tn" title="The calculation from the input layer to the output layer. It gives a prediction.">forward pass</span>.</li>
+        <li>The system compares the prediction with the label. It calculates the loss.</li>
+        <li>The system goes back through the layers, from the output to the input. It calculates how much each weight caused the error. We call this the backward pass.</li>
+        <li>The system changes each weight by a small quantity, in the direction that decreases the loss.</li>
+        <li>The system does these steps again with the next group of examples.</li>
+      </ol>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 240" role="img" aria-labelledby="d3t">
+            <title id="d3t">Forward pass and backward pass through a network</title>
+            <defs>
+              <marker id="d3b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--blue)"/></marker>
+              <marker id="d3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--red)"/></marker>
+            </defs>
+            <text class="hd" x="380" y="36" text-anchor="middle" style="fill:var(--blue)">Forward pass: the data makes a prediction →</text>
+            <rect class="box" x="20" y="80" width="110" height="80" rx="2"/><text class="lbl" x="75" y="116" text-anchor="middle">Input</text><text class="sm" x="75" y="134" text-anchor="middle">a batch of data</text>
+            <rect class="boxb" x="170" y="80" width="110" height="80" rx="2"/><text class="lbl" x="225" y="116" text-anchor="middle">Hidden layer 1</text><text class="sm" x="225" y="134" text-anchor="middle">weights</text>
+            <rect class="boxb" x="320" y="80" width="110" height="80" rx="2"/><text class="lbl" x="375" y="116" text-anchor="middle">Hidden layer 2</text><text class="sm" x="375" y="134" text-anchor="middle">weights</text>
+            <rect class="boxb" x="470" y="80" width="110" height="80" rx="2"/><text class="lbl" x="525" y="116" text-anchor="middle">Output layer</text><text class="sm" x="525" y="134" text-anchor="middle">prediction</text>
+            <rect x="620" y="80" width="120" height="80" rx="2" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.5"/><text class="lbl" x="680" y="116" text-anchor="middle">Loss</text><text class="sm" x="680" y="134" text-anchor="middle">compare with label</text>
+            <g stroke="var(--blue)" stroke-width="2" fill="none" marker-end="url(#d3b)">
+              <path d="M130 100 H166"/><path d="M280 100 H316"/><path d="M430 100 H466"/><path d="M580 100 H616"/>
+            </g>
+            <g stroke="var(--red)" stroke-width="2" fill="none" marker-end="url(#d3r)">
+              <path d="M620 142 H584"/><path d="M470 142 H434"/><path d="M320 142 H284"/><path d="M170 142 H134"/>
+            </g>
+            <text class="hd" x="380" y="196" text-anchor="middle" style="fill:var(--red)">← Backward pass: find the gradient for each weight</text>
+            <text class="sm" x="380" y="222" text-anchor="middle">Then gradient descent changes each weight a small quantity. Repeat for each batch.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 3.</b> Backpropagation. The forward pass makes a prediction. The backward pass sends the error back through the layers.</figcaption>
+      </figure>
+
+      <p>The system does not use all the training data at one time. It uses small groups of examples. We call each group a <span class="tn" title="A small group of training examples that the system uses for one update of the weights.">batch</span>. One pass through all of the training data is an <span class="tn" title="One complete pass through all of the training data.">epoch</span>. Training usually needs many epochs.</p>
+
+      <div class="video" data-seconds="767">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=Ilg3gGewQ5U" data-yt="Ilg3gGewQ5U" data-title="Backpropagation, intuitively (3Blue1Brown)"><img src="https://i.ytimg.com/vi/Ilg3gGewQ5U/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Backpropagation, intuitively (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>Video 1.</b> Backpropagation, intuitively (3Blue1Brown)</span><a href="https://www.youtube.com/watch?v=Ilg3gGewQ5U" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="types-of-neural-network">
+    <div class="num">5</div>
+    <div>
+      <h2>Types of neural network</h2>
+      <p>There are different designs of neural network. Each design is good for a different type of data.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Type</th><th>Data</th><th>How it works</th><th>Example use</th></tr></thead>
+          <tbody>
+            <tr><td>Feedforward network</td><td>Numbers in a table</td><td>The data goes through the layers in one direction.</td><td>Predict a price from features.</td></tr>
+            <tr><td><span class="tn" title="Convolutional neural network: a network that uses small filters to find patterns in images.">CNN</span></td><td>Images and video</td><td>Small filters move across the image and find patterns. Refer to Section 6.</td><td>Face ID. Find defects on parts.</td></tr>
+            <tr><td><span class="tn" title="Recurrent neural network: a network that reads a sequence one item at a time and keeps a memory of the previous items.">RNN</span></td><td>Sequences, for example sound or sensor data</td><td>It reads one item at a time. It keeps a memory of the previous items.</td><td>Older speech and translation systems.</td></tr>
+            <tr><td><span class="tn" title="A network design that uses attention to connect each token to all the other tokens.">Transformer</span></td><td>Text, and now also images and sound</td><td>Attention connects all parts of the input. Refer to Section 8.</td><td>Chat AI, translation, and image generation.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Transformers have replaced RNNs for most text tasks.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="how-a-network-finds-patterns-in-images">
+    <div class="num">6</div>
+    <div>
+      <h2>How a network finds patterns in images</h2>
+      <p>A photograph has millions of pixels. A usual network would need too many weights. A <b>convolutional neural network</b> (CNN) solves this problem.</p>
+      <p>A CNN uses small <span class="tn" title="A small grid of weights, for example 3 × 3. It moves across an image and finds one type of pattern.">filters</span>. A filter is a small grid of weights, for example 3 × 3. The filter moves across the image, one position at a time. At each position, it calculates one number. The result is a new grid that we call a <span class="tn" title="The grid of numbers that a filter makes. It shows where the filter found its pattern.">feature map</span>. The feature map shows where the filter found its pattern. Refer to Figure 4.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 330" role="img" aria-labelledby="d4t">
+            <title id="d4t">A 3 by 3 filter moves across an image and makes a feature map</title>
+            <defs><marker id="d4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <text class="hd" x="20" y="24">A. A filter moves across the image</text>
+            <rect x="20" y="40" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="34" y="58" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="48" y="40" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="62" y="58" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="76" y="40" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="90" y="58" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="104" y="40" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="118" y="58" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="132" y="40" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="146" y="58" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="160" y="40" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="174" y="58" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="20" y="68" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="34" y="86" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="48" y="68" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="62" y="86" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="76" y="68" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="90" y="86" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="104" y="68" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="118" y="86" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="132" y="68" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="146" y="86" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="160" y="68" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="174" y="86" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="20" y="96" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="34" y="114" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="48" y="96" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="62" y="114" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="76" y="96" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="90" y="114" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="104" y="96" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="118" y="114" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="132" y="96" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="146" y="114" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="160" y="96" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="174" y="114" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="20" y="124" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="34" y="142" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="48" y="124" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="62" y="142" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="76" y="124" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="90" y="142" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="104" y="124" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="118" y="142" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="132" y="124" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="146" y="142" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="160" y="124" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="174" y="142" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="20" y="152" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="34" y="170" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="48" y="152" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="62" y="170" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="76" y="152" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="90" y="170" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="104" y="152" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="118" y="170" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="132" y="152" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="146" y="170" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="160" y="152" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="174" y="170" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="20" y="180" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="34" y="198" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="48" y="180" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="62" y="198" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="76" y="180" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="90" y="198" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="104" y="180" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="118" y="198" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="132" y="180" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="146" y="198" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="160" y="180" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="174" y="198" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="48" y="40" width="84" height="84" fill="none" stroke="var(--amber)" stroke-width="3"/>
+            <text class="sm" x="104" y="228" text-anchor="middle">Image: 6 × 6 pixels</text>
+            <text class="sm" x="272" y="74" text-anchor="middle">Filter: 3 × 3</text>
+            <rect x="230" y="82" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="244" y="100" text-anchor="middle" style="fill:var(--ink)">−1</text>
+            <rect x="258" y="82" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="272" y="100" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="286" y="82" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="300" y="100" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="230" y="110" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="244" y="128" text-anchor="middle" style="fill:var(--ink)">−1</text>
+            <rect x="258" y="110" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="272" y="128" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="286" y="110" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="300" y="128" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <rect x="230" y="138" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="244" y="156" text-anchor="middle" style="fill:var(--ink)">−1</text>
+            <rect x="258" y="138" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="272" y="156" text-anchor="middle" style="fill:var(--ink)">0</text>
+            <rect x="286" y="138" width="28" height="28" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="300" y="156" text-anchor="middle" style="fill:var(--ink)">1</text>
+            <path class="line" d="M324 124 H392" marker-end="url(#d4)"/><text class="sm" x="358" y="114" text-anchor="middle">moves</text>
+            <rect x="400" y="68" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="414" y="86" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="428" y="68" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="442" y="86" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="456" y="68" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="470" y="86" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="484" y="68" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="498" y="86" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="400" y="96" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="414" y="114" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="428" y="96" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="442" y="114" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="456" y="96" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="470" y="114" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="484" y="96" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="498" y="114" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="400" y="124" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="414" y="142" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="428" y="124" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="442" y="142" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="456" y="124" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="470" y="142" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="484" y="124" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="498" y="142" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="400" y="152" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="414" y="170" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="428" y="152" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="442" y="170" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="456" y="152" width="28" height="28" fill="var(--blue-soft)" stroke="var(--rule-strong)"/><text class="sm" x="470" y="170" text-anchor="middle" style="fill:var(--ink);font-weight:600">3</text>
+            <rect x="484" y="152" width="28" height="28" fill="var(--sheet)" stroke="var(--rule-strong)"/><text class="sm" x="498" y="170" text-anchor="middle" style="fill:var(--ink);font-weight:400">0</text>
+            <rect x="428" y="68" width="28" height="28" fill="none" stroke="var(--amber)" stroke-width="3"/>
+            <text class="sm" x="456" y="198" text-anchor="middle">Feature map: 4 × 4</text>
+            <text class="sm" x="540" y="96" style="fill:var(--ink);font-weight:600">Highlighted window:</text>
+            <text class="sm" x="540" y="114" style="fill:var(--ink);font-weight:600">3 rows × (−1·0 + 0·0 + 1·1) = 3</text>
+            <text class="sm" x="540" y="150">High numbers show where</text>
+            <text class="sm" x="540" y="168">the image changes from</text>
+            <text class="sm" x="540" y="186">light to dark: an edge.</text>
+            <line class="faint" x1="20" y1="244" x2="740" y2="244"/>
+            <text class="hd" x="20" y="270">B. Each layer finds larger patterns</text>
+            <rect class="box" x="20" y="282" width="160" height="40" rx="2"/><text class="lbl" x="100" y="307" text-anchor="middle">Layer 1: edges</text>
+            <rect class="boxb" x="210" y="282" width="160" height="40" rx="2"/><text class="lbl" x="290" y="307" text-anchor="middle">Layer 2: shapes</text>
+            <rect class="boxb" x="400" y="282" width="160" height="40" rx="2"/><text class="lbl" x="480" y="307" text-anchor="middle">Layer 3: parts</text>
+            <rect x="590" y="282" width="150" height="40" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="665" y="307" text-anchor="middle">Output: "cat"</text>
+            <path class="line" d="M180 302 H206" marker-end="url(#d4)"/><path class="line" d="M370 302 H396" marker-end="url(#d4)"/><path class="line" d="M560 302 H586" marker-end="url(#d4)"/>
+          </svg>
+        </div>
+        <figcaption><b>Figure 4.</b> A CNN. This filter finds vertical edges. The high numbers in the feature map show where the image changes from light to dark.</figcaption>
+      </figure>
+
+      <p>The same filter is used at all positions. Thus a CNN needs fewer weights. It can also find a pattern in any part of the image.</p>
+      <p>A CNN has many layers of filters:</p>
+      <ul>
+        <li>The first layers find edges and lines.</li>
+        <li>The middle layers find shapes, for example circles and corners.</li>
+        <li>The last layers find parts of objects, for example eyes or wheels.</li>
+        <li>The output layer gives the result, for example "cat: 92%".</li>
+      </ul>
+      <p>Training finds the values in the filters. A person does not design them.</p>
+
+      <div class="video" data-seconds="517">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=YRhxdVk_sIs" data-yt="YRhxdVk_sIs" data-title="Convolutional Neural Networks (CNNs) explained (deeplizard)"><img src="https://i.ytimg.com/vi/YRhxdVk_sIs/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Convolutional Neural Networks (CNNs) explained (deeplizard)</span></a></div>
+        <div class="meta"><span><b>Video 2.</b> Convolutional neural networks (CNNs) explained (deeplizard)</span><a href="https://www.youtube.com/watch?v=YRhxdVk_sIs" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="how-a-network-changes-words-into-numbers">
+    <div class="num">7</div>
+    <div>
+      <h2>How a network changes words into numbers</h2>
+      <p>A neural network can use only numbers. Thus the system must change words, images, and other items into numbers. An <span class="tn" title="A list of numbers that shows the meaning of an item, for example a word. Items with similar meanings have similar embeddings.">embedding</span> is a list of numbers that shows the meaning of an item. We call a list of numbers a <span class="tn" title="An ordered list of numbers.">vector</span>.</p>
+      <p>The network learns the embeddings during training. Items with similar meanings get similar numbers. Thus their embeddings are near each other. Refer to Figure 5.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 300" role="img" aria-labelledby="d5t">
+            <title id="d5t">Word embeddings on a map with two numbers</title>
+            <path class="line" d="M60 20 V262 H740"/>
+            <text class="sm" x="400" y="286" text-anchor="middle">Number 1 of the embedding</text>
+            <text class="sm" x="44" y="141" text-anchor="middle" transform="rotate(-90 44 141)">Number 2</text>
+
+            <ellipse cx="200" cy="88" rx="86" ry="46" fill="var(--blue-soft)" stroke="var(--blue)" stroke-dasharray="5 4" opacity=".9"/>
+            <text class="hd" x="120" y="34" style="fill:var(--blue)">Animals</text>
+            <ellipse cx="575" cy="92" rx="92" ry="48" fill="var(--green-soft)" stroke="var(--green)" stroke-dasharray="5 4" opacity=".9"/>
+            <text class="hd" x="490" y="36" style="fill:var(--green)">Cities</text>
+            <ellipse cx="370" cy="205" rx="90" ry="40" fill="var(--amber-soft)" stroke="var(--amber)" stroke-dasharray="5 4" opacity=".9"/>
+            <text class="hd" x="282" y="156" style="fill:var(--amber-ink)">Fruits</text>
+
+            <g fill="var(--ink)">
+              <circle cx="155" cy="85" r="5"/><circle cx="182" cy="66" r="5"/><circle cx="215" cy="104" r="5"/><circle cx="245" cy="78" r="5"/>
+              <circle cx="525" cy="82" r="5"/><circle cx="565" cy="108" r="5"/><circle cx="615" cy="72" r="5"/><circle cx="600" cy="118" r="5"/>
+              <circle cx="320" cy="200" r="5"/><circle cx="365" cy="224" r="5"/><circle cx="410" cy="198" r="5"/>
+            </g>
+            <text class="lbl" x="135" y="104">cat</text><text class="lbl" x="190" y="62">kitten</text><text class="lbl" x="222" y="108">dog</text><text class="lbl" x="252" y="82">horse</text>
+            <text class="lbl" x="490" y="78">Paris</text><text class="lbl" x="525" y="125">London</text><text class="lbl" x="622" y="76">Tokyo</text><text class="lbl" x="607" y="122">Mumbai</text>
+            <text class="lbl" x="285" y="218">apple</text><text class="lbl" x="372" y="228">mango</text><text class="lbl" x="417" y="202">banana</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 5.</b> Embeddings. Words with similar meanings are near each other. A real embedding has hundreds or thousands of numbers. This figure shows only two numbers.</figcaption>
+      </figure>
+
+      <p>Systems use embeddings to:</p>
+      <ul>
+        <li>Find text with the same meaning, not only the same words. Refer to <a href="generative-ai.html#connect-a-model-to-documents-and-tools">Module 4, Section 8</a>.</li>
+        <li>Recommend similar products, films, or songs.</li>
+        <li>Put similar documents into groups.</li>
+        <li>Start the calculation in a transformer. Refer to Section 8.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="how-a-transformer-uses-attention">
+    <div class="num">8</div>
+    <div>
+      <h2>How a transformer uses attention</h2>
+      <p>Module 1 tells you that most LLMs use a transformer. This section tells you how a transformer works.</p>
+      <p>The meaning of a word depends on the other words in the text. Look at the sentence "The animal did not cross the street because it was tired". Here, the word "it" refers to the animal. In "... because it was too wide", the word "it" refers to the street.</p>
+      <p>A method with the name <span class="tn" title="A method that lets each token collect information from the other tokens. It calculates how important each other token is.">attention</span> solves this problem. For each token, attention calculates how important each other token is. Then it adds information from the important tokens into this token. Refer to Figure 6.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 232" role="img" aria-labelledby="d6t">
+            <title id="d6t">Attention from the token "it" to the other tokens in a sentence</title>
+            <text class="hd" x="20" y="26">Attention from the token "it"</text>
+            <text class="sm" x="20" y="44">A thicker line shows more attention. The percentage is under the token.</text>
+            <path d="M584 138 Q320 -2 56 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q387 27 190 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q414 39 244 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q445 53 306 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q476 66 368 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q551 99 518 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q609 103 634 138" fill="none" stroke="var(--rule-strong)" stroke-width="1.2"/>
+            <path d="M584 138 Q354 13 123 138" fill="none" stroke="var(--blue)" stroke-width="6.6" stroke-linecap="round" opacity=".9"/>
+            <path d="M584 138 Q509 81 434 138" fill="none" stroke="var(--blue)" stroke-width="2.3" stroke-linecap="round" opacity=".9"/>
+            <path d="M584 138 Q640 89 696 138" fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" opacity=".9"/>
+            <rect class="box" x="36" y="140" width="42" height="34" rx="3"/><text class="lbl" x="56" y="162" text-anchor="middle">The</text>
+            <rect class="box" x="90" y="140" width="67" height="34" rx="3"/><text class="lbl" x="123" y="162" text-anchor="middle">animal</text>
+            <rect class="box" x="168" y="140" width="42" height="34" rx="3"/><text class="lbl" x="190" y="162" text-anchor="middle">did</text>
+            <rect class="box" x="222" y="140" width="42" height="34" rx="3"/><text class="lbl" x="244" y="162" text-anchor="middle">not</text>
+            <rect class="box" x="276" y="140" width="58" height="34" rx="3"/><text class="lbl" x="306" y="162" text-anchor="middle">cross</text>
+            <rect class="box" x="346" y="140" width="42" height="34" rx="3"/><text class="lbl" x="368" y="162" text-anchor="middle">the</text>
+            <rect class="box" x="400" y="140" width="67" height="34" rx="3"/><text class="lbl" x="434" y="162" text-anchor="middle">street</text>
+            <rect class="box" x="480" y="140" width="76" height="34" rx="3"/><text class="lbl" x="518" y="162" text-anchor="middle">because</text>
+            <rect class="boxb" x="568" y="140" width="33" height="34" rx="3" style="stroke-width:2"/><text class="lbl" x="584" y="162" text-anchor="middle" style="font-weight:600">it</text>
+            <rect class="box" x="612" y="140" width="42" height="34" rx="3"/><text class="lbl" x="634" y="162" text-anchor="middle">was</text>
+            <rect class="box" x="666" y="140" width="58" height="34" rx="3"/><text class="lbl" x="696" y="162" text-anchor="middle">tired</text>
+            <text class="lbl" x="123" y="192" text-anchor="middle" style="fill:var(--blue);font-weight:600">62%</text>
+            <text class="sm" x="434" y="192" text-anchor="middle" style="fill:var(--blue);font-weight:600">14%</text>
+            <text class="sm" x="696" y="192" text-anchor="middle" style="fill:var(--blue);font-weight:600">10%</text>
+            <text class="sm" x="380" y="222" text-anchor="middle">The token "it" gets most of its information from "animal".</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 6.</b> Attention. The model learns that "it" refers to "animal". A real model calculates this for each token and in many layers. The numbers are only an example.</figcaption>
+      </figure>
+
+      <h3>The steps in a transformer</h3>
+      <ol>
+        <li>The system cuts the text into tokens.</li>
+        <li>The system changes each token into an embedding. It also adds information about the position of each token.</li>
+        <li>In an attention layer, each token collects information from the other tokens.</li>
+        <li>In a feedforward layer, each token goes through a small neural network.</li>
+        <li>The model does steps 3 and 4 again in many layers. A large model can have more than 100 layers.</li>
+        <li>The last layer gives the probability of each possible next token. Refer to <a href="ai.html#how-a-chat-ai-makes-text">Module 1, Section 6</a>.</li>
+      </ol>
+      <p>A transformer does the calculations for all tokens at the same time. Thus it can use the power of GPUs well. This is one reason why transformers replaced the older designs.</p>
+
+      <div class="video" data-seconds="1569">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=eMlx5fFNoYc" data-yt="eMlx5fFNoYc" data-title="Attention in transformers, step-by-step (3Blue1Brown)"><img src="https://i.ytimg.com/vi/eMlx5fFNoYc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Attention in transformers, step-by-step (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>Video 3.</b> Attention in transformers, step by step (3Blue1Brown)</span><a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="deep-learning-in-practice">
+    <div class="num">9</div>
+    <div>
+      <h2>Deep learning in practice</h2>
+
+      <h3>Computer power</h3>
+      <p>Deep learning needs very many calculations. A <span class="tn" title="Graphics processing unit: a computer chip that does many calculations at the same time.">GPU</span> is a computer chip that does many calculations at the same time. Small networks can train on one GPU. Large language models train on thousands of GPUs for weeks or months.</p>
+
+      <h3>Prevent overfitting</h3>
+      <p>A deep network has very many weights. Thus it can easily remember the training data. Refer to <a href="machine-learning.html#overfitting-and-underfitting">Module 2, Section 9</a>. Use these methods to prevent overfitting:</p>
+      <ul>
+        <li><b><span class="tn" title="A method that switches off random neurons during training. It prevents the network from depending on a small number of neurons.">Dropout</span>.</b> During training, the system switches off some random neurons. Thus the network cannot depend on a small number of neurons.</li>
+        <li><b><span class="tn" title="A method that makes more training examples from the existing examples, for example when it turns or flips images.">Data augmentation</span>.</b> The system makes more training examples from the existing examples. For example, it turns, flips, or crops each image.</li>
+        <li><b>Early stopping.</b> The system stops training when the validation loss starts to increase.</li>
+      </ul>
+
+      <h3>Transfer learning</h3>
+      <p>To train a large network from zero, you need very much data and money. <span class="tn" title="A method that starts with a model that is already trained on a large data set, and then trains it a little more on a smaller data set for a new task.">Transfer learning</span> is a different method:</p>
+      <ol>
+        <li>Start with a network that is already trained on a large data set. For example, a network that is trained on millions of photographs.</li>
+        <li>Train it a little more on your small data set. For example, 500 photographs of defects on your parts.</li>
+      </ol>
+      <p>The network keeps its general knowledge, for example how to find edges and shapes. It only learns the new task. Generative AI uses the same principle. Refer to <a href="generative-ai.html#how-a-large-language-model-is-made">Module 4, Section 4</a>.</p>
+
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>It is difficult to know why a deep network gives an answer. Do not use a deep network alone for decisions that have a large effect on people, for example a loan or a medical diagnosis. A qualified person must do a check of the decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="summary">
+    <div class="num">10</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>Deep learning uses neural networks with many layers. The network finds the features in the raw data.</li>
+        <li>Each neuron multiplies its inputs by weights, adds a bias, and applies an activation function.</li>
+        <li>Backpropagation finds the gradient for each weight. Gradient descent then adjusts the weights.</li>
+        <li>CNNs use filters to find patterns in images.</li>
+        <li>Embeddings change items into lists of numbers. Similar items have similar embeddings.</li>
+        <li>Transformers use attention to connect each token to the other tokens.</li>
+        <li>Transfer learning gives good results with less data.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="knowledge-check">
+    <div class="num">11</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q":"What is the main difference between deep learning and classic machine learning?","options":["In deep learning, the network finds the features in the raw data.","Deep learning does not need data.","In deep learning, a person writes all the rules.","Deep learning can only use tables of numbers."],"answer":0,"explain":"In classic ML, a person usually selects the features. In deep learning, the layers learn the features from the raw data.","ref":"s2"},
+ {"q":"A neuron gets the inputs 1 and 2. The weights are 0.5 and 0.5. The bias is 0. The activation function is ReLU. What is the output?","options":["1.5","0.5","3","0"],"answer":0,"explain":"1 × 0.5 + 2 × 0.5 + 0 = 1.5. ReLU does not change a positive number.","ref":"s3"},
+ {"q":"What does ReLU do with a negative number?","options":["It changes it to zero.","It makes it positive.","It does not change it.","It doubles it."],"answer":0,"explain":"ReLU changes negative numbers to zero. It does not change positive numbers.","ref":"s3"},
+ {"q":"What does backpropagation calculate?","options":["The gradient for each weight, from the output layer back to the input layer.","The next token in a text.","The number of layers that the network needs.","The test accuracy of the model."],"answer":0,"explain":"The backward pass goes from the output back to the input. It finds how much each weight caused the error.","ref":"s4"},
+ {"q":"What is one epoch?","options":["One complete pass through all of the training data.","One small group of training examples.","One layer of a network.","One prediction of the model."],"answer":0,"explain":"A batch is a small group of examples. An epoch is one pass through all of the training data.","ref":"s4"},
+ {"q":"Which type of network is usually the best for images?","options":["CNN","RNN","Feedforward network","Decision tree"],"answer":0,"explain":"A CNN uses small filters that move across the image to find patterns.","ref":"s6"},
+ {"q":"In a CNN, what do the first layers usually find?","options":["Edges and lines.","Complete objects, for example a car.","The name of the object.","The color of the full image only."],"answer":0,"explain":"The first layers find simple patterns, for example edges. The later layers find larger shapes and parts.","ref":"s6"},
+ {"q":"Two words have very similar meanings. What is true about their embeddings?","options":["They are near each other.","They are far from each other.","They are exactly the same.","They have no numbers."],"answer":0,"explain":"The network learns to give similar numbers to items with similar meanings.","ref":"s7"},
+ {"q":"What does attention let a transformer do?","options":["Each token collects information from the other tokens.","The model reads only one word at a time.","The model looks up facts on the internet.","The model makes the text shorter."],"answer":0,"explain":"Attention calculates how important each other token is, and adds information from the important tokens.","ref":"s8"},
+ {"q":"You have only 500 photographs of defects. What is the best method?","options":["Transfer learning: start with a network that is already trained, then train it on your photographs.","Train a very large network from zero.","Use no training data.","Use only the test set for training."],"answer":0,"explain":"Transfer learning keeps the general knowledge of a trained network. It needs only a small data set for the new task.","ref":"s9"}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="technical-names">
+    <div class="num">12</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>Activation function</dt><dd>A simple function that a neuron applies to its total.</dd>
+        <dt>Attention</dt><dd>A method that lets each token collect information from the other tokens.</dd>
+        <dt>Backpropagation</dt><dd>A method that calculates the gradient for each weight, from the output back to the input.</dd>
+        <dt>Batch</dt><dd>A small group of training examples for one update of the weights.</dd>
+        <dt>Bias</dt><dd>A number that a neuron adds to its total.</dd>
+        <dt>CNN</dt><dd>Convolutional neural network. It uses filters to find patterns in images.</dd>
+        <dt>Data augmentation</dt><dd>A method that makes more training examples from the existing examples.</dd>
+        <dt>Deep learning</dt><dd>Machine learning that uses neural networks with many layers.</dd>
+        <dt>Dropout</dt><dd>A method that switches off random neurons during training.</dd>
+        <dt>Embedding</dt><dd>A list of numbers that shows the meaning of an item.</dd>
+        <dt>Epoch</dt><dd>One complete pass through all of the training data.</dd>
+        <dt>Feature map</dt><dd>The grid of numbers that a filter makes.</dd>
+        <dt>Filter</dt><dd>A small grid of weights that finds one type of pattern in an image.</dd>
+        <dt>Forward pass</dt><dd>The calculation from the input layer to the output layer.</dd>
+        <dt>GPU</dt><dd>Graphics processing unit. A chip that does many calculations at the same time.</dd>
+        <dt>ReLU</dt><dd>An activation function that changes negative numbers to zero.</dd>
+        <dt>RNN</dt><dd>Recurrent neural network. It reads a sequence one item at a time.</dd>
+        <dt>Transfer learning</dt><dd>Training that starts from a model that is already trained.</dd>
+        <dt>Transformer</dt><dd>A network design that uses attention.</dd>
+        <dt>Vector</dt><dd>An ordered list of numbers.</dd>
+      </dl>
+    </div>
+  </section>
+
+  </main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="machine-learning.html"><small>Previous module</small><b>2. Machine learning</b></a>
+    <a class="next" href="generative-ai.html"><small>Next module</small><b>4. Generative AI</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Videos: 3Blue1Brown and deeplizard on YouTube.</span>
+  </footer>
+</div>
+</body>
+</html>
