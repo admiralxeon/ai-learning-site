@@ -406,10 +406,35 @@ write("assets/review-pool.js", "/* Made by tools/build.py. Do not edit. The ques
 write("assets/search-index.js", "/* Made by tools/build.py. Do not edit. */\nwindow.SEARCH_INDEX=" + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
 import hashlib
-OFFLINE = PAGES + sorted(str(f.relative_to(SITE)).replace("\\", "/") for f in (SITE / "assets").iterdir() if f.is_file()) + ["manifest.webmanifest"]
+
+
+def fhash(name):
+    return hashlib.sha256((SITE / name).read_bytes()).hexdigest()[:10]
+
+
+# Add a version to each CSS and JavaScript address. A new version gets a new address, so a browser
+# or the offline copy can never show new pages with old styles or old scripts.
+js = read("assets/site.js")
+later = {n: fhash("assets/" + n) for n in ("flashcards.js", "playgrounds.js", "search-index.js")}
+js, n = re.subn(r"var ASSET_V=\{.*?\};", lambda mo: "var ASSET_V=" + json.dumps(later, separators=(",", ":")) + ";", js, count=1)
+if n != 1:
+    raise SystemExit("assets/site.js: ASSET_V not found")
+write("assets/site.js", js)
+versions = {n: fhash("assets/" + n) for n in ("site.css", "site.js", "review-pool.js")}
+for name in PAGES:
+    src = read(name)
+    new = re.sub(r'assets/(site\.css|site\.js|review-pool\.js)(\?v=[0-9a-f]+)?"', lambda mo: f'assets/{mo.group(1)}?v={versions[mo.group(1)]}"', src)
+    if new != src:
+        write(name, new)
+versioned = {**versions, **later}
+assets = []
+for f in sorted((SITE / "assets").iterdir()):
+    if f.is_file():
+        assets.append(f"assets/{f.name}?v={versioned[f.name]}" if f.name in versioned else f"assets/{f.name}")
+OFFLINE = PAGES + assets + ["manifest.webmanifest"]
 digest = hashlib.sha256()
 for f in OFFLINE:
-    digest.update(f.encode()); digest.update((SITE / f).read_bytes())
+    digest.update(f.encode()); digest.update((SITE / f.split("?")[0]).read_bytes())
 version = digest.hexdigest()[:12]
 write("sw.js", f"""/* Made by tools/build.py. Do not edit. It keeps a copy of the site so that it works offline. */
 const VERSION = "{version}";
@@ -426,11 +451,15 @@ self.addEventListener("fetch", e => {{
   const url = new URL(req.url);
   if (url.origin === location.origin) {{
     // Pages: try the network first, so that updates appear. Other files: use the copy first.
+    // CSS and JavaScript addresses contain their version, so an exact match is always the correct file.
     if (req.mode === "navigate") {{
       e.respondWith(fetch(req).then(r => {{ const copy = r.clone(); caches.open(VERSION).then(c => c.put(req, copy)); return r; }})
         .catch(() => caches.match(req, {{ignoreSearch: true}}).then(r => r || caches.match("index.html"))));
     }} else {{
-      e.respondWith(caches.match(req, {{ignoreSearch: true}}).then(r => r || fetch(req)));
+      e.respondWith(caches.match(req).then(r => r || fetch(req).then(res => {{
+        if (res.ok) {{ const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }}
+        return res;
+      }})));
     }}
   }} else if (url.hostname.endsWith("fonts.googleapis.com") || url.hostname.endsWith("fonts.gstatic.com")) {{
     e.respondWith(caches.open("fonts").then(c => c.match(req).then(r => r || fetch(req).then(res => {{ c.put(req, res.clone()); return res; }}))));

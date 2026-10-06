@@ -49,6 +49,9 @@
     {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5},
     {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7}
   ];
+  // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
+  var ASSET_V={"flashcards.js":"1063ca8b9e","playgrounds.js":"b710db72c0","search-index.js":"aa0168fb1b"};
+  function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
   function el(tag,cls,html){var n=document.createElement(tag);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n;}
@@ -803,7 +806,7 @@
 
     // ---------- Flashcards (glossary page) and a link to them from each module ----------
     if(document.getElementById("flashcards")){
-      var fcs=document.createElement("script");fcs.src="assets/flashcards.js";document.head.appendChild(fcs);
+      var fcs=document.createElement("script");fcs.src="assets/flashcards.js"+av("flashcards.js");document.head.appendChild(fcs);
     }
     var tnSec=isModule&&document.getElementById("technical-names");
     if(tnSec){
@@ -818,7 +821,7 @@
 
     // ---------- Playgrounds: load their code only on pages that have them ----------
     if(document.querySelector(".playground[data-pg]")){
-      var pgs=document.createElement("script");pgs.src="assets/playgrounds.js";document.head.appendChild(pgs);
+      var pgs=document.createElement("script");pgs.src="assets/playgrounds.js"+av("playgrounds.js");document.head.appendChild(pgs);
     }
 
     // ---------- Videos: load the YouTube player only when the learner selects play ----------
@@ -877,7 +880,7 @@
         if(window.SEARCH_INDEX)return cb();
         if(loadingIdx)return;
         loadingIdx=true;sstat.textContent="Loading the search…";
-        var sc=document.createElement("script");sc.src="assets/search-index.js";
+        var sc=document.createElement("script");sc.src="assets/search-index.js"+av("search-index.js");
         sc.onload=function(){loadingIdx=false;cb();};
         sc.onerror=function(){loadingIdx=false;sstat.textContent="The search is not available at this time.";};
         document.head.appendChild(sc);

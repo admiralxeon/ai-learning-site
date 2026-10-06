@@ -14,20 +14,23 @@
   // Read the cards from the glossary list.
   var ALL=[].map.call(document.querySelectorAll(".gl-item"),function(it){
     var dt=it.querySelector("dt"),def=it.querySelector(".gl-def");
-    var mods=[].map.call(it.querySelectorAll(".gl-mods a"),function(a){return +(/\d+/.exec(a.textContent)||[0])[0];});
-    return {id:dt.id,term:dt.textContent.trim(),def:def?def.textContent.trim():"",mods:mods};
+    // Deck keys: "1" to "7" for modules, "topics" for the short topics.
+    var links=[].slice.call(it.querySelectorAll(".gl-mods a"));
+    var mods=links.map(function(a){var n=/^Module (\d+)$/.exec(a.textContent.trim());return n?n[1]:"topics";}).filter(function(k,i,arr){return arr.indexOf(k)===i;});
+    return {id:dt.id,term:dt.textContent.trim(),def:def?def.textContent.trim():"",mods:mods,where:links.map(function(a){return a.textContent.trim();})};
   });
   if(!ALL.length)return;
-  var MODS=[];ALL.forEach(function(c){c.mods.forEach(function(m){if(MODS.indexOf(m)<0)MODS.push(m);});});MODS.sort();
+  var MODS=[];ALL.forEach(function(c){c.mods.forEach(function(m){if(MODS.indexOf(m)<0)MODS.push(m);});});
+  MODS.sort(function(a,b){return (a==="topics"?99:+a)-(b==="topics"?99:+b);});
 
   var boxes=load(),deck="all",reverse=false,queue=[],pos=0,firstTry=0,again=0,seen={},flipped=false;
-  var params=/[?&]deck=(\d+)/.exec(location.search);if(params&&MODS.indexOf(+params[1])>=0)deck=params[1];
+  var params=/[?&]deck=(\d+)/.exec(location.search);if(params&&MODS.indexOf(params[1])>=0)deck=params[1];
 
   // ---------------- controls
   var ctr=el("div","fc-controls");
   var fs=el("fieldset","dgroup fc-deck");fs.appendChild(el("legend",null,"Cards from"));
   var seg=el("div","dseg");
-  [["all","All modules"]].concat(MODS.map(function(m){return [String(m),"Module "+m];})).forEach(function(o){
+  [["all","All"]].concat(MODS.map(function(m){return [m,m==="topics"?"Short topics":"Module "+m];})).forEach(function(o){
     var id="fc-deck-"+o[0],lab=el("label","dopt");lab.setAttribute("for",id);
     var inp=el("input");inp.type="radio";inp.name="fc-deck";inp.id=id;inp.value=o[0];inp.checked=o[0]===deck;
     inp.addEventListener("change",function(){if(inp.checked){deck=o[0];start(false);}});
@@ -58,7 +61,7 @@
   body.appendChild(stage);
   var done=el("div","fc-done");done.hidden=true;body.appendChild(done);
 
-  function deckCards(){return ALL.filter(function(c){return deck==="all"||c.mods.indexOf(+deck)>=0;});}
+  function deckCards(){return ALL.filter(function(c){return deck==="all"||c.mods.indexOf(deck)>=0;});}
   function boxOf(c){return (boxes[c.id]&&boxes[c.id].b)||0;}
   function paintLearned(){
     var d=deckCards(),n=d.filter(function(c){return boxOf(c)>=2;}).length;
@@ -78,7 +81,7 @@
     // "pos" is the number of cards that are known in this session. A card that comes back does not count two times.
     var c=queue[pos],total=queue.length;
     flipped=false;
-    meta.textContent=pos+" of "+total+" known · "+c.mods.map(function(m){return "Module "+m;}).join(", ");
+    meta.textContent=pos+" of "+total+" known · "+c.where.join(", ");
     barF.style.width=Math.round(pos/Math.max(1,total)*100)+"%";
     front.textContent=reverse?c.def:c.term;front.classList.toggle("is-def",reverse);
     back.textContent="";back.hidden=true;
