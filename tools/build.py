@@ -20,6 +20,9 @@ SITE = Path(__file__).resolve().parent.parent
 
 # The course, in order. To add a module: write its page, add one line here, and run this script.
 MODULES = [
+    {"href": "python-for-ai.html", "title": "Python and data tools",
+     "summary": "Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.",
+     "quick": ["set-up-your-tools", "python-basics", "pandas-work-with-tables", "summary", "knowledge-check"]},
     {"href": "ai.html", "title": "Artificial intelligence",
      "summary": "What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.",
      "quick": ["what-ai-is", "the-parts-of-ai", "how-a-chat-ai-makes-text", "limits-and-risks", "summary", "knowledge-check"]},
@@ -56,8 +59,73 @@ TOPICS = [
     {"href": "topic-forecasting.html", "title": "Forecasting",
      "summary": "Trend, season, and noise in time series, baselines, how to test a forecast, and ranges of uncertainty."},
 ]
+# What a learner can do after each module, and which modules to finish first (by module number).
+OUTCOMES = {
+    0: (["Run Python in Google Colab and on your own computer.",
+         "Write code with lists, dictionaries, loops, conditions, and functions.",
+         "Load, clean, filter, and summarize a table of data with pandas.",
+         "Get data from a database with SQL.",
+         "Use the terminal, a virtual environment, and Git."], []),
+    1: (["Explain what AI is, and the difference between AI, ML, deep learning, and generative AI.",
+         "Describe how a system learns from examples.",
+         "Explain how a chat AI makes text, one token at a time.",
+         "Name the main limits and risks of AI."], []),
+    2: (["Describe data with the mean, the median, and the standard deviation.",
+         "Use probability and Bayes' rule, and explain softmax.",
+         "Calculate with vectors and matrices.",
+         "Explain derivatives, gradients, and gradient descent."], [1]),
+    3: (["Describe the steps of the machine learning workflow.",
+         "Prepare data and divide it into training, validation, and test sets.",
+         "Select supervised, unsupervised, or reinforcement learning for a problem.",
+         "Measure a model with accuracy, precision, and recall, and find overfitting."], [1, 2]),
+    4: (["Explain how a neuron, backpropagation, and gradient descent work together.",
+         "Select a type of neural network for a type of data.",
+         "Explain embeddings and attention.",
+         "Use transfer learning when you have little data."], [3]),
+    5: (["Explain how a large language model is made.",
+         "Control the output with temperature and the context window.",
+         "Write clear prompts with a task, context, format, and examples.",
+         "Explain RAG and agents, and the risks of generative AI."], [4]),
+    6: (["Find and measure bias in a model.",
+         "Apply the basic rules of privacy and AI law.",
+         "Plan explanations and human oversight.",
+         "Evaluate an AI tool, and decide when not to use AI."], [5]),
+    7: (["Prepare data without data leakage, and compare models with a baseline.",
+         "Test models fairly with cross-validation.",
+         "Release a model safely and monitor it for drift.",
+         "Test LLM applications with an evaluation set, and use agents safely."], [3, 5]),
+    8: (["Keep versions of code, data, models, and prompts.",
+         "Serve a model as an API and package it in a container.",
+         "Build a CI/CD pipeline with quality gates.",
+         "Observe a service in production and protect its secrets."], [0, 7]),
+}
+
+# The two tracks. "plan" has one line for each week: (what to study, what to do).
+# Use module numbers (int), project ids ("p3"), topic file names, or text.
+TRACKS = [
+    {"id": "foundations", "name": "AI Foundations", "weeks": 6, "hours": "3 to 4 hours each week",
+     "who": "For anyone who wants to understand AI and use it well at work or in studies. No programming.",
+     "modules": [1, 2, 3, 4, 5, 6], "projects": [],
+     "plan": [([1], ["p1"]), ([2], ["The playgrounds of Module 2"]), ([3], ["p2"]),
+              ([4], ["Glossary flashcards for Modules 1 to 4"]), ([5], ["p6"]),
+              ([6], ["The capstone plan in Module 6", "The final review"])]},
+    {"id": "engineer", "name": "AI Engineer", "weeks": 12, "hours": "6 to 8 hours each week",
+     "who": "For people who want to build AI products: developers, data analysts, and students of engineering.",
+     "modules": "all", "projects": ["p3", "p5", "p8", "p9"],
+     "plan": [([0], ["Run all the examples of Module 0", "p2"]), ([1, 2], ["p1"]), ([3], ["p3", "p4"]),
+              ([4], ["p5"]), ([5], ["p6"]), ([6], ["p7"]),
+              ([7], ["p8"]), ([8], ["p9"]), ("rest", []),
+              (["topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html"], ["Select one short topic, and add a feature to one of your projects"]),
+              (["cheat-sheets.html"], ["The final review"]),
+              (["careers.html"], ["Put your projects on GitHub with a README", "Plan your own project with the capstone"])]},
+]
+PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predict-flat-prices-with-a-line",
+               "p3": "project-3-build-a-spam-filter", "p4": "project-4-find-groups-of-customers",
+               "p5": "project-5-a-neural-network-that-reads-digits", "p6": "project-6-a-prompt-lab",
+               "p7": "project-7-audit-a-model-for-bias", "p8": "project-8-find-drift-and-train-again",
+               "p9": "project-9-ship-a-model-with-ci-cd"}
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
-REVIEW, CHEATS, CAREERS = "review.html", "cheat-sheets.html", "careers.html"
+REVIEW, CHEATS, CAREERS, COURSE = "review.html", "cheat-sheets.html", "careers.html", "course.html"
 SITE_NAME = "AI learning manual"
 HOME_DESCRIPTION = ("Learn artificial intelligence in eight short modules: AI, the mathematics for ML, machine learning, deep learning, generative AI, responsible AI, AI in practice, and DevOps for AI. "
                     "Each module has diagrams, videos, and a knowledge check.")
@@ -65,6 +133,7 @@ PROJECTS_DESCRIPTION = "Nine hands-on AI projects from beginner to advanced: an 
 CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual."
 REVIEW_DESCRIPTION = "The final review: 20 questions from all eight modules, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
+COURSE_DESCRIPTION = "The course plan: two tracks, AI Foundations (6 weeks) and AI Engineer (12 weeks), with a weekly plan, the learning outcomes of each module, and the certificate rules."
 CAREERS_DESCRIPTION = "Jobs in AI, the skills that each job needs, what to learn after this course, and how to show your projects in a portfolio."
 GLOSSARY_DESCRIPTION = "All the technical names in the AI learning manual, with short definitions and links to the modules that use them."
 
@@ -96,7 +165,7 @@ def replace_one(text, pattern, new, name, flags=re.S):
 
 # ---------------------------------------------------------------- read the modules
 for i, m in enumerate(MODULES):
-    m["num"] = i + 1
+    m["num"] = i  # Module 0 is the programming module
     src = read(m["href"])
     main = re.search(r"<main\b.*?</main>", src, flags=re.S).group(0)
     m["sections"] = []
@@ -149,9 +218,20 @@ for m in MODULES:
             q["rn"], q["rt"] = titles[q["ref"]]
         review_pool.append(q)
 
-EXTRA = {PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
+EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
          CHEATS: ("Cheat sheets", CHEATS_DESCRIPTION), CAREERS: ("Careers", CAREERS_DESCRIPTION)}
-PAGES = [HOME] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE]
+for m in MODULES:
+    if m["num"] not in OUTCOMES:
+        raise SystemExit(f'{m["href"]}: add its learning outcomes to OUTCOMES')
+    m["outcomes"], m["needs"] = OUTCOMES[m["num"]]
+BY_NUM = {m["num"]: m for m in MODULES}
+BY_HREF = {m["href"]: m for m in MODULES}
+for t in TRACKS:
+    if t["modules"] == "all":
+        t["modules"] = [m["num"] for m in MODULES]
+for m in MODULES:
+    m["tracks"] = [t["id"] for t in TRACKS if m["num"] in t["modules"]]
+PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE]
 
 
 # ---------------------------------------------------------------- shared parts
@@ -183,7 +263,7 @@ def nav_html(current):
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics">{tops}</ul>
-        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(PROJECTS, "Projects")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(CERTIFICATE, "Certificate")}</div>
+        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(CERTIFICATE, "Certificate")}</div>
       </div>
     </details>
     {top(PROJECTS, "Projects", " topnav-proj")}
@@ -198,7 +278,7 @@ def pager_html(current):
     hrefs = [m["href"] for m in MODULES]
     parts = []
     if current == HOME:
-        parts.append(link(MODULES[0]["href"], "Start here", f'1. {MODULES[0]["title"]}', "next"))
+        parts.append(link(COURSE, "Start here", "Choose your track", "next"))
     elif current == REVIEW:
         parts.append(link(MODULES[-1]["href"], "Previous module", f'{MODULES[-1]["num"]}. {MODULES[-1]["title"]}'))
         parts.append(link(CERTIFICATE, "Next", "Your certificate", "next"))
@@ -363,13 +443,217 @@ def glossary_page():
 ''', entries
 
 
+# ---------------------------------------------------------------- outcomes box and course page
+TRACK_NAMES = {t["id"]: t["name"] for t in TRACKS}
+
+
+def mod_link(n):
+    m = BY_NUM[n]
+    return f'<a href="{m["href"]}">Module {n}, {html.escape(m["title"])}</a>'
+
+
+def outcomes_html(m):
+    items = "".join(f"<li>{html.escape(o)}</li>" for o in m["outcomes"])
+    needs = ", ".join(mod_link(n) for n in m["needs"]) if m["needs"] else "Nothing. You can start here."
+    tracks = " &middot; ".join(f'<a href="course.html#track-{t}">{TRACK_NAMES[t]}</a>' for t in m["tracks"])
+    return ("<!-- outcomes:start (made by tools/build.py) -->\n"
+            '  <div class="outcomes" role="group" aria-label="About this module">\n'
+            f'    <div class="oc-main"><b>After this module, you can:</b><ul>{items}</ul></div>\n'
+            f'    <div class="oc-side"><b>Before you start</b><p>{needs}</p><b>Part of</b><p>{tracks}</p></div>\n'
+            "  </div>\n"
+            "  <!-- outcomes:end -->")
+
+
+def set_outcomes(src, m):
+    block = outcomes_html(m)
+    if "<!-- outcomes:start" in src:
+        return re.sub(r"<!-- outcomes:start.*?<!-- outcomes:end -->", lambda mo: block, src, count=1, flags=re.S)
+    new, n = re.subn(r'(<div class="title">.*?</div>\n)', lambda mo: mo.group(1) + "\n  " + block + "\n", src, count=1, flags=re.S)
+    if n != 1:
+        raise SystemExit(f'{m["href"]}: title block not found')
+    return new
+
+
+def item_html(x):
+    e = lambda t: html.escape(t, quote=False)
+    if isinstance(x, int):
+        m = BY_NUM[x]
+        return f'<a href="{m["href"]}">Module {x}: {e(m["title"])}</a> <small>({m["read"]} min read)</small>'
+    if x in PROJECT_IDS:
+        return f'<a href="projects.html#{PROJECT_IDS[x]}">Project {x[1:]}</a>'
+    if x == "The final review":
+        return '<a href="review.html">The final review</a>'
+    if x.endswith(".html"):
+        names = {CHEATS: "Cheat sheets", CAREERS: "Careers and next steps", REVIEW: "The final review"}
+        names.update({t["href"]: t["title"] for t in TOPICS})
+        return f'<a href="{x}">{e(names[x])}</a>'
+    return e(x)
+
+
+def plan_table(t):
+    rows = []
+    for week, (study, do) in enumerate(t["plan"], 1):
+        if study == "rest":
+            rows.append(f"            <tr><td>{week}</td><td>Catch up: finish the projects and the knowledge checks that are not done.</td><td>Repeat the difficult flashcards.</td></tr>")
+            continue
+        s1 = "".join(f'<span class="pi">{item_html(x)}</span>' for x in study)
+        d1 = "".join(f'<span class="pi">{item_html(x)}</span>' for x in do) if do else "&ndash;"
+        rows.append(f"            <tr><td>{week}</td><td>{s1}</td><td>{d1}</td></tr>")
+    return "\n".join(rows)
+
+
+def cert_rules(t):
+    mods = ", ".join(str(n) for n in t["modules"])
+    rules = [f"Pass the knowledge check of Modules {mods}.", "Pass the final review (75% or more)."]
+    if t["projects"]:
+        rules.append("Mark these projects as done: " + ", ".join(f'<a href="projects.html#{PROJECT_IDS[p]}">Project {p[1:]}</a>' for p in t["projects"]) + ".")
+    return "".join(f"<li>{r}</li>" for r in rules)
+
+
+def course_page():
+    e = lambda x: html.escape(x, quote=False)
+    cards = []
+    for t in TRACKS:
+        proj = ("Projects " + ", ".join(p[1:] for p in t["projects"]) + " are required") if t["projects"] else "Projects are optional"
+        cards.append(f"""        <div class="track-card" id="track-{t["id"]}">
+          <p class="track-k">{t["weeks"]} weeks &middot; {t["hours"]}</p>
+          <h3>{t["name"]}</h3>
+          <p>{e(t["who"])}</p>
+          <ul>
+            <li>{len(t["modules"])} modules: {", ".join(str(x) for x in t["modules"])}</li>
+            <li>{proj}</li>
+            <li>The final review and the {t["name"]} certificate</li>
+          </ul>
+          <button type="button" class="pg-btn pg-btn-primary track-pick" data-track="{t["id"]}">Follow this track</button>
+        </div>""")
+    plans = []
+    num = 3
+    for t in TRACKS:
+        plans.append(f"""  <section id="{t["id"]}-weekly-plan">
+    <div class="num">{num}</div>
+    <div>
+      <h2>{t["name"]}: weekly plan</h2>
+      <p>{t["weeks"]} weeks, {t["hours"]}. Do the knowledge check at the end of each module before you start the next week.</p>
+      <div class="tablewrap">
+        <table class="plan">
+          <thead><tr><th>Week</th><th>Study</th><th>Do</th></tr></thead>
+          <tbody>
+{plan_table(t)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>""")
+        num += 1
+    outs = []
+    for m in MODULES:
+        lis = "".join(f"<li>{e(o)}</li>" for o in m["outcomes"])
+        outs.append(f'        <div class="oc-mod"><h3><a href="{m["href"]}">Module {m["num"]}: {e(m["title"])}</a></h3><ul>{lis}</ul></div>')
+    rules = "".join(f'<div class="cs-box"><h3>{t["name"]}</h3><ul>{cert_rules(t)}</ul></div>' for t in TRACKS)
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Course plan | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  {nav_html(COURSE)}
+</div></header>
+
+<div class="sheet">
+<main id="main" data-reference>
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-00-00-00-001A</b></div>
+    <div>Subject<b>Course plan</b></div>
+    <div>Info type<b>Syllabus</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Course plan</h1>
+    <p>This manual is a full course with two tracks. Select the track that agrees with your goal. Each track has a weekly plan, required work, and its own certificate. You can change your track at any time. Your progress stays.</p>
+  </div>
+
+  <section id="choose-your-track">
+    <div class="num">1</div>
+    <div>
+      <h2>Choose your track</h2>
+      <div class="track-grid">
+{chr(10).join(cards)}
+      </div>
+      <p class="track-status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="how-to-study">
+    <div class="num">2</div>
+    <div>
+      <h2>How to study</h2>
+      <ul>
+        <li><b>Set fixed times.</b> For example, one hour on three evenings each week. A regular plan is better than one long day.</li>
+        <li><b>Use the quick path when you have less time.</b> Select it on the home page. It opens the most important sections only.</li>
+        <li><b>Test yourself.</b> Answer the "Think" questions and the knowledge checks before you look at the answers. To remember is a stronger way to learn than to read again.</li>
+        <li><b>Repeat with the flashcards.</b> Ten minutes each day with the <a href="glossary.html#flashcards">flashcards</a> keeps the technical names in your memory.</li>
+        <li><b>Build things.</b> Do the projects of your track. Change them, and break them, to see what occurs.</li>
+        <li><b>Revise with the <a href="cheat-sheets.html">cheat sheets</a></b> before the final review.</li>
+      </ul>
+    </div>
+  </section>
+
+{chr(10).join(plans)}
+
+  <section id="learning-outcomes">
+    <div class="num">{num}</div>
+    <div>
+      <h2>Learning outcomes</h2>
+      <p>After each module, you can do these things. The same list is at the start of each module.</p>
+      <div class="oc-grid">
+{chr(10).join(outs)}
+      </div>
+    </div>
+  </section>
+
+  <section id="certificates">
+    <div class="num">{num + 1}</div>
+    <div>
+      <h2>Certificates</h2>
+      <p>Each track has its own certificate. Your progress is kept in this browser. To move it to a different device, use <b>Export progress</b> on the home page.</p>
+      <div class="cs-grid">{rules}</div>
+      <p><a href="certificate.html">Open your certificate page</a></p>
+    </div>
+  </section>
+</main>
+
+  {pager_html(COURSE)}
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Made from the course data in tools/build.py.</span>
+  </footer>
+</div>
+</body>
+</html>
+"""
+
+
 # ---------------------------------------------------------------- write everything
 glossary_html, glossary_entries = glossary_page()
 write(GLOSSARY, glossary_html)
+write(COURSE, course_page())
 
 for name in PAGES:
     src = read(name)
     src = set_head(src, name)
+    if name in BY_HREF:
+        src = set_outcomes(src, BY_HREF[name])
     src = replace_one(src, r'<nav (?:class="topnav" )?aria-label="(?:Modules|Main)">.*?</nav>', nav_html(name), name)
     src = replace_one(src, r'<nav class="pager".*?</nav>', pager_html(name), name)
     src = re.sub(r'<div class="frame"><iframe src="https://www\.youtube-nocookie\.com/embed/([A-Za-z0-9_-]+)" title="([^"]*)"[^>]*></iframe></div>', facade, src)
@@ -385,11 +669,16 @@ for name in PAGES:
 
 js = read("assets/site.js")
 data = ",\n".join("    " + json.dumps({"href": m["href"], "num": m["num"], "title": m["title"], "sections": len(m["sections"]),
-                                       "read": m["read"], "video": m["video"], "quick": m.get("quick", []), "quickRead": m["quickRead"]},
+                                       "read": m["read"], "video": m["video"], "quick": m.get("quick", []), "quickRead": m["quickRead"], "tracks": m["tracks"]},
                                       separators=(",", ":")) for m in MODULES)
 js, n = re.subn(r"var MODULES=\[.*?\n  \];", lambda mo: "var MODULES=[\n" + data + "\n  ];", js, count=1, flags=re.S)
 if n != 1:
     raise SystemExit("assets/site.js: MODULES list not found")
+tracks_js = json.dumps([{"id": t["id"], "name": t["name"], "weeks": t["weeks"], "modules": [BY_NUM[n]["href"] for n in t["modules"]],
+                         "projects": [PROJECT_IDS[p] for p in t["projects"]]} for t in TRACKS], separators=(",", ":"))
+js, n = re.subn(r"var TRACKS=\[.*?\];", lambda mo: "var TRACKS=" + tracks_js + ";", js, count=1, flags=re.S)
+if n != 1:
+    raise SystemExit("assets/site.js: TRACKS list not found")
 write("assets/site.js", js)
 
 index = []

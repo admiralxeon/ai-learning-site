@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>0. Python and data tools | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 0, Python and data tools: Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="0. Python and data tools | AI learning manual">
+<meta property="og:description" content="Module 0, Python and data tools: Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=e70235eafd">
+<script src="assets/site.js?v=be2736f1e5"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 0</span><span class="mods-t">Python and data tools</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="python-for-ai.html" aria-current="page" data-mod="python-for-ai.html"><span class="mods-n">0</span><span class="mods-i"><b>Python and data tools</b><small>Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 16 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="course.html">Course plan</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-01-00-00-040A</b></div>
+    <div>Subject<b>Python and data tools</b></div>
+    <div>Info type<b>Description and procedure</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Python and data tools for AI</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. It is the first module of the AI Engineer track. It teaches the programming tools that the projects and the engineering modules use: Python, NumPy, pandas, SQL, the terminal, and Git. You do not need to know programming before you start. If you want to learn about AI without code, you can start with <a href="ai.html">Module 1</a>. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+  <!-- outcomes:start (made by tools/build.py) -->
+  <div class="outcomes" role="group" aria-label="About this module">
+    <div class="oc-main"><b>After this module, you can:</b><ul><li>Run Python in Google Colab and on your own computer.</li><li>Write code with lists, dictionaries, loops, conditions, and functions.</li><li>Load, clean, filter, and summarize a table of data with pandas.</li><li>Get data from a database with SQL.</li><li>Use the terminal, a virtual environment, and Git.</li></ul></div>
+    <div class="oc-side"><b>Before you start</b><p>Nothing. You can start here.</p><b>Part of</b><p><a href="course.html#track-engineer">AI Engineer</a></p></div>
+  </div>
+  <!-- outcomes:end -->
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module gives you the basic tools of an AI engineer.</p>
+      <p>It tells you:</p>
+      <ul>
+        <li>How to run Python, in the browser or on your computer.</li>
+        <li>The basic parts of the Python language: values, lists, loops, conditions, and functions.</li>
+        <li>How to calculate with many numbers at the same time with NumPy.</li>
+        <li>How to load, clean, and summarize a table of data with pandas.</li>
+        <li>How to get data from a database with SQL.</li>
+        <li>How to use the terminal, virtual environments, and Git.</li>
+        <li>How to read an error message and repair the code.</li>
+      </ul>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Run each example yourself, and change it. You learn programming by typing and testing, not only by reading. Each example in this module is tested, and the output below it is the real output.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="set-up-your-tools">
+    <div class="num">2</div>
+    <div>
+      <h2>Set up your tools</h2>
+      <p><span class="tn" title="A programming language that is easy to read. Most AI and data work uses it.">Python</span> is the main language of AI. Most AI libraries, for example scikit-learn and PyTorch, use it. You can run Python in two ways.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Way</th><th>What you need</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>Google Colab</td><td>A web browser and a Google account. Nothing to install.</td><td>Learning, experiments, and the projects of this manual.</td></tr>
+            <tr><td>On your computer</td><td>Python from python.org, and a code editor, for example VS Code.</td><td>Real software: web services, tests, and Git. Modules 8 and 9 use this.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Colab is a <span class="tn" title="A document that contains cells of code, their outputs, and text. You run each cell separately. Jupyter and Colab are notebooks.">notebook</span>: a page with cells. Each cell contains code. When you run a cell, the output shows below it. To start, open <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab</a> and select <b>New notebook</b>.</p>
+      <h3>Procedure: set up Python on your computer</h3>
+      <ol class="steps">
+        <li>Install Python 3 from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>. On Windows, select <b>Add python.exe to PATH</b> during the installation.</li>
+        <li>Install a code editor, for example <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a>, and its Python extension.</li>
+        <li>Make a folder for your project. Open a terminal in that folder. Refer to <a href="#the-terminal-and-git">Section 8</a>.</li>
+        <li>Make a virtual environment and install the libraries with the commands below.</li>
+      </ol>
+      <div class="codeblock">
+        <div class="cb-head"><span>Terminal</span><button type="button" class="pg-chip" data-copy="code-venv">Copy the commands</button></div>
+        <pre id="code-venv" tabindex="0" role="region" aria-label="Terminal commands to make a virtual environment"><code>python -m venv .venv
+.venv\Scripts\activate          # on Windows
+source .venv/bin/activate       # on macOS and Linux
+pip install numpy pandas scikit-learn matplotlib
+pip freeze &gt; requirements.txt</code></pre>
+      </div>
+      <p>A <span class="tn" title="A separate folder of Python libraries for one project. Each project can use different versions without problems.">virtual environment</span> keeps the libraries of each project separate. <code>pip</code> installs libraries. The last command saves the exact versions in <code>requirements.txt</code>. Refer to <a href="devops.html#package-it-in-a-container">Module 8, Section 6</a>.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="python-basics">
+    <div class="num">3</div>
+    <div>
+      <h2>Python basics</h2>
+      <p>A program is a list of instructions. Python does them in order, from the top to the bottom. This example shows the most important parts of the language.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-basics">Copy the code</button></div>
+        <pre id="code-basics" tabindex="0" role="region" aria-label="Python code: basics"><code># Variables and types
+name = "Alphonso"          # text (str)
+weight = 262.5             # a number with a decimal point (float)
+boxes = 12                 # a whole number (int)
+is_ripe = True             # yes or no (bool)
+
+# A list keeps items in order. A dictionary keeps pairs of a key and a value.
+weights = [262.5, 240.0, 255.5, 310.0, 198.5]
+mango = {"name": name, "weight": weight, "ripe": is_ripe}
+
+# A loop and a condition
+for w in weights:
+    if w &gt;= 250:
+        print(w, "large")
+    else:
+        print(w, "small")
+
+
+# A function: a named block of code that you can use again
+def mean(values):
+    return sum(values) / len(values)
+
+
+print("Mean weight:", mean(weights))
+print(mango["name"], "weighs", mango["weight"], "g")</code></pre>
+      </div>
+      <div class="codeblock cb-out">
+        <div class="cb-head"><span>Output</span></div>
+        <pre tabindex="0" role="region" aria-label="Output of the basics code"><code>262.5 large
+240.0 small
+255.5 large
+310.0 large
+198.5 small
+Mean weight: 253.3
+Alphonso weighs 262.5 g</code></pre>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Part</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tn" title="A name that refers to a value, for example weight = 262.5.">Variable</span></td><td>Gives a name to a value: <code>weight = 262.5</code>.</td></tr>
+            <tr><td>Types</td><td>Text (<code>str</code>), whole numbers (<code>int</code>), decimal numbers (<code>float</code>), yes or no (<code>bool</code>).</td></tr>
+            <tr><td>List</td><td>Items in order: <code>[262.5, 240.0]</code>. The first item is <code>weights[0]</code>.</td></tr>
+            <tr><td><span class="tn" title="A Python collection of pairs of a key and a value, for example {&quot;name&quot;: &quot;Alphonso&quot;}.">Dictionary</span></td><td>Pairs of a key and a value: <code>mango["name"]</code>.</td></tr>
+            <tr><td><code>for</code> loop</td><td>Does the indented lines one time for each item.</td></tr>
+            <tr><td><code>if</code> and <code>else</code></td><td>Does different lines when a condition is true or false.</td></tr>
+            <tr><td><span class="tn" title="A named block of code that takes inputs and can give back a result. You write it one time and use it many times.">Function</span></td><td>A named block of code that you can use again: <code>def mean(values):</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Indentation is part of Python. The lines inside a loop, a condition, or a function must start with 4 spaces. If the spaces are wrong, Python gives an <code>IndentationError</code>.</p>
+      </div>
+
+      <div class="playground" data-pg="tracer" id="try-tracer">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Follow the code step by step</h3></div>
+        <p class="pg-intro">This code calculates the mean weight of three mangoes. Select <b>Next step</b> to see each line that Python runs, and the value of each variable after that line. Before each step, say what you think will occur.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <div class="video" data-seconds="3606">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=kqtD5dpn9C8" data-yt="kqtD5dpn9C8" data-title="Python for Beginners - Learn Coding with Python in 1 Hour (Programming with Mosh)"><img src="https://i.ytimg.com/vi/kqtD5dpn9C8/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Python for Beginners - Learn Coding with Python in 1 Hour (Programming with Mosh)</span></a></div>
+        <div class="meta"><span><b>Video 1.</b> Python for beginners in one hour (Programming with Mosh)</span><a href="https://www.youtube.com/watch?v=kqtD5dpn9C8" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="numpy-calculate-with-arrays">
+    <div class="num">4</div>
+    <div>
+      <h2>NumPy: calculate with arrays</h2>
+      <p>A Python list is slow for large calculations. <span class="tn" title="A Python library for fast calculations with arrays of numbers. Most AI libraries use it.">NumPy</span> keeps numbers in an <span class="tn" title="A NumPy grid of numbers of one type: a vector (1D), a matrix (2D), or more dimensions.">array</span>, and does one operation on all of them at the same time. An array with one row is a vector. An array with rows and columns is a matrix. Refer to <a href="mathematics.html#vectors">Module 2, Section 9</a>.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-numpy">Copy the code</button></div>
+        <pre id="code-numpy" tabindex="0" role="region" aria-label="Python code: NumPy"><code>import numpy as np
+
+weights = np.array([262.5, 240.0, 255.5, 310.0, 198.5])
+print(weights.mean(), weights.max())
+print(weights / 1000)            # the operation applies to each value: grams to kilograms
+print(weights[weights &gt; 250])    # select the values that agree with a condition
+
+# A 2D array (a matrix): 5 mangoes, 3 features each (weight, firmness, spots)
+X = np.array([[262.5, 7.1, 0],
+              [240.0, 2.0, 6],
+              [255.5, 6.4, 1],
+              [310.0, 5.9, 2],
+              [198.5, 8.0, 0]])
+print(X.shape)                   # (rows, columns)
+print(X.mean(axis=0))            # the mean of each column</code></pre>
+      </div>
+      <div class="codeblock cb-out">
+        <div class="cb-head"><span>Output</span></div>
+        <pre tabindex="0" role="region" aria-label="Output of the NumPy code"><code>253.3 310.0
+[0.2625 0.24   0.2555 0.31   0.1985]
+[262.5 255.5 310. ]
+(5, 3)
+[253.3    5.88   1.8 ]</code></pre>
+      </div>
+      <ul>
+        <li><code>weights / 1000</code> divides each value. You do not need a loop.</li>
+        <li><code>weights[weights &gt; 250]</code> selects the values that agree with a condition.</li>
+        <li><code>X.shape</code> is <code>(5, 3)</code>: 5 rows (mangoes) and 3 columns (features). This is the usual shape of ML data. Refer to <a href="machine-learning.html#data">Module 3, Section 4</a>.</li>
+        <li><code>axis=0</code> calculates down each column. <code>axis=1</code> calculates along each row.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="pandas-work-with-tables">
+    <div class="num">5</div>
+    <div>
+      <h2>pandas: work with tables</h2>
+      <p><span class="tn" title="A Python library for tables of data. Its main object is the DataFrame.">pandas</span> works with tables. A table in pandas is a <span class="tn" title="A pandas table: rows of examples and named columns of values.">DataFrame</span>. Each column has a name. With pandas, you can load a CSV file, find missing values, filter rows, and make summaries.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-pandas">Copy the code</button></div>
+        <pre id="code-pandas" tabindex="0" role="region" aria-label="Python code: pandas"><code>import io
+import pandas as pd
+
+csv = """farm,variety,weight_g,firmness,spots,damaged
+Ratnagiri,Alphonso,262.5,7.1,0,0
+Ratnagiri,Alphonso,240.0,2.0,6,1
+Junagadh,Kesar,255.5,6.4,1,0
+Junagadh,Kesar,,5.9,2,0
+Chittoor,Totapuri,310.0,5.9,5,1
+Chittoor,Totapuri,198.5,8.0,0,0
+"""
+df = pd.read_csv(io.StringIO(csv))     # with a file: pd.read_csv("mangoes.csv")
+print(df.shape)                        # (rows, columns)
+print(df.isna().sum())                 # the number of missing values in each column
+
+# Put the median in the empty place (imputation, Module 7)
+df["weight_g"] = df["weight_g"].fillna(df["weight_g"].median())
+
+print(df[df["damaged"] == 1])          # only the rows of damaged mangoes
+print(df.groupby("variety")["weight_g"].mean())
+df["weight_kg"] = df["weight_g"] / 1000   # make a new column
+print(df.head())</code></pre>
+      </div>
+      <div class="codeblock cb-out">
+        <div class="cb-head"><span>Output</span></div>
+        <pre tabindex="0" role="region" aria-label="Output of the pandas code"><code>(6, 6)
+farm        0
+variety     0
+weight_g    1
+firmness    0
+spots       0
+damaged     0
+dtype: int64
+        farm   variety  weight_g  firmness  spots  damaged
+1  Ratnagiri  Alphonso     240.0       2.0      6        1
+4   Chittoor  Totapuri     310.0       5.9      5        1
+variety
+Alphonso    251.25
+Kesar       255.50
+Totapuri    254.25
+Name: weight_g, dtype: float64
+        farm   variety  weight_g  firmness  spots  damaged  weight_kg
+0  Ratnagiri  Alphonso     262.5       7.1      0        0     0.2625
+1  Ratnagiri  Alphonso     240.0       2.0      6        1     0.2400
+2   Junagadh     Kesar     255.5       6.4      1        0     0.2555
+3   Junagadh     Kesar     255.5       5.9      2        0     0.2555
+4   Chittoor  Totapuri     310.0       5.9      5        1     0.3100</code></pre>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Task</th><th>pandas</th></tr></thead>
+          <tbody>
+            <tr><td>Load a CSV file</td><td><code>pd.read_csv("file.csv")</code></td></tr>
+            <tr><td>See the first rows</td><td><code>df.head()</code></td></tr>
+            <tr><td>Find missing values</td><td><code>df.isna().sum()</code></td></tr>
+            <tr><td>Select one column</td><td><code>df["weight_g"]</code></td></tr>
+            <tr><td>Filter rows</td><td><code>df[df["damaged"] == 1]</code></td></tr>
+            <tr><td>Summary for each group</td><td><code>df.groupby("variety")["weight_g"].mean()</code></td></tr>
+            <tr><td>Make a chart</td><td><code>df.plot.scatter(x="firmness", y="spots")</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A <span class="tn" title="Comma-separated values: a text file in which each line is a row and commas separate the values.">CSV</span> file is a text file. Each line is a row. Commas separate the values. Most data sets come as CSV files.</p>
+      <div class="video" data-seconds="1381">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=ZyhVh-qRZPA" data-yt="ZyhVh-qRZPA" data-title="Python Pandas Tutorial (Part 1): Getting Started with Data Analysis (Corey Schafer)"><img src="https://i.ytimg.com/vi/ZyhVh-qRZPA/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Python Pandas Tutorial (Part 1): Getting Started with Data Analysis (Corey Schafer)</span></a></div>
+        <div class="meta"><span><b>Video 2.</b> pandas tutorial, part 1: getting started (Corey Schafer)</span><a href="https://www.youtube.com/watch?v=ZyhVh-qRZPA" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sql-get-data-from-a-database">
+    <div class="num">6</div>
+    <div>
+      <h2>SQL: get data from a database</h2>
+      <p>Companies keep most of their data in databases, not in CSV files. <span class="tn" title="Structured Query Language: the standard language to get and change data in a relational database.">SQL</span> is the language to ask a database for data. A <span class="tn" title="A request to a database for data, written in SQL.">query</span> tells the database which rows and columns you want. Python has a small database, SQLite, so you can practice without a server.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python and SQL</span><button type="button" class="pg-chip" data-copy="code-sql">Copy the code</button></div>
+        <pre id="code-sql" tabindex="0" role="region" aria-label="Python code: SQL with SQLite"><code>import sqlite3
+
+con = sqlite3.connect(":memory:")       # a small database in the memory of the computer
+con.executescript("""
+CREATE TABLE farms (id INTEGER PRIMARY KEY, name TEXT, state TEXT);
+CREATE TABLE boxes (id INTEGER PRIMARY KEY, farm_id INTEGER, variety TEXT,
+                    mangoes INTEGER, damaged INTEGER);
+INSERT INTO farms VALUES (1, 'Ratnagiri', 'Maharashtra'), (2, 'Junagadh', 'Gujarat');
+INSERT INTO boxes VALUES (1, 1, 'Alphonso', 24, 1), (2, 1, 'Alphonso', 24, 0),
+                         (3, 2, 'Kesar', 30, 3), (4, 2, 'Kesar', 30, 1);
+""")
+
+query = """
+SELECT farms.name, SUM(boxes.mangoes) AS mangoes, SUM(boxes.damaged) AS damaged
+FROM boxes
+JOIN farms ON farms.id = boxes.farm_id
+GROUP BY farms.name
+ORDER BY damaged DESC;
+"""
+for row in con.execute(query):
+    print(row)</code></pre>
+      </div>
+      <div class="codeblock cb-out">
+        <div class="cb-head"><span>Output</span></div>
+        <pre tabindex="0" role="region" aria-label="Output of the SQL code"><code>('Junagadh', 60, 4)
+('Ratnagiri', 48, 1)</code></pre>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>SQL word</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>SELECT</code></td><td>The columns that you want.</td></tr>
+            <tr><td><code>FROM</code></td><td>The table.</td></tr>
+            <tr><td><code>WHERE</code></td><td>A condition for the rows, for example <code>WHERE damaged &gt; 0</code>.</td></tr>
+            <tr><td><code>JOIN … ON</code></td><td>Connects two tables with a shared column. Here, each box has the <code>id</code> of its farm.</td></tr>
+            <tr><td><code>GROUP BY</code></td><td>Makes one row for each group. Use it with <code>SUM</code>, <code>COUNT</code>, or <code>AVG</code>.</td></tr>
+            <tr><td><code>ORDER BY</code></td><td>Sorts the result. <code>DESC</code> puts the largest first.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>To get the result as a DataFrame, use <code>pd.read_sql(query, con)</code>.</p>
+      <div class="video" data-seconds="142">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=zsjvFFKOm3c" data-yt="zsjvFFKOm3c" data-title="SQL Explained in 100 Seconds (Fireship)"><img src="https://i.ytimg.com/vi/zsjvFFKOm3c/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: SQL Explained in 100 Seconds (Fireship)</span></a></div>
+        <div class="meta"><span><b>Video 3.</b> SQL explained in 100 seconds (Fireship)</span><a href="https://www.youtube.com/watch?v=zsjvFFKOm3c" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="read-errors-and-repair-code">
+    <div class="num">7</div>
+    <div>
+      <h2>Read errors and repair code</h2>
+      <p>All programmers get errors every day. An error message is help, not a failure. Read it from the bottom: the last line gives the type of error and the cause.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-errors">Copy the code</button></div>
+        <pre id="code-errors" tabindex="0" role="region" aria-label="Python code: handle an error"><code>weights = [262.5, 240.0, "255.5"]      # the last value is text, not a number
+
+try:
+    print(sum(weights) / len(weights))
+except TypeError as error:
+    print("Error:", error)
+    weights = [float(w) for w in weights]   # change each value into a number
+    print(round(sum(weights) / len(weights), 1))</code></pre>
+      </div>
+      <div class="codeblock cb-out">
+        <div class="cb-head"><span>Output</span></div>
+        <pre tabindex="0" role="region" aria-label="Output of the error code"><code>Error: unsupported operand type(s) for +: 'float' and 'str'
+252.7</code></pre>
+      </div>
+      <p><code>try</code> runs code that can fail. <code>except</code> catches the error, so the program does not stop. Here, one value was text ("255.5"), not a number. Data from files and users frequently contains problems like this.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Error</th><th>Usual cause</th></tr></thead>
+          <tbody>
+            <tr><td><code>SyntaxError</code></td><td>A missing bracket, quote, or colon.</td></tr>
+            <tr><td><code>IndentationError</code></td><td>The spaces at the start of a line are wrong.</td></tr>
+            <tr><td><code>NameError</code></td><td>A name that you did not make yet, or a spelling error.</td></tr>
+            <tr><td><code>TypeError</code></td><td>An operation with the wrong type, for example a number plus text.</td></tr>
+            <tr><td><code>KeyError</code></td><td>A key or a column name that does not exist.</td></tr>
+            <tr><td><code>ModuleNotFoundError</code></td><td>The library is not installed. Use <code>pip install</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Procedure: repair an error</h3>
+      <ol class="steps">
+        <li>Read the last line of the error. Find the type and the message.</li>
+        <li>Find the line number in the message. Look at that line and the line before it.</li>
+        <li>Print the values just before the error, for example <code>print(type(w), w)</code>.</li>
+        <li>Make one change, and run the code again.</li>
+        <li>If you ask a chat AI for help, give it the full error and the code. Then make sure that you understand the solution before you use it. Refer to <a href="generative-ai.html#risks-of-generative-ai">Module 5, Section 9</a>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="the-terminal-and-git">
+    <div class="num">8</div>
+    <div>
+      <h2>The terminal and Git</h2>
+      <p>The <span class="tn" title="A program where you type commands to the computer, in place of using the mouse. Also called the command line or shell.">terminal</span> is a window where you type commands. Engineers use it to run programs, install libraries, and use Git. In VS Code, open it with the menu <b>Terminal</b>, then <b>New Terminal</b>.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>cd folder</code></td><td>Go into a folder. <code>cd ..</code> goes up one folder.</td></tr>
+            <tr><td><code>ls</code> (on Windows: <code>dir</code>)</td><td>Show the files in the folder.</td></tr>
+            <tr><td><code>python train.py</code></td><td>Run a Python program.</td></tr>
+            <tr><td><code>pip install pandas</code></td><td>Install a library.</td></tr>
+            <tr><td><code>git init</code></td><td>Start a Git repository in this folder.</td></tr>
+            <tr><td><code>git status</code></td><td>Show the files that changed.</td></tr>
+            <tr><td><code>git add .</code> then <code>git commit -m "message"</code></td><td>Save a version of the changes, with a message.</td></tr>
+            <tr><td><code>git log --oneline</code></td><td>Show the saved versions.</td></tr>
+            <tr><td><code>git push</code></td><td>Send the saved versions to GitHub.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Git keeps each version of your files. If you make an error, you can go back. Module 8 tells you how teams use Git with branches and pull requests. Refer to <a href="devops.html#version-everything">Module 8, Section 4</a>.</p>
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>Do not put passwords, API keys, or private data into a Git repository. Refer to <a href="devops.html#security-and-secrets">Module 8, Section 10</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="good-habits">
+    <div class="num">9</div>
+    <div>
+      <h2>Good habits</h2>
+      <ul>
+        <li><b>Use clear names.</b> <code>weight_g</code> is better than <code>w2</code>. Other people, and you after one month, must understand the code.</li>
+        <li><b>Make small functions.</b> Each function does one task. Small functions are easy to test.</li>
+        <li><b>Write a comment for why, not for what.</b> The code shows what it does. A comment tells why.</li>
+        <li><b>Run often.</b> Write a few lines, run them, and look at the output. Do not write 100 lines before the first test.</li>
+        <li><b>Keep the data separate.</b> Do not change the original data file. Save a cleaned copy with a new name.</li>
+        <li><b>Use Git from the first day.</b> Commit each time that something works.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="summary">
+    <div class="num">10</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>Use Google Colab to learn. Use Python on your computer, with a virtual environment, for real software.</li>
+        <li>Python has values, lists, dictionaries, loops, conditions, and functions. Indentation is part of the language.</li>
+        <li>NumPy calculates with whole arrays at the same time. ML data is usually a matrix: one row for each example, one column for each feature.</li>
+        <li>pandas loads, cleans, filters, and summarizes tables. A table is a DataFrame.</li>
+        <li>SQL gets data from databases with SELECT, FROM, WHERE, JOIN, GROUP BY, and ORDER BY.</li>
+        <li>Read an error from its last line. Change one thing at a time.</li>
+        <li>Use the terminal to run programs, and Git to keep versions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="knowledge-check">
+    <div class="num">11</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "What is the result of this code? weights = [10, 20, 30] then print(weights[0])", "options": ["10", "20", "30", "An error"], "answer": 0, "explain": "In Python, the first item of a list has the index 0.", "ref": "python-basics"},
+ {"q": "Why must the lines inside a for loop start with spaces?", "options": ["In Python, indentation shows which lines are part of the loop", "Spaces make the code faster", "Spaces are only for comments", "They do not need spaces"], "answer": 0, "explain": "Python uses indentation, usually 4 spaces, to show which lines are inside a loop, a condition, or a function.", "ref": "python-basics"},
+ {"q": "What is a function?", "options": ["A named block of code that you can use again", "A type of number", "A list of files", "An error message"], "answer": 0, "explain": "You define a function one time with def, and you can call it many times.", "ref": "python-basics"},
+ {"q": "An array X has the shape (500, 4). What does this mean in usual ML data?", "options": ["500 examples with 4 features each", "4 examples with 500 features each", "2,000 examples", "500 columns and 4 rows"], "answer": 0, "explain": "The shape is (rows, columns). Each row is an example, and each column is a feature.", "ref": "numpy-calculate-with-arrays"},
+ {"q": "Which pandas code shows only the rows of damaged mangoes?", "options": ["df[df[\"damaged\"] == 1]", "df[\"damaged\"].mean()", "df.head()", "df.isna().sum()"], "answer": 0, "explain": "A condition inside the brackets filters the rows.", "ref": "pandas-work-with-tables"},
+ {"q": "What does df.isna().sum() show?", "options": ["The number of missing values in each column", "The sum of each column", "The first five rows", "The names of the columns"], "answer": 0, "explain": "isna() marks each missing value, and sum() counts them for each column.", "ref": "pandas-work-with-tables"},
+ {"q": "In SQL, which word connects two tables with a shared column?", "options": ["JOIN", "WHERE", "ORDER BY", "SELECT"], "answer": 0, "explain": "JOIN ... ON connects the rows of two tables, for example each box with its farm.", "ref": "sql-get-data-from-a-database"},
+ {"q": "Python shows: ModuleNotFoundError: No module named 'pandas'. What is the best repair?", "options": ["Install the library with pip install pandas", "Change the name of the file", "Add more spaces to the code", "Restart the computer"], "answer": 0, "explain": "The library is not installed in this environment. Install it with pip.", "ref": "read-errors-and-repair-code"},
+ {"q": "Why use a virtual environment for each project?", "options": ["Each project keeps its own libraries and versions", "It makes Python faster", "It is necessary for Git", "It hides the code"], "answer": 0, "explain": "A virtual environment keeps the libraries of each project separate, so versions do not conflict.", "ref": "set-up-your-tools"},
+ {"q": "You clean the mango data. Where must you save the result?", "options": ["In a new file, so that the original data does not change", "Over the original file", "Only in the memory, never in a file", "In the Git commit message"], "answer": 0, "explain": "Keep the original data. If the cleaning has an error, you can start again.", "ref": "good-habits", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="technical-names">
+    <div class="num">12</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>Array</dt><dd>A NumPy grid of numbers of one type: a vector, a matrix, or more dimensions.</dd>
+        <dt>CSV</dt><dd>Comma-separated values: a text file in which each line is a row and commas separate the values.</dd>
+        <dt>DataFrame</dt><dd>A pandas table: rows of examples and named columns of values.</dd>
+        <dt>Dictionary</dt><dd>A Python collection of pairs of a key and a value.</dd>
+        <dt>Function</dt><dd>A named block of code that takes inputs and can give back a result.</dd>
+        <dt>Notebook</dt><dd>A document with cells of code, their outputs, and text, for example Jupyter or Colab.</dd>
+        <dt>NumPy</dt><dd>A Python library for fast calculations with arrays of numbers.</dd>
+        <dt>pandas</dt><dd>A Python library for tables of data.</dd>
+        <dt>Python</dt><dd>A programming language that is easy to read. Most AI work uses it.</dd>
+        <dt>Query</dt><dd>A request to a database for data, written in SQL.</dd>
+        <dt>SQL</dt><dd>Structured Query Language: the standard language to get and change data in a database.</dd>
+        <dt>Terminal</dt><dd>A program where you type commands to the computer.</dd>
+        <dt>Variable</dt><dd>A name that refers to a value.</dd>
+        <dt>Virtual environment</dt><dd>A separate folder of Python libraries for one project.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="index.html"><small>Previous</small><b>Home</b></a>
+    <a class="next" href="ai.html"><small>Next module</small><b>1. Artificial intelligence</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Videos: Programming with Mosh, Corey Schafer, and Fireship on YouTube.</span>
+  </footer>
+</div>
+</body>
+</html>

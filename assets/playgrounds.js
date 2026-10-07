@@ -748,7 +748,57 @@
     run();
   }
 
-  var KINDS={temperature:temperature,gradient:gradient,tokenizer:tokenizer,clustering:clustering,neuron:neuron,capstone:capstone,stats:stats,bayes:bayes,vectors:vectors,slope:slope,drift:drift,release:release};
+
+  // ------------------------------------------------------------------ Code tracer (Module 0)
+  var TRACE_CODE=["weights = [262, 240, 256]","total = 0","for w in weights:","    total = total + w","mean = total / len(weights)","print(mean)"];
+  function traceSteps(){
+    var s=[],w=[262,240,256],t;
+    s.push({line:0,vars:{weights:"[262, 240, 256]"},note:"Python makes a list with three numbers and gives it the name weights."});
+    t=0;s.push({line:1,vars:{weights:"[262, 240, 256]",total:"0"},note:"total starts at 0. It will keep the sum."});
+    w.forEach(function(x,i){
+      s.push({line:2,vars:{weights:"[262, 240, 256]",total:String(t),w:String(x)},note:"The loop takes item "+(i+1)+" of 3 from the list. Now w is "+x+"."});
+      var old=t;t+=x;
+      s.push({line:3,vars:{weights:"[262, 240, 256]",total:String(t),w:String(x)},note:"total = "+old+" + "+x+" = "+t+"."});
+    });
+    s.push({line:2,vars:{weights:"[262, 240, 256]",total:String(t),w:"256"},note:"There are no more items. The loop stops."});
+    s.push({line:4,vars:{weights:"[262, 240, 256]",total:String(t),w:"256",mean:"252.66666666666666"},note:"len(weights) is 3. mean = "+t+" / 3."});
+    s.push({line:5,vars:{weights:"[262, 240, 256]",total:String(t),w:"256",mean:"252.66666666666666"},note:"print shows the value: 252.66666666666666. Use round(mean, 1) to show 252.7.",out:"252.66666666666666"});
+    return s;
+  }
+  function tracer(box,body){
+    var steps=traceSteps(),i=0;
+    var wrap=el("div","pg-trace");
+    var code=el("ol","pg-trace-code");code.setAttribute("aria-label","Python code");
+    var lines=TRACE_CODE.map(function(t){var li=el("li");li.appendChild(el("code",null,t));code.appendChild(li);return li;});
+    var side=el("div","pg-trace-side");
+    side.appendChild(el("p","pg-trace-h","Variables"));
+    var vt=el("dl","pg-trace-vars");side.appendChild(vt);
+    side.appendChild(el("p","pg-trace-h","Output"));
+    var out=el("pre","pg-trace-out");side.appendChild(out);
+    wrap.appendChild(code);wrap.appendChild(side);body.appendChild(wrap);
+    var note=el("p","pg-status");note.setAttribute("aria-live","polite");body.appendChild(note);
+    var act=el("div","pg-actions");
+    var back=button("Back"),next=button("Next step",true),reset=button("Start again");
+    act.appendChild(back);act.appendChild(next);act.appendChild(reset);body.appendChild(act);
+    var count=el("p","pg-note");body.appendChild(count);
+    function show(){
+      var st=steps[i];
+      lines.forEach(function(li,k){li.classList.toggle("on",k===st.line);if(k===st.line)li.setAttribute("aria-current","step");else li.removeAttribute("aria-current");});
+      vt.innerHTML="";
+      Object.keys(st.vars).forEach(function(k){var d=el("div");d.appendChild(el("dt",null,k));d.appendChild(el("dd",null,st.vars[k]));vt.appendChild(d);});
+      out.textContent=st.out||"";
+      note.className="pg-status"+(i===steps.length-1?" pg-ok":"");
+      note.textContent="Line "+(st.line+1)+": "+st.note;
+      count.textContent="Step "+(i+1)+" of "+steps.length;
+      back.disabled=i===0;next.disabled=i===steps.length-1;
+    }
+    next.addEventListener("click",function(){if(i<steps.length-1){i++;show();}});
+    back.addEventListener("click",function(){if(i>0){i--;show();}});
+    reset.addEventListener("click",function(){i=0;show();});
+    show();
+  }
+
+  var KINDS={temperature:temperature,gradient:gradient,tokenizer:tokenizer,clustering:clustering,neuron:neuron,capstone:capstone,stats:stats,bayes:bayes,vectors:vectors,slope:slope,drift:drift,release:release,tracer:tracer};
   [].forEach.call(document.querySelectorAll(".playground[data-pg]"),function(box){
     var f=KINDS[box.getAttribute("data-pg")],body=box.querySelector(".pg-body");
     if(!f||!body)return;

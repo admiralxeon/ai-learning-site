@@ -41,18 +41,25 @@
 
   // The modules of the course, in order. A visited page updates these numbers in the saved progress.
   var MODULES=[
-    {"href":"ai.html","num":1,"title":"Artificial intelligence","sections":12,"read":15,"video":54,"quick":["what-ai-is","the-parts-of-ai","how-a-chat-ai-makes-text","limits-and-risks","summary","knowledge-check"],"quickRead":6},
-    {"href":"mathematics.html","num":2,"title":"Mathematics for machine learning","sections":14,"read":18,"video":62,"quick":["why-ai-needs-mathematics","statistics-describe-data","probability","vectors","calculus-rates-of-change","summary","knowledge-check"],"quickRead":9},
-    {"href":"machine-learning.html","num":3,"title":"Machine learning","sections":14,"read":13,"video":47,"quick":["what-machine-learning-is","the-machine-learning-workflow","how-a-model-makes-its-errors-smaller","overfitting-and-underfitting","summary","knowledge-check"],"quickRead":5},
-    {"href":"deep-learning.html","num":4,"title":"Deep learning","sections":12,"read":14,"video":48,"quick":["what-deep-learning-is","inside-a-neuron","how-a-transformer-uses-attention","summary","knowledge-check"],"quickRead":5},
-    {"href":"generative-ai.html","num":5,"title":"Generative AI","sections":12,"read":18,"video":104,"quick":["what-generative-ai-is","how-a-large-language-model-is-made","how-to-write-a-good-prompt","risks-of-generative-ai","summary","knowledge-check"],"quickRead":9},
-    {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5},
-    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7},
-    {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":16,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":7}
+    {"href":"python-for-ai.html","num":0,"title":"Python and data tools","sections":12,"read":11,"video":85,"quick":["set-up-your-tools","python-basics","pandas-work-with-tables","summary","knowledge-check"],"quickRead":4,"tracks":["engineer"]},
+    {"href":"ai.html","num":1,"title":"Artificial intelligence","sections":12,"read":16,"video":54,"quick":["what-ai-is","the-parts-of-ai","how-a-chat-ai-makes-text","limits-and-risks","summary","knowledge-check"],"quickRead":6,"tracks":["foundations","engineer"]},
+    {"href":"mathematics.html","num":2,"title":"Mathematics for machine learning","sections":14,"read":18,"video":62,"quick":["why-ai-needs-mathematics","statistics-describe-data","probability","vectors","calculus-rates-of-change","summary","knowledge-check"],"quickRead":9,"tracks":["foundations","engineer"]},
+    {"href":"machine-learning.html","num":3,"title":"Machine learning","sections":14,"read":13,"video":47,"quick":["what-machine-learning-is","the-machine-learning-workflow","how-a-model-makes-its-errors-smaller","overfitting-and-underfitting","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
+    {"href":"deep-learning.html","num":4,"title":"Deep learning","sections":12,"read":14,"video":48,"quick":["what-deep-learning-is","inside-a-neuron","how-a-transformer-uses-attention","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
+    {"href":"generative-ai.html","num":5,"title":"Generative AI","sections":12,"read":18,"video":104,"quick":["what-generative-ai-is","how-a-large-language-model-is-made","how-to-write-a-good-prompt","risks-of-generative-ai","summary","knowledge-check"],"quickRead":9,"tracks":["foundations","engineer"]},
+    {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
+    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"]},
+    {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":17,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"]}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"8172454378","search-index.js":"cdadaa570d"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"42a4c8cb29","search-index.js":"f3201a8832"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
+  // The tracks of the course. tools/build.py writes them.
+  var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[]},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"]}];
+  var TRACK_KEY="ai-manual-track";
+  function myTrack(){var id=get(TRACK_KEY);for(var i=0;i<TRACKS.length;i++)if(TRACKS[i].id===id)return TRACKS[i];return null;}
+  function trackMods(t){return t?MODULES.filter(function(M){return t.modules.indexOf(M.href)>=0;}):MODULES;}
+  function projectsDone(t,store){var d=(store["projects.html"]||{}).done||[];return (t?t.projects:[]).filter(function(id){return d.indexOf(id)>=0;});}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
   function el(tag,cls,html){var n=document.createElement(tag);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n;}
@@ -396,7 +403,7 @@
       var reviewN=parseInt(box.getAttribute("data-review"),10)||0;
       // The final review takes a new mix of questions each time: the same number from each module, then shuffled.
       function draw(){
-        var pool=window.REVIEW_POOL||[],by={};
+        var tk=myTrack(),pool=(window.REVIEW_POOL||[]).filter(function(q){return !tk||tk.modules.indexOf(q.page)>=0;}),by={};
         pool.forEach(function(q){(by[q.m]=by[q.m]||[]).push(q);});
         var keys=Object.keys(by),per=Math.ceil(reviewN/Math.max(1,keys.length)),pick=[];
         keys.forEach(function(k){pick=pick.concat(shuffle(by[k].slice()).slice(0,per));});
@@ -503,7 +510,7 @@
           var msg=el("div","qr-msg");
           var passedBefore=!passed&&qm&&isDone(qm.id);
           msg.appendChild(el("b",null,passed?(pct===100?"Excellent. All answers are correct.":reviewN?"Good. You passed the final review.":"Good. You passed the knowledge check."):(passedBefore?"Not this time. Your earlier pass still counts.":"Not yet. You need "+pass+"% to pass.")));
-          var allMods=MODULES.every(function(M){var p=loadProgress()[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
+          var allMods=trackMods(myTrack()).every(function(M){var p=loadProgress()[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
           msg.appendChild(el("p",null,passed?(reviewN?(allMods?"Your certificate is ready.":"Your certificate is ready when you pass the knowledge check of all modules."):"This section is now marked as done."):(reviewN?"Read the sections in the explanations again. Each new try has a new mix of questions.":"Read the sections in the explanations again. Then try again.")));
           var missed=[].slice.call(list.querySelectorAll(".qcard.bad"));
           if(missed.length){
@@ -574,8 +581,9 @@
     // ---------- Home page: progress for each module ----------
     if(isHome){
       var linkTo=function(href,last){return last&&!/^s\d+$/.test(last)?href+"#"+last:href;};
+      var TK=myTrack(),TM=trackMods(TK);
       var tot=0,dn=0,qp=0,recent=null,nextM=null;
-      MODULES.forEach(function(M){
+      TM.forEach(function(M){
         var p=store[M.href]||{},t=p.total||M.sections,d=Math.min((p.done||[]).length,t);
         tot+=t;dn+=d;
         if((p.done||[]).indexOf("knowledge-check")>=0)qp++;
@@ -585,6 +593,25 @@
       if(prog)prog.style.transform="scaleX("+(tot?dn/tot:0)+")";
       var pct=tot?Math.round(dn/tot*100):0;
       var dash=el("div","dash");dash.setAttribute("role","region");dash.setAttribute("aria-label","Your progress");
+      // Track card
+      var tc=el("div","dash-card dash-track"),tct=el("div");
+      if(TK){
+        tct.appendChild(el("small",null,"Your track"));
+        tct.appendChild(el("b",null,TK.name));
+        tct.appendChild(el("p",null,TK.weeks+" weeks \u00b7 "+qp+" of "+TM.length+" modules passed"+(TK.projects.length?" \u00b7 "+projectsDone(TK,store).length+" of "+TK.projects.length+" required projects done":"")));
+        tc.appendChild(tct);
+        var tl=el("div","dash-track-a");
+        var ta=el("a","btn","See your weekly plan");ta.href="course.html#"+TK.id+"-weekly-plan";tl.appendChild(ta);
+        var tb=el("a","linkbtn","Change track");tb.href="course.html#choose-your-track";tl.appendChild(tb);
+        tc.appendChild(tl);
+      }else{
+        tct.appendChild(el("small",null,"Start here"));
+        tct.appendChild(el("b",null,"Choose your track"));
+        tct.appendChild(el("p",null,"AI Foundations: 6 weeks, no programming. AI Engineer: 12 weeks, with code, projects, and MLOps."));
+        tc.appendChild(tct);
+        var tk2=el("a","btn","See the two tracks");tk2.href="course.html#choose-your-track";tc.appendChild(tk2);
+      }
+      dash.appendChild(tc);
       var dp=el("div","dash-card dash-prog");
       var rw=el("div","dring-w");
       rw.innerHTML='<svg class="dring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27"/><circle class="dring-f" cx="32" cy="32" r="27"/></svg>';
@@ -595,14 +622,14 @@
       var dpt=el("div","dash-txt");
       dpt.appendChild(el("b",null,"Your progress"));
       dpt.appendChild(el("p",null,dn+" of "+tot+" sections done"));
-      dpt.appendChild(el("p",null,qp+" of "+MODULES.length+" knowledge checks passed"));
+      dpt.appendChild(el("p",null,qp+" of "+TM.length+" knowledge checks passed"));
       var tools=el("div","dash-tools");
       var mkBtn=function(label,fn){var b=el("button","linkbtn",label);b.type="button";b.addEventListener("click",fn);return b;};
       var fileIn=el("input");fileIn.type="file";fileIn.accept="application/json,.json";fileIn.hidden=true;
       tools.appendChild(mkBtn("Export progress",function(){
         var cards=null,cap=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));}catch(e){}
         var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,
-          settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||""}};
+          settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||"",track:get(TRACK_KEY)||""}};
         var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
         var u=URL.createObjectURL(blob),dl=el("a");dl.href=u;dl.download="ai-manual-progress.json";
         document.body.appendChild(dl);dl.click();document.body.removeChild(dl);
@@ -625,7 +652,7 @@
           saveProgress(d.progress);
           if(d.cards&&typeof d.cards==="object")set("ai-manual-cards",JSON.stringify(d.cards));
           if(d.capstone&&typeof d.capstone==="object")set("ai-manual-capstone",JSON.stringify(d.capstone));
-          if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);}
+          if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);if(d.settings.track)set(TRACK_KEY,d.settings.track);}
           location.reload();
         };
         r.readAsText(f);fileIn.value="";
@@ -647,7 +674,7 @@
         go2.href=nextM.href;go2.textContent=dn?"Open module":"Start module "+nextM.num;
       }else{
         dx2.appendChild(el("small",null,"Course complete"));
-        dx2.appendChild(el("b",null,"You finished all "+MODULES.length+" modules."));
+        dx2.appendChild(el("b",null,"You finished all "+TM.length+" modules"+(TK?" of the "+TK.name+" track.":".")));
         dx2.appendChild(el("span",null,"Go back to any module to review it."));
         go2=null;
       }
@@ -656,7 +683,7 @@
 
       // Learning path: the full course or the quick path
       var fullMin=0,quickMin=0,vidMin=0;
-      MODULES.forEach(function(M){var p=store[M.href]||{};fullMin+=p.read||M.read;quickMin+=M.quickRead||0;vidMin+=p.video||M.video;});
+      TM.forEach(function(M){var p=store[M.href]||{};fullMin+=p.read||M.read;quickMin+=M.quickRead||0;vidMin+=p.video||M.video;});
       var pc=el("div","dash-card dash-path");
       var pfs=el("fieldset","dgroup");pfs.appendChild(el("legend",null,"Learning path"));
       var pseg=el("div","dseg");
@@ -677,7 +704,7 @@
       var bc=el("div","dash-card dash-badges");
       bc.appendChild(el("b",null,"Badges"));
       var brow=el("ul","badges");brow.setAttribute("aria-label","Module badges");
-      MODULES.forEach(function(M){
+      TM.forEach(function(M){
         var p=store[M.href]||{},ok=(p.done||[]).indexOf("knowledge-check")>=0;
         var li=el("li","badge"+(ok?" earned":""));
         li.appendChild(el("span","badge-n",String(M.num)));
@@ -694,9 +721,11 @@
       brow.appendChild(rli);
       bc.appendChild(brow);
       var cp=el("p","badges-cert");
-      if(qp===MODULES.length&&rvOk){var ca=el("a","btn","Get your certificate");ca.href="certificate.html";cp.appendChild(ca);}
-      else if(qp===MODULES.length){var ra=el("a","btn","Take the final review");ra.href="review.html";cp.appendChild(document.createTextNode("All knowledge checks passed. One step to your certificate: "));cp.appendChild(ra);}
-      else cp.textContent="Pass the knowledge check of all "+MODULES.length+" modules and the final review to get your certificate.";
+      var pjNeed=TK?TK.projects:[],pjHave=projectsDone(TK,store),pjOk=pjHave.length===pjNeed.length;
+      if(qp===TM.length&&rvOk&&pjOk){var ca=el("a","btn","Get your certificate");ca.href="certificate.html";cp.appendChild(ca);}
+      else if(qp===TM.length&&rvOk){var pa=el("a","btn","Open the projects");pa.href="projects.html";cp.appendChild(document.createTextNode("Mark the required projects as done ("+pjHave.length+" of "+pjNeed.length+"): "));cp.appendChild(pa);}
+      else if(qp===TM.length){var ra=el("a","btn","Take the final review");ra.href="review.html";cp.appendChild(document.createTextNode("All knowledge checks passed. One step to your certificate: "));cp.appendChild(ra);}
+      else cp.textContent="Pass the knowledge check of all "+TM.length+" modules"+(TK?" of your track":"")+", the final review"+(pjNeed.length?", and "+pjNeed.length+" projects":"")+" to get your certificate.";
       bc.appendChild(cp);
       dash.appendChild(bc);
 
@@ -1054,28 +1083,32 @@
     var capp=document.querySelector(".cert-app");
     if(capp){
       document.body.classList.add("is-cert");
-      var passedM=MODULES.filter(function(M){var p=store[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
+      var CT=myTrack()||TRACKS[0],CM=trackMods(CT);
+      if(!myTrack()){var cn=el("p","cert-note");cn.innerHTML='You did not choose a track. This page shows the <b>'+CT.name+'</b> track. <a href="course.html#choose-your-track">Choose your track</a>.';capp.appendChild(cn);}
+      var passedM=CM.filter(function(M){var p=store[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
       var rv=store["review.html"]||{},rvPassed=(rv.done||[]).indexOf("final-review")>=0;
-      if(passedM.length<MODULES.length||!rvPassed){
-        capp.appendChild(el("p",null,"You passed "+passedM.length+" of "+MODULES.length+" knowledge checks"+(rvPassed?" and the final review":"")+". To get your certificate, do these steps:"));
+      var cpj=projectsDone(CT,store),cpjOk=cpj.length===CT.projects.length;
+      if(passedM.length<CM.length||!rvPassed||!cpjOk){
+        capp.appendChild(el("p",null,"Track: "+CT.name+". You passed "+passedM.length+" of "+CM.length+" knowledge checks"+(rvPassed?" and the final review":"")+(CT.projects.length?", and you did "+cpj.length+" of "+CT.projects.length+" required projects":"")+". To get your certificate, do these steps:"));
         var cul=el("ul");
-        MODULES.forEach(function(M){if(passedM.indexOf(M)>=0)return;var li=el("li"),a=el("a",null,"Module "+M.num+": "+M.title);a.href=M.href+"#knowledge-check";li.appendChild(a);cul.appendChild(li);});
-        if(!rvPassed){var rli2=el("li"),ra2=el("a",null,"The final review: 20 questions from all modules");ra2.href="review.html#final-review";rli2.appendChild(ra2);cul.appendChild(rli2);}
+        CM.forEach(function(M){if(passedM.indexOf(M)>=0)return;var li=el("li"),a=el("a",null,"Module "+M.num+": "+M.title);a.href=M.href+"#knowledge-check";li.appendChild(a);cul.appendChild(li);});
+        if(!rvPassed){var rli2=el("li"),ra2=el("a",null,"The final review: 20 questions from the modules of your track");ra2.href="review.html#final-review";rli2.appendChild(ra2);cul.appendChild(rli2);}
+        CT.projects.forEach(function(id){if(cpj.indexOf(id)>=0)return;var li=el("li"),a=el("a",null,"Mark as done: Project "+(/^project-(\d+)/.exec(id)||[0,"?"])[1]);a.href="projects.html#"+id;li.appendChild(a);cul.appendChild(li);});
         capp.appendChild(cul);
       }else{
         var clab=el("label","pg-label","Your name, as you want it on the certificate");clab.setAttribute("for","cert-name");
         var cin=el("input","pg-text cert-input");cin.id="cert-name";cin.type="text";cin.setAttribute("autocomplete","name");cin.value=get(NAME_KEY)||"";
         var latest=0,scores=[];
-        MODULES.forEach(function(M){var p=store[M.href]||{};latest=Math.max(latest,p.t||0);if(p.quiz&&p.quiz.total)scores.push(p.quiz.best/p.quiz.total);});
+        CM.forEach(function(M){var p=store[M.href]||{};latest=Math.max(latest,p.t||0);if(p.quiz&&p.quiz.total)scores.push(p.quiz.best/p.quiz.total);});
         var avg=scores.length?Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length*100):null;
         var cert=el("div","cert");
         var ci=el("div","cert-in");
         ci.appendChild(el("div","cert-logo","AI"));
-        ci.appendChild(el("p","cert-k","Certificate of completion"));
+        ci.appendChild(el("p","cert-k","Certificate of completion \u00b7 "+CT.name));
         ci.appendChild(el("p","cert-this","This certificate is given to"));
         var cname=el("p","cert-name");ci.appendChild(cname);
-        ci.appendChild(el("p","cert-for","for the completion of all "+MODULES.length+" modules of the AI learning manual:"));
-        var cmods=el("ul","cert-mods");MODULES.forEach(function(M){cmods.appendChild(el("li",null,M.num+". "+M.title));});ci.appendChild(cmods);
+        ci.appendChild(el("p","cert-for","for the completion of the "+CT.name+" track of the AI learning manual: "+CM.length+" modules"+(CT.projects.length?" and "+CT.projects.length+" projects":"")+"."));
+        var cmods=el("ul","cert-mods");CM.forEach(function(M){cmods.appendChild(el("li",null,M.num+". "+M.title));});ci.appendChild(cmods);
         var cdate=new Date(latest||Date.now());
         var dtxt;try{dtxt=cdate.toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});}catch(e){dtxt=cdate.toDateString();}
         ci.appendChild(el("p","cert-date","Completed on "+dtxt+(avg!=null?" \u00b7 Average best score in the knowledge checks: "+avg+"%":"")+(rv.quiz&&rv.quiz.total?" \u00b7 Final review: "+rv.quiz.best+" of "+rv.quiz.total:"")));
@@ -1086,14 +1119,31 @@
         var cact=el("div","pg-actions");
         var cpr=el("button","pg-btn pg-btn-primary","Print or save as PDF");cpr.type="button";cpr.addEventListener("click",function(){window.print();});
         cact.appendChild(cpr);
-        capp.appendChild(el("p",null,"Congratulations. You passed the knowledge check of all "+MODULES.length+" modules and the final review."));
+        capp.appendChild(el("p",null,"Congratulations. You completed the "+CT.name+" track: all "+CM.length+" knowledge checks, the final review"+(CT.projects.length?", and the required projects":"")+"."));
         capp.appendChild(clab);capp.appendChild(cin);capp.appendChild(cert);capp.appendChild(cact);
       }
     }
 
+    // ---------- Course page: choose a track ----------
+    var picks=document.querySelectorAll(".track-pick");
+    if(picks.length){
+      var tstat=document.querySelector(".track-status");
+      var paintT=function(){
+        var t=myTrack();
+        [].forEach.call(picks,function(b){
+          var on=!!t&&b.getAttribute("data-track")===t.id;
+          b.setAttribute("aria-pressed",on?"true":"false");b.textContent=on?"Your track":"Follow this track";
+          b.closest(".track-card").classList.toggle("is-chosen",on);
+        });
+        if(tstat)tstat.textContent=t?"Your track: "+t.name+". The home page, the final review, and the certificate now follow this track.":"You did not choose a track yet.";
+      };
+      [].forEach.call(picks,function(b){b.addEventListener("click",function(){set(TRACK_KEY,b.getAttribute("data-track"));paintT();});});
+      paintT();
+    }
+
     // ---------- Final review: which knowledge checks are passed ----------
     [].forEach.call(document.querySelectorAll("[data-ready]"),function(ul){
-      MODULES.forEach(function(M){
+      trackMods(myTrack()).forEach(function(M){
         var p=store[M.href]||{},ok=(p.done||[]).indexOf("knowledge-check")>=0;
         var li=el("li",ok?"ok":null),a=el("a",null,(ok?"✓ ":"")+"Module "+M.num);
         a.href=M.href+"#knowledge-check";a.style.color="inherit";a.title=M.title+(ok?": passed":": not passed yet");

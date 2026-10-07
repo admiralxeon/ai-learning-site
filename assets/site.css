@@ -1123,6 +1123,64 @@ section.pq-skip:not(.pq-open) h2{color:var(--muted)}
 .pg-rel-bad::before{background:var(--red)}
 .pg-rel-bad .pg-rel-s{color:var(--ink)}
 
+/* Playground: code tracer */
+.pg-trace{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:.75rem;margin:0 0 .75rem}
+.pg-trace-code{list-style:none;counter-reset:ln;margin:0;padding:.6rem 0;border-radius:10px;background:#0E1621;max-width:none;overflow-x:auto}
+.pg-trace-code li{counter-increment:ln;margin:0;padding:.2rem .9rem .2rem 2.6rem;position:relative;border-left:3px solid transparent}
+.pg-trace-code li::before{content:counter(ln);position:absolute;left:.7rem;top:.2rem;width:1.2rem;text-align:right;color:#6B7D93;font:500 .8rem var(--font-mono);opacity:1;background:none;border:0;height:auto}
+.pg-trace-code code{color:#E3EAF3;background:none;border:0;padding:0;font:500 .86rem/1.6 var(--font-mono);white-space:pre}
+.pg-trace-code li.on{background:rgba(242,193,78,.16);border-left-color:#F2C14E}
+.pg-trace-side{padding:.6rem .8rem;border:1px solid var(--rule);border-radius:10px;background:var(--sheet)}
+.pg-trace-h{margin:.2rem 0 .3rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);max-width:none}
+.pg-trace-vars{margin:0 0 .6rem;display:grid;gap:.25rem}
+.pg-trace-vars div{display:flex;justify-content:space-between;gap:.75rem;padding:.25rem .5rem;border-radius:6px;background:var(--sheet-2)}
+.pg-trace-vars dt{font:600 .84rem var(--font-mono)}
+.pg-trace-vars dd{margin:0;font:500 .84rem var(--font-mono);color:var(--blue);word-break:break-all;text-align:right}
+.pg-trace-out{margin:0;min-height:1.6rem;padding:.3rem .5rem;border-radius:6px;background:var(--sheet-2);font:500 .84rem var(--font-mono);white-space:pre-wrap;word-break:break-all}
+@media (max-width:640px){.pg-trace{grid-template-columns:1fr}}
+
+/* Learning outcomes box (module pages) */
+.outcomes{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1rem 1.5rem;margin:1.25rem 2.75rem 0;padding:1.1rem 1.3rem;border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet);box-shadow:var(--shadow-sm)}
+.outcomes b{display:block;font-family:var(--font-head);font-size:1.05rem;margin-bottom:.35rem}
+.outcomes ul{margin:0;padding-left:0;list-style:none;max-width:none}
+.outcomes li{position:relative;margin:.25rem 0;padding-left:1.6rem;font-size:.95rem;line-height:1.5}
+.outcomes li::before{content:"\2713";position:absolute;left:0;top:.15em;width:18px;height:18px;display:grid;place-items:center;border-radius:5px;background:var(--green-soft);color:var(--green);font-size:11px;font-weight:700;opacity:1}
+.oc-side{padding-left:1.25rem;border-left:1px solid var(--rule)}
+.oc-side p{margin:0 0 .75rem;font-size:.92rem;max-width:none}
+.oc-side p:last-child{margin-bottom:0}
+@media (max-width:760px){.outcomes{grid-template-columns:1fr}.oc-side{padding-left:0;border-left:0;padding-top:.75rem;border-top:1px solid var(--rule)}}
+@media (max-width:640px){.outcomes{margin:1rem 1.1rem 0}}
+
+/* Course page */
+.track-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:1rem 0}
+.track-card{display:flex;flex-direction:column;gap:.35rem;padding:1.1rem 1.2rem;border:1.5px solid var(--rule);border-radius:var(--radius);background:var(--sheet);transition:border-color .15s,box-shadow .15s}
+.track-card h3{margin:0;font-size:1.4rem}
+.track-card p{margin:0;max-width:none}
+.track-card ul{margin:.35rem 0 .6rem;font-size:.92rem}
+.track-card .track-pick{margin-top:auto;align-self:flex-start}
+.track-card.is-chosen{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+.track-card.is-chosen .track-pick{background:var(--green);border-color:var(--green)}
+.track-k{font-size:.75rem!important;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.track-status{font-weight:600;color:var(--green)}
+table.plan td:first-child{width:4rem;font-family:var(--font-mono);font-weight:600;text-align:center}
+table.plan small{color:var(--muted)}
+table.plan .pi{display:block;padding:.15rem 0}
+table.plan .pi + .pi{margin-top:.35rem}
+table.plan a{display:inline-block;min-height:24px;line-height:24px}
+.oc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:.8rem;margin:1rem 0}
+.oc-mod{padding:.85rem 1rem;border:1px solid var(--rule);border-radius:var(--radius-sm);background:var(--sheet-2)}
+.oc-mod h3{margin:0 0 .4rem;font-size:1.05rem}
+.oc-mod ul{margin:0;padding-left:1.1rem;max-width:none}
+.oc-mod li{margin:.2rem 0;font-size:.9rem}
+
+/* Home: track card */
+.dash-track{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1.5rem;border-color:color-mix(in srgb,var(--blue) 35%,var(--rule));background:linear-gradient(135deg,var(--blue-soft),var(--sheet) 70%)}
+.dash-track small{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.dash-track b{display:block;font-family:var(--font-head);font-size:1.35rem}
+.dash-track p{margin:.15rem 0 0;font-size:.9rem;color:var(--muted);max-width:none}
+.dash-track-a{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+.cert-note{padding:.6rem .8rem;border-radius:8px;background:var(--amber-soft);border:1px solid color-mix(in srgb,var(--amber) 45%,transparent)}
+
 /* ---------- Motion & print ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{
@@ -1146,7 +1204,7 @@ section.pq-skip:not(.pq-open) h2{color:var(--muted)}
   .cs-box{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
   body{background:#fff}
-  .sitebar,.toc,.totop,.tip,.pager,.dock,.drawer,.lightbox,.toast,.figzoom,.sec-end,.facts,.is-quiz,.resume,.skip,.dash,.modprog,.searchdlg,.gl-filter,.gl-az{display:none!important}
+  .sitebar,.toc,.totop,.tip,.pager,.dock,.drawer,.lightbox,.toast,.figzoom,.sec-end,.facts,.is-quiz,.resume,.skip,.dash,.track-pick,.modprog,.searchdlg,.gl-filter,.gl-az{display:none!important}
   .layout{display:block;padding:0}
   .sheet{box-shadow:none;border:0;border-radius:0}
   figure,.notice,table{break-inside:avoid}
