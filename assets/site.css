@@ -1320,6 +1320,18 @@ html[lang="hi"] h1,html[lang="hi"] h2,html[lang="hi"] h3{letter-spacing:0;line-h
 .lang-switch a{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border:1px solid var(--rule);border-radius:999px;background:var(--sheet);text-decoration:none}
 .lang-switch a:hover{border-color:var(--blue)}
 
+/* Transfer to another device */
+.xfer{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.2rem 1.5rem;align-items:start}
+.xfer > :not(.xfer-qr){grid-column:1}
+.xfer-qr{grid-column:2;grid-row:1/span 6}
+@media (max-width:640px){.xfer{grid-template-columns:1fr}.xfer-qr{grid-column:1;grid-row:auto}}
+.xfer p{margin:.3rem 0;font-size:.9rem;max-width:none}
+.xfer-warn{color:var(--amber-ink);font-weight:600}
+.xfer-size{color:var(--muted)}
+.xfer-st{color:var(--green);font-weight:600}
+.xfer-qr svg{display:block;width:180px;height:180px;background:#fff;border-radius:8px}
+.xfer[hidden]{display:none}
+
 /* ---------- Motion & print ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{

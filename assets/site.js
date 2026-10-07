@@ -108,6 +108,32 @@
     return Object.keys(c).filter(function(k){var x=c[k];if(!x||typeof x!=="object")return false;var due=x.due!=null?x.due:(x.t||0)+CARD_DAYS[Math.min(4,x.b||0)]*864e5;return due<=now;}).length;
   }
   var EX_KEY="ai-manual-exercises";
+  // All learner data in one object (for the export file and the transfer link), and the opposite.
+  function exportData(){
+    var j=function(k){try{return JSON.parse(get(k));}catch(e){return null;}};
+    return {app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:j("ai-manual-cards")||{},
+      capstone:j("ai-manual-capstone"),capstoneGrade:j("ai-manual-capstone-grade"),exercises:j(EX_KEY)||{},notes:j("ai-manual-notes")||{},days:j("ai-manual-days")||[],
+      settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||"",track:get("ai-manual-track")||""}};
+  }
+  function validData(d){return !!(d&&d.app==="ai-learning-manual"&&d.progress&&typeof d.progress==="object");}
+  function applyData(d){
+    saveProgress(d.progress);
+    var o=function(k,v){if(v&&typeof v==="object")set(k,JSON.stringify(v));};
+    o("ai-manual-cards",d.cards);o("ai-manual-capstone",d.capstone);o("ai-manual-capstone-grade",d.capstoneGrade);
+    o(EX_KEY,d.exercises);o("ai-manual-notes",d.notes);if(Array.isArray(d.days))set("ai-manual-days",JSON.stringify(d.days));
+    if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);if(d.settings.track)set("ai-manual-track",d.settings.track);}
+  }
+  // The transfer link: the data, compressed with gzip, in the part of the address after "#". It never goes to a server.
+  function packData(){
+    var bytes=new TextEncoder().encode(JSON.stringify(exportData()));
+    if(!window.CompressionStream)return Promise.resolve("j"+b64urlBytes(bytes));
+    return new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer().then(function(b){return "z"+b64urlBytes(new Uint8Array(b));});
+  }
+  function unpackData(s){
+    var kind=s.charAt(0),bytes=unb64url(s.slice(1));
+    var p=kind==="z"?new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text():Promise.resolve(new TextDecoder().decode(bytes));
+    return p.then(function(t){return JSON.parse(t);});
+  }
   function exStore(){try{return JSON.parse(get(EX_KEY))||{};}catch(e){return {};}}
   function exSave(id,patch){var s=exStore();s[id]=Object.assign(s[id]||{},patch);set(EX_KEY,JSON.stringify(s));if(patch.passed)markStudyDay();}
   function projectsDone(t,store){var d=(store["projects.html"]||{}).done||[];return (t?t.projects:[]).filter(function(id){return d.indexOf(id)>=0;});}
@@ -701,15 +727,35 @@
       var mkBtn=function(label,fn){var b=el("button","linkbtn",label);b.type="button";b.addEventListener("click",fn);return b;};
       var fileIn=el("input");fileIn.type="file";fileIn.accept="application/json,.json";fileIn.hidden=true;
       tools.appendChild(mkBtn("Export progress",function(){
-        var cards=null,cap=null,capg=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));capg=JSON.parse(get(CAPG_KEY));}catch(e){}
-        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,capstoneGrade:capg||null,exercises:exStore(),notes:notesAll(),days:studyDays(),
-          settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||"",track:get(TRACK_KEY)||""}};
+        var data=exportData();
         var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
         var u=URL.createObjectURL(blob),dl=el("a");dl.href=u;dl.download="ai-manual-progress.json";
         document.body.appendChild(dl);dl.click();document.body.removeChild(dl);
         setTimeout(function(){URL.revokeObjectURL(u);},2000);
       }));
       tools.appendChild(mkBtn("Import progress",function(){fileIn.click();}));
+      var xfer=el("div","dash-card xfer");xfer.hidden=true;
+      tools.appendChild(mkBtn("Move to another device",function(){
+        xfer.hidden=!xfer.hidden;if(xfer.hidden)return;
+        xfer.innerHTML="";
+        xfer.appendChild(el("p",null,"<b>Move your progress to another device.</b> Open this link on the other device, for example your phone. It contains your progress, notes, and settings. The data is inside the link: it does not go to a server."));
+        xfer.appendChild(el("p","xfer-warn","Send the link only to yourself. A person who has the link can see your notes."));
+        packData().then(function(code){
+          var link=location.href.replace(/[^\/]*([?#].*)?$/,"")+"index.html#transfer="+code;
+          var row=el("div","pg-actions");
+          var cb=el("button","pg-btn pg-btn-primary","Copy the link");cb.type="button";
+          var st=el("p","xfer-st");st.setAttribute("aria-live","polite");
+          cb.addEventListener("click",function(){if(navigator.clipboard)navigator.clipboard.writeText(link).then(function(){st.textContent="Copied. Open the link on the other device.";},function(){window.prompt("Copy the link:",link);});else window.prompt("Copy the link:",link);});
+          row.appendChild(cb);xfer.appendChild(row);
+          xfer.appendChild(el("p","xfer-size","Length of the link: "+link.length.toLocaleString("en-IN")+" characters."));
+          xfer.appendChild(st);
+          // A QR code for phones, when the link is short enough
+          var qr=el("div","xfer-qr");xfer.appendChild(qr);
+          var drawQr=function(){try{var q=window.qrcode(0,"L");q.addData(link);q.make();qr.innerHTML=q.createSvgTag({cellSize:3,margin:3,scalable:true});var svg=qr.querySelector("svg");if(svg){svg.setAttribute("role","img");svg.setAttribute("aria-label","QR code of the transfer link");}qr.appendChild(el("p",null,"Scan with the camera of your phone."));}catch(e){qr.innerHTML="";qr.appendChild(el("p",null,"The link is too long for a QR code. Copy the link instead."));}};
+          if(window.qrcode)drawQr();
+          else{var s=el("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";s.onload=drawQr;s.onerror=function(){qr.innerHTML="";};document.head.appendChild(s);}
+        });
+      }));
       tools.appendChild(mkBtn("Reset progress",function(){
         if(window.confirm("Delete all your progress, quiz scores, flashcards, and your project plan? You cannot undo this.")){
           try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",CAPG_KEY,"ai-manual-exercises",NOTES_KEY,DAYS_KEY,NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
@@ -721,16 +767,9 @@
         var r=new FileReader();
         r.onload=function(){
           var d=null;try{d=JSON.parse(r.result);}catch(e){}
-          if(!d||d.app!=="ai-learning-manual"||!d.progress||typeof d.progress!=="object"){window.alert("This file is not a progress file from the AI learning manual.");return;}
+          if(!validData(d)){window.alert("This file is not a progress file from the AI learning manual.");return;}
           if(!window.confirm("Replace your current progress with the progress in this file?"))return;
-          saveProgress(d.progress);
-          if(d.cards&&typeof d.cards==="object")set("ai-manual-cards",JSON.stringify(d.cards));
-          if(d.capstone&&typeof d.capstone==="object")set("ai-manual-capstone",JSON.stringify(d.capstone));
-          if(d.capstoneGrade&&typeof d.capstoneGrade==="object")set(CAPG_KEY,JSON.stringify(d.capstoneGrade));
-          if(d.exercises&&typeof d.exercises==="object")set(EX_KEY,JSON.stringify(d.exercises));
-          if(d.notes&&typeof d.notes==="object")set(NOTES_KEY,JSON.stringify(d.notes));
-          if(Array.isArray(d.days))set(DAYS_KEY,JSON.stringify(d.days));
-          if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);if(d.settings.track)set(TRACK_KEY,d.settings.track);}
+          applyData(d);
           location.reload();
         };
         r.readAsText(f);fileIn.value="";
@@ -757,7 +796,7 @@
         go2=null;
       }
       if(go2)dx2.appendChild(go2);
-      dash.appendChild(dp);dash.appendChild(dx2);
+      dash.appendChild(dp);dash.appendChild(dx2);dash.appendChild(xfer);
 
       // Learning path: the full course or the quick path
       var fullMin=0,quickMin=0,vidMin=0;
@@ -1445,6 +1484,22 @@
       };
       paintG();
     }
+
+    // ---------- Receive a transfer link from another device ----------
+    var receiveTransfer=function(){
+      if(!/^#transfer=/.test(location.hash))return;
+      var tcode=location.hash.slice(10);
+      history.replaceState(null,"",location.pathname+location.search);
+      unpackData(tcode).then(function(d){
+        if(!validData(d)){window.alert("This transfer link is damaged or not from the AI learning manual.");return;}
+        var n=Object.keys(d.progress).length,when=(d.exported||"").slice(0,10);
+        if(window.confirm("Replace the progress on this device with the progress from the link?\n\nThe link was made on "+when+" and has progress on "+n+(n===1?" page.":" pages.")+(d.settings&&d.settings.name?" Name: "+d.settings.name+".":"")+"\n\nYou cannot undo this.")){
+          applyData(d);location.reload();
+        }
+      },function(){window.alert("This transfer link is damaged. Make a new link on the other device.");});
+    };
+    receiveTransfer();
+    window.addEventListener("hashchange",receiveTransfer);
 
     // ---------- Notes page ----------
     var napp=document.querySelector(".notes-app");
