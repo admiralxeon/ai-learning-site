@@ -72,6 +72,10 @@ A learner can share a self-reported certificate link at any time. For a link tha
 2. The learner downloads the verification request (a JSON file) from the certificate page and sends it to you with the capstone repository.
 3. Review the work. Then run `python tools/sign_certificate.py request.json --reviewer "Your name" --capstone 85` and send the printed link to the learner.
 
+## Translations
+
+`hi/ai.html` is Module 1 in Hindi. A translated page keeps the section ids and the quiz structure of the original, and uses `<base href="../">`, so its links, scripts, progress, and playgrounds work as on the original page. To add a translation: copy the translated file into `hi/`, add it to `TRANSLATIONS` in `tools/build.py`, and run the build. The build adds the language link to the original page. Ask a native speaker to review each translation.
+
 ## Learner progress
 
 Progress, quiz scores and display settings are kept in the learner's browser (`localStorage`). Learners can export, import or reset their progress on the home page.

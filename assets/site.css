@@ -1312,6 +1312,14 @@ table.plan a{display:inline-block;min-height:24px;line-height:24px}
   .deck-body{background:#fff}
 }
 
+/* Translated pages */
+html[lang="hi"]{--font:"Noto Sans Devanagari","Barlow",system-ui,sans-serif;--font-head:"Noto Sans Devanagari","Barlow Condensed",system-ui,sans-serif}
+html[lang="hi"] body{line-height:1.75}
+html[lang="hi"] h1,html[lang="hi"] h2,html[lang="hi"] h3{letter-spacing:0;line-height:1.35}
+.lang-switch{margin:.6rem 0 0;font-weight:600}
+.lang-switch a{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border:1px solid var(--rule);border-radius:999px;background:var(--sheet);text-decoration:none}
+.lang-switch a:hover{border-color:var(--blue)}
+
 /* ---------- Motion & print ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{

@@ -1265,6 +1265,19 @@
       }
     }
 
+    // ---------- Pages with <base href="../"> (translations): keep links inside the page on this page ----------
+    if(document.querySelector("base[href]")){
+      document.addEventListener("click",function(e){
+        var a=e.target.closest&&e.target.closest('a[href^="#"]');
+        if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+        e.preventDefault();
+        var id=a.getAttribute("href").slice(1),t=id&&document.getElementById(id);
+        history.pushState(null,"",location.pathname+location.search+(id?"#"+id:""));
+        if(t){t.scrollIntoView({behavior:"smooth",block:"start"});if(!t.hasAttribute("tabindex")&&!/^(A|BUTTON|INPUT|TEXTAREA|SELECT)$/.test(t.tagName))t.setAttribute("tabindex","-1");t.focus({preventScroll:true});}
+        else if(!id)window.scrollTo(0,0);
+      });
+    }
+
     // ---------- Code exercises: Python in the browser (Pyodide) ----------
     var exSets=document.querySelectorAll(".ex-set");
     if(exSets.length){

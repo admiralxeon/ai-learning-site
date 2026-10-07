@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<base href="../">
+<title>1. आर्टिफ़िशियल इंटेलिजेंस | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="आर्टिफ़िशियल इंटेलिजेंस का सरल हिन्दी परिचय: AI क्या है, AI के हिस्से, training, neural networks, chat AI, और सीमाएँ।">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="1. आर्टिफ़िशियल इंटेलिजेंस | AI learning manual">
+<meta property="og:description" content="आर्टिफ़िशियल इंटेलिजेंस का सरल हिन्दी परिचय: AI क्या है, AI के हिस्से, training, neural networks, chat AI, और सीमाएँ।">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=d4f085b936">
+<script src="assets/site.js?v=837f957a0b"></script>
+</head>
+<body>
+<a class="skip" href="#main">मुख्य सामग्री पर जाएँ</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 1</span><span class="mods-t">Artificial intelligence</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="python-for-ai.html" data-mod="python-for-ai.html"><span class="mods-n">0</span><span class="mods-i"><b>Python and data tools</b><small>Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai.html" aria-current="page" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 16 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 12 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
+        <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="system-design.html" data-mod="system-design.html"><span class="mods-n">10</span><span class="mods-i"><b>ML system design</b><small>Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="course.html">Course plan</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="capstone.html">Capstone</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="notes.html">My notes</a><a class="topnav-a" href="certificate.html">Certificate</a><a class="topnav-a" href="instructor.html">Instructor kit</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+
+  <div class="dmhead" role="group" aria-label="दस्तावेज़ की पहचान">
+    <div>डेटा मॉड्यूल<b>AI-00-00-00-040A-HI</b></div>
+    <div>विषय<b>आर्टिफ़िशियल इंटेलिजेंस</b></div>
+    <div>प्रकार<b>विवरण</b></div>
+    <div>संस्करण<b>001, अक्टूबर 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>आर्टिफ़िशियल इंटेलिजेंस: एक सामान्य परिचय</h1>
+    <p>यह Module 1 का हिन्दी संस्करण है। वाक्य छोटे और सरल रखे गए हैं। तकनीकी शब्द अंग्रेज़ी में भी दिए गए हैं, क्योंकि AI का काम ज़्यादातर इन्हीं शब्दों में होता है। जिन शब्दों के नीचे बिंदु वाली रेखा है, उन पर पॉइंटर रखें। आपको छोटी परिभाषा दिखेगी।</p>
+    <p class="lang-switch"><a href="ai.html" lang="en" hreflang="en">Read in English</a></p>
+  </div>
+
+  <div class="outcomes" role="group" aria-label="इस मॉड्यूल के बारे में">
+    <div class="oc-main"><b>इस मॉड्यूल के बाद आप ये कर सकेंगे:</b><ul><li>बता सकेंगे कि AI क्या है, और AI, ML, deep learning और generative AI में क्या अंतर है।</li><li>समझा सकेंगे कि एक सिस्टम उदाहरणों से कैसे सीखता है।</li><li>बता सकेंगे कि chat AI एक-एक token करके text कैसे बनाता है।</li><li>AI की मुख्य सीमाएँ और जोखिम बता सकेंगे।</li></ul></div>
+    <div class="oc-side"><b>शुरू करने से पहले</b><p>कुछ नहीं। आप यहीं से शुरू कर सकते हैं।</p><b>किस ट्रैक में</b><p><a href="course.html#track-foundations">AI Foundations</a> &middot; <a href="course.html#track-engineer">AI Engineer</a></p></div>
+  </div>
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>इस दस्तावेज़ में क्या है</h2>
+      <p>यह दस्तावेज़ आर्टिफ़िशियल इंटेलिजेंस (AI) का सामान्य परिचय देता है।</p>
+      <p>इसमें आप जानेंगे:</p>
+      <ul>
+        <li>AI क्या है।</li>
+        <li>AI एक सामान्य कंप्यूटर प्रोग्राम से कैसे अलग है।</li>
+        <li>एक AI सिस्टम कैसे सीखता है।</li>
+        <li>एक chat AI text कैसे बनाता है।</li>
+        <li>AI की सीमाएँ और जोखिम।</li>
+      </ul>
+      <p>इसे पढ़ने के लिए किसी विशेष ज्ञान की ज़रूरत नहीं है।</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="what-ai-is">
+    <div class="num">2</div>
+    <div>
+      <h2>AI क्या है</h2>
+      <p>AI एक तरह का कंप्यूटर सॉफ़्टवेयर है। यह ऐसे काम करता है जिनके लिए आम तौर पर इंसानी दिमाग़ की ज़रूरत होती है।</p>
+      <p>ऐसे कामों के उदाहरण:</p>
+      <ul>
+        <li>किसी फ़ोटो में चेहरा पहचानना।</li>
+        <li>text को एक भाषा से दूसरी भाषा में अनुवाद करना।</li>
+        <li>बोली गई बात को लिखे हुए text में बदलना।</li>
+        <li>chat में किसी सवाल का जवाब देना।</li>
+        <li>कैमरे की तस्वीर से किसी पुर्ज़े में खराबी ढूँढना।</li>
+      </ul>
+      <p>एक सामान्य कंप्यूटर प्रोग्राम नियमों का पालन करता है। ये नियम एक इंसान एक-एक करके लिखता है। AI सिस्टम अलग है। यह अपने नियम खुद ढूँढता है। यह ये नियम बहुत सारे उदाहरणों में ढूँढता है। इन उदाहरणों को हम <span class="tn" title="वे उदाहरण जिनसे कंप्यूटर सीखता है। जैसे: फ़ोटो, text, आवाज़ या संख्याएँ।">data</span> कहते हैं।</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 270" role="img" aria-labelledby="f1t">
+            <title id="f1t">सामान्य प्रोग्रामिंग और machine learning की तुलना</title>
+            <text class="hd" x="20" y="28">A. सामान्य प्रोग्राम</text>
+            <rect class="box" x="20" y="50" width="130" height="44" rx="2"/><text class="lbl" x="85" y="77" text-anchor="middle">नियम (इंसान लिखता है)</text>
+            <rect class="box" x="20" y="110" width="130" height="44" rx="2"/><text class="lbl" x="85" y="137" text-anchor="middle">Data</text>
+            <path class="line" d="M150 72 H195 V102 H215 M150 132 H195 V102"/>
+            <polygon points="215,96 227,102 215,108" fill="var(--ink)"/>
+            <rect class="boxb" x="228" y="74" width="110" height="56" rx="2"/><text class="lbl" x="283" y="107" text-anchor="middle">कंप्यूटर</text>
+            <path class="line" d="M338 102 H360"/><polygon points="360,96 372,102 360,108" fill="var(--ink)"/>
+            <text class="lbl" x="378" y="107">जवाब</text>
+
+            <line class="faint" x1="20" y1="180" x2="740" y2="180"/>
+
+            <text class="hd" x="20" y="208">B. Machine learning</text>
+            <rect class="box" x="20" y="222" width="130" height="40" rx="2"/><text class="lbl" x="85" y="247" text-anchor="middle">Data</text>
+            <rect class="box" x="160" y="222" width="130" height="40" rx="2"/><text class="lbl" x="225" y="247" text-anchor="middle">सही जवाब</text>
+            <path class="line" d="M290 242 H330"/><polygon points="330,236 342,242 330,248" fill="var(--ink)"/>
+            <rect class="boxb" x="343" y="216" width="110" height="52" rx="2"/><text class="lbl" x="398" y="247" text-anchor="middle">कंप्यूटर</text>
+            <path class="lineb" d="M453 242 H493"/><polygon points="493,236 505,242 493,248" fill="var(--blue)"/>
+            <text class="lbl" x="512" y="240" style="fill:var(--blue);font-weight:600">नियम</text>
+            <text class="sm" x="512" y="256">कंप्यूटर इन्हें खुद ढूँढता है।</text>
+          </svg>
+        </div>
+        <figcaption><b>चित्र 1.</b> सामान्य प्रोग्राम में नियम इंसान लिखता है। Machine learning में कंप्यूटर data में से नियम ढूँढता है।</figcaption>
+      </figure>
+
+      <div class="story" id="project-part-1">
+        <div class="story-head"><span class="story-icon" aria-hidden="true">🥭</span><div><span class="story-kicker">प्रोजेक्ट: आम जाँचने वाला सिस्टम · भाग 1 / 9</span><h3>नियम या सीखना?</h3></div></div>
+        <p>आशा का रत्नागिरी के पास एक आम का बाग़ है। हर दिन उसके कर्मचारी हज़ारों आमों को तीन डिब्बों में छाँटते हैं: पका हुआ, कच्चा, और ख़राब। यह काम धीमा है, और थके हुए कर्मचारी ग़लतियाँ करते हैं।</p>
+        <p>आशा का भतीजा एक सामान्य कंप्यूटर प्रोग्राम लिखता है। यह एक नियम मानता है: "अगर छिलका पीला है, तो आम पका है।" यह नियम ठीक से काम नहीं करता:</p>
+        <ul>
+          <li>कुछ किस्म के पके आम हरे ही रहते हैं।</li>
+          <li>शाम की रोशनी में हरे आम भी पीले दिखते हैं।</li>
+          <li>यह नियम ख़राबी के छोटे काले धब्बे नहीं पकड़ पाता।</li>
+        </ul>
+        <p>इसलिए आशा AI इस्तेमाल करने का फ़ैसला करती है। एक model उन बहुत सारी फ़ोटो से नियम सीखेगा, जिन्हें अनुभवी कर्मचारियों ने छाँटा है।</p>
+        <details class="story-think"><summary><b>सोचिए:</b> इस काम के लिए नियम लिखना मुश्किल क्यों है?</summary><p>आम का पकना कई छोटे संकेतों पर एक साथ निर्भर करता है: रंग, छोटे धब्बे, आकार, और फ़ोटो की रोशनी। हर मेल के लिए इंसान नियम नहीं लिख सकता। Model बहुत सारे उदाहरणों में ये पैटर्न ढूँढ सकता है।</p></details>
+        <nav class="story-nav" aria-label="प्रोजेक्ट, भाग 1 / 9: पिछला और अगला भाग"><span></span><a href="machine-learning.html#project-part-2">भाग 2 (English) →</a></nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="the-parts-of-ai">
+    <div class="num">3</div>
+    <div>
+      <h2>AI के हिस्से</h2>
+      <p>AI एक बड़ा क्षेत्र है। इसके अंदर छोटे क्षेत्र हैं। चित्र 2 देखें।</p>
+      <ul>
+        <li><b>आर्टिफ़िशियल इंटेलिजेंस</b> पूरा क्षेत्र है। इसमें वे सभी तरीक़े आते हैं जिनसे कंप्यूटर "समझदारी वाले" काम करता है।</li>
+        <li><b><span class="tn" title="वह AI जो data से सीखता है, इंसान के लिखे नियमों से नहीं।">Machine learning</span> (ML)</b> AI का एक हिस्सा है। इसमें कंप्यूटर data से सीखता है।</li>
+        <li><b><span class="tn" title="Machine learning जो कई layers वाले neural networks इस्तेमाल करता है।">Deep learning</span></b> ML का एक हिस्सा है। यह एक बड़ा <span class="tn" title="ऐसा सॉफ़्टवेयर जिसमें बहुत सारी छोटी, जुड़ी हुई इकाइयाँ होती हैं। ये इकाइयाँ एक-दूसरे को संख्याएँ भेजती हैं।">neural network</span> इस्तेमाल करता है।</li>
+        <li><b><span class="tn" title="वह AI जो नई सामग्री बनाता है: text, तस्वीरें, आवाज़ या code।">Generative AI</span></b> deep learning का एक हिस्सा है। यह नया text, तस्वीरें, आवाज़ या code बनाता है। Chat AI इसका एक उदाहरण है।</li>
+      </ul>
+      <p>इन सभी क्षेत्रों का अपना मॉड्यूल है। <a href="mathematics.html">Module 2</a> वह गणित देता है जो ये इस्तेमाल करते हैं। आगे देखें: <a href="machine-learning.html">Module 3, Machine learning</a>, <a href="deep-learning.html">Module 4, Deep learning</a>, और <a href="generative-ai.html">Module 5, Generative AI</a> (अभी अंग्रेज़ी में)।</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 330" role="img" aria-labelledby="f2t">
+            <title id="f2t">AI के एक-दूसरे के अंदर के क्षेत्र</title>
+            <rect x="20" y="15" width="720" height="300" rx="4" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.5"/>
+            <text class="hd" x="40" y="45">आर्टिफ़िशियल इंटेलिजेंस</text>
+            <text class="sm" x="40" y="64">नियम वाले सिस्टम, खोज, योजना, और सीखने वाले सिस्टम</text>
+            <rect x="130" y="80" width="590" height="220" rx="4" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5" opacity=".55"/>
+            <text class="hd" x="150" y="108">Machine learning</text>
+            <text class="sm" x="150" y="127">data से सीखता है: जैसे spam filter</text>
+            <rect x="260" y="140" width="440" height="145" rx="4" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <text class="hd" x="280" y="168">Deep learning</text>
+            <text class="sm" x="280" y="187">कई layers वाले neural networks: जैसे face ID</text>
+            <rect x="400" y="200" width="280" height="70" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <text class="hd" x="420" y="228" style="fill:var(--green)">Generative AI</text>
+            <text class="sm" x="420" y="248">Chat AI, तस्वीर बनाने वाले, code सहायक</text>
+          </svg>
+        </div>
+        <figcaption><b>चित्र 2.</b> हर क्षेत्र अपने आसपास के बड़े क्षेत्र का हिस्सा है।</figcaption>
+      </figure>
+
+      <div class="notice note">
+        <strong>ध्यान दें</strong>
+        <p>आज जितने AI सिस्टम आप इस्तेमाल कर सकते हैं, वे सब "narrow" (सीमित) AI हैं। हर सिस्टम कुछ ही तरह के काम कर सकता है। ऐसा सिस्टम जो इंसान के सभी काम कर सके, अभी मौजूद नहीं है। ऐसे सिस्टम को हम <span class="tn" title="Artificial general intelligence: भविष्य का एक संभावित AI जो वे सभी मानसिक काम कर सके जो इंसान करता है।">AGI</span> कहते हैं।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="how-an-ai-system-learns">
+    <div class="num">4</div>
+    <div>
+      <h2>AI सिस्टम कैसे सीखता है</h2>
+      <p>सीखने की प्रक्रिया को <span class="tn" title="वह प्रक्रिया जिसमें AI model data से सीखता है।">training</span> कहते हैं। Training का नतीजा एक <span class="tn" title="वह सॉफ़्टवेयर जो training बनाती है। इसमें सीखे हुए नियम संख्याओं के रूप में होते हैं।">model</span> होता है। Model जो सीखता है, उसे संख्याओं के एक बहुत बड़े समूह के रूप में रखता है। इन संख्याओं को हम <span class="tn" title="Model की बदलने वाली संख्याएँ। Training इन्हें बदलती है ताकि model ज़्यादा सही हो।">weights</span> कहते हैं।</p>
+      <p>Training एक चक्र (loop) है। इसके ये चरण हैं। चित्र 3 देखें।</p>
+      <ol>
+        <li>Model को data से एक उदाहरण मिलता है।</li>
+        <li>Model एक अनुमान लगाता है।</li>
+        <li>सिस्टम अनुमान की तुलना सही जवाब से करता है।</li>
+        <li>सिस्टम ग़लती (error) निकालता है। ग़लती बताती है कि अनुमान सही जवाब से कितना दूर है।</li>
+        <li>सिस्टम weights को थोड़ा-सा बदलता है। इससे अगली ग़लती छोटी होती है।</li>
+        <li>चक्र अगले उदाहरण के साथ फिर से शुरू होता है।</li>
+      </ol>
+      <p>यह चक्र लाखों या अरबों बार चल सकता है। बहुत सारे चक्रों के बाद अनुमान सही होने लगते हैं।</p>
+      <p>Training के बारे में और जानकारी के लिए <a href="machine-learning.html">Module 3, Machine learning</a> देखें।</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 300" role="img" aria-labelledby="f3t">
+            <title id="f3t">Training का चक्र</title>
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="30" y="40" width="150" height="56" rx="2"/><text class="lbl" x="105" y="66" text-anchor="middle">(1) उदाहरण</text><text class="sm" x="105" y="84" text-anchor="middle">बिल्ली की एक फ़ोटो</text>
+            <rect class="boxb" x="300" y="40" width="160" height="56" rx="2"/><text class="lbl" x="380" y="66" text-anchor="middle">(2) Model का अनुमान</text><text class="sm" x="380" y="84" text-anchor="middle">"कुत्ता: 70%"</text>
+            <rect class="box" x="580" y="40" width="150" height="56" rx="2"/><text class="lbl" x="655" y="66" text-anchor="middle">(3) तुलना</text><text class="sm" x="655" y="84" text-anchor="middle">सही जवाब: बिल्ली</text>
+            <rect class="box" x="580" y="200" width="150" height="56" rx="2"/><text class="lbl" x="655" y="226" text-anchor="middle">(4) ग़लती निकालें</text><text class="sm" x="655" y="244" text-anchor="middle">अनुमान ग़लत है</text>
+            <rect class="boxb" x="300" y="200" width="160" height="56" rx="2"/><text class="lbl" x="380" y="226" text-anchor="middle">(5) Weights बदलें</text><text class="sm" x="380" y="244" text-anchor="middle">छोटा बदलाव</text>
+            <rect class="box" x="30" y="200" width="150" height="56" rx="2"/><text class="lbl" x="105" y="226" text-anchor="middle">(6) अगला उदाहरण</text><text class="sm" x="105" y="244" text-anchor="middle">कई बार दोहराएँ</text>
+            <path class="line" d="M180 68 H296" marker-end="url(#ar)"/>
+            <path class="line" d="M460 68 H576" marker-end="url(#ar)"/>
+            <path class="line" d="M655 96 V196" marker-end="url(#ar)"/>
+            <path class="line" d="M580 228 H464" marker-end="url(#ar)"/>
+            <path class="line" d="M300 228 H184" marker-end="url(#ar)"/>
+            <path class="line" d="M105 200 V100" marker-end="url(#ar)"/>
+            <text class="sm" x="380" y="150" text-anchor="middle">एक चक्र = एक छोटा सुधार</text>
+          </svg>
+        </div>
+        <figcaption><b>चित्र 3.</b> Training का चक्र। हर चक्र model को थोड़ा और सही बनाता है।</figcaption>
+      </figure>
+
+      <h3>सीखने के तीन प्रकार</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>प्रकार</th><th>सिस्टम को क्या मिलता है</th><th>उदाहरण</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tn" title="ऐसे उदाहरणों से सीखना जिनके साथ सही जवाब जुड़ा हो।">Supervised learning</span></td><td>सही जवाबों के साथ data।</td><td>"spam" या "spam नहीं" label वाले ईमेल।</td></tr>
+            <tr><td><span class="tn" title="बिना जवाब वाले उदाहरणों से सीखना। सिस्टम समूह या पैटर्न ढूँढता है।">Unsupervised learning</span></td><td>बिना जवाब का data। सिस्टम समूह और पैटर्न ढूँढता है।</td><td>एक जैसे सामान ख़रीदने वाले ग्राहकों के समूह बनाना।</td></tr>
+            <tr><td><span class="tn" title="कोशिश और ग़लती से सीखना। अच्छे काम पर सिस्टम को इनाम मिलता है।">Reinforcement learning</span></td><td>अच्छे काम पर इनाम और बुरे काम पर सज़ा।</td><td>एक प्रोग्राम खेल खेलना सीखता है। जीतने पर उसे अंक मिलते हैं।</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="neural-networks">
+    <div class="num">5</div>
+    <div>
+      <h2>Neural networks</h2>
+      <p>आज का ज़्यादातर AI neural network इस्तेमाल करता है। Neural network में बहुत सारी छोटी इकाइयाँ होती हैं। इन इकाइयों को हम <span class="tn" title="Neural network की एक छोटी इकाई। यह अपने inputs जोड़ती है, एक सरल function लगाती है, और एक संख्या आगे भेजती है।">neurons</span> कहते हैं। Neurons परतों (layers) में होते हैं। चित्र 4 देखें।</p>
+      <ul>
+        <li><b>Input layer</b> data लेती है। फ़ोटो के लिए हर neuron एक pixel का मान लेता है।</li>
+        <li><b>Hidden layers</b> गणना करती हैं। पहली layers सरल आकार ढूँढती हैं, जैसे किनारे। बाद की layers बड़े आकार ढूँढती हैं, जैसे आँखें या कान।</li>
+        <li><b>Output layer</b> नतीजा देती है। जैसे: "बिल्ली: 92%"।</li>
+      </ul>
+      <p>दो neurons के बीच की हर रेखा का एक weight होता है। बड़ा weight जुड़ाव को मज़बूत बनाता है। छोटा weight उसे कमज़ोर बनाता है। Training इन सभी weights को बदलती है।</p>
+      <p>Neural network कैसे गणना करता है और कैसे सीखता है, इसके लिए <a href="deep-learning.html">Module 4, Deep learning</a> देखें।</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 340" role="img" aria-labelledby="f4t" id="nn">
+            <title id="f4t">चार layers वाला एक सरल neural network</title>
+            <g id="nn-lines"></g>
+            <g id="nn-nodes"></g>
+            <text class="hd" x="110" y="330" text-anchor="middle">Input layer</text>
+            <text class="hd" x="300" y="330" text-anchor="middle">Hidden layer 1</text>
+            <text class="hd" x="490" y="330" text-anchor="middle">Hidden layer 2</text>
+            <text class="hd" x="670" y="330" text-anchor="middle">Output layer</text>
+            <text class="sm" x="720" y="125">बिल्ली</text>
+            <text class="sm" x="720" y="205">कुत्ता</text>
+          </svg>
+        </div>
+        <figcaption><b>चित्र 4.</b> एक neural network। Data बाएँ से दाएँ जाता है। असली network में अरबों जुड़ाव हो सकते हैं।</figcaption>
+      </figure>
+
+      <div class="video" data-seconds="1120">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=aircAruvnKk" data-yt="aircAruvnKk" data-title="But what is a neural network? (3Blue1Brown)"><img src="https://i.ytimg.com/vi/aircAruvnKk/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: But what is a neural network? (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>वीडियो 1.</b> But what is a neural network? (3Blue1Brown, अंग्रेज़ी, लगभग 19 मिनट)</span><a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noopener">YouTube पर खोलें</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="how-a-chat-ai-makes-text">
+    <div class="num">6</div>
+    <div>
+      <h2>Chat AI text कैसे बनाता है</h2>
+      <p>Chat AI एक <span class="tn" title="Large language model: text पर trained एक बहुत बड़ा neural network। यह text का अगला हिस्सा predict करता है।">large language model</span> (LLM) इस्तेमाल करता है। LLM को बहुत बड़ी मात्रा में text पर train किया जाता है। यह text किताबों, वेबसाइटों और code से आता है।</p>
+      <p>LLM एक मुख्य काम करता है। यह text में अगला शब्द predict करता है। यह काम बार-बार करता है। इससे पूरे वाक्य और पूरे जवाब बनते हैं।</p>
+
+      <h3>प्रक्रिया</h3>
+      <ol>
+        <li>आप एक सवाल लिखते हैं। इसे हम <span class="tn" title="वह text जो आप AI सिस्टम को देते हैं।">prompt</span> कहते हैं।</li>
+        <li>सिस्टम text को छोटे हिस्सों में काटता है। इन हिस्सों को हम <span class="tn" title="Text का एक छोटा हिस्सा: पूरा शब्द, शब्द का हिस्सा, या विराम चिह्न।">tokens</span> कहते हैं।</li>
+        <li>Model हर संभावित अगले token के लिए एक probability (संभावना) निकालता है।</li>
+        <li>सिस्टम एक token चुनता है। आम तौर पर यह ज़्यादा probability वाला token चुनता है।</li>
+        <li>सिस्टम उस token को text में जोड़ता है।</li>
+        <li>सिस्टम चरण 3 पर वापस जाता है। जवाब पूरा होने पर रुकता है।</li>
+      </ol>
+
+      <div class="playground" data-pg="tokenizer" id="try-tokens">
+        <div class="pg-head"><span class="pg-badge">करके देखें</span><h3>Text को tokens में काटें</h3></div>
+        <p class="pg-intro">बॉक्स में एक वाक्य लिखें। देखें कि सिस्टम उसे tokens में कैसे काटता है। हिन्दी का वाक्य भी लिखकर देखें: अक्सर हिन्दी शब्द अंग्रेज़ी से ज़्यादा tokens में बँटते हैं। (इस गतिविधि के बटन अंग्रेज़ी में हैं।)</p>
+        <div class="pg-body"><noscript><p>इस गतिविधि के लिए JavaScript चाहिए।</p></noscript></div>
+      </div>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 320" role="img" aria-labelledby="f5t">
+            <title id="f5t">Probabilities के साथ अगले token का अनुमान</title>
+            <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <text class="hd" x="20" y="30">Input text, tokens में कटा हुआ</text>
+            <g>
+              <rect class="box" x="20" y="45" width="56" height="34"/><text class="lbl" x="48" y="67" text-anchor="middle">The</text>
+              <rect class="box" x="82" y="45" width="56" height="34"/><text class="lbl" x="110" y="67" text-anchor="middle">cat</text>
+              <rect class="box" x="144" y="45" width="56" height="34"/><text class="lbl" x="172" y="67" text-anchor="middle">sat</text>
+              <rect class="box" x="206" y="45" width="56" height="34"/><text class="lbl" x="234" y="67" text-anchor="middle">on</text>
+              <rect class="box" x="268" y="45" width="56" height="34"/><text class="lbl" x="296" y="67" text-anchor="middle">the</text>
+              <rect x="330" y="45" width="56" height="34" fill="none" stroke="var(--green)" stroke-width="2" stroke-dasharray="5 4"/><text class="lbl" x="358" y="67" text-anchor="middle" style="fill:var(--green)">?</text>
+            </g>
+            <path class="line" d="M172 82 V120" marker-end="url(#ar2)"/>
+            <rect class="boxb" x="60" y="124" width="224" height="60" rx="2"/>
+            <text class="hd" x="172" y="150" text-anchor="middle">Large language model</text>
+            <text class="sm" x="172" y="170" text-anchor="middle">अरबों weights</text>
+            <path class="line" d="M284 154 H420" marker-end="url(#ar2)"/>
+
+            <text class="hd" x="430" y="110">अगले token की probability</text>
+            <g>
+              <text class="lbl" x="430" y="145">mat</text><rect class="barhi" x="490" y="132" width="186" height="18"/><text class="sm" x="684" y="146">62%</text>
+              <text class="lbl" x="430" y="178">floor</text><rect class="bar" x="490" y="165" width="54" height="18"/><text class="sm" x="552" y="179">18%</text>
+              <text class="lbl" x="430" y="211">sofa</text><rect class="bar" x="490" y="198" width="27" height="18"/><text class="sm" x="525" y="212">9%</text>
+              <text class="lbl" x="430" y="244">roof</text><rect class="bar" x="490" y="231" width="15" height="18"/><text class="sm" x="513" y="245">5%</text>
+              <text class="lbl" x="430" y="277">अन्य</text><rect class="bar" x="490" y="264" width="18" height="18"/><text class="sm" x="516" y="278">6%</text>
+            </g>
+            <text class="sm" x="20" y="230">सिस्टम "mat" चुनता है, उसे text में जोड़ता है,</text>
+            <text class="sm" x="20" y="248">और फिर "mat" के बाद वाले token का अनुमान लगाता है।</text>
+          </svg>
+        </div>
+        <figcaption><b>चित्र 5.</b> Model हर संभावित अगले token को एक probability देता है। इस चित्र की संख्याएँ सिर्फ़ उदाहरण हैं।</figcaption>
+      </figure>
+
+      <p>LLM किसी database में तथ्य नहीं खोजता। यह सीखे हुए पैटर्न से ऐसा text बनाता है जो संभावित (probable) हो। यह बहुत उपयोगी है। लेकिन कुछ ग़लतियों का कारण भी यही है। खंड 8 देखें।</p>
+
+      <h3>Transformer</h3>
+      <p>ज़्यादातर LLMs एक डिज़ाइन इस्तेमाल करते हैं जिसका नाम <span class="tn" title="2017 का एक neural network डिज़ाइन। यह attention से हर token को text के दूसरे tokens से जोड़ता है।">transformer</span> है। Transformer एक तरीक़ा इस्तेमाल करता है जिसका नाम <span class="tn" title="एक तरीक़ा जिससे हर token text के दूसरे tokens की जानकारी इस्तेमाल कर सके।">attention</span> है। Attention हर शब्द को text के दूसरे शब्दों को "देखने" देता है। इसलिए model जानता है कि "नदी का किनारा" में "किनारा" और "सड़क का किनारा" में "किनारा" के संदर्भ अलग हैं। अंग्रेज़ी में इसका प्रसिद्ध उदाहरण "river bank" और "bank account" है।</p>
+      <p>Transformers के बारे में और जानकारी के लिए <a href="deep-learning.html#how-a-transformer-uses-attention">Module 4, खंड 8</a> देखें। Chat AI के बारे में और जानकारी के लिए <a href="generative-ai.html">Module 5, Generative AI</a> देखें।</p>
+
+      <div class="video" data-seconds="478">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=LPZh9BOjkQs" data-yt="LPZh9BOjkQs" data-title="Large Language Models explained briefly (3Blue1Brown)"><img src="https://i.ytimg.com/vi/LPZh9BOjkQs/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Large Language Models explained briefly (3Blue1Brown)</span></a></div>
+        <div class="meta"><span><b>वीडियो 2.</b> Large language models explained briefly (3Blue1Brown, अंग्रेज़ी, लगभग 8 मिनट)</span><a href="https://www.youtube.com/watch?v=LPZh9BOjkQs" target="_blank" rel="noopener">YouTube पर खोलें</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="where-people-use-ai">
+    <div class="num">7</div>
+    <div>
+      <h2>लोग AI कहाँ इस्तेमाल करते हैं</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>क्षेत्र</th><th>AI का इस्तेमाल</th></tr></thead>
+          <tbody>
+            <tr><td>फ़ोन</td><td>चेहरे से फ़ोन खोलना, आवाज़ वाले सहायक, और फ़ोटो सुधारना।</td></tr>
+            <tr><td>स्वास्थ्य</td><td>X-ray और scan की तस्वीरों में समस्याएँ ढूँढने में डॉक्टरों की मदद।</td></tr>
+            <tr><td>परिवहन</td><td>सबसे तेज़ रास्ता ढूँढना। ड्राइवर को गाड़ी अपनी lane में रखने में मदद।</td></tr>
+            <tr><td>उद्योग</td><td>पुर्ज़ों में खराबी ढूँढना। मशीन को कब maintenance चाहिए, इसका अनुमान।</td></tr>
+            <tr><td>दफ़्तर का काम</td><td>ड्राफ़्ट लिखना, सारांश बनाना, अनुवाद करना, और code लिखना।</td></tr>
+            <tr><td>खेती</td><td>फ़सल की बीमारी पहचानना, फल छाँटना, और मौसम के हिसाब से सिंचाई की योजना।</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="limits-and-risks">
+    <div class="num">8</div>
+    <div>
+      <h2>सीमाएँ और जोखिम</h2>
+
+      <div class="notice warning">
+        <strong>चेतावनी</strong>
+        <p>AI सिस्टम ऐसी ग़लत जानकारी दे सकता है जो सही लगे। किसी योग्य व्यक्ति की जाँच के बिना AI के जवाब को चिकित्सा, क़ानूनी, वित्तीय या सुरक्षा के फ़ैसलों में इस्तेमाल न करें।</p>
+      </div>
+
+      <p>AI की इन सीमाओं को जानें:</p>
+      <ul>
+        <li><b>ग़लत जवाब।</b> LLM ऐसे तथ्य, नाम या संदर्भ बना सकता है जो मौजूद ही नहीं हैं। इसे हम <span class="tn" title="AI का ऐसा जवाब जो सही लगता है, लेकिन ग़लत या मनगढ़ंत होता है।">hallucination</span> कहते हैं।</li>
+        <li><b>पक्षपात (bias)।</b> Model इंसानों के बनाए data से सीखता है। अगर data निष्पक्ष नहीं है, तो model भी निष्पक्ष नहीं हो सकता।</li>
+        <li><b>पुरानी जानकारी।</b> Model सिर्फ़ उसी data को जानता है जो उसकी training रुकने से पहले का था। कुछ सिस्टम नई जानकारी के लिए वेब पर खोज कर सकते हैं।</li>
+        <li><b>असली समझ नहीं।</b> Model पैटर्न ढूँढता है। उसके पास दुनिया का इंसानी अनुभव नहीं है।</li>
+      </ul>
+
+      <div class="notice caution">
+        <strong>सावधानी</strong>
+        <p>अगर आप नहीं जानते कि कोई AI टूल आपका data कैसे रखता है, तो उसे अपना निजी data न दें। निजी data में पासवर्ड, पहचान संख्या (जैसे Aadhaar नंबर) और कंपनी के राज़ आते हैं।</p>
+      </div>
+
+      <h3>प्रक्रिया: chat AI को सुरक्षित तरीक़े से इस्तेमाल करें</h3>
+      <ol class="steps">
+        <li>साफ़ prompt लिखें। AI को काम, संदर्भ और जवाब का फ़ॉर्मेट बताएँ।</li>
+        <li>जवाब ध्यान से पढ़ें।</li>
+        <li>सभी ज़रूरी तथ्यों की जाँच किसी भरोसेमंद स्रोत से करें।</li>
+        <li>अगर जवाब सही नहीं है, तो AI को ग़लती बताएँ और फिर से पूछें।</li>
+        <li>अंतिम फ़ैसला खुद लें।</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="a-short-history-of-ai">
+    <div class="num">9</div>
+    <div>
+      <h2>AI का छोटा इतिहास</h2>
+      <p>AI नया नहीं है। शोधकर्ताओं ने 1950 के दशक में इस पर काम शुरू किया। बीच में बड़ी उम्मीदों के दौर भी आए और निराशा के दौर भी। बड़े बदलाव तब आए जब तीन चीज़ें एक साथ उपलब्ध हुईं: बड़ी मात्रा में data, तेज़ कंप्यूटर चिप, और बेहतर तरीक़े।</p>
+      <div class="timeline" id="timeline">
+        <ul class="tl-legend" aria-label="दौर"><li class="tl-start">1950–1969: शुरुआत</li><li class="tl-winters">1970–1993: उम्मीदें और "AI winters"</li><li class="tl-learning">1994–2011: data से सीखना</li><li class="tl-deep">2012–2019: deep learning</li><li class="tl-gen">2020 से अब तक: generative AI</li></ul>
+        <ol class="tl-list">
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1950</span><div class="tl-body"><b>एलन ट्यूरिंग पूछते हैं: क्या मशीनें सोच सकती हैं?</b><p>अपने लेख "Computing Machinery and Intelligence" में ट्यूरिंग एक परीक्षण बताते हैं: क्या कोई व्यक्ति लिखित बातचीत में कंप्यूटर और इंसान का अंतर पहचान सकता है?</p></div></li>
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1956</span><div class="tl-body"><b>"आर्टिफ़िशियल इंटेलिजेंस" नाम</b><p>अमेरिका के Dartmouth College की एक कार्यशाला में शोधकर्ता इस नए विषय के लिए "artificial intelligence" नाम इस्तेमाल करते हैं। यह नाम John McCarthy ने सुझाया था।</p></div></li>
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1958</span><div class="tl-body"><b>Perceptron</b><p>Frank Rosenblatt perceptron बनाते हैं, जो उदाहरणों से सीखने वाली पहली मशीनों में से एक है। यह एक बहुत सरल neural network है।</p></div></li>
+          <li class="tl-item tl-start" data-era="start"><span class="tl-year">1966</span><div class="tl-body"><b>ELIZA, एक शुरुआती chatbot</b><p>Joseph Weizenbaum ELIZA बनाते हैं। यह सरल नियमों से एक थेरेपिस्ट की तरह जवाब देता है। कई लोगों को लगता है कि यह उन्हें समझता है, पर ऐसा नहीं है।</p></div></li>
+          <li class="tl-item tl-winters" data-era="winters"><span class="tl-year">1974</span><div class="tl-body"><b>पहला "AI winter"</b><p>नतीजे वादों से छोटे निकलते हैं। सरकारें AI शोध के लिए कम पैसा देती हैं। इस दौर को "AI winter" कहते हैं।</p></div></li>
+          <li class="tl-item tl-winters" data-era="winters"><span class="tl-year">1980s</span><div class="tl-body"><b>Expert systems</b><p>कंपनियाँ expert systems इस्तेमाल करती हैं: इंसानों के लिखे हज़ारों नियमों वाले प्रोग्राम। इन नियमों को अद्यतन रखना महँगा है। 1980 के दशक के अंत में दूसरा AI winter शुरू होता है।</p></div></li>
+          <li class="tl-item tl-winters" data-era="winters"><span class="tl-year">1986</span><div class="tl-body"><b>Backpropagation</b><p>David Rumelhart, Geoffrey Hinton और Ronald Williams दिखाते हैं कि backpropagation से कई layers वाले neural networks को कैसे train करें। Module 4 देखें।</p></div></li>
+          <li class="tl-item tl-learning" data-era="learning"><span class="tl-year">1997</span><div class="tl-body"><b>कंप्यूटर शतरंज में जीतता है</b><p>IBM का Deep Blue विश्व चैंपियन Garry Kasparov के ख़िलाफ़ शतरंज का मैच जीतता है।</p></div></li>
+          <li class="tl-item tl-learning" data-era="learning"><span class="tl-year">2009</span><div class="tl-body"><b>ImageNet</b><p>शोधकर्ता ImageNet प्रकाशित करते हैं: label वाली लाखों फ़ोटो का data set। बड़े data sets deep learning को संभव बनाते हैं।</p></div></li>
+          <li class="tl-item tl-deep" data-era="deep"><span class="tl-year">2012</span><div class="tl-body"><b>Deep learning जीतने लगता है</b><p>एक deep CNN ImageNet प्रतियोगिता दूसरे तरीक़ों से बहुत कम ग़लतियों के साथ जीतता है। यह GPUs पर train होता है।</p></div></li>
+          <li class="tl-item tl-deep" data-era="deep"><span class="tl-year">2016</span><div class="tl-body"><b>AlphaGo</b><p>DeepMind का AlphaGo, Go खेल के सबसे अच्छे खिलाड़ियों में से एक, Lee Sedol, के ख़िलाफ़ जीतता है। यह deep learning और reinforcement learning इस्तेमाल करता है।</p></div></li>
+          <li class="tl-item tl-deep" data-era="deep"><span class="tl-year">2017</span><div class="tl-body"><b>Transformer</b><p>Google के शोधकर्ता "Attention Is All You Need" प्रकाशित करते हैं। Transformer ज़्यादातर LLMs का आधार बनता है।</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2020</span><div class="tl-body"><b>GPT-3</b><p>OpenAI GPT-3 दिखाता है: 175 अरब weights वाला एक LLM। यह छोटे prompt से कई काम कर सकता है।</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2022</span><div class="tl-body"><b>ChatGPT और तस्वीर बनाने वाले</b><p>Diffusion से तस्वीर बनाने वाले टूल आम लोगों के लिए उपलब्ध होते हैं। नवंबर में ChatGPT जारी होता है। दो महीनों में इसके लगभग 10 करोड़ उपयोगकर्ता हो जाते हैं।</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2024</span><div class="tl-body"><b>AI के लिए क़ानून</b><p>यूरोपीय संघ EU AI Act अपनाता है, AI के बारे में पहला बड़ा क़ानून। Module 6 देखें।</p></div></li>
+          <li class="tl-item tl-gen" data-era="gen"><span class="tl-year">2025</span><div class="tl-body"><b>Reasoning models और agents</b><p>ऐसे models जो समस्याओं को चरणों में हल करते हैं, और tools इस्तेमाल करने वाले AI agents, आम हो जाते हैं।</p></div></li>
+        </ol>
+      </div>
+      <div class="notice note">
+        <strong>ध्यान दें</strong>
+        <p>इस सूची का हर नया तरीक़ा अपने से पहले के तरीक़ों पर बना है। 2025 का chat AI भी 1958 के neurons और 1986 का backpropagation इस्तेमाल करता है।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="summary">
+    <div class="num">10</div>
+    <div>
+      <h2>सारांश</h2>
+      <ul>
+        <li>AI ऐसा सॉफ़्टवेयर है जो वे काम करता है जिनके लिए आम तौर पर इंसानी दिमाग़ चाहिए।</li>
+        <li>Machine learning data में नियम ढूँढता है। नियम इंसान नहीं लिखता।</li>
+        <li>Training एक चक्र है: अनुमान, तुलना, बदलाव, दोहराना।</li>
+        <li>Neural network में neurons की layers होती हैं। Weights neurons को जोड़ते हैं।</li>
+        <li>Chat AI बार-बार अगला token predict करता है।</li>
+        <li>AI ग़लतियाँ कर सकता है। ज़रूरी जानकारी की हमेशा जाँच करें।</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="knowledge-check">
+    <div class="num">11</div>
+    <div>
+      <h2>ज्ञान की जाँच</h2>
+      <p>इन सवालों के जवाब देकर देखें कि आप क्या जानते हैं। हर सवाल का एक जवाब चुनें। अगर जवाब सही नहीं है, तो व्याख्या बताएगी कि कौन-सा खंड फिर से पढ़ें। यह जाँच अंग्रेज़ी वाली जाँच के बराबर गिनी जाती है।</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "AI सिस्टम एक सामान्य कंप्यूटर प्रोग्राम से कैसे अलग है?", "options": ["यह data में अपने नियम खुद ढूँढता है।", "इसके सभी नियम इंसान एक-एक करके लिखता है।", "यह data इस्तेमाल नहीं करता।", "यह सिर्फ़ संख्याओं की गणना कर सकता है।"], "answer": 0, "explain": "सामान्य प्रोग्राम इंसान के लिखे नियम मानता है। AI सिस्टम उदाहरणों में नियम ढूँढता है।", "ref": "what-ai-is"},
+ {"q": "कौन-सा क्षेत्र deep learning का हिस्सा है?", "options": ["Generative AI", "Machine learning", "आर्टिफ़िशियल इंटेलिजेंस", "नियम वाले सिस्टम"], "answer": 0, "explain": "Generative AI, deep learning का हिस्सा है। Deep learning, machine learning का हिस्सा है, और machine learning, AI का हिस्सा है।", "ref": "the-parts-of-ai"},
+ {"q": "Training के दौरान model जिन बदलने वाली संख्याओं को बदलता है, उन्हें क्या कहते हैं?", "options": ["Weights", "Tokens", "Prompts", "Labels"], "answer": 0, "explain": "Model जो सीखता है, उसे संख्याओं के बहुत बड़े समूह के रूप में रखता है। इन्हें weights कहते हैं।", "ref": "how-an-ai-system-learns"},
+ {"q": "कौन-सा क्रम training के चक्र को दिखाता है?", "options": ["अनुमान, तुलना, ग़लती निकालना, weights बदलना।", "Weights बदलना, अनुमान, रुकना।", "तुलना, अनुमान, data मिटाना।", "अनुमान, प्रकाशित करना, तुलना।"], "answer": 0, "explain": "Model अनुमान लगाता है। सिस्टम उसकी तुलना सही जवाब से करता है, ग़लती निकालता है, और weights बदलता है। फिर चक्र दोबारा शुरू होता है।", "ref": "how-an-ai-system-learns"},
+ {"q": "Neural network में कौन-सी layer नतीजा देती है?", "options": ["Output layer", "Input layer", "पहली hidden layer", "कोई layer नतीजा नहीं देती"], "answer": 0, "explain": "Input layer data लेती है। Hidden layers गणना करती हैं। Output layer नतीजा देती है।", "ref": "neural-networks"},
+ {"q": "Large language model का मुख्य काम क्या है?", "options": ["Text में अगला token predict करना।", "Database में तथ्य खोजना।", "वेबसाइटों से पूरे पेज कॉपी करना।", "Text के शब्द गिनना।"], "answer": 0, "explain": "LLM बार-बार अगला token predict करता है। इससे पूरे वाक्य और जवाब बनते हैं।", "ref": "how-a-chat-ai-makes-text"},
+ {"q": "Chat AI ऐसा जवाब दे सकता है जो सही लगे, लेकिन ग़लत हो।", "options": ["सही", "ग़लत"], "answer": 0, "explain": "इसे hallucination कहते हैं। ज़रूरी जानकारी की हमेशा जाँच करें।", "ref": "limits-and-risks"},
+ {"q": "अगर आप नहीं जानते कि AI टूल data कैसे रखता है, तो उसे कौन-सा data नहीं देना चाहिए?", "options": ["पासवर्ड और पहचान संख्याएँ।", "एक सार्वजनिक समाचार लेख।", "मौसम के बारे में एक सवाल।", "केक बनाने की विधि।"], "answer": 0, "explain": "निजी data में पासवर्ड, पहचान संख्याएँ और कंपनी के राज़ आते हैं।", "ref": "limits-and-risks"},
+ {"q": "आशा की टीम यह नियम इस्तेमाल करती है: \"अगर छिलका पीला है, तो आम पका है।\" नियम कई ग़लतियाँ करता है। सबसे अच्छा अगला कदम क्या है?", "options": ["Label वाली बहुत सारी फ़ोटो इकट्ठा करें और model को नियम ढूँढने दें।", "रंग के नियमों की लंबी सूची लिखें।", "सिर्फ़ सुबह की फ़ोटो इस्तेमाल करें।", "रुक जाएँ। कंप्यूटर फल नहीं छाँट सकता।"], "answer": 0, "explain": "आम का पकना कई छोटे संकेतों पर एक साथ निर्भर करता है। Model label वाले उदाहरणों में ये पैटर्न ढूँढ सकता है।", "ref": "what-ai-is", "scenario": true},
+ {"q": "टीम chat AI से आम के पेड़ों के लिए कीटनाशक की सही मात्रा पूछती है। जवाब पक्का लगता है। टीम को क्या करना चाहिए?", "options": ["किसी भरोसेमंद स्रोत से जवाब की जाँच करें, जैसे कृषि विशेषज्ञ।", "जवाब इस्तेमाल करें, क्योंकि वह पक्का लगता है।", "वही सवाल फिर पूछें और दूसरा जवाब इस्तेमाल करें।", "ज़्यादा temperature इस्तेमाल करें।"], "answer": 0, "explain": "Chat AI ऐसी ग़लत जानकारी दे सकता है जो सही लगे। सुरक्षा के फ़ैसलों के लिए योग्य व्यक्ति की जाँच ज़रूरी है।", "ref": "limits-and-risks", "scenario": true}
+]}
+        </script>
+        <noscript><p>ज्ञान की जाँच के लिए JavaScript चाहिए।</p></noscript>
+      </div>
+      <h3 id="practice-in-code">कोड का अभ्यास</h3>
+      <p>अपने ब्राउज़र में Python लिखें। पहली बार <b>Run tests</b> चुनने पर Python इंटरनेट से लोड होता है, जिसमें 10 से 30 सेकंड लगते हैं। अभ्यासों का text अभी अंग्रेज़ी में है।</p>
+      <div class="ex-set" data-module="ai.html"><noscript><p>कोड अभ्यास के लिए JavaScript चाहिए।</p></noscript></div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="technical-names">
+    <div class="num">12</div>
+    <div>
+      <h2>तकनीकी शब्द</h2>
+      <p>ये शब्द AI में अंग्रेज़ी में ही इस्तेमाल होते हैं। हर शब्द के साथ उसका सरल हिन्दी अर्थ दिया है।</p>
+      <dl class="glossary">
+        <dt>Attention</dt><dd>एक तरीक़ा जिससे हर token दूसरे tokens की जानकारी इस्तेमाल करता है।</dd>
+        <dt>Data</dt><dd>वे उदाहरण जिनसे कंप्यूटर सीखता है।</dd>
+        <dt>Hallucination</dt><dd>ऐसा जवाब जो सही लगता है, लेकिन ग़लत या मनगढ़ंत है।</dd>
+        <dt>LLM (large language model)</dt><dd>Text पर train किया गया एक बहुत बड़ा neural network।</dd>
+        <dt>Model</dt><dd>वह सॉफ़्टवेयर जो training बनाती है। इसमें सीखे हुए नियम संख्याओं के रूप में होते हैं।</dd>
+        <dt>Neural network</dt><dd>Layers में जुड़ी बहुत सारी इकाइयों वाला सॉफ़्टवेयर।</dd>
+        <dt>Prompt</dt><dd>वह text जो आप AI सिस्टम को देते हैं।</dd>
+        <dt>Token</dt><dd>Text का एक छोटा हिस्सा: एक शब्द, शब्द का हिस्सा, या विराम चिह्न।</dd>
+        <dt>Training</dt><dd>वह प्रक्रिया जिसमें model data से सीखता है।</dd>
+        <dt>Transformer</dt><dd>वह neural network डिज़ाइन जो ज़्यादातर LLMs इस्तेमाल करते हैं।</dd>
+        <dt>Weight</dt><dd>Model की एक बदलने वाली संख्या। Training इसे बदलती है।</dd>
+      </dl>
+    </div>
+  </section>
+
+  </main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="python-for-ai.html"><small>Previous module</small><b>0. Python and data tools</b></a>
+    <a class="next" href="mathematics.html"><small>Next module</small><b>2. Mathematics for machine learning</b></a>
+  </nav>
+
+  <footer>
+    <span>Module 1 का हिन्दी संस्करण। अनुवाद की समीक्षा किसी हिन्दी भाषी विशेषज्ञ से करवाना अच्छा रहेगा। वीडियो: 3Blue1Brown (अंग्रेज़ी)।</span>
+  </footer>
+</div>
+</body>
+</html>

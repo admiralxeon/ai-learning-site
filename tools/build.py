@@ -144,6 +144,11 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
                "p5": "project-5-a-neural-network-that-reads-digits", "p6": "project-6-a-prompt-lab",
                "p7": "project-7-audit-a-model-for-bias", "p8": "project-8-find-drift-and-train-again",
                "p9": "project-9-ship-a-model-with-ci-cd"}
+# Translated pages: original page -> {language: (file, description)}. The files use <base href="../">.
+TRANSLATIONS = {
+    "ai.html": {"hi": ("hi/ai.html", "आर्टिफ़िशियल इंटेलिजेंस का सरल हिन्दी परिचय: AI क्या है, AI के हिस्से, training, neural networks, chat AI, और सीमाएँ।")},
+}
+LANG_NAMES = {"hi": "हिन्दी में पढ़ें"}
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
 REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE, VERIFY, NOTES, INSTRUCTOR = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html", "verify.html", "notes.html", "instructor.html"
 SITE_NAME = "AI learning manual"
@@ -944,7 +949,28 @@ for name in PAGES:
         src, n = re.subn(r'(<table class="modlist">.*?<tbody>\n).*?(\n\s*</tbody>)', lambda mo: mo.group(1) + rows + mo.group(2), src, count=1, flags=re.S)
         if n != 1:
             raise SystemExit(f"{name}: module list table not found")
+    if name in TRANSLATIONS:
+        links = " ".join(f'<a href="{f}" lang="{lang}" hreflang="{lang}">{LANG_NAMES[lang]}</a>' for lang, (f, _) in TRANSLATIONS[name].items())
+        block = f'<!-- lang:start (made by tools/build.py) --><p class="lang-switch">{links}</p><!-- lang:end -->'
+        if "<!-- lang:start" in src:
+            src = re.sub(r"<!-- lang:start.*?<!-- lang:end -->", lambda mo: block, src, count=1, flags=re.S)
+        else:
+            src = re.sub(r'(<div class="title">.*?)(\n  </div>)', lambda mo: mo.group(1) + "\n    " + block + mo.group(2), src, count=1, flags=re.S)
     write(name, src)
+
+TRANS_PAGES = []
+for orig, langs in TRANSLATIONS.items():
+    for lang, (fname, desc) in langs.items():
+        TRANS_PAGES.append(fname)
+        src = read(fname)
+        title = html.unescape(re.search(r"<title>(.*?)</title>", src).group(1))
+        block = head_html(orig, title)
+        block = re.sub(r'(<meta (?:name="description"|property="og:description") content=")[^"]*"', lambda mo: mo.group(1) + html.escape(desc, quote=True) + '"', block)
+        src = re.sub(r"<!-- head:start.*?<!-- head:end -->", lambda mo: block, src, count=1, flags=re.S)
+        src = replace_one(src, r'<nav (?:class="topnav" )?aria-label="(?:Modules|Main)">.*?</nav>', nav_html(orig), fname)
+        src = replace_one(src, r'<nav class="pager".*?</nav>', pager_html(orig), fname)
+        src = re.sub(r'<div class="frame"><iframe src="https://www\.youtube-nocookie\.com/embed/([A-Za-z0-9_-]+)" title="([^"]*)"[^>]*></iframe></div>', facade, src)
+        write(fname, src)
 
 js = read("assets/site.js")
 data = ",\n".join("    " + json.dumps({"href": m["href"], "num": m["num"], "title": m["title"], "sections": len(m["sections"]),
@@ -997,7 +1023,7 @@ if n != 1:
     raise SystemExit("assets/site.js: ASSET_V not found")
 write("assets/site.js", js)
 versions = {n: fhash("assets/" + n) for n in ("site.css", "site.js", "review-pool.js", "issuer-key.js")}
-for name in PAGES:
+for name in PAGES + TRANS_PAGES:
     src = read(name)
     new = re.sub(r'assets/(site\.css|site\.js|review-pool\.js|issuer-key\.js)(\?v=[0-9a-f]+)?"', lambda mo: f'assets/{mo.group(1)}?v={versions[mo.group(1)]}"', src)
     if new != src:
@@ -1011,7 +1037,7 @@ assets = []
 for f in sorted((SITE / "assets").iterdir()):
     if f.is_file():
         assets.append(f"assets/{f.name}?v={versioned[f.name]}" if f.name in versioned else f"assets/{f.name}")
-OFFLINE = PAGES + assets + ["manifest.webmanifest"]
+OFFLINE = PAGES + TRANS_PAGES + assets + ["manifest.webmanifest"]
 digest = hashlib.sha256()
 for f in OFFLINE:
     digest.update(f.encode()); digest.update((SITE / f.split("?")[0]).read_bytes())
