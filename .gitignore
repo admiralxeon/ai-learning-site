@@ -11,3 +11,6 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# Private keys (the certificate issuer key lives outside the repository)
+*.pem

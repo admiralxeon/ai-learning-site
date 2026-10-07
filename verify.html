@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Certificate | AI learning manual</title>
+<title>Verify a certificate | AI learning manual</title>
 <!-- head:start (made by tools/build.py) -->
-<meta name="description" content="Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual.">
+<meta name="description" content="Check a certificate of the AI learning manual: its data, its ID, and the digital signature of the course issuer.">
 <meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -13,14 +13,15 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI learning manual">
-<meta property="og:title" content="Certificate | AI learning manual">
-<meta property="og:description" content="Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual.">
+<meta property="og:title" content="Verify a certificate | AI learning manual">
+<meta property="og:description" content="Check a certificate of the AI learning manual: its data, its ID, and the digital signature of the course issuer.">
 <!-- head:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=e8bb101575">
 <script src="assets/site.js?v=75508d9d25"></script>
+<script src="assets/issuer-key.js?v=5bfa04f9e5"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -47,7 +48,7 @@
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
-        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="course.html">Course plan</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="capstone.html">Capstone</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html" aria-current="page">Certificate</a></div>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="course.html">Course plan</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="capstone.html">Capstone</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
       </div>
     </details>
     <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
@@ -58,15 +59,33 @@
 <div class="sheet">
 <main id="main">
   <div class="title">
-    <h1>Your certificate</h1>
-    <p>Pass the knowledge check of each module and the <a href="review.html">final review</a> to get a certificate. Your results are kept in this browser.</p>
+    <h1>Verify a certificate</h1>
+    <p>This page checks a certificate of the AI learning manual. It shows the data of the certificate, and if the data is complete and was not changed. A certificate that the course issuer reviewed has a digital signature, which this page checks.</p>
   </div>
 
-  <section id="certificate">
+  <section id="result">
     <div class="num">1</div>
     <div>
-      <h2>Certificate of completion</h2>
-      <div class="cert-app"><noscript><p>The certificate needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      <h2>Result</h2>
+      <div class="verify-app" aria-live="polite"><noscript><p>This check needs JavaScript.</p></noscript></div>
+    </div>
+  </section>
+
+  <section id="how-verification-works">
+    <div class="num">2</div>
+    <div>
+      <h2>How verification works</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Result</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td><b>Verified by the issuer</b></td><td>The course issuer reviewed the work and signed the certificate. Nobody can change the data without the private key of the issuer.</td></tr>
+            <tr><td><b>Self-reported</b></td><td>The learner made the certificate in their browser. The data agrees with its ID, but nobody checked the work. Ask for a link that the issuer signed.</td></tr>
+            <tr><td><b>Not valid</b></td><td>The data or the signature was changed. Do not trust this certificate.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The check runs in your browser. The certificate data is in the link itself, so no data goes to a server.</p>
     </div>
   </section>
 </main>
@@ -76,7 +95,7 @@
   </nav>
 
   <footer>
-    <span>This certificate shows the results that are kept in your browser. It is not an official qualification.</span>
+    <span>Signatures use ECDSA with the curve P-256 and SHA-256, checked with the Web Crypto API.</span>
   </footer>
 </div>
 </body>

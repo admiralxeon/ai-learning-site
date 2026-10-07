@@ -145,7 +145,7 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
                "p7": "project-7-audit-a-model-for-bias", "p8": "project-8-find-drift-and-train-again",
                "p9": "project-9-ship-a-model-with-ci-cd"}
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
-REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html"
+REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE, VERIFY = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html", "verify.html"
 SITE_NAME = "AI learning manual"
 HOME_DESCRIPTION = ("A full AI course in eleven modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, LLM engineering, and ML system design. "
                     "Each module has diagrams, videos, and a knowledge check.")
@@ -154,6 +154,7 @@ CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check o
 REVIEW_DESCRIPTION = "The final review: 20 questions from the modules of your track, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
 CAPSTONE_DESCRIPTION = "The capstone of the AI Engineer track: build and ship an ML service or a RAG application, with a submission checklist, a seven-part rubric, and a self-assessment score."
+VERIFY_DESCRIPTION = "Check a certificate of the AI learning manual: its data, its ID, and the digital signature of the course issuer."
 COURSE_DESCRIPTION = "The course plan: two tracks, AI Foundations (6 weeks) and AI Engineer (12 weeks), with a weekly plan, the learning outcomes of each module, and the certificate rules."
 CAREERS_DESCRIPTION = "Jobs in AI, the skills that each job needs, what to learn after this course, and how to show your projects in a portfolio."
 GLOSSARY_DESCRIPTION = "All the technical names in the AI learning manual, with short definitions and links to the modules that use them."
@@ -239,7 +240,7 @@ for m in MODULES:
             q["rn"], q["rt"] = titles[q["ref"]]
         review_pool.append(q)
 
-EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
+EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), VERIFY: ("Verify a certificate", VERIFY_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
          CHEATS: ("Cheat sheets", CHEATS_DESCRIPTION), CAREERS: ("Careers", CAREERS_DESCRIPTION)}
 for m in MODULES:
     if m["num"] not in OUTCOMES:
@@ -252,7 +253,7 @@ for t in TRACKS:
         t["modules"] = [m["num"] for m in MODULES]
 for m in MODULES:
     m["tracks"] = [t["id"] for t in TRACKS if m["num"] in t["modules"]]
-PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE]
+PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE, VERIFY]
 
 
 # ---------------------------------------------------------------- shared parts
@@ -767,10 +768,10 @@ js, n = re.subn(r"var ASSET_V=\{.*?\};", lambda mo: "var ASSET_V=" + json.dumps(
 if n != 1:
     raise SystemExit("assets/site.js: ASSET_V not found")
 write("assets/site.js", js)
-versions = {n: fhash("assets/" + n) for n in ("site.css", "site.js", "review-pool.js")}
+versions = {n: fhash("assets/" + n) for n in ("site.css", "site.js", "review-pool.js", "issuer-key.js")}
 for name in PAGES:
     src = read(name)
-    new = re.sub(r'assets/(site\.css|site\.js|review-pool\.js)(\?v=[0-9a-f]+)?"', lambda mo: f'assets/{mo.group(1)}?v={versions[mo.group(1)]}"', src)
+    new = re.sub(r'assets/(site\.css|site\.js|review-pool\.js|issuer-key\.js)(\?v=[0-9a-f]+)?"', lambda mo: f'assets/{mo.group(1)}?v={versions[mo.group(1)]}"', src)
     if new != src:
         write(name, new)
 versioned = {**versions, **later}

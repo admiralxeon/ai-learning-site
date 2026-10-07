@@ -11,6 +11,7 @@ A static learning site with eleven modules (0 to 10) and two tracks, written in 
 | `course.html` | The course plan: tracks, weekly plans, outcomes, certificate rules. **Generated** from `TRACKS` and `OUTCOMES` in `tools/build.py` |
 | `topic-*.html` | Short topics: computer vision, language tasks, recommendation systems, forecasting. Listed in `TOPICS` in `tools/build.py` |
 | `capstone.html` | The graded capstone of the AI Engineer track: two options, milestones, a submission checklist, and a seven-part rubric with a self-assessment score |
+| `verify.html` | Checks a certificate link: its ID and, for reviewed certificates, the ECDSA signature of the issuer |
 | `review.html` | The final review: 20 questions drawn from all module knowledge checks. Passing it is the last step to the certificate |
 | `cheat-sheets.html` | One printable summary sheet for each module, and a formula sheet |
 | `careers.html` | Jobs in AI, skills, what to learn next, and how to build a portfolio |
@@ -60,6 +61,14 @@ python tools/build.py
 ```
 
 The check runs each solution and each starter with real Python: each solution must pass, and each starter must fail at least one test.
+
+## Issue verified certificates
+
+A learner can share a self-reported certificate link at any time. For a link that says "Verified by the issuer":
+
+1. One time: `python tools/sign_certificate.py --new-key`. The private key goes to `~/.ai-learning-manual/` (outside the repository). Back it up. The public key goes to `assets/issuer-key.js`; commit it and run the build. A new key makes all old signed links invalid.
+2. The learner downloads the verification request (a JSON file) from the certificate page and sends it to you with the capstone repository.
+3. Review the work. Then run `python tools/sign_certificate.py request.json --reviewer "Your name" --capstone 85` and send the printed link to the learner.
 
 ## Learner progress
 

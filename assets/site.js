@@ -54,7 +54,7 @@
     {"href":"system-design.html","num":10,"title":"ML system design","sections":11,"read":13,"video":0,"quick":["a-method-in-seven-steps","estimate-load-latency-and-cost","case-study-fraud-detection","lessons-from-real-failures","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"],"ex":2}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"083c6723e3","search-index.js":"d833583184","exercises.js":"1ec772a22e","py-runner.js":"b0c94173c4"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"083c6723e3","search-index.js":"01d63bcfc5","exercises.js":"1ec772a22e","py-runner.js":"b0c94173c4"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   // The tracks of the course. tools/build.py writes them.
   var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[],"capstone":false},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html","system-design.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"],"capstone":true}];
@@ -70,6 +70,23 @@
     var pct=Math.round(sum/(CAP_CRITS.length*4)*100);
     return {done:done,items:CAP_ITEMS.length,rated:n,crits:CAP_CRITS.length,sum:sum,max:CAP_CRITS.length*4,pct:pct,low:low,
       passed:done===CAP_ITEMS.length&&n===CAP_CRITS.length&&!low&&pct>=70};
+  }
+  // Certificates: a stable JSON form, Base64URL, and the ID (the same rules as tools/sign_certificate.py)
+  function canon(o){
+    if(Array.isArray(o))return "["+o.map(canon).join(",")+"]";
+    if(o&&typeof o==="object")return "{"+Object.keys(o).sort().map(function(k){return JSON.stringify(k)+":"+canon(o[k]);}).join(",")+"}";
+    return JSON.stringify(o);
+  }
+  function b64urlBytes(bytes){var s="";for(var i=0;i<bytes.length;i++)s+=String.fromCharCode(bytes[i]);return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
+  function b64urlText(t){return b64urlBytes(new TextEncoder().encode(t));}
+  function unb64url(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+  var REVIEW_FIELDS=["id","reviewed","reviewer","reviewedOn","capstoneReviewed"];
+  function certId(rec){
+    var core={};Object.keys(rec).forEach(function(k){if(REVIEW_FIELDS.indexOf(k)<0)core[k]=rec[k];});
+    return crypto.subtle.digest("SHA-256",new TextEncoder().encode(canon(core))).then(function(buf){
+      var h=[].map.call(new Uint8Array(buf),function(x){return ("0"+x.toString(16)).slice(-2);}).join("").toUpperCase();
+      return "AIM-"+h.slice(0,4)+"-"+h.slice(4,8)+"-"+h.slice(8,12);
+    });
   }
   var EX_KEY="ai-manual-exercises";
   function exStore(){try{return JSON.parse(get(EX_KEY))||{};}catch(e){return {};}}
@@ -1145,6 +1162,49 @@
         cact.appendChild(cpr);
         capp.appendChild(el("p",null,"Congratulations. You completed the "+CT.name+" track: all "+CM.length+" knowledge checks, the final review"+(CT.projects.length?", and the required projects":"")+"."));
         capp.appendChild(clab);capp.appendChild(cin);capp.appendChild(cert);capp.appendChild(cact);
+        // Certificate ID and verification
+        var cidP=el("p","cert-id");ci.appendChild(cidP);
+        var vbox=el("div","cert-verify");
+        vbox.appendChild(el("h3",null,"Share and verify"));
+        vbox.appendChild(el("p",null,"The verification link shows your certificate on a public page, with its ID. A link that you make here is <b>self-reported</b>. For a link that says <b>Verified by the issuer</b>, download the request, and send it to the course issuer, for example your teacher. The issuer reviews your work, signs the request, and sends you a new link."));
+        var vrow=el("div","pg-actions");
+        var vcopy=el("button","pg-btn pg-btn-primary","Copy the verification link");vcopy.type="button";
+        var vdl=el("button","pg-btn","Download the verification request");vdl.type="button";
+        var vli=el("a","pg-btn","Add to LinkedIn");vli.target="_blank";vli.rel="noopener";
+        vrow.appendChild(vcopy);vrow.appendChild(vdl);vrow.appendChild(vli);vbox.appendChild(vrow);
+        var vmsg=el("p","cert-vmsg");vmsg.setAttribute("aria-live","polite");vbox.appendChild(vmsg);
+        capp.appendChild(vbox);
+        var crec=null,clink="";
+        var paintRec=function(){
+          var cg2=capGrade(),rq=rv.quiz||{};
+          var d=new Date(latest||Date.now()),iso=d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
+          var rec={v:1,course:"AI learning manual",name:cin.value.trim()||"(no name)",track:CT.name,modules:CM.length,
+            averageScore:avg==null?0:avg,finalReview:(rq.best||0)+" of "+(rq.total||0),date:iso};
+          if(CT.capstone){rec.capstoneRepo=(cg2.repo||"");rec.capstoneSelfScore=capR.pct;}
+          return certId(rec).then(function(id){
+            rec.id=id;crec=rec;
+            clink=location.href.replace(/[^\/]*([?#].*)?$/,"")+"verify.html#d="+b64urlText(canon(rec));
+            cidP.textContent="Certificate ID: "+id;
+            vli.href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name="+encodeURIComponent(CT.name+" certificate")+"&organizationName="+encodeURIComponent("AI learning manual")+"&issueYear="+d.getFullYear()+"&issueMonth="+(d.getMonth()+1)+"&certUrl="+encodeURIComponent(clink)+"&certId="+encodeURIComponent(id);
+          });
+        };
+        if(window.crypto&&crypto.subtle){
+          paintRec();
+          var recT=null;cin.addEventListener("input",function(){clearTimeout(recT);recT=setTimeout(paintRec,300);});
+        }else{vbox.appendChild(el("p",null,"This browser cannot make the certificate ID here. Open the site with https."));}
+        vcopy.addEventListener("click",function(){
+          if(!clink)return;
+          var done=function(){vmsg.textContent="The link is copied. Paste it into your CV or profile.";};
+          if(navigator.clipboard)navigator.clipboard.writeText(clink).then(done,function(){window.prompt("Copy the link:",clink);});
+          else window.prompt("Copy the link:",clink);
+        });
+        vdl.addEventListener("click",function(){
+          if(!crec)return;
+          var blob=new Blob([JSON.stringify(crec,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=el("a");
+          a.href=u;a.download="certificate-request-"+crec.id+".json";document.body.appendChild(a);a.click();document.body.removeChild(a);
+          setTimeout(function(){URL.revokeObjectURL(u);},2000);
+          vmsg.textContent="Send this file to the course issuer, with the address of your capstone repository.";
+        });
       }
     }
 
@@ -1314,6 +1374,58 @@
         scoreBox.className="cap-score quiz-result on "+(r.passed?"passed":"failed");
       };
       paintG();
+    }
+
+    // ---------- Verify page ----------
+    var vapp=document.querySelector(".verify-app");
+    if(vapp){
+      var showForm=function(text){
+        vapp.innerHTML="";
+        if(text)vapp.appendChild(el("p",null,text));
+        var fl=el("label","pg-label","Paste a verification link");fl.setAttribute("for","verify-link");vapp.appendChild(fl);
+        var fi=el("input","pg-text");fi.id="verify-link";fi.type="url";fi.placeholder="https://.../verify.html#d=...";vapp.appendChild(fi);
+        var fb=el("button","pg-btn pg-btn-primary","Check");fb.type="button";
+        var fr=el("div","pg-actions");fr.appendChild(fb);vapp.appendChild(fr);
+        fb.addEventListener("click",function(){var h=fi.value.split("#")[1];if(h){location.hash=h;}});
+      };
+      var check=function(){
+        var hash=location.hash.slice(1),params={};
+        hash.split("&").forEach(function(p){var i=p.indexOf("=");if(i>0)params[p.slice(0,i)]=p.slice(i+1);});
+        if(!params.d){showForm("Open a verification link, or paste one here.");return;}
+        if(!(window.crypto&&crypto.subtle)){showForm("This browser cannot check signatures. Open this page with https.");return;}
+        var rec;
+        try{rec=JSON.parse(new TextDecoder().decode(unb64url(params.d)));}catch(e){rec=null;}
+        if(!rec||typeof rec!=="object"){render(null,"bad","Not valid: the link is damaged.");return;}
+        certId(rec).then(function(id){
+          if(id!==rec.id){render(rec,"bad","Not valid: the data of the certificate was changed.");return;}
+          if(!params.s){render(rec,"self","Self-reported: the data agrees with the ID "+id+", but the issuer did not check it.");return;}
+          if(!window.ISSUER_KEY){render(rec,"bad","The public key of the issuer is missing on this site.");return;}
+          crypto.subtle.importKey("jwk",window.ISSUER_KEY,{name:"ECDSA",namedCurve:"P-256"},false,["verify"]).then(function(key){
+            return crypto.subtle.verify({name:"ECDSA",hash:"SHA-256"},key,unb64url(params.s),new TextEncoder().encode(params.d));
+          }).then(function(ok){
+            if(ok&&rec.reviewed)render(rec,"ok","Verified by the issuer: "+(rec.reviewer||"")+(rec.reviewedOn?", on "+rec.reviewedOn:"")+".");
+            else render(rec,"bad","Not valid: the signature does not agree with the data.");
+          },function(){render(rec,"bad","Not valid: the signature could not be checked.");});
+        });
+      };
+      var render=function(rec,state,msg){
+        vapp.innerHTML="";
+        var st=el("p","verify-state "+state);st.textContent=msg;vapp.appendChild(st);
+        if(!rec)return;
+        var dl=el("dl","verify-data");
+        var add=function(k,v,link){if(v==null||v==="")return;var d=el("div");d.appendChild(el("dt",null,k));var dd=el("dd");
+          if(link&&/^https:\/\//.test(v)){var a=el("a");a.href=v;a.rel="noopener nofollow";a.target="_blank";a.textContent=v;dd.appendChild(a);}else dd.textContent=String(v);
+          d.appendChild(dd);dl.appendChild(d);};
+        add("Name",rec.name);add("Track",rec.track);add("Certificate ID",rec.id);add("Completed on",rec.date);
+        add("Modules",rec.modules);add("Average best score in the knowledge checks",rec.averageScore!=null?rec.averageScore+"%":"");
+        add("Final review",rec.finalReview);add("Capstone repository",rec.capstoneRepo,true);
+        add("Capstone self-assessment",rec.capstoneSelfScore!=null?rec.capstoneSelfScore+"%":"");
+        add("Capstone score from the reviewer",rec.capstoneReviewed!=null?rec.capstoneReviewed+"%":"");
+        vapp.appendChild(dl);
+        if(state!=="ok"){var again=el("p","verify-more");again.innerHTML='<a href="verify.html">Check a different link</a>';vapp.appendChild(again);}
+      };
+      window.addEventListener("hashchange",check);
+      check();
     }
 
     // ---------- Course page: choose a track ----------
