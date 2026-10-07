@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>10. ML system design | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 10, ML system design: Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="10. ML system design | AI learning manual">
+<meta property="og:description" content="Module 10, ML system design: Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=ef6ec31bd8">
+<script src="assets/site.js?v=2b979e8a3b"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 10</span><span class="mods-t">ML system design</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="python-for-ai.html" data-mod="python-for-ai.html"><span class="mods-n">0</span><span class="mods-i"><b>Python and data tools</b><small>Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 16 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 12 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
+        <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="system-design.html" aria-current="page" data-mod="system-design.html"><span class="mods-n">10</span><span class="mods-i"><b>ML system design</b><small>Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="course.html">Course plan</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="capstone.html">Capstone</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-50-00-00-070A</b></div>
+    <div>Subject<b>ML system design</b></div>
+    <div>Info type<b>Description and case studies</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>ML system design: from a problem to a full design</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai-in-practice.html">Module 7</a>, <a href="devops.html">Module 8</a>, and <a href="llm-engineering.html">Module 9</a> first. Those modules give you the parts. This module tells you how to put the parts together into one design, before you write code. It gives a method, three worked case studies, and lessons from real failures. Interviews for ML jobs frequently ask for this type of design. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+  <!-- outcomes:start (made by tools/build.py) -->
+  <div class="outcomes" role="group" aria-label="About this module">
+    <div class="oc-main"><b>After this module, you can:</b><ul><li>Design an ML system in seven steps, from requirements to risks.</li><li>Estimate the load, the latency budget, the storage, and the cost of a design.</li><li>Select a decision threshold from the costs of the two types of error.</li><li>Explain the lessons of real failures, and answer a design interview question.</li></ul></div>
+    <div class="oc-side"><b>Before you start</b><p><a href="machine-learning.html">Module 3, Machine learning</a>, <a href="ai-in-practice.html">Module 7, AI in practice</a>, <a href="devops.html">Module 8, DevOps for AI</a>, <a href="llm-engineering.html">Module 9, LLM engineering</a></p><b>Part of</b><p><a href="course.html#track-engineer">AI Engineer</a></p></div>
+  </div>
+  <!-- outcomes:end -->
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module tells you:</p>
+      <ul>
+        <li>A method with seven steps to design an ML system.</li>
+        <li>How to estimate the load, the latency, and the cost with simple calculations.</li>
+        <li>How to select a decision threshold from the cost of each type of error.</li>
+        <li>Three full designs: fraud detection, recommendations, and a support chatbot.</li>
+        <li>What three real failures teach about ML systems.</li>
+        <li>How to answer a system design question in an interview.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="a-method-in-seven-steps">
+    <div class="num">2</div>
+    <div>
+      <h2>A method in seven steps</h2>
+      <p>A good design starts with questions, not with a model. Do the steps in this order. Refer to Figure 1.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 210" role="img" aria-labelledby="sd1t">
+            <title id="sd1t">Seven steps of ML system design, from requirements to risks</title>
+            <defs><marker id="sd1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <g class="sm" text-anchor="middle">
+              <rect class="box" x="8" y="30" width="96" height="72" rx="6"/><text x="56" y="56" class="lbl" style="font-weight:600">1</text><text x="56" y="74" style="font-weight:600">Requirements</text><text x="56" y="90">users, scale</text>
+              <rect class="box" x="116" y="30" width="96" height="72" rx="6"/><text x="164" y="56" class="lbl" style="font-weight:600">2</text><text x="164" y="74" style="font-weight:600">Metrics</text><text x="164" y="90">success, errors</text>
+              <rect class="boxb" x="224" y="30" width="96" height="72" rx="6"/><text x="272" y="56" class="lbl" style="font-weight:600">3</text><text x="272" y="74" style="font-weight:600">Data</text><text x="272" y="90">labels, freshness</text>
+              <rect class="boxb" x="332" y="30" width="96" height="72" rx="6"/><text x="380" y="56" class="lbl" style="font-weight:600">4</text><text x="380" y="74" style="font-weight:600">Model</text><text x="380" y="90">baseline first</text>
+              <rect class="boxb" x="440" y="30" width="96" height="72" rx="6"/><text x="488" y="56" class="lbl" style="font-weight:600">5</text><text x="488" y="74" style="font-weight:600">Serving</text><text x="488" y="90">latency, cost</text>
+              <rect class="boxb" x="548" y="30" width="96" height="72" rx="6"/><text x="596" y="56" class="lbl" style="font-weight:600">6</text><text x="596" y="74" style="font-weight:600">Monitoring</text><text x="596" y="90">drift, feedback</text>
+              <rect x="656" y="30" width="96" height="72" rx="6" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text x="704" y="56" class="lbl" style="font-weight:600">7</text><text x="704" y="74" style="font-weight:600">Risks</text><text x="704" y="90">trade-offs</text>
+            </g>
+            <g class="line" marker-end="url(#sd1)"><path d="M104 66 H112"/><path d="M212 66 H220"/><path d="M320 66 H328"/><path d="M428 66 H436"/><path d="M536 66 H544"/><path d="M644 66 H652"/></g>
+            <path d="M704 102 V150 H56 V106" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#sd1)"/>
+            <text class="sm" x="380" y="172" text-anchor="middle" style="fill:var(--green);font-weight:600">What you learn in steps 3 to 7 can change the requirements. Go back and adjust.</text>
+            <text class="sm" x="380" y="196" text-anchor="middle">Steps 1 and 2 are the most important. A wrong metric gives a good model for the wrong problem.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> Seven steps of ML system design. The blue steps are the technical design. The first two steps and the last step decide if the system is useful and safe.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Step</th><th>Questions to ask</th></tr></thead>
+          <tbody>
+            <tr><td>1. Requirements</td><td>Who uses it? How many requests? How fast must the answer come? What occurs when it is wrong? Is AI the correct tool? Refer to <a href="responsible-ai.html#when-not-to-use-ai">Module 6, Section 7</a>.</td></tr>
+            <tr><td>2. Metrics</td><td>A business metric (money saved, time saved), a model metric (precision, recall), and <span class="tn" title="A metric that must not become worse when the main metric improves, for example complaints, latency, or fairness.">guardrail metrics</span> (latency, complaints, fairness).</td></tr>
+            <tr><td>3. Data</td><td>Where do the inputs and the labels come from? How late do the labels arrive? Is there personal data? Is there leakage?</td></tr>
+            <tr><td>4. Model</td><td>What is the baseline? What is the simplest model that can work? What are the features?</td></tr>
+            <tr><td>5. Serving</td><td>Batch, online, or on the device? What is the latency budget? What is the cost of each prediction?</td></tr>
+            <tr><td>6. Monitoring</td><td>How do you know that it still works? Where do new labels come from? When do you train again?</td></tr>
+            <tr><td>7. Risks</td><td>Who can be harmed? How can people abuse it? What is the fallback when it fails? Which trade-offs did you make?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="estimate-load-latency-and-cost">
+    <div class="num">3</div>
+    <div>
+      <h2>Estimate load, latency, and cost</h2>
+      <p>Simple calculations show early if a design can work. We call them <span class="tn" title="A quick calculation with round numbers that shows if a design is possible, before any detailed work.">back-of-the-envelope estimates</span>.</p>
+      <h3>Load</h3>
+      <p class="formula">2,000,000 requests each day &divide; 86,400 seconds &asymp; 23 requests each second (mean)</p>
+      <p>Traffic is not equal during the day. Plan for a peak of 3 to 5 times the mean: approximately 70 to 115 requests each second.</p>
+      <h3>Latency budget</h3>
+      <p>If the answer must come in 100 ms, divide the 100 ms between the parts. Example: network 30 ms, get the features 25 ms, model 25 ms, rules and logging 20 ms. If the model needs 200 ms, the design must change: a smaller model, a cache, or a prediction in advance (batch).</p>
+      <h3>Storage and cost</h3>
+      <ul>
+        <li>A log of 1 KB for each request: 2,000,000 &times; 1 KB = 2 GB each day, approximately 60 GB each month.</li>
+        <li>An LLM answer that costs $0.018 (refer to <a href="llm-engineering.html#control-cost-and-speed">Module 9, Section 9</a>): 10,000 answers each day cost $180 each day, approximately $5,400 each month. Is the value larger than this?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="case-study-fraud-detection">
+    <div class="num">4</div>
+    <div>
+      <h2>Case study: fraud detection for card payments</h2>
+      <p><b>The problem.</b> A payment company must stop fraud in card payments. It processes 100,000 payments each day. Approximately 0.2% are fraud: 200 payments. Each decision must come in less than 100 ms, while the customer waits.</p>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 230" role="img" aria-labelledby="sd2t">
+            <title id="sd2t">The design of a fraud detection system: features, a model, decision rules, human review, and labels from chargebacks</title>
+            <defs><marker id="sd2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="10" y="80" width="100" height="56" rx="4"/><text class="lbl" x="60" y="104" text-anchor="middle" style="font-weight:600">Payment</text><text class="sm" x="60" y="122" text-anchor="middle">amount, shop</text>
+            <rect class="boxb" x="135" y="80" width="120" height="56" rx="4"/><text class="lbl" x="195" y="104" text-anchor="middle" style="font-weight:600">Features</text><text class="sm" x="195" y="122" text-anchor="middle">history of the card</text>
+            <rect class="boxb" x="280" y="80" width="110" height="56" rx="4"/><text class="lbl" x="335" y="104" text-anchor="middle" style="font-weight:600">Model</text><text class="sm" x="335" y="122" text-anchor="middle">fraud score 0 to 1</text>
+            <rect class="boxb" x="415" y="80" width="110" height="56" rx="4"/><text class="lbl" x="470" y="104" text-anchor="middle" style="font-weight:600">Rules</text><text class="sm" x="470" y="122" text-anchor="middle">thresholds, limits</text>
+            <rect x="560" y="14" width="190" height="44" rx="4" fill="var(--green-soft)" stroke="var(--green)"/><text class="sm" x="655" y="41" text-anchor="middle" style="font-weight:600">Low score: approve</text>
+            <rect x="560" y="86" width="190" height="44" rx="4" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="655" y="113" text-anchor="middle" style="font-weight:600">Middle: ask the customer, or review</text>
+            <rect x="560" y="158" width="190" height="44" rx="4" fill="var(--red-soft)" stroke="var(--red)"/><text class="sm" x="655" y="185" text-anchor="middle" style="font-weight:600">High score: block</text>
+            <g class="line" marker-end="url(#sd2)"><path d="M110 108 H131"/><path d="M255 108 H276"/><path d="M390 108 H411"/><path d="M525 100 L556 40"/><path d="M525 108 H556"/><path d="M525 116 L556 176"/></g>
+            <path d="M655 202 V222 H195 V140" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#sd2)"/>
+            <text class="sm" x="380" y="216" text-anchor="middle" style="fill:var(--blue);font-weight:600">Labels come back weeks later: chargebacks and customer reports</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> A fraud detection system. The model gives a score. Rules decide the action. The correct labels arrive weeks later.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Step</th><th>Design decisions</th></tr></thead>
+          <tbody>
+            <tr><td>Metrics</td><td>Money lost to fraud, good payments blocked, and the number of reviews each day. Accuracy is useless: "never fraud" is 99.8% accurate.</td></tr>
+            <tr><td>Data</td><td>Labels from chargebacks arrive 30 to 90 days later. Thus the newest data has no labels yet. Divide the data by date, not at random.</td></tr>
+            <tr><td>Features</td><td>Compared with the history of the card: the amount compared with its usual amount, the number of payments in the last hour, a new device, a new country.</td></tr>
+            <tr><td>Model</td><td>Baseline: rules that experts write. Then gradient boosting on the features. It is fast, it works well on tables, and the important features can be explained.</td></tr>
+            <tr><td>Serving</td><td>Online, under 100 ms. The history of each card is kept in a fast store, updated after each payment.</td></tr>
+            <tr><td>Monitoring</td><td>Fraud changes quickly, because criminals adapt (concept drift). Measure the score distribution each day, and train again each week.</td></tr>
+            <tr><td>Risks</td><td>Blocking good payments of some groups more than others. A blocked customer must have a fast way to get help.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Select the threshold from the costs</h3>
+      <p>The model gives a score. The threshold decides which payments are blocked. The best threshold is not 0.5. It depends on the cost of each type of error. Refer to <a href="machine-learning.html#how-to-measure-a-model">Module 3, Section 10</a>.</p>
+      <p class="formula">total cost = missed fraud &times; cost of one missed fraud + blocked good payments &times; cost of one blocked payment</p>
+      <div class="playground" data-pg="threshold" id="try-threshold">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Find the cheapest threshold</h3></div>
+        <p class="pg-intro">One day: 100,000 payments, of which 200 are fraud. Move the threshold, and look at the total cost. Then change the two costs. How does the cheapest threshold move? All numbers are only examples.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="case-study-recommendations-for-a-shop">
+    <div class="num">5</div>
+    <div>
+      <h2>Case study: recommendations for a shop</h2>
+      <p><b>The problem.</b> An online shop for fruit and vegetables has 2 million users and 50,000 products. The home page must show 20 products for each user. Refer to <a href="topic-recommendation-systems.html">the short topic Recommendation systems</a>.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Step</th><th>Design decisions</th></tr></thead>
+          <tbody>
+            <tr><td>Metrics</td><td>Purchases from the recommendations and the value of each order. Guardrails: returns, complaints, and the share of new products shown. Clicks alone can reward products that disappoint.</td></tr>
+            <tr><td>Data</td><td>Views, carts, and purchases. Divide by date. A purchase is a stronger signal than a view.</td></tr>
+            <tr><td>Model</td><td>Baseline: the most popular products in the region. Then candidates from embeddings, and a ranking model.</td></tr>
+            <tr><td>Serving</td><td>Calculate the candidates for each user each night (batch). Rank them online when the page opens, with the current cart and the time of day.</td></tr>
+            <tr><td>Monitoring</td><td>A/B tests for each change. Season changes the demand: mangoes in May, not in December.</td></tr>
+            <tr><td>Risks</td><td>Feedback loops, cold start for new products and users, and privacy of the purchase history.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>A key trade-off:</b> batch candidates are cheap and fast, but they do not know what the user did 5 minutes ago. The online ranking step adds that.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="case-study-a-support-chatbot">
+    <div class="num">6</div>
+    <div>
+      <h2>Case study: a support chatbot</h2>
+      <p><b>The problem.</b> A company gets 5,000 support messages each day in English, Hindi, and Marathi. It wants an assistant that answers the simple questions and sends the others to people. Refer to <a href="llm-engineering.html">Module 9</a>.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Step</th><th>Design decisions</th></tr></thead>
+          <tbody>
+            <tr><td>Metrics</td><td>The share of questions solved without a person, the share of correct answers (from an evaluation set and a sample checked by people), and customer satisfaction. Guardrail: wrong answers about money or safety must be near zero.</td></tr>
+            <tr><td>Data</td><td>Help pages and policies for RAG, and past conversations to make the evaluation set. Remove personal data first.</td></tr>
+            <tr><td>Model</td><td>An LLM with RAG and tools: order status, refund request. Baseline: a search of the help pages that shows the best page.</td></tr>
+            <tr><td>Serving</td><td>Streaming answers. A clear way to talk to a person at each step. Refunds need human approval. Refer to <a href="llm-engineering.html#build-an-agent-with-guardrails">Module 9, Section 7</a>.</td></tr>
+            <tr><td>Monitoring</td><td>Cost and latency for each conversation, the share sent to people, new types of questions, and complaints.</td></tr>
+            <tr><td>Risks</td><td>False answers, prompt injection, private data in logs, and worse quality in Hindi and Marathi. Test each language separately.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>A key trade-off:</b> a larger model gives better answers but costs more for each conversation. Measure both with the evaluation set, and use the larger model only where the smaller one fails.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="lessons-from-real-failures">
+    <div class="num">7</div>
+    <div>
+      <h2>Lessons from real failures</h2>
+      <p>These systems were made by capable teams with much data. They failed because of the design around the model.</p>
+      <h3>A hiring tool that learned old bias (Amazon)</h3>
+      <p>In 2018, Reuters reported that Amazon stopped an experimental tool that scored job applications. The tool learned from approximately 10 years of past applications, and most of them came from men. It gave lower scores to applications that contained the word "women's", for example "women's chess club captain". The team could not be sure that it was fair, and the company stopped the project.</p>
+      <p><b>Lesson:</b> past decisions are not correct labels. If the history contains bias, the model learns it. Measure the results for each group before use. Refer to <a href="responsible-ai.html#bias-and-fairness">Module 6, Section 3</a>.</p>
+      <h3>A price model that bought houses (Zillow Offers)</h3>
+      <p>Zillow used price predictions to buy houses directly, and to sell them again. In 2021, prices changed quickly, and the company bought many houses for more than it could sell them for. In November 2021, it closed the program, reported a write-down of approximately 300 million US dollars for the quarter, and planned to reduce its staff by approximately 25%.</p>
+      <p><b>Lesson:</b> when the model's predictions decide large purchases, small errors become very expensive. The market changed faster than the model (drift). Use ranges of uncertainty, limits on risk, and fast monitoring. Refer to <a href="topic-forecasting.html#give-a-range-not-one-number">Forecasting, Section 6</a>.</p>
+      <h3>A flu forecast from searches (Google Flu Trends)</h3>
+      <p>Google Flu Trends estimated flu activity from search queries. In the 2012 to 2013 season, it estimated approximately double the level that the US public health agency (CDC) measured. Researchers found that the model followed search terms that were only correlated with flu, and that changes in search behavior moved the estimates. Google stopped publishing the estimates in 2015.</p>
+      <p><b>Lesson:</b> correlation is not cause, and the meaning of a signal can change. Compare with a simple baseline and with the real measurements all the time. Refer to <a href="mathematics.html#correlation">Module 2, Section 6</a>.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="design-interviews">
+    <div class="num">8</div>
+    <div>
+      <h2>Design interviews</h2>
+      <p>In an ML system design interview, you get an open problem, for example "Design the feed of a video app", and approximately 45 minutes. The interviewer looks at your method more than at the final answer.</p>
+      <h3>Procedure: answer a design question</h3>
+      <ol class="steps">
+        <li><b>Clarify (5 minutes).</b> Ask about the users, the scale, the latency, and the cost of errors. Write the answers.</li>
+        <li><b>Metrics (5 minutes).</b> Say the business metric, the model metric, and the guardrail metrics.</li>
+        <li><b>Data and features (10 minutes).</b> Say where the labels come from, and how late they arrive. Name the main features.</li>
+        <li><b>Model (10 minutes).</b> Start with a baseline. Then a model with a reason. Do not start with the most complex model.</li>
+        <li><b>Serving and monitoring (10 minutes).</b> Batch or online, the latency budget, and how you find drift.</li>
+        <li><b>Risks and trade-offs (5 minutes).</b> Say what you gave up, and why. Name the risks for users.</li>
+      </ol>
+      <h3>Practice questions</h3>
+      <ul>
+        <li>Design a system that finds damaged mangoes on a sorting line with a camera.</li>
+        <li>Design the search of an online shop.</li>
+        <li>Design a spam filter for the messages of a social app.</li>
+        <li>Design a forecast of the demand for each product in 500 shops.</li>
+        <li>Design an assistant that answers questions about the rules of a college.</li>
+      </ul>
+      <p>For each question, write a design with the table of the case studies above. Then compare it with a friend's design.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="summary">
+    <div class="num">9</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>Design in seven steps: requirements, metrics, data, model, serving, monitoring, and risks.</li>
+        <li>Use back-of-the-envelope estimates for load, latency, storage, and cost.</li>
+        <li>Select a threshold from the costs of the two types of error, not 0.5.</li>
+        <li>Labels can arrive late. Divide data by date, and plan how new labels come back.</li>
+        <li>Start with a baseline. Add complexity only when the metrics show the need.</li>
+        <li>Real failures came from biased labels, drift, and correlations that changed, not from the code.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="knowledge-check">
+    <div class="num">10</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "What is the first step of ML system design?", "options": ["Clarify the requirements: users, scale, latency, and the cost of errors", "Select the largest model", "Collect as much data as possible", "Write the serving code"], "answer": 0, "explain": "The requirements decide everything else. A good model for the wrong requirements is not useful.", "ref": "a-method-in-seven-steps"},
+ {"q": "What is a guardrail metric?", "options": ["A metric that must not become worse when the main metric improves", "The accuracy on the training set", "The number of features", "The price of the servers"], "answer": 0, "explain": "For example, complaints or latency must not increase when clicks increase.", "ref": "a-method-in-seven-steps"},
+ {"q": "A service gets 8,640,000 requests each day. What is the mean number of requests each second?", "options": ["100", "1,000", "10", "8,640"], "answer": 0, "explain": "8,640,000 divided by 86,400 seconds = 100 requests each second.", "ref": "estimate-load-latency-and-cost"},
+ {"q": "The answer must come in 100 ms, and the model alone needs 200 ms. What is a good response?", "options": ["Change the design: a smaller model, a cache, or a prediction in advance", "Ignore the limit", "Add more features", "Make the network faster only"], "answer": 0, "explain": "The latency budget shows early that the design must change.", "ref": "estimate-load-latency-and-cost"},
+ {"q": "Why is accuracy a bad metric for fraud detection?", "options": ["Fraud is rare, so a model that never finds fraud is still very accurate", "Accuracy is too difficult to calculate", "Fraud has no labels", "Accuracy is only for images"], "answer": 0, "explain": "With 0.2% fraud, \"never fraud\" is 99.8% accurate and finds nothing.", "ref": "case-study-fraud-detection"},
+ {"q": "A missed fraud costs much more than a blocked good payment. Where must the threshold go?", "options": ["Lower, so that more payments are blocked and less fraud is missed", "Higher, so that fewer payments are blocked", "Always at 0.5", "The costs do not change the threshold"], "answer": 0, "explain": "When missed fraud is expensive, catching more fraud is worth more false alarms.", "ref": "case-study-fraud-detection"},
+ {"q": "Fraud labels arrive 30 to 90 days after the payment. What does this mean for the design?", "options": ["The newest data has no labels yet, so divide by date and plan for the delay", "Train only on the newest data", "Labels are not necessary", "Use a random division of the data"], "answer": 0, "explain": "Late labels are usual. A random division would also leak future information.", "ref": "case-study-fraud-detection"},
+ {"q": "In the shop recommendations, why calculate the candidates each night but rank them online?", "options": ["Batch is cheap, and the online step adds what the user did in the last minutes", "Online is always cheaper", "Batch is always more accurate", "It is a legal requirement"], "answer": 0, "explain": "This trade-off combines low cost with fresh information.", "ref": "case-study-recommendations-for-a-shop"},
+ {"q": "What does the Amazon hiring tool teach?", "options": ["Past decisions can contain bias, and a model learns it", "Hiring cannot use computers", "Larger models are always fair", "Text data is always neutral"], "answer": 0, "explain": "The tool learned from 10 years of applications that came mostly from men.", "ref": "lessons-from-real-failures"},
+ {"q": "In an interview, you get \"Design the search of an online shop\". What must you do first?", "options": ["Ask questions about the users, the scale, the latency, and how to measure success", "Name a transformer model immediately", "Draw the database tables", "Talk about the cloud provider"], "answer": 0, "explain": "Clarify the requirements first. The interviewer looks at your method.", "ref": "design-interviews", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+      <!-- exercises:start (made by tools/build.py) -->
+      <h3 id="practice-in-code">Practice in code</h3>
+      <p>Write Python in your browser. Python loads from the internet when you select <b>Run tests</b> the first time. This takes 10 to 30 seconds. These 2 exercises are not part of the knowledge check.</p>
+      <div class="ex-set" data-module="system-design.html"><noscript><p>The code exercises need JavaScript.</p></noscript></div>
+      <!-- exercises:end -->
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="technical-names">
+    <div class="num">11</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>Back-of-the-envelope estimate</dt><dd>A quick calculation with round numbers that shows if a design is possible.</dd>
+        <dt>Chargeback</dt><dd>A payment that the bank of the card holder reverses, for example after fraud. It is a late label for fraud detection.</dd>
+        <dt>Guardrail metric</dt><dd>A metric that must not become worse when the main metric improves.</dd>
+        <dt>Latency budget</dt><dd>The maximum time for an answer, divided between the parts of a system.</dd>
+        <dt>Peak load</dt><dd>The highest number of requests in a short time, usually 3 to 5 times the mean.</dd>
+        <dt>System design</dt><dd>The plan of all the parts of a system and how they work together, before it is built.</dd>
+        <dt>Threshold</dt><dd>The score above which a model's prediction becomes an action, for example a block.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="llm-engineering.html"><small>Previous module</small><b>9. LLM engineering</b></a>
+    <a class="next" href="review.html"><small>Last step</small><b>Final review</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Case studies use example numbers. The failures are reported in public sources: Reuters (2018), Zillow Group (2021), Nature and Science (2013, 2014).</span>
+  </footer>
+</div>
+</body>
+</html>

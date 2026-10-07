@@ -54,6 +54,9 @@ MODULES = [
     {"href": "llm-engineering.html", "title": "LLM engineering",
      "summary": "Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.",
      "quick": ["the-parts-of-an-llm-application", "call-a-model-through-an-api", "answer-from-your-documents-with-rag", "evaluate-the-application", "summary", "knowledge-check"]},
+    {"href": "system-design.html", "title": "ML system design",
+     "summary": "Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.",
+     "quick": ["a-method-in-seven-steps", "estimate-load-latency-and-cost", "case-study-fraud-detection", "lessons-from-real-failures", "summary", "knowledge-check"]},
 ]
 # Short topics: single pages that are not part of the certificate. In this order, with previous and next links.
 TOPICS = [
@@ -110,6 +113,10 @@ OUTCOMES = {
          "Build a RAG pipeline that answers with sources.",
          "Give a model tools, build an agent with guardrails, and evaluate an application with a retrieval test and a judge.",
          "Decrease cost with caching, and select between a prompt, RAG, and fine-tuning."], [0, 5, 7]),
+    10: (["Design an ML system in seven steps, from requirements to risks.",
+          "Estimate the load, the latency budget, the storage, and the cost of a design.",
+          "Select a decision threshold from the costs of the two types of error.",
+          "Explain the lessons of real failures, and answer a design interview question."], [3, 7, 8, 9]),
 }
 
 # The two tracks. "plan" has one line for each week: (what to study, what to do).
@@ -129,7 +136,7 @@ TRACKS = [
               ([7], ["p8"]), ([8], ["p9"]),
               ([9], ["Run rag.py and eval_retrieval.py of Module 9 (no API key necessary)", "cap1"]),
               (["topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html"], ["With an API key: build the RAG answer, the judge, and the tool example of Module 9", "cap2"]),
-              (["cheat-sheets.html"], ["The final review", "cap3"]),
+              ([10, "cheat-sheets.html"], ["The final review", "cap3"]),
               (["careers.html"], ["Put your projects on GitHub with a README", "cap4"])]},
 ]
 PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predict-flat-prices-with-a-line",
@@ -140,7 +147,7 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
 REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html"
 SITE_NAME = "AI learning manual"
-HOME_DESCRIPTION = ("A full AI course in ten modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, and LLM engineering. "
+HOME_DESCRIPTION = ("A full AI course in eleven modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, LLM engineering, and ML system design. "
                     "Each module has diagrams, videos, and a knowledge check.")
 PROJECTS_DESCRIPTION = "Nine hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, a bias audit, drift monitoring, and a CI/CD pipeline."
 CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual."

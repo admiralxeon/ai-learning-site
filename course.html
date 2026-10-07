@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=ef6ec31bd8">
-<script src="assets/site.js?v=09753d66d4"></script>
+<script src="assets/site.js?v=2b979e8a3b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -43,6 +43,7 @@
         <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
         <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
         <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="system-design.html" data-mod="system-design.html"><span class="mods-n">10</span><span class="mods-i"><b>ML system design</b><small>Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.</small><span class="mods-meta">About 13 min read</span></span></a></li>
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
@@ -90,7 +91,7 @@
           <h3>AI Engineer</h3>
           <p>For people who want to build AI products: developers, data analysts, and students of engineering.</p>
           <ul>
-            <li>10 modules: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9</li>
+            <li>11 modules: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</li>
             <li>Projects 3, 5, 8, 9 are required</li>
             <li>A graded capstone project</li>
             <li>The final review and the AI Engineer certificate</li>
@@ -156,7 +157,7 @@
             <tr><td>8</td><td><span class="pi"><a href="devops.html">Module 8: DevOps for AI</a> <small>(17 min read)</small></span></td><td><span class="pi"><a href="projects.html#project-9-ship-a-model-with-ci-cd">Project 9</a></span></td></tr>
             <tr><td>9</td><td><span class="pi"><a href="llm-engineering.html">Module 9: LLM engineering</a> <small>(18 min read)</small></span></td><td><span class="pi">Run rag.py and eval_retrieval.py of Module 9 (no API key necessary)</span><span class="pi"><a href="capstone.html#milestones">Capstone, week 1: plan and data</a></span></td></tr>
             <tr><td>10</td><td><span class="pi"><a href="topic-computer-vision.html">Computer vision</a></span><span class="pi"><a href="topic-language-tasks.html">Language tasks</a></span><span class="pi"><a href="topic-recommendation-systems.html">Recommendation systems</a></span><span class="pi"><a href="topic-forecasting.html">Forecasting</a></span></td><td><span class="pi">With an API key: build the RAG answer, the judge, and the tool example of Module 9</span><span class="pi"><a href="capstone.html#milestones">Capstone, week 2: baseline and first version</a></span></td></tr>
-            <tr><td>11</td><td><span class="pi"><a href="cheat-sheets.html">Cheat sheets</a></span></td><td><span class="pi"><a href="review.html">The final review</a></span><span class="pi"><a href="capstone.html#milestones">Capstone, week 3: tests, evaluation, and pipeline</a></span></td></tr>
+            <tr><td>11</td><td><span class="pi"><a href="system-design.html">Module 10: ML system design</a> <small>(13 min read)</small></span><span class="pi"><a href="cheat-sheets.html">Cheat sheets</a></span></td><td><span class="pi"><a href="review.html">The final review</a></span><span class="pi"><a href="capstone.html#milestones">Capstone, week 3: tests, evaluation, and pipeline</a></span></td></tr>
             <tr><td>12</td><td><span class="pi"><a href="careers.html">Careers and next steps</a></span></td><td><span class="pi">Put your projects on GitHub with a README</span><span class="pi"><a href="capstone.html#milestones">Capstone, week 4: model card, demo, and submission</a></span></td></tr>
           </tbody>
         </table>
@@ -180,6 +181,7 @@
         <div class="oc-mod"><h3><a href="ai-in-practice.html">Module 7: AI in practice</a></h3><ul><li>Prepare data without data leakage, and compare models with a baseline.</li><li>Test models fairly with cross-validation.</li><li>Release a model safely and monitor it for drift.</li><li>Test LLM applications with an evaluation set, and use agents safely.</li></ul></div>
         <div class="oc-mod"><h3><a href="devops.html">Module 8: DevOps for AI</a></h3><ul><li>Keep versions of code, data, models, and prompts.</li><li>Serve a model as an API and package it in a container.</li><li>Build a CI/CD pipeline with quality gates.</li><li>Observe a service in production and protect its secrets.</li></ul></div>
         <div class="oc-mod"><h3><a href="llm-engineering.html">Module 9: LLM engineering</a></h3><ul><li>Call an LLM API from code, and handle refusals and errors.</li><li>Get structured output that a program can use.</li><li>Build a RAG pipeline that answers with sources.</li><li>Give a model tools, build an agent with guardrails, and evaluate an application with a retrieval test and a judge.</li><li>Decrease cost with caching, and select between a prompt, RAG, and fine-tuning.</li></ul></div>
+        <div class="oc-mod"><h3><a href="system-design.html">Module 10: ML system design</a></h3><ul><li>Design an ML system in seven steps, from requirements to risks.</li><li>Estimate the load, the latency budget, the storage, and the cost of a design.</li><li>Select a decision threshold from the costs of the two types of error.</li><li>Explain the lessons of real failures, and answer a design interview question.</li></ul></div>
       </div>
     </div>
   </section>
@@ -189,7 +191,7 @@
     <div>
       <h2>Certificates</h2>
       <p>Each track has its own certificate. Your progress is kept in this browser. To move it to a different device, use <b>Export progress</b> on the home page.</p>
-      <div class="cs-grid"><div class="cs-box"><h3>AI Foundations</h3><ul><li>Pass the knowledge check of Modules 1, 2, 3, 4, 5, 6.</li><li>Pass the final review (75% or more).</li></ul></div><div class="cs-box"><h3>AI Engineer</h3><ul><li>Pass the knowledge check of Modules 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.</li><li>Pass the final review (75% or more).</li><li>Pass the <a href="capstone.html">capstone</a>: 70% or more in the rubric, no criterion at level 1, and a complete checklist.</li><li>Mark these projects as done: <a href="projects.html#project-3-build-a-spam-filter">Project 3</a>, <a href="projects.html#project-5-a-neural-network-that-reads-digits">Project 5</a>, <a href="projects.html#project-8-find-drift-and-train-again">Project 8</a>, <a href="projects.html#project-9-ship-a-model-with-ci-cd">Project 9</a>.</li></ul></div></div>
+      <div class="cs-grid"><div class="cs-box"><h3>AI Foundations</h3><ul><li>Pass the knowledge check of Modules 1, 2, 3, 4, 5, 6.</li><li>Pass the final review (75% or more).</li></ul></div><div class="cs-box"><h3>AI Engineer</h3><ul><li>Pass the knowledge check of Modules 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.</li><li>Pass the final review (75% or more).</li><li>Pass the <a href="capstone.html">capstone</a>: 70% or more in the rubric, no criterion at level 1, and a complete checklist.</li><li>Mark these projects as done: <a href="projects.html#project-3-build-a-spam-filter">Project 3</a>, <a href="projects.html#project-5-a-neural-network-that-reads-digits">Project 5</a>, <a href="projects.html#project-8-find-drift-and-train-again">Project 8</a>, <a href="projects.html#project-9-ship-a-model-with-ci-cd">Project 9</a>.</li></ul></div></div>
       <p><a href="certificate.html">Open your certificate page</a></p>
     </div>
   </section>

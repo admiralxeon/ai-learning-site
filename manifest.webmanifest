@@ -1,7 +1,7 @@
 {
   "name": "AI learning manual",
   "short_name": "AI manual",
-  "description": "A full AI course in ten modules and two tracks, with diagrams, activities, videos, projects, and knowledge checks.",
+  "description": "A full AI course in eleven modules and two tracks, with diagrams, activities, videos, projects, and knowledge checks.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

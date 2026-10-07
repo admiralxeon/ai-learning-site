@@ -840,7 +840,55 @@
     run();
   }
 
-  var KINDS={temperature:temperature,gradient:gradient,tokenizer:tokenizer,clustering:clustering,neuron:neuron,capstone:capstone,stats:stats,bayes:bayes,vectors:vectors,slope:slope,drift:drift,release:release,tracer:tracer,retrieval:retrieval};
+
+  // ------------------------------------------------------------------ Fraud threshold by cost (Module 10)
+  function ncdf(x,m,s){var z=(x-m)/(s*Math.SQRT2),t=1/(1+0.3275911*Math.abs(z));
+    var y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-z*z);
+    return 0.5*(1+(z<0?-y:y));}
+  function threshold(box,body){
+    var N=100000,FR=200;            // payments in one day, and the fraud among them
+    var ts=slider("Block payments with a fraud score of at least",0.05,0.95,0.01,0.5,function(v){return fmt(v,2);});
+    var cf=slider("Cost of one missed fraud (rupees)",500,20000,500,5000,function(v){return "₹"+(+v).toLocaleString("en-IN");});
+    var cp=slider("Cost of one blocked good payment (rupees)",10,1000,10,100,function(v){return "₹"+(+v).toLocaleString("en-IN");});
+    var ctr=el("div","pg-controls");[ts,cf,cp].forEach(function(s){ctr.appendChild(s.wrap);});body.appendChild(ctr);
+    var W=600,H=210,L=40,R=12,T=26,B=34;
+    var svg=sv("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":"Total cost for each threshold, with the selected threshold and the cheapest threshold"});
+    var g=sv("g",{});svg.appendChild(g);
+    var chart=el("div","pg-chart");chart.appendChild(svg);body.appendChild(chart);
+    var grid=el("dl","pg-stat-grid");body.appendChild(grid);
+    var note=el("p","pg-status");note.setAttribute("aria-live","polite");body.appendChild(note);
+    function at(t,cfv,cpv){
+      var caught=FR*(1-ncdf(t,0.72,0.14)),missed=FR-caught,blocked=(N-FR)*(1-ncdf(t,0.22,0.12));
+      return {caught:caught,missed:missed,blocked:blocked,cost:missed*cfv+blocked*cpv};
+    }
+    function draw(){
+      var t=+ts.input.value,cfv=+cf.input.value,cpv=+cp.input.value,pts=[],best={t:0,cost:Infinity};
+      for(var x=0.05;x<=0.951;x+=0.01){var r=at(x,cfv,cpv);pts.push([x,r.cost]);if(r.cost<best.cost)best={t:x,cost:r.cost};}
+      var ymax=Math.max.apply(null,pts.map(function(p){return p[1];}));
+      var X=function(v){return L+(v-0.05)/0.9*(W-L-R);},Y=function(v){return T+(1-v/ymax)*(H-T-B);};
+      g.innerHTML="";
+      g.appendChild(sv("line",{x1:L,y1:H-B,x2:W-R,y2:H-B,"class":"faint"}));
+      [0.1,0.3,0.5,0.7,0.9].forEach(function(v){var tx=sv("text",{x:X(v),y:H-B+16,"text-anchor":"middle","class":"sm"});tx.textContent=fmt(v,1);g.appendChild(tx);});
+      var lab=sv("text",{x:L,y:H-4,"class":"sm"});lab.textContent="Threshold (fraud score)";g.appendChild(lab);
+      var ylab=sv("text",{x:L,y:12,"class":"sm"});ylab.textContent="Total cost (higher is worse)";g.appendChild(ylab);
+      g.appendChild(sv("path",{d:pts.map(function(p,i){return (i?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1);}).join(" "),fill:"none",stroke:"var(--blue)","stroke-width":"2.5"}));
+      g.appendChild(sv("line",{x1:X(best.t),y1:T,x2:X(best.t),y2:H-B,stroke:"var(--green)","stroke-width":"1.5","stroke-dasharray":"5 4"}));
+      var r=at(t,cfv,cpv);
+      g.appendChild(sv("circle",{cx:X(t),cy:Y(r.cost),r:6,fill:"var(--amber)",stroke:"var(--sheet)","stroke-width":"2"}));
+      grid.innerHTML="";
+      [["Fraud caught",Math.round(r.caught)+" of "+FR],["Fraud missed",String(Math.round(r.missed))],["Good payments blocked",Math.round(r.blocked).toLocaleString("en-IN")],["Total cost","₹"+Math.round(r.cost).toLocaleString("en-IN")],["Cheapest threshold",fmt(best.t,2)]].forEach(function(c){
+        var d=el("div");d.appendChild(el("dt",null,c[0]));d.appendChild(el("dd",null,c[1]));grid.appendChild(d);
+      });
+      var near=Math.abs(t-best.t)<=0.02;
+      note.className="pg-status"+(near?" pg-ok":" pg-warn");
+      note.textContent=near?"This threshold is near the cheapest one. Now change the costs: when a missed fraud costs more, the best threshold moves down, and more payments are blocked.":
+        (t<best.t?"The threshold is low: many good payments are blocked. The green line shows the cheapest threshold for these costs.":"The threshold is high: much fraud is missed. The green line shows the cheapest threshold for these costs.");
+    }
+    [ts,cf,cp].forEach(function(s){s.input.addEventListener("input",draw);});
+    draw();
+  }
+
+  var KINDS={temperature:temperature,gradient:gradient,tokenizer:tokenizer,clustering:clustering,neuron:neuron,capstone:capstone,stats:stats,bayes:bayes,vectors:vectors,slope:slope,drift:drift,release:release,tracer:tracer,retrieval:retrieval,threshold:threshold};
   [].forEach.call(document.querySelectorAll(".playground[data-pg]"),function(box){
     var f=KINDS[box.getAttribute("data-pg")],body=box.querySelector(".pg-body");
     if(!f||!body)return;

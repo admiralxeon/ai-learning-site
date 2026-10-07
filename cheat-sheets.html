@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=ef6ec31bd8">
-<script src="assets/site.js?v=09753d66d4"></script>
+<script src="assets/site.js?v=2b979e8a3b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -43,6 +43,7 @@
         <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
         <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
         <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="system-design.html" data-mod="system-design.html"><span class="mods-n">10</span><span class="mods-i"><b>ML system design</b><small>Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.</small><span class="mods-meta">About 13 min read</span></span></a></li>
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
@@ -65,7 +66,7 @@
 
   <div class="title">
     <h1>Cheat sheets</h1>
-    <p>Each sheet gives the most important points of one module on one page, from Module 0 to Module 9. The last sheet contains all the formulas of the mathematics module. Use the sheets to revise before a knowledge check or the <a href="review.html">final review</a>. To print one sheet, use the button below that sheet. Each sheet prints on its own page.</p>
+    <p>Each sheet gives the most important points of one module on one page, from Module 0 to Module 10. The last sheet contains all the formulas of the mathematics module. Use the sheets to revise before a knowledge check or the <a href="review.html">final review</a>. To print one sheet, use the button below that sheet. Each sheet prints on its own page.</p>
     <div class="cs-actions"><button class="pg-btn pg-btn-primary" type="button" data-print="all">Print all sheets</button></div>
   </div>
 
@@ -175,7 +176,7 @@
         </div>
         <div class="cs-box cs-wide">
           <h3>Watch out</h3>
-          <p>Standardize features that have very different sizes. Otherwise the largest feature hides the others. For all formulas, refer to <a href="#formula-sheet">Sheet 11, Formula sheet</a>.</p>
+          <p>Standardize features that have very different sizes. Otherwise the largest feature hides the others. For all formulas, refer to <a href="#formula-sheet">Sheet 12, Formula sheet</a>.</p>
         </div>
       </div>
       <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-2-mathematics">Print this sheet</button> <a href="mathematics.html">Open Module 2</a></p>
@@ -482,9 +483,57 @@
     </div>
   </section>
 
-  <!-- 11 -->
-  <section id="formula-sheet">
+  <!-- 10 -->
+  <section id="sheet-10-ml-system-design">
     <div class="num">11</div>
+    <div>
+      <h2>Module 10: ML system design</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Seven steps</h3>
+          <ol>
+            <li>Requirements: users, scale, latency, cost of errors.</li>
+            <li>Metrics: business, model, guardrail.</li>
+            <li>Data: sources, labels, delay, privacy, leakage.</li>
+            <li>Model: baseline first.</li>
+            <li>Serving: batch, online, or device; latency budget.</li>
+            <li>Monitoring: drift, new labels, training again.</li>
+            <li>Risks and trade-offs.</li>
+          </ol>
+        </div>
+        <div class="cs-box">
+          <h3>Estimates</h3>
+          <ul>
+            <li>Requests each second = requests each day &divide; 86,400. Peak = 3 to 5 &times; mean.</li>
+            <li>Divide the latency budget between the network, the features, the model, and the rules.</li>
+            <li>Storage = size of a record &times; records each day.</li>
+            <li>Cost each month = cost of one request &times; requests each month.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Thresholds and labels</h3>
+          <ul>
+            <li>Total cost = missed &times; cost of a miss + false alarms &times; cost of a false alarm.</li>
+            <li>A miss is expensive: lower the threshold.</li>
+            <li>Labels can arrive weeks later. Divide data by date.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Lessons from failures</h3>
+          <ul>
+            <li>Amazon hiring tool: past decisions contain bias.</li>
+            <li>Zillow Offers: drift and large bets on predictions.</li>
+            <li>Google Flu Trends: correlations that change.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-10-ml-system-design">Print this sheet</button> <a href="system-design.html">Open Module 10</a></p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="formula-sheet">
+    <div class="num">12</div>
     <div>
       <h2>Formula sheet</h2>
       <p>All formulas of <a href="mathematics.html">Module 2</a> and the measurements of <a href="machine-learning.html#how-to-measure-a-model">Module 3</a>. Σ means "add all the values".</p>

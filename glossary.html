@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=ef6ec31bd8">
-<script src="assets/site.js?v=09753d66d4"></script>
+<script src="assets/site.js?v=2b979e8a3b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -43,6 +43,7 @@
         <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
         <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
         <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="system-design.html" data-mod="system-design.html"><span class="mods-n">10</span><span class="mods-i"><b>ML system design</b><small>Design a full ML system in seven steps, estimate load and cost, select thresholds from costs, three case studies, real failures, and design interviews.</small><span class="mods-meta">About 13 min read</span></span></a></li>
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
@@ -84,7 +85,7 @@
       <div class="gl-filter">
         <label for="gl-q">Find a name</label>
         <input id="gl-q" type="search" placeholder="For example: token" autocomplete="off">
-        <p class="gl-count" aria-live="polite">190 technical names</p>
+        <p class="gl-count" aria-live="polite">197 technical names</p>
       </div>
       <nav class="gl-az" aria-label="Letters"><a href="#letter-a">A</a><a href="#letter-b">B</a><a href="#letter-c">C</a><a href="#letter-d">D</a><a href="#letter-e">E</a><a href="#letter-f">F</a><a href="#letter-g">G</a><a href="#letter-h">H</a><a href="#letter-i">I</a><a href="#letter-k">K</a><a href="#letter-l">L</a><a href="#letter-m">M</a><a href="#letter-n">N</a><a href="#letter-o">O</a><a href="#letter-p">P</a><a href="#letter-q">Q</a><a href="#letter-r">R</a><a href="#letter-s">S</a><a href="#letter-t">T</a><a href="#letter-u">U</a><a href="#letter-v">V</a><a href="#letter-w">W</a></nav>
       <h3 id="letter-a" class="gl-letter">A</h3>
@@ -102,6 +103,7 @@
       </dl>
       <h3 id="letter-b" class="gl-letter">B</h3>
       <dl class="gl-list">
+        <div class="gl-item"><dt id="term-back-of-the-envelope-estimate">Back-of-the-envelope estimate</dt><dd><span class="gl-def">A quick calculation with round numbers that shows if a design is possible.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
         <div class="gl-item"><dt id="term-backpropagation">Backpropagation</dt><dd><span class="gl-def">A method that calculates the gradient for each weight, from the output back to the input.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
         <div class="gl-item"><dt id="term-backtesting">Backtesting</dt><dd><span class="gl-def">A test of a forecast method on past data: train on the data before a date, forecast after it, and compare. Repeat for many dates.</span><span class="gl-mods"><a href="topic-forecasting.html#technical-names">Forecasting</a></span></dd></div>
         <div class="gl-item"><dt id="term-base-model">Base model</dt><dd><span class="gl-def">A model after pretraining only. It continues text but does not follow instructions well.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
@@ -117,6 +119,7 @@
         <div class="gl-item"><dt id="term-canary-release">Canary release</dt><dd><span class="gl-def">A release of a new version to a small part of the users first.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
         <div class="gl-item"><dt id="term-candidate-generation">Candidate generation</dt><dd><span class="gl-def">The first stage of a recommendation system. A fast method selects some hundreds or thousands of possible items.</span><span class="gl-mods"><a href="topic-recommendation-systems.html#technical-names">Recommendation systems</a></span></dd></div>
         <div class="gl-item"><dt id="term-chain-rule">Chain rule</dt><dd><span class="gl-def">A rule to find the slope through many steps: multiply the slopes of the steps.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
+        <div class="gl-item"><dt id="term-chargeback">Chargeback</dt><dd><span class="gl-def">A payment that the bank of the card holder reverses, for example after fraud. It is a late label for fraud detection.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
         <div class="gl-item"><dt id="term-chunk">Chunk</dt><dd><span class="gl-def">A short part of a document that retrieval can find and put into a prompt.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-ci-cd">CI/CD</dt><dd><span class="gl-def">Continuous integration and continuous delivery: each change is tested, packaged, and released automatically.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
         <div class="gl-item"><dt id="term-classification">Classification</dt><dd><span class="gl-def">Supervised learning that predicts a category.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
@@ -190,6 +193,7 @@
         <div class="gl-item"><dt id="term-gradient">Gradient</dt><dd><span class="gl-def">The slope of the loss.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-gradient-descent">Gradient descent</dt><dd><span class="gl-def">A method that adjusts the weights step by step to decrease the loss.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-guardrail">Guardrail</dt><dd><span class="gl-def">A check before or after the model that stops unsafe inputs and outputs.</span><span class="gl-mods"><a href="ai-in-practice.html#technical-names">Module 7</a><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
+        <div class="gl-item"><dt id="term-guardrail-metric">Guardrail metric</dt><dd><span class="gl-def">A metric that must not become worse when the main metric improves.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
       </dl>
       <h3 id="letter-h" class="gl-letter">H</h3>
       <dl class="gl-list">
@@ -215,6 +219,7 @@
       <dl class="gl-list">
         <div class="gl-item"><dt id="term-label">Label</dt><dd><span class="gl-def">The correct answer for an example.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-latency">Latency</dt><dd><span class="gl-def">The time between a request and its answer.</span><span class="gl-mods"><a href="ai-in-practice.html#technical-names">Module 7</a></span></dd></div>
+        <div class="gl-item"><dt id="term-latency-budget">Latency budget</dt><dd><span class="gl-def">The maximum time for an answer, divided between the parts of a system.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
         <div class="gl-item"><dt id="term-learning-rate">Learning rate</dt><dd><span class="gl-def">A setting that controls the size of each step in gradient descent.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-llm-large-language-model">LLM (large language model)</dt><dd><span class="gl-def">A very large neural network that is trained on text.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a></span></dd></div>
         <div class="gl-item"><dt id="term-llm-judge">LLM judge</dt><dd><span class="gl-def">A method in which a model grades the answers of an application against a reference answer and rules.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
@@ -262,6 +267,7 @@
         <div class="gl-item"><dt id="term-pandas">pandas</dt><dd><span class="gl-def">A Python library for tables of data.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a></span></dd></div>
         <div class="gl-item"><dt id="term-parameter">Parameter</dt><dd><span class="gl-def">A number inside a function that training can change.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
         <div class="gl-item"><dt id="term-partial-derivative">Partial derivative</dt><dd><span class="gl-def">The slope for one input, when the other inputs do not change.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
+        <div class="gl-item"><dt id="term-peak-load">Peak load</dt><dd><span class="gl-def">The highest number of requests in a short time, usually 3 to 5 times the mean.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
         <div class="gl-item"><dt id="term-personal-data">Personal data</dt><dd><span class="gl-def">Data that can identify a person, for example a name, a face, or a location.</span><span class="gl-mods"><a href="responsible-ai.html#technical-names">Module 6</a></span></dd></div>
         <div class="gl-item"><dt id="term-pipeline">Pipeline</dt><dd><span class="gl-def">A sequence of automatic steps that each change goes through.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
         <div class="gl-item"><dt id="term-precision">Precision</dt><dd><span class="gl-def">Of all positive predictions, the percentage that is correct.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
@@ -311,12 +317,14 @@
         <div class="gl-item"><dt id="term-standardization">Standardization</dt><dd><span class="gl-def">A change of a feature so that its mean is 0 and its standard deviation is 1.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
         <div class="gl-item"><dt id="term-streaming">Streaming</dt><dd><span class="gl-def">A way to get the answer of a model in small parts while it is made.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-structured-output">Structured output</dt><dd><span class="gl-def">Model output that agrees with a schema, for example a JSON object with fixed fields.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
+        <div class="gl-item"><dt id="term-system-design">System design</dt><dd><span class="gl-def">The plan of all the parts of a system and how they work together, before it is built.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
         <div class="gl-item"><dt id="term-system-prompt">System prompt</dt><dd><span class="gl-def">Instructions from the maker of an AI product that the model gets before your prompt.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
       </dl>
       <h3 id="letter-t" class="gl-letter">T</h3>
       <dl class="gl-list">
         <div class="gl-item"><dt id="term-temperature">Temperature</dt><dd><span class="gl-def">A setting that controls how random the output is.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
         <div class="gl-item"><dt id="term-terminal">Terminal</dt><dd><span class="gl-def">A program where you type commands to the computer.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a></span></dd></div>
+        <div class="gl-item"><dt id="term-threshold">Threshold</dt><dd><span class="gl-def">The score above which a model&#x27;s prediction becomes an action, for example a block.</span><span class="gl-mods"><a href="system-design.html#technical-names">Module 10</a></span></dd></div>
         <div class="gl-item"><dt id="term-time-series">Time series</dt><dd><span class="gl-def">A sequence of measurements in time order.</span><span class="gl-mods"><a href="topic-forecasting.html#technical-names">Forecasting</a></span></dd></div>
         <div class="gl-item"><dt id="term-token">Token</dt><dd><span class="gl-def">A small part of text: a word, a part of a word, or a punctuation mark.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a></span></dd></div>
         <div class="gl-item"><dt id="term-tool">Tool</dt><dd><span class="gl-def">A function that your program offers to the model. The model asks for the call; your program runs it.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>

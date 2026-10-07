@@ -222,4 +222,21 @@ EXERCISES = {
                    ["no approval", "check_refund(1800, 9000, False) == 'approval'"],
                    ["a negative amount", "check_refund(-5, 9000, True) == 'amount'"]]},
     ],
+    # ------------------------------------------------------------------ Module 10
+    "system-design.html": [
+        {"id": "m10-load", "title": "Estimate the load",
+         "task": "Complete <code>peak_per_second(per_day, peak_factor)</code>: the mean number of requests each second, times the peak factor, rounded up to a whole number. Use <code>math.ceil</code>.",
+         "starter": "import math\n\ndef peak_per_second(per_day, peak_factor):\n    return 0\n",
+         "solution": "import math\n\ndef peak_per_second(per_day, peak_factor):\n    return math.ceil(per_day / 86400 * peak_factor)\n",
+         "hint": "A day has 86,400 seconds.",
+         "tests": [["2 million each day, peak 4", "peak_per_second(2_000_000, 4) == 93"],
+                   ["8,640,000 each day, peak 1", "peak_per_second(8_640_000, 1) == 100"]]},
+        {"id": "m10-threshold", "title": "The cheapest threshold",
+         "task": "Each option is (threshold, missed_fraud, blocked_good). Complete <code>cheapest(options, cost_missed, cost_blocked)</code>: return the threshold with the lowest total cost.",
+         "starter": "def cheapest(options, cost_missed, cost_blocked):\n    return options[0][0]\n",
+         "solution": "def cheapest(options, cost_missed, cost_blocked):\n    return min(options, key=lambda o: o[1] * cost_missed + o[2] * cost_blocked)[0]\n",
+         "hint": "Total cost = missed &times; cost_missed + blocked &times; cost_blocked. Use <code>min(options, key=...)</code>.",
+         "tests": [["missed fraud is expensive: a low threshold", "cheapest([(0.3, 5, 600), (0.5, 12, 300), (0.7, 40, 100)], 5000, 100) == 0.3"],
+                   ["blocked payments are expensive: a high threshold", "cheapest([(0.3, 5, 600), (0.5, 12, 300), (0.7, 40, 100)], 500, 1000) == 0.7"]]},
+    ],
 }
