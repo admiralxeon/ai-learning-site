@@ -145,7 +145,7 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
                "p7": "project-7-audit-a-model-for-bias", "p8": "project-8-find-drift-and-train-again",
                "p9": "project-9-ship-a-model-with-ci-cd"}
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
-REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE, VERIFY = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html", "verify.html"
+REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE, VERIFY, NOTES = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html", "verify.html", "notes.html"
 SITE_NAME = "AI learning manual"
 HOME_DESCRIPTION = ("A full AI course in eleven modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, LLM engineering, and ML system design. "
                     "Each module has diagrams, videos, and a knowledge check.")
@@ -154,6 +154,7 @@ CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check o
 REVIEW_DESCRIPTION = "The final review: 20 questions from the modules of your track, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
 CAPSTONE_DESCRIPTION = "The capstone of the AI Engineer track: build and ship an ML service or a RAG application, with a submission checklist, a seven-part rubric, and a self-assessment score."
+NOTES_DESCRIPTION = "Your notes and bookmarks from the sections of the AI learning manual, kept in this browser."
 VERIFY_DESCRIPTION = "Check a certificate of the AI learning manual: its data, its ID, and the digital signature of the course issuer."
 COURSE_DESCRIPTION = "The course plan: two tracks, AI Foundations (6 weeks) and AI Engineer (12 weeks), with a weekly plan, the learning outcomes of each module, and the certificate rules."
 CAREERS_DESCRIPTION = "Jobs in AI, the skills that each job needs, what to learn after this course, and how to show your projects in a portfolio."
@@ -240,7 +241,7 @@ for m in MODULES:
             q["rn"], q["rt"] = titles[q["ref"]]
         review_pool.append(q)
 
-EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), VERIFY: ("Verify a certificate", VERIFY_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
+EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), VERIFY: ("Verify a certificate", VERIFY_DESCRIPTION), NOTES: ("My notes", NOTES_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
          CHEATS: ("Cheat sheets", CHEATS_DESCRIPTION), CAREERS: ("Careers", CAREERS_DESCRIPTION)}
 for m in MODULES:
     if m["num"] not in OUTCOMES:
@@ -253,7 +254,7 @@ for t in TRACKS:
         t["modules"] = [m["num"] for m in MODULES]
 for m in MODULES:
     m["tracks"] = [t["id"] for t in TRACKS if m["num"] in t["modules"]]
-PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE, VERIFY]
+PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE, VERIFY, NOTES]
 
 
 # ---------------------------------------------------------------- shared parts
@@ -285,7 +286,7 @@ def nav_html(current):
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics">{tops}</ul>
-        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(CAPSTONE, "Capstone")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(CERTIFICATE, "Certificate")}</div>
+        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(CAPSTONE, "Capstone")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(NOTES, "My notes")}{top(CERTIFICATE, "Certificate")}</div>
       </div>
     </details>
     {top(PROJECTS, "Projects", " topnav-proj")}

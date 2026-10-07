@@ -54,7 +54,7 @@
     {"href":"system-design.html","num":10,"title":"ML system design","sections":11,"read":13,"video":0,"quick":["a-method-in-seven-steps","estimate-load-latency-and-cost","case-study-fraud-detection","lessons-from-real-failures","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"],"ex":2}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"083c6723e3","search-index.js":"01d63bcfc5","exercises.js":"1ec772a22e","py-runner.js":"b0c94173c4"};
+  var ASSET_V={"flashcards.js":"1ce0d28421","playgrounds.js":"083c6723e3","search-index.js":"0104509bf5","exercises.js":"1ec772a22e","py-runner.js":"b0c94173c4"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   // The tracks of the course. tools/build.py writes them.
   var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[],"capstone":false},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html","system-design.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"],"capstone":true}];
@@ -88,9 +88,28 @@
       return "AIM-"+h.slice(0,4)+"-"+h.slice(4,8)+"-"+h.slice(8,12);
     });
   }
+  // Study days (for the streak), notes and bookmarks, and flashcards that are due
+  var DAYS_KEY="ai-manual-days",NOTES_KEY="ai-manual-notes",CARD_DAYS=[0,1,3,7,16];
+  function dayStr(d){d=d||new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+  function studyDays(){try{return JSON.parse(get(DAYS_KEY))||[];}catch(e){return [];}}
+  function markStudyDay(){var d=studyDays(),t=dayStr();if(d.indexOf(t)<0){d.push(t);d=d.slice(-400);set(DAYS_KEY,JSON.stringify(d));}}
+  window.markStudyDay=markStudyDay;
+  function streak(){
+    var d=studyDays(),n=0,day=new Date();
+    if(d.indexOf(dayStr(day))<0)day.setDate(day.getDate()-1);   // a streak stays until the end of today
+    while(d.indexOf(dayStr(day))>=0){n++;day.setDate(day.getDate()-1);}
+    return n;
+  }
+  function notesAll(){try{return JSON.parse(get(NOTES_KEY))||{};}catch(e){return {};}}
+  function noteSave(key,patch){var a=notesAll(),n=Object.assign(a[key]||{},patch,{t:Date.now()});if(!n.note&&!n.bm)delete a[key];else a[key]=n;set(NOTES_KEY,JSON.stringify(a));}
+  function cardsDue(){
+    var c;try{c=JSON.parse(get("ai-manual-cards"))||{};}catch(e){c={};}
+    var now=Date.now();
+    return Object.keys(c).filter(function(k){var x=c[k];if(!x||typeof x!=="object")return false;var due=x.due!=null?x.due:(x.t||0)+CARD_DAYS[Math.min(4,x.b||0)]*864e5;return due<=now;}).length;
+  }
   var EX_KEY="ai-manual-exercises";
   function exStore(){try{return JSON.parse(get(EX_KEY))||{};}catch(e){return {};}}
-  function exSave(id,patch){var s=exStore();s[id]=Object.assign(s[id]||{},patch);set(EX_KEY,JSON.stringify(s));}
+  function exSave(id,patch){var s=exStore();s[id]=Object.assign(s[id]||{},patch);set(EX_KEY,JSON.stringify(s));if(patch.passed)markStudyDay();}
   function projectsDone(t,store){var d=(store["projects.html"]||{}).done||[];return (t?t.projects:[]).filter(function(id){return d.indexOf(id)>=0;});}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
@@ -300,7 +319,7 @@
       if(pageRead!=null){mine.read=pageRead;mine.video=pageVideo;}
       mine.t=Date.now();
       mine.title=(document.querySelector(".title h1")||{}).textContent||"";
-      store=loadProgress();store[PAGE]=mine;saveProgress(store);
+      store=loadProgress();store[PAGE]=mine;saveProgress(store);markStudyDay();
     }
     // Older versions saved progress as "s1", "s2", ... Map those to the section numbers.
     function legacy(id){
@@ -380,6 +399,25 @@
           });
           m.btn=btn;row.appendChild(btn);
         }
+        // Bookmark and note for this section
+        var nkey=PAGE+"#"+m.id,nd=notesAll()[nkey]||{};
+        var bmB=el("button","donebtn sec-tool");bmB.type="button";
+        var paintBm=function(on){bmB.setAttribute("aria-pressed",on?"true":"false");bmB.innerHTML='<svg viewBox="0 0 24 24" fill="'+(on?"currentColor":"none")+'" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span>'+(on?"Bookmarked":"Bookmark")+"</span>";};
+        paintBm(!!nd.bm);
+        var pageT=(document.querySelector(".title h1")||{}).textContent||document.title;
+        bmB.addEventListener("click",function(){var on=bmB.getAttribute("aria-pressed")!=="true";noteSave(nkey,{bm:on,title:m.num+". "+m.title,page:PAGE,pageTitle:pageT});paintBm(on);});
+        var ntB=el("button","donebtn sec-tool");ntB.type="button";ntB.setAttribute("aria-expanded","false");
+        var paintNt=function(){var has=!!(notesAll()[nkey]||{}).note;ntB.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg><span>'+(has?"Your note":"Add a note")+"</span>";};
+        paintNt();
+        var nbox=el("div","sec-note-box");nbox.hidden=true;
+        var nid="note-"+m.id,nlab=el("label","sr-only","Your note for section "+m.num);nlab.setAttribute("for",nid);
+        var nta=el("textarea","pg-text sec-note-text");nta.id=nid;nta.rows=3;nta.placeholder="Write what you want to remember, or a question for later.";nta.value=nd.note||"";
+        var nst=el("p","sec-note-st");nst.setAttribute("aria-live","polite");
+        nbox.appendChild(nlab);nbox.appendChild(nta);nbox.appendChild(nst);
+        var ntT=null;
+        nta.addEventListener("input",function(){clearTimeout(ntT);ntT=setTimeout(function(){noteSave(nkey,{note:nta.value.trim(),title:m.num+". "+m.title,page:PAGE,pageTitle:pageT});nst.textContent="Saved in this browser.";paintNt();},500);});
+        ntB.addEventListener("click",function(){nbox.hidden=!nbox.hidden;ntB.setAttribute("aria-expanded",nbox.hidden?"false":"true");if(!nbox.hidden)nta.focus();});
+        row.appendChild(bmB);row.appendChild(ntB);
         var nx=meta[i+1];
         if(nx){
           var a=el("a","nextsec");a.href="#"+nx.id;
@@ -388,7 +426,7 @@
           row.appendChild(a);
         }
         var body=m.s.querySelector(":scope > div:last-child")||m.s;
-        body.appendChild(row);
+        body.appendChild(row);body.appendChild(nbox);
       });
 
       // Desktop contents panel
@@ -664,7 +702,7 @@
       var fileIn=el("input");fileIn.type="file";fileIn.accept="application/json,.json";fileIn.hidden=true;
       tools.appendChild(mkBtn("Export progress",function(){
         var cards=null,cap=null,capg=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));capg=JSON.parse(get(CAPG_KEY));}catch(e){}
-        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,capstoneGrade:capg||null,exercises:exStore(),
+        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,capstoneGrade:capg||null,exercises:exStore(),notes:notesAll(),days:studyDays(),
           settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||"",track:get(TRACK_KEY)||""}};
         var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
         var u=URL.createObjectURL(blob),dl=el("a");dl.href=u;dl.download="ai-manual-progress.json";
@@ -674,7 +712,7 @@
       tools.appendChild(mkBtn("Import progress",function(){fileIn.click();}));
       tools.appendChild(mkBtn("Reset progress",function(){
         if(window.confirm("Delete all your progress, quiz scores, flashcards, and your project plan? You cannot undo this.")){
-          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",CAPG_KEY,"ai-manual-exercises",NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",CAPG_KEY,"ai-manual-exercises",NOTES_KEY,DAYS_KEY,NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
           location.reload();
         }
       }));
@@ -690,6 +728,8 @@
           if(d.capstone&&typeof d.capstone==="object")set("ai-manual-capstone",JSON.stringify(d.capstone));
           if(d.capstoneGrade&&typeof d.capstoneGrade==="object")set(CAPG_KEY,JSON.stringify(d.capstoneGrade));
           if(d.exercises&&typeof d.exercises==="object")set(EX_KEY,JSON.stringify(d.exercises));
+          if(d.notes&&typeof d.notes==="object")set(NOTES_KEY,JSON.stringify(d.notes));
+          if(Array.isArray(d.days))set(DAYS_KEY,JSON.stringify(d.days));
           if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);if(d.settings.track)set(TRACK_KEY,d.settings.track);}
           location.reload();
         };
@@ -764,7 +804,7 @@
       else if(qp===TM.length&&rvOk&&!capOk&&pjHave.length===pjNeed.length){var cpa=el("a","btn","Open the capstone");cpa.href="capstone.html";cp.appendChild(document.createTextNode("One step left: pass the capstone. "));cp.appendChild(cpa);}
       else if(qp===TM.length&&rvOk){var pa=el("a","btn","Open the projects");pa.href="projects.html";cp.appendChild(document.createTextNode("Mark the required projects as done ("+pjHave.length+" of "+pjNeed.length+"): "));cp.appendChild(pa);}
       else if(qp===TM.length){var ra=el("a","btn","Take the final review");ra.href="review.html";cp.appendChild(document.createTextNode("All knowledge checks passed. One step to your certificate: "));cp.appendChild(ra);}
-      else cp.textContent="Pass the knowledge check of all "+TM.length+" modules"+(TK?" of your track":"")+", the final review"+(pjNeed.length?", and "+pjNeed.length+" projects":"")+" to get your certificate.";
+      else cp.textContent="Pass the knowledge check of all "+TM.length+" modules"+(TK?" of your track":"")+(pjNeed.length?", the final review, "+pjNeed.length+" projects, and the capstone":" and the final review")+" to get your certificate.";
       bc.appendChild(cp);
       dash.appendChild(bc);
 
@@ -777,6 +817,23 @@
       pc2.appendChild(pjt);
       var pja=el("a","btn",pjDone?"Continue the projects":"Open the projects");pja.href="projects.html";pc2.appendChild(pja);
       dash.appendChild(pc2);
+
+      // Study: streak, cards that are due, notes
+      var sc2=el("div","dash-card dash-study");
+      var stk=streak(),days=studyDays(),due=cardsDue(),na=notesAll(),nn=Object.keys(na).length;
+      var s1=el("div","st-streak");
+      s1.appendChild(el("b",null,stk+(stk===1?" day":" days")));
+      s1.appendChild(el("span",null,"study streak"));
+      sc2.appendChild(s1);
+      var cal=el("ol","st-days");cal.setAttribute("aria-label","Study days in the last 14 days");
+      for(var di=13;di>=0;di--){var dd=new Date();dd.setDate(dd.getDate()-di);var on=days.indexOf(dayStr(dd))>=0;var dli=el("li",on?"on":null);dli.title=dayStr(dd)+(on?": studied":"");dli.appendChild(el("span","sr-only",dayStr(dd)+(on?", studied":", no study")));cal.appendChild(dli);}
+      sc2.appendChild(cal);
+      var sl=el("ul","dash-links st-links");
+      var sItem=function(href,b,small){var li=el("li"),a=el("a");a.href=href;a.appendChild(el("b",null,b));a.appendChild(el("small",null,small));li.appendChild(a);sl.appendChild(li);};
+      sItem("glossary.html#flashcards",due?due+(due===1?" flashcard is due":" flashcards are due"):"Flashcards",due?"Review them today to keep them in your memory.":"No cards are due. Practice new cards.");
+      sItem("notes.html","My notes and bookmarks",nn?nn+(nn===1?" saved item":" saved items"):"Add notes and bookmarks at the end of each section.");
+      sc2.appendChild(sl);
+      dash.appendChild(sc2);
 
       // More: short topics, cheat sheets, careers
       var mc=el("div","dash-card dash-more");
@@ -1374,6 +1431,41 @@
         scoreBox.className="cap-score quiz-result on "+(r.passed?"passed":"failed");
       };
       paintG();
+    }
+
+    // ---------- Notes page ----------
+    var napp=document.querySelector(".notes-app");
+    if(napp){
+      var paintNotes=function(){
+        var a=notesAll(),keys=Object.keys(a);
+        napp.innerHTML="";
+        if(!keys.length){napp.appendChild(el("p",null,"You have no notes or bookmarks yet. At the end of each section of a module, select <b>Bookmark</b> or <b>Add a note</b>."));return;}
+        var order=MODULES.map(function(M){return M.href;});
+        var groups={};keys.forEach(function(k){var p=a[k].page||k.split("#")[0];(groups[p]=groups[p]||[]).push(k);});
+        var pages=Object.keys(groups).sort(function(x,y){var i=order.indexOf(x),j=order.indexOf(y);return (i<0?99:i)-(j<0?99:j);});
+        var tools=el("div","pg-actions");
+        var dlB=el("button","pg-btn","Download as a text file");dlB.type="button";
+        dlB.addEventListener("click",function(){
+          var txt=pages.map(function(p){return "# "+(a[groups[p][0]].pageTitle||p)+"\n\n"+groups[p].map(function(k){var n=a[k];return "## "+(n.title||k)+(n.bm?" [bookmark]":"")+"\n"+(n.note||"")+"\n";}).join("\n");}).join("\n");
+          var u=URL.createObjectURL(new Blob([txt],{type:"text/plain"})),l=el("a");l.href=u;l.download="my-ai-notes.txt";document.body.appendChild(l);l.click();document.body.removeChild(l);setTimeout(function(){URL.revokeObjectURL(u);},2000);
+        });
+        tools.appendChild(dlB);napp.appendChild(tools);
+        pages.forEach(function(p){
+          var sec=el("div","notes-group");
+          sec.appendChild(el("h3",null,"")).textContent=a[groups[p][0]].pageTitle||p;
+          var ul=el("ul","notes-list");
+          groups[p].sort(function(x,y){return (parseInt((a[x].title||"0"),10)||0)-(parseInt((a[y].title||"0"),10)||0);}).forEach(function(k){
+            var n=a[k],li=el("li");
+            var link=el("a");link.href=k;link.textContent=(n.bm?"\u2605 ":"")+(n.title||k);li.appendChild(link);
+            if(n.note){var q=el("p","notes-text");q.textContent=n.note;li.appendChild(q);}
+            var del=el("button","linkbtn","Delete");del.type="button";del.setAttribute("aria-label","Delete: "+(n.title||k));
+            del.addEventListener("click",function(){var all=notesAll();delete all[k];set(NOTES_KEY,JSON.stringify(all));paintNotes();});
+            li.appendChild(del);ul.appendChild(li);
+          });
+          sec.appendChild(ul);napp.appendChild(sec);
+        });
+      };
+      paintNotes();
     }
 
     // ---------- Verify page ----------

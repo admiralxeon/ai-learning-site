@@ -63,15 +63,21 @@
 
   function deckCards(){return ALL.filter(function(c){return deck==="all"||c.mods.indexOf(deck)>=0;});}
   function boxOf(c){return (boxes[c.id]&&boxes[c.id].b)||0;}
+  // A card is due when its review date has come. The review date moves further for higher boxes: 0, 1, 3, 7, 16 days.
+  var DAYS=[0,1,3,7,16];
+  function dueAt(c){var x=boxes[c.id];if(!x)return null;return x.due!=null?x.due:(x.t||0)+DAYS[Math.min(4,x.b||0)]*864e5;}
+  function isDue(c){var d=dueAt(c);return d!=null&&d<=Date.now();}
   function paintLearned(){
     var d=deckCards(),n=d.filter(function(c){return boxOf(c)>=2;}).length;
-    learned.textContent="Learned in this set: "+n+" of "+d.length+". A card is learned when you know it in two different sessions.";
+    var due=d.filter(isDue).length;
+    learned.textContent="Learned in this set: "+n+" of "+d.length+". A card is learned when you know it in two different sessions."+(due?" Due for review today: "+due+".":"");
   }
   function start(hardOnly){
     var d=deckCards();
     if(hardOnly)d=d.filter(function(c){return boxOf(c)===0;});
-    // Cards in lower boxes come first. Inside each box, the order is random.
-    queue=shuffle(d.slice()).sort(function(a,b){return boxOf(a)-boxOf(b);});
+    // Due cards come first, then new cards, then the other cards. Inside each group, lower boxes first.
+    var rank=function(c){return isDue(c)?0:(boxes[c.id]?2:1);};
+    queue=shuffle(d.slice()).sort(function(a,b){return rank(a)-rank(b)||boxOf(a)-boxOf(b);});
     pos=0;firstTry=0;again=0;seen={};
     stage.hidden=false;done.hidden=true;
     show();paintLearned();
@@ -106,7 +112,8 @@
       again++;b.b=0;seen[c.id]=true;
       var copy=queue.splice(pos,1)[0];queue.splice(Math.min(queue.length,pos+3),0,copy);
     }
-    b.t=Date.now();boxes[c.id]=b;save(boxes);
+    b.t=Date.now();b.due=b.t+DAYS[Math.min(4,b.b||0)]*864e5;boxes[c.id]=b;save(boxes);
+    if(window.markStudyDay)window.markStudyDay();
     show();paintLearned();
     if(!flipped)flip.focus();
   }

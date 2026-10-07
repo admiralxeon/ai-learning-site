@@ -1253,6 +1253,31 @@ table.plan a{display:inline-block;min-height:24px;line-height:24px}
 .verify-data dt{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .verify-data dd{margin:.15rem 0 0;font-weight:600;word-break:break-word}
 
+/* Study tools */
+.sec-tool svg{width:16px;height:16px;padding:0;border:0;stroke-width:2}
+.sec-tool:hover{border-color:var(--blue);color:var(--blue)}
+.donebtn.sec-tool[aria-pressed="true"]{background:var(--amber-soft);border-color:var(--amber);color:var(--amber-ink)}
+.donebtn.sec-tool[aria-pressed="true"] svg{background:none}
+.sec-note-box{margin:.6rem 0 0}
+.sec-note-text{width:100%;box-sizing:border-box;min-height:5rem;resize:vertical}
+.sec-note-st{margin:.25rem 0 0;font-size:.8rem;color:var(--muted)}
+.dash-study{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;gap:.75rem 1.5rem;align-items:center}
+.st-streak b{display:block;font-family:var(--font-head);font-size:2rem;line-height:1}
+.st-streak span{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.st-days{display:flex;gap:5px;list-style:none;margin:0;padding:0;max-width:none}
+.st-days li{width:16px;height:16px;margin:0;padding:0;border-radius:4px;background:var(--sheet-2);border:1px solid var(--rule)}
+.st-days li::before{content:none}
+.st-days li.on{background:var(--green);border-color:var(--green)}
+.st-links{grid-column:1/-1;margin-top:0}
+@media (max-width:640px){.dash-study{grid-template-columns:1fr}}
+.notes-group{margin:1rem 0}
+.notes-group h3{margin:0 0 .4rem}
+.notes-list{list-style:none;margin:0;padding:0;max-width:none;display:grid;gap:.4rem}
+.notes-list li{margin:0;padding:.6rem .8rem;border:1px solid var(--rule);border-radius:10px;background:var(--sheet)}
+.notes-list li::before{content:none}
+.notes-list li > a{font-weight:600}
+.notes-text{margin:.3rem 0;white-space:pre-wrap;max-width:none}
+
 /* ---------- Motion & print ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{
