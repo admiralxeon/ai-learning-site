@@ -41,19 +41,19 @@
 
   // The modules of the course, in order. A visited page updates these numbers in the saved progress.
   var MODULES=[
-    {"href":"python-for-ai.html","num":0,"title":"Python and data tools","sections":12,"read":11,"video":85,"quick":["set-up-your-tools","python-basics","pandas-work-with-tables","summary","knowledge-check"],"quickRead":4,"tracks":["engineer"]},
-    {"href":"ai.html","num":1,"title":"Artificial intelligence","sections":12,"read":16,"video":54,"quick":["what-ai-is","the-parts-of-ai","how-a-chat-ai-makes-text","limits-and-risks","summary","knowledge-check"],"quickRead":6,"tracks":["foundations","engineer"]},
-    {"href":"mathematics.html","num":2,"title":"Mathematics for machine learning","sections":14,"read":18,"video":62,"quick":["why-ai-needs-mathematics","statistics-describe-data","probability","vectors","calculus-rates-of-change","summary","knowledge-check"],"quickRead":9,"tracks":["foundations","engineer"]},
-    {"href":"machine-learning.html","num":3,"title":"Machine learning","sections":14,"read":13,"video":47,"quick":["what-machine-learning-is","the-machine-learning-workflow","how-a-model-makes-its-errors-smaller","overfitting-and-underfitting","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
-    {"href":"deep-learning.html","num":4,"title":"Deep learning","sections":12,"read":14,"video":48,"quick":["what-deep-learning-is","inside-a-neuron","how-a-transformer-uses-attention","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
-    {"href":"generative-ai.html","num":5,"title":"Generative AI","sections":12,"read":18,"video":104,"quick":["what-generative-ai-is","how-a-large-language-model-is-made","how-to-write-a-good-prompt","risks-of-generative-ai","summary","knowledge-check"],"quickRead":9,"tracks":["foundations","engineer"]},
-    {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
-    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"]},
-    {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":17,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"]},
-    {"href":"llm-engineering.html","num":9,"title":"LLM engineering","sections":14,"read":18,"video":9,"quick":["the-parts-of-an-llm-application","call-a-model-through-an-api","answer-from-your-documents-with-rag","evaluate-the-application","summary","knowledge-check"],"quickRead":6,"tracks":["engineer"]}
+    {"href":"python-for-ai.html","num":0,"title":"Python and data tools","sections":12,"read":11,"video":85,"quick":["set-up-your-tools","python-basics","pandas-work-with-tables","summary","knowledge-check"],"quickRead":4,"tracks":["engineer"],"ex":3},
+    {"href":"ai.html","num":1,"title":"Artificial intelligence","sections":12,"read":16,"video":54,"quick":["what-ai-is","the-parts-of-ai","how-a-chat-ai-makes-text","limits-and-risks","summary","knowledge-check"],"quickRead":7,"tracks":["foundations","engineer"],"ex":2},
+    {"href":"mathematics.html","num":2,"title":"Mathematics for machine learning","sections":14,"read":18,"video":62,"quick":["why-ai-needs-mathematics","statistics-describe-data","probability","vectors","calculus-rates-of-change","summary","knowledge-check"],"quickRead":10,"tracks":["foundations","engineer"],"ex":3},
+    {"href":"machine-learning.html","num":3,"title":"Machine learning","sections":14,"read":14,"video":47,"quick":["what-machine-learning-is","the-machine-learning-workflow","how-a-model-makes-its-errors-smaller","overfitting-and-underfitting","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"],"ex":3},
+    {"href":"deep-learning.html","num":4,"title":"Deep learning","sections":12,"read":14,"video":48,"quick":["what-deep-learning-is","inside-a-neuron","how-a-transformer-uses-attention","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"],"ex":2},
+    {"href":"generative-ai.html","num":5,"title":"Generative AI","sections":12,"read":18,"video":104,"quick":["what-generative-ai-is","how-a-large-language-model-is-made","how-to-write-a-good-prompt","risks-of-generative-ai","summary","knowledge-check"],"quickRead":9,"tracks":["foundations","engineer"],"ex":2},
+    {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":12,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"],"ex":2},
+    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":8,"tracks":["engineer"],"ex":3},
+    {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":17,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":8,"tracks":["engineer"],"ex":2},
+    {"href":"llm-engineering.html","num":9,"title":"LLM engineering","sections":14,"read":18,"video":9,"quick":["the-parts-of-an-llm-application","call-a-model-through-an-api","answer-from-your-documents-with-rag","evaluate-the-application","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"],"ex":3}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"f27baddd21","search-index.js":"7ce5e1e967"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"f27baddd21","search-index.js":"42f04f5326","exercises.js":"80fe46f934","py-runner.js":"b0c94173c4"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   // The tracks of the course. tools/build.py writes them.
   var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[],"capstone":false},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"],"capstone":true}];
@@ -70,6 +70,9 @@
     return {done:done,items:CAP_ITEMS.length,rated:n,crits:CAP_CRITS.length,sum:sum,max:CAP_CRITS.length*4,pct:pct,low:low,
       passed:done===CAP_ITEMS.length&&n===CAP_CRITS.length&&!low&&pct>=70};
   }
+  var EX_KEY="ai-manual-exercises";
+  function exStore(){try{return JSON.parse(get(EX_KEY))||{};}catch(e){return {};}}
+  function exSave(id,patch){var s=exStore();s[id]=Object.assign(s[id]||{},patch);set(EX_KEY,JSON.stringify(s));}
   function projectsDone(t,store){var d=(store["projects.html"]||{}).done||[];return (t?t.projects:[]).filter(function(id){return d.indexOf(id)>=0;});}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
@@ -634,12 +637,16 @@
       dpt.appendChild(el("b",null,"Your progress"));
       dpt.appendChild(el("p",null,dn+" of "+tot+" sections done"));
       dpt.appendChild(el("p",null,qp+" of "+TM.length+" knowledge checks passed"));
+      var exAll=0,exPass=0,exS=exStore();
+      TM.forEach(function(M){exAll+=M.ex||0;});
+      Object.keys(exS).forEach(function(k){if(exS[k].passed&&TM.some(function(M){return k.indexOf("m"+M.num+"-")===0;}))exPass++;});
+      if(exAll)dpt.appendChild(el("p",null,exPass+" of "+exAll+" code exercises passed"));
       var tools=el("div","dash-tools");
       var mkBtn=function(label,fn){var b=el("button","linkbtn",label);b.type="button";b.addEventListener("click",fn);return b;};
       var fileIn=el("input");fileIn.type="file";fileIn.accept="application/json,.json";fileIn.hidden=true;
       tools.appendChild(mkBtn("Export progress",function(){
         var cards=null,cap=null,capg=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));capg=JSON.parse(get(CAPG_KEY));}catch(e){}
-        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,capstoneGrade:capg||null,
+        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,capstoneGrade:capg||null,exercises:exStore(),
           settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||"",track:get(TRACK_KEY)||""}};
         var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
         var u=URL.createObjectURL(blob),dl=el("a");dl.href=u;dl.download="ai-manual-progress.json";
@@ -649,7 +656,7 @@
       tools.appendChild(mkBtn("Import progress",function(){fileIn.click();}));
       tools.appendChild(mkBtn("Reset progress",function(){
         if(window.confirm("Delete all your progress, quiz scores, flashcards, and your project plan? You cannot undo this.")){
-          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",CAPG_KEY,NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",CAPG_KEY,"ai-manual-exercises",NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
           location.reload();
         }
       }));
@@ -664,6 +671,7 @@
           if(d.cards&&typeof d.cards==="object")set("ai-manual-cards",JSON.stringify(d.cards));
           if(d.capstone&&typeof d.capstone==="object")set("ai-manual-capstone",JSON.stringify(d.capstone));
           if(d.capstoneGrade&&typeof d.capstoneGrade==="object")set(CAPG_KEY,JSON.stringify(d.capstoneGrade));
+          if(d.exercises&&typeof d.exercises==="object")set(EX_KEY,JSON.stringify(d.exercises));
           if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);if(d.settings.track)set(TRACK_KEY,d.settings.track);}
           location.reload();
         };
@@ -1137,6 +1145,135 @@
         capp.appendChild(el("p",null,"Congratulations. You completed the "+CT.name+" track: all "+CM.length+" knowledge checks, the final review"+(CT.projects.length?", and the required projects":"")+"."));
         capp.appendChild(clab);capp.appendChild(cin);capp.appendChild(cert);capp.appendChild(cact);
       }
+    }
+
+    // ---------- Code exercises: Python in the browser (Pyodide) ----------
+    var exSets=document.querySelectorAll(".ex-set");
+    if(exSets.length){
+      var exs=document.createElement("script");exs.src="assets/exercises.js"+av("exercises.js");
+      exs.onload=function(){[].forEach.call(exSets,buildExSet);};
+      document.head.appendChild(exs);
+    }
+    var pyEngine=null;
+    function getPy(){
+      if(pyEngine)return pyEngine;
+      if(/^https?:$/.test(location.protocol)&&window.Worker){
+        var w,ready,pending={},nid=0;
+        var start=function(){
+          w=new Worker("assets/py-runner.js"+av("py-runner.js"));
+          ready=new Promise(function(res,rej){
+            w.onmessage=function(e){
+              var m=e.data,p=pending[m.id];
+              if(m.type==="ready")res();
+              else if(m.type==="fail")rej(new Error(m.error));
+              else if(m.type==="started"&&p)p.started();
+              else if(m.type==="result"&&p){delete pending[m.id];p.done(m);}
+            };
+            w.onerror=function(){rej(new Error("Python could not start."));};
+          });
+          ready.catch(function(){});
+          w.postMessage({type:"load"});
+        };
+        start();
+        pyEngine={run:function(msg){
+          return ready.then(function(){return new Promise(function(res,rej){
+            var id=++nid,timer=null;
+            pending[id]={
+              started:function(){timer=setTimeout(function(){delete pending[id];w.terminate();start();rej(new Error("The code ran for more than 15 seconds and was stopped. Look for a loop that never ends."));},15000);},
+              done:function(m){clearTimeout(timer);if(m.error)rej(new Error(m.error));else res(m.result);}
+            };
+            msg.id=id;w.postMessage(msg);
+          });});
+        }};
+      }else{
+        // Opened from a file: run on the page.
+        var loaded=new Promise(function(res,rej){var s=el("script");s.src="assets/py-runner.js";s.onload=res;s.onerror=function(){rej(new Error("Python could not start."));};document.head.appendChild(s);});
+        pyEngine={run:function(msg){return loaded.then(function(){return window.PyLocal.run(msg);});}};
+      }
+      return pyEngine;
+    }
+    function buildExSet(box){
+      var list=(window.EXERCISES||{})[box.getAttribute("data-module")]||[];
+      var sum=el("p","ex-sum");sum.setAttribute("aria-live","polite");box.appendChild(sum);
+      var paintSum=function(){var s=exStore(),n=list.filter(function(x){return s[x.id]&&s[x.id].passed;}).length;sum.textContent=n+" of "+list.length+" exercises passed";sum.classList.toggle("all",n===list.length);};
+      list.forEach(function(ex,i){
+        var saved=exStore()[ex.id]||{};
+        var card=el("div","ex");card.id="ex-"+ex.id;
+        var head=el("div","ex-head");
+        head.appendChild(el("h4",null,"Exercise "+(i+1)+": "+ex.title));
+        var chip=el("span","ex-chip");head.appendChild(chip);
+        card.appendChild(head);
+        var task=el("p","ex-task");task.innerHTML=ex.task;card.appendChild(task);
+        var tid="ex-code-"+ex.id;
+        var lab=el("label","sr-only","Code for exercise "+(i+1));lab.setAttribute("for",tid);card.appendChild(lab);
+        var ta=el("textarea","ex-code");ta.id=tid;ta.spellcheck=false;ta.setAttribute("autocapitalize","off");ta.setAttribute("autocomplete","off");
+        ta.value=saved.code||ex.starter;ta.rows=Math.min(18,Math.max(5,ta.value.split("\n").length+1));
+        ta.setAttribute("aria-describedby","ex-keys");
+        card.appendChild(ta);
+        var act=el("div","pg-actions ex-act");
+        var runB=el("button","pg-btn pg-btn-primary","Run tests");runB.type="button";
+        var hintB=el("button","pg-btn","Hint");hintB.type="button";
+        var solB=el("button","pg-btn","Show the solution");solB.type="button";
+        var resetB=el("button","linkbtn","Start again");resetB.type="button";
+        act.appendChild(runB);if(ex.hint)act.appendChild(hintB);act.appendChild(solB);act.appendChild(resetB);
+        card.appendChild(act);
+        var hint=el("p","ex-hint");hint.hidden=true;if(ex.hint)hint.innerHTML="<b>Hint:</b> "+ex.hint;card.appendChild(hint);
+        var out=el("div","ex-out");out.setAttribute("aria-live","polite");card.appendChild(out);
+        var paintChip=function(){var p=(exStore()[ex.id]||{}).passed;chip.textContent=p?"Passed":"Not passed yet";chip.classList.toggle("ok",!!p);};
+        paintChip();
+        // Editor keys: Tab adds 4 spaces (Esc, then Tab, leaves the editor). Enter keeps the indentation.
+        var escaped=false;
+        ta.addEventListener("keydown",function(e){
+          if(e.key==="Escape"){escaped=true;return;}
+          var st=ta.selectionStart,en=ta.selectionEnd,v=ta.value;
+          if(e.key==="Tab"&&!e.shiftKey&&!escaped){e.preventDefault();ta.value=v.slice(0,st)+"    "+v.slice(en);ta.selectionStart=ta.selectionEnd=st+4;}
+          else if(e.key==="Enter"){
+            var ls=v.lastIndexOf("\n",st-1)+1,line=v.slice(ls,st),ind=(line.match(/^ */)||[""])[0];
+            if(/:\s*$/.test(line))ind+="    ";
+            e.preventDefault();ta.value=v.slice(0,st)+"\n"+ind+v.slice(en);ta.selectionStart=ta.selectionEnd=st+1+ind.length;
+          }
+          escaped=false;
+        });
+        var saveT=null;
+        ta.addEventListener("input",function(){clearTimeout(saveT);saveT=setTimeout(function(){exSave(ex.id,{code:ta.value});},400);});
+        hintB.addEventListener("click",function(){hint.hidden=!hint.hidden;hintB.textContent=hint.hidden?"Hint":"Hide the hint";});
+        solB.addEventListener("click",function(){
+          if(!window.confirm("Show the solution? Try it yourself first. You learn more from a failed test than from a solution."))return;
+          ta.value=ex.solution;exSave(ex.id,{code:ta.value});
+        });
+        resetB.addEventListener("click",function(){ta.value=ex.starter;exSave(ex.id,{code:ta.value});out.innerHTML="";});
+        runB.addEventListener("click",function(){
+          runB.disabled=true;runB.textContent="Running\u2026";
+          out.innerHTML="";out.className="ex-out";
+          out.appendChild(el("p","ex-wait","Python is loading. The first time takes 10 to 30 seconds."));
+          exSave(ex.id,{code:ta.value});
+          getPy().run({code:ta.value,tests:ex.tests,packages:ex.packages||[],runner:window.PY_RUNNER}).then(function(r){
+            out.innerHTML="";
+            var ul=el("ul","ex-tests"),passed=0;
+            if(r.error){
+              out.className="ex-out bad";
+              out.appendChild(el("p",null,"<b>Your code stopped with an error.</b> Read the last line, and look at the line that it names."));
+              var pe=el("pre","ex-err");pe.textContent=r.error;out.appendChild(pe);
+            }else{
+              r.tests.forEach(function(t){var li=el("li",t[1]?"ok":"bad");li.textContent=(t[1]?"\u2713 ":"\u2717 ")+t[0]+(t[2]?" \u2014 "+t[2]:"");ul.appendChild(li);if(t[1])passed++;});
+              var all=passed===r.tests.length;
+              out.className="ex-out "+(all?"ok":"bad");
+              out.appendChild(el("p",null,all?"<b>All tests passed.</b> Good work.":"<b>"+passed+" of "+r.tests.length+" tests passed.</b> Change the code, and run the tests again."));
+              out.appendChild(ul);
+              if(all){exSave(ex.id,{passed:true});paintChip();paintSum();}
+            }
+            if(r.stdout){out.appendChild(el("p","ex-sub","Output of print:"));var po=el("pre","ex-stdout");po.textContent=r.stdout;out.appendChild(po);}
+          },function(err){
+            out.innerHTML="";out.className="ex-out bad";
+            out.appendChild(el("p",null,"<b>The code could not run.</b>"));
+            var pe=el("pre","ex-err");pe.textContent=String(err&&err.message||err);out.appendChild(pe);
+          }).then(function(){runB.disabled=false;runB.textContent="Run tests";});
+        });
+        box.appendChild(card);
+      });
+      var keys=el("p","ex-keys","In the editor, Tab adds 4 spaces. To leave the editor with the keyboard, press Esc, then Tab.");keys.id="ex-keys";
+      box.appendChild(keys);
+      paintSum();
     }
 
     // ---------- Capstone page: checklist and rubric ----------

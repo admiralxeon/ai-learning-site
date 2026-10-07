@@ -14,9 +14,13 @@ The script is safe to run again. Run it each time you add, remove, or change a m
 import html
 import json
 import re
+import sys
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(SITE / "tools"))
+from exercises import EXERCISES  # noqa: E402  (code exercises for the modules)
+from check_exercises import RUNNER  # noqa: E402
 
 # The course, in order. To add a module: write its page, add one line here, and run this script.
 MODULES = [
@@ -474,6 +478,28 @@ def outcomes_html(m):
             "  <!-- outcomes:end -->")
 
 
+def exercises_html(m):
+    n = len(EXERCISES.get(m["href"], []))
+    return ("<!-- exercises:start (made by tools/build.py) -->\n"
+            '      <h3 id="practice-in-code">Practice in code</h3>\n'
+            f'      <p>Write Python in your browser. Python loads from the internet when you select <b>Run tests</b> the first time. This takes 10 to 30 seconds. These {n} exercises are not part of the knowledge check.</p>\n'
+            f'      <div class="ex-set" data-module="{m["href"]}"><noscript><p>The code exercises need JavaScript.</p></noscript></div>\n'
+            "      <!-- exercises:end -->")
+
+
+def set_exercises(src, m):
+    if m["href"] not in EXERCISES:
+        return src
+    block = exercises_html(m)
+    if "<!-- exercises:start" in src:
+        return re.sub(r"<!-- exercises:start.*?<!-- exercises:end -->", lambda mo: block, src, count=1, flags=re.S)
+    new, n = re.subn(r'(<section id="knowledge-check">.*?)(\n    </div>\n  </section>)',
+                     lambda mo: mo.group(1) + "\n      " + block + mo.group(2), src, count=1, flags=re.S)
+    if n != 1:
+        raise SystemExit(f'{m["href"]}: knowledge check section not found')
+    return new
+
+
 def set_outcomes(src, m):
     block = outcomes_html(m)
     if "<!-- outcomes:start" in src:
@@ -670,6 +696,7 @@ for name in PAGES:
     src = set_head(src, name)
     if name in BY_HREF:
         src = set_outcomes(src, BY_HREF[name])
+        src = set_exercises(src, BY_HREF[name])
     src = replace_one(src, r'<nav (?:class="topnav" )?aria-label="(?:Modules|Main)">.*?</nav>', nav_html(name), name)
     src = replace_one(src, r'<nav class="pager".*?</nav>', pager_html(name), name)
     src = re.sub(r'<div class="frame"><iframe src="https://www\.youtube-nocookie\.com/embed/([A-Za-z0-9_-]+)" title="([^"]*)"[^>]*></iframe></div>', facade, src)
@@ -685,7 +712,7 @@ for name in PAGES:
 
 js = read("assets/site.js")
 data = ",\n".join("    " + json.dumps({"href": m["href"], "num": m["num"], "title": m["title"], "sections": len(m["sections"]),
-                                       "read": m["read"], "video": m["video"], "quick": m.get("quick", []), "quickRead": m["quickRead"], "tracks": m["tracks"]},
+                                       "read": m["read"], "video": m["video"], "quick": m.get("quick", []), "quickRead": m["quickRead"], "tracks": m["tracks"], "ex": len(EXERCISES.get(m["href"], []))},
                                       separators=(",", ":")) for m in MODULES)
 js, n = re.subn(r"var MODULES=\[.*?\n  \];", lambda mo: "var MODULES=[\n" + data + "\n  ];", js, count=1, flags=re.S)
 if n != 1:
@@ -710,6 +737,11 @@ for name, where in [(t["href"], "Topic: " + t["title"]) for t in TOPICS] + [(k, 
         index.append({"p": name, "w": where, "id": s["id"], "n": s["num"], "t": s["title"], "x": s["text"]})
 for e in glossary_entries:
     index.append({"p": GLOSSARY, "id": "term-" + slug(e["term"]), "t": e["term"], "x": e["def"], "g": 1})
+unknown = [p for p in EXERCISES if p not in BY_HREF]
+if unknown:
+    raise SystemExit(f"tools/exercises.py: unknown pages {unknown}")
+write("assets/exercises.js", "/* Made by tools/build.py from tools/exercises.py. Do not edit. */\nwindow.EXERCISES=" + json.dumps(EXERCISES, ensure_ascii=False, separators=(",", ":"))
+      + ";\nwindow.PY_RUNNER=" + json.dumps(RUNNER) + ";\n")
 write("assets/review-pool.js", "/* Made by tools/build.py. Do not edit. The questions of the final review. */\nwindow.REVIEW_POOL=" + json.dumps(review_pool, ensure_ascii=False, separators=(",", ":")) + ";\n")
 write("assets/search-index.js", "/* Made by tools/build.py. Do not edit. */\nwindow.SEARCH_INDEX=" + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -723,7 +755,7 @@ def fhash(name):
 # Add a version to each CSS and JavaScript address. A new version gets a new address, so a browser
 # or the offline copy can never show new pages with old styles or old scripts.
 js = read("assets/site.js")
-later = {n: fhash("assets/" + n) for n in ("flashcards.js", "playgrounds.js", "search-index.js")}
+later = {n: fhash("assets/" + n) for n in ("flashcards.js", "playgrounds.js", "search-index.js", "exercises.js", "py-runner.js")}
 js, n = re.subn(r"var ASSET_V=\{.*?\};", lambda mo: "var ASSET_V=" + json.dumps(later, separators=(",", ":")) + ";", js, count=1)
 if n != 1:
     raise SystemExit("assets/site.js: ASSET_V not found")

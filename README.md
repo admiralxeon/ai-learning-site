@@ -24,6 +24,8 @@ A static learning site with ten modules (0 to 9) and two tracks, written in ASD-
 | `assets/site.css` | All styles, light and dark theme |
 | `assets/site.js` | Navigation, progress, quizzes, search, display settings |
 | `assets/search-index.js` | Search data. **Generated**: do not edit by hand |
+| `assets/exercises.js` | The code exercises and the Python test runner. **Generated** from `tools/exercises.py` |
+| `assets/py-runner.js` | Runs Python in the browser with Pyodide 0.29.5 (a Web Worker on a web server, the page itself on `file://`) |
 | `assets/review-pool.js` | The questions of the final review, taken from each module. **Generated**: do not edit by hand |
 | `tools/build.py` | Build step (see below) |
 
@@ -47,6 +49,17 @@ The build writes the module menu, the previous/next links, the home module list,
 ## Add a short topic
 
 Write the page like a module (sections, a knowledge check, and `Technical names`), add one line to `TOPICS` in `tools/build.py`, and run the build. Topics are not part of the certificate.
+
+## Add or change a code exercise
+
+Edit `tools/exercises.py`. Each exercise has a starter, a solution, and tests (Python expressions that must be true). Then run:
+
+```
+python tools/check_exercises.py
+python tools/build.py
+```
+
+The check runs each solution and each starter with real Python: each solution must pass, and each starter must fail at least one test.
 
 ## Learner progress
 

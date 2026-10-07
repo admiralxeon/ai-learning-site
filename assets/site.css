@@ -1208,6 +1208,36 @@ table.plan a{display:inline-block;min-height:24px;line-height:24px}
 @media (max-width:440px){.rb{grid-template-columns:1fr}}
 .cert-cap{margin:.4rem 0 0;font-size:.85rem;word-break:break-all}
 
+/* Code exercises */
+.ex-set{margin:.75rem 0 0}
+.ex-sum{font-weight:600;color:var(--muted)}
+.ex-sum.all{color:var(--green)}
+.ex{margin:0 0 1rem;padding:1rem 1.1rem;border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet)}
+.ex-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem 1rem}
+.ex-head h4{margin:0;font-family:var(--font-head);font-size:1.15rem}
+.ex-chip{padding:.15rem .6rem;border-radius:999px;background:var(--sheet-2);border:1px solid var(--rule);font-size:.75rem;font-weight:600;color:var(--muted)}
+.ex-chip.ok{background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 40%,transparent);color:var(--green)}
+.ex-task{margin:.5rem 0 .6rem;max-width:none}
+.ex-code{display:block;width:100%;box-sizing:border-box;padding:.75rem .9rem;border:1.5px solid #26354A;border-radius:10px;background:#0E1621;color:#E3EAF3;font:500 .86rem/1.6 var(--font-mono);tab-size:4;resize:vertical;white-space:pre;overflow:auto}
+.ex-code:focus-visible{outline:3px solid var(--amber-ink);outline-offset:2px}
+.ex-act{margin:.6rem 0 0}
+.ex-hint{margin:.6rem 0 0;padding:.5rem .75rem;border-radius:8px;background:var(--amber-soft);max-width:none}
+.ex-out{margin-top:.6rem}
+.ex-out:empty{display:none}
+.ex-out.ok,.ex-out.bad{padding:.6rem .8rem;border-radius:10px;border:1px solid var(--rule)}
+.ex-out.ok{background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 40%,transparent)}
+.ex-out.bad{background:var(--red-soft);border-color:color-mix(in srgb,var(--red) 35%,transparent)}
+.ex-out p{margin:.2rem 0;max-width:none}
+.ex-tests{list-style:none;margin:.3rem 0;padding:0;max-width:none}
+.ex-tests li{margin:.15rem 0;padding:0;font-size:.9rem}
+.ex-tests li::before{content:none}
+.ex-tests li.ok{color:var(--green)}
+.ex-tests li.bad{color:var(--ink)}
+.ex-err,.ex-stdout{margin:.3rem 0 0;padding:.5rem .7rem;border-radius:8px;background:var(--sheet);border:1px solid var(--rule);font:500 .82rem/1.5 var(--font-mono);white-space:pre-wrap;word-break:break-word}
+.ex-sub{font-size:.8rem;color:var(--muted)}
+.ex-wait{color:var(--muted)}
+.ex-keys{font-size:.82rem;color:var(--muted)}
+
 /* ---------- Motion & print ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{
