@@ -12,6 +12,8 @@ A static learning site with eleven modules (0 to 10) and two tracks, written in 
 | `topic-*.html` | Short topics: computer vision, language tasks, recommendation systems, forecasting. Listed in `TOPICS` in `tools/build.py` |
 | `capstone.html` | The graded capstone of the AI Engineer track: two options, milestones, a submission checklist, and a seven-part rubric with a self-assessment score |
 | `verify.html` | Checks a certificate link: its ID and, for reviewed certificates, the ECDSA signature of the issuer |
+| `instructor.html`, `slides/*.html` | The instructor kit: course formats, assessment, a 90-minute lesson plan and a slide deck for each module. **Generated** from the modules |
+| `notes.html` | The learner's notes and bookmarks (kept in the browser) |
 | `review.html` | The final review: 20 questions drawn from all module knowledge checks. Passing it is the last step to the certificate |
 | `cheat-sheets.html` | One printable summary sheet for each module, and a formula sheet |
 | `careers.html` | Jobs in AI, skills, what to learn next, and how to build a portfolio |

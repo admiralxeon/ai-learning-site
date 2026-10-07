@@ -54,7 +54,7 @@
     {"href":"system-design.html","num":10,"title":"ML system design","sections":11,"read":13,"video":0,"quick":["a-method-in-seven-steps","estimate-load-latency-and-cost","case-study-fraud-detection","lessons-from-real-failures","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"],"ex":2}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"1ce0d28421","playgrounds.js":"083c6723e3","search-index.js":"0104509bf5","exercises.js":"1ec772a22e","py-runner.js":"b0c94173c4"};
+  var ASSET_V={"flashcards.js":"1ce0d28421","playgrounds.js":"083c6723e3","search-index.js":"d162fd2f2e","exercises.js":"1ec772a22e","py-runner.js":"b0c94173c4"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   // The tracks of the course. tools/build.py writes them.
   var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[],"capstone":false},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html","system-design.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"],"capstone":true}];

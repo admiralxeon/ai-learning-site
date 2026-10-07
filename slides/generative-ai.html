@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides: Generative AI | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=fb0c9c6007">
+<script src="../assets/slides.js?v=6e683b3824" defer></script>
+</head>
+<body class="deck-body">
+<main class="deck" aria-roledescription="slides" aria-label="Slides: Module 5, Generative AI">
+<h1 class="sr-only">Slides: Module 5, Generative AI</h1>
+<section class="slide slide-title"><p class="slide-k">Module 5</p><h2 class="slide-h">Generative AI</h2>
+      <p class="slide-sub">After this module, you can:</p><ul><li>Explain how a large language model is made.</li><li>Control the output with temperature and the context window.</li><li>Write clear prompts with a task, context, format, and examples.</li><li>Explain RAG and agents, and the risks of generative AI.</li></ul></section>
+<section class="slide" data-id="what-generative-ai-is"><h2>What generative AI is</h2><p>Most models in Module 3 are predictive. A predictive model looks at an input. Then it gives a label or a number. For example, it tells you if an email is spam.</p><figure class="slide-fig"><svg viewBox="0 0 760 290" role="img" aria-labelledby="g1t">
+            <title id="g1t">Predictive AI compared with generative AI</title>
+            <defs><marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <text class="hd" x="20" y="28">A. Predictive AI</text>
+            <rect class="box" x="20" y="45" width="150" height="60" rx="2"/><text class="lbl" x="95" y="71" text-anchor="middle">Input</text><text class="sm" x="95" y="89" text-anchor="middle">a photo of an animal</text>
+            <path class="line" d="M170 75 H196" marker-end="url(#g1)"/>
+            <rect class="boxb" x="200" y="45" width="140" height="60" rx="2"/><text class="hd" x="270" y="80" text-anchor="middle">Predictive model</text>
+            <path class="line" d="M340 75 H386" marker-end="url(#g1)"/>
+            <rect class="box" x="390" y="55" width="120" height="40" rx="2"/><text class="lbl" x="450" y="80" text-anchor="middle">"cat: 92%"</text>
+            <text class="lbl" x="530" y="72" style="fill:var(--blue);font-weight:600">A label or a number</text>
+            <text class="sm" x="530" y="90">It selects from known answers.</text>
+
+            <line class="faint" x1="20" y1="140" x2="740" y2="140"/>
+
+            <text class="hd" x="20" y="168">B. Generative AI</text>
+            <rect class="box" x="20" y="190" width="150" height="70" rx="2"/><text class="lbl" x="95" y="214" text-anchor="middle">Prompt</text><text class="sm" x="95" y="233" text-anchor="middle">"A cat on a mat,</text><text class="sm" x="95" y="249" text-anchor="middle">in watercolor"</text>
+            <path class="line" d="M170 225 H196" marker-end="url(#g1)"/>
+            <rect class="boxb" x="200" y="195" width="140" height="60" rx="2"/><text class="hd" x="270" y="230" text-anchor="middle">Generative model</text>
+            <path class="line" d="M340 225 H386" marker-end="url(#g1)"/>
+            <rect x="390" y="175" width="120" height="100" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <rect x="405" y="246" width="90" height="14" rx="2" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <ellipse cx="447" cy="233" rx="26" ry="15" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <circle cx="474" cy="213" r="12" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <polygon points="465,205 467,193 474,202" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <polygon points="476,202 483,193 484,206" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <path d="M421 236 Q410 222 418 212" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+            <text class="lbl" x="530" y="214" style="fill:var(--green);font-weight:600">New content</text>
+            <text class="sm" x="530" y="232">It did not exist before.</text>
+            <text class="sm" x="530" y="250">Text, image, sound, video, or code.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Generative AI is different. It makes new content. This content did not exist before. The model learns the patterns in its training data. Then it uses these patterns to make new examples that are similar to the data. Refer to Figure 1. A large generative model can do many different tasks. We call this type of model a foundation model . Companies use one foundation model in many products, for example chat, writing help, code help, and search. Generative AI does not copy text or pictures from a database. It makes new output from the patterns that it learned. But sometimes the output can be very similar to an item in the training data. <a href="../generative-ai.html#what-generative-ai-is">Open the section</a></div></section>
+<section class="slide" data-id="types-of-generative-ai"><h2>Types of generative AI</h2><p>Generative models can make different types of content. We call each type of content a <span class="tn" title="One type of data, for example text, image, sound, or video.">modality</span>.</p>
+      <div class="slide-notes"><b>Notes:</b> A multimodal model can use more than one modality. For example, it can receive a photograph and a question. Then it writes an answer about the photograph. <a href="../generative-ai.html#types-of-generative-ai">Open the section</a></div></section>
+<section class="slide" data-id="how-a-large-language-model-is-made"><h2>How a large language model is made</h2><p>A modern chat AI is made in three stages. Refer to Figure 2.</p><figure class="slide-fig"><svg viewBox="0 0 760 250" role="img" aria-labelledby="g2t">
+            <title id="g2t">The three stages that make a chat AI</title>
+            <defs><marker id="g2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="20" y="40" width="210" height="64" rx="2"/><text class="lbl" x="125" y="67" text-anchor="middle" style="font-weight:600">(1) Pretraining</text><text class="sm" x="125" y="87" text-anchor="middle">Predict the next token</text>
+            <path class="line" d="M230 72 H271" marker-end="url(#g2)"/>
+            <rect class="boxb" x="275" y="40" width="210" height="64" rx="2"/><text class="lbl" x="380" y="67" text-anchor="middle" style="font-weight:600">(2) Fine-tuning</text><text class="sm" x="380" y="87" text-anchor="middle">Learn from good answers</text>
+            <path class="line" d="M485 72 H526" marker-end="url(#g2)"/>
+            <rect x="530" y="40" width="210" height="64" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="635" y="67" text-anchor="middle" style="font-weight:600">(3) Human feedback</text><text class="sm" x="635" y="87" text-anchor="middle">Learn what people prefer</text>
+
+            <line class="faint" x1="20" y1="122" x2="740" y2="122"/>
+
+            <text class="hd" x="20" y="146">Data</text>
+            <text class="sm" x="20" y="164">Trillions of tokens of text, from</text>
+            <text class="sm" x="20" y="180">books, websites, and code.</text>
+            <text class="hd" x="20" y="210">Result</text>
+            <text class="sm" x="20" y="228">A base model. It continues text,</text>
+            <text class="sm" x="20" y="244">but it does not follow instructions.</text>
+
+            <text class="hd" x="275" y="146">Data</text>
+            <text class="sm" x="275" y="164">Thousands of example questions,</text>
+            <text class="sm" x="275" y="180">each with a good answer.</text>
+            <text class="hd" x="275" y="210">Result</text>
+            <text class="sm" x="275" y="228">An assistant model. It follows</text>
+            <text class="sm" x="275" y="244">instructions.</text>
+
+            <text class="hd" x="530" y="146">Data</text>
+            <text class="sm" x="530" y="164">People compare two answers and</text>
+            <text class="sm" x="530" y="180">select the better answer.</text>
+            <text class="hd" x="530" y="210" style="fill:var(--green)">Result</text>
+            <text class="sm" x="530" y="228">A model that is more helpful,</text>
+            <text class="sm" x="530" y="244">more honest, and safer.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> In pretraining , the model reads a very large quantity of text. Its task is to predict the next token. For more information about tokens, refer to Module 1, Section 6 . Most of these models are transformers. Refer to Module 4, Section 8 . Pretraining can take months. It uses thousands of special computer chips at the same time. We call these chips GPUs . Pretraining is the most expensive stage. The result is a base model . A base model knows much about language and about the world. But it only continues text. If you ask it a question, it can write more questions in place of an answer. <a href="../generative-ai.html#how-a-large-language-model-is-made">Open the section</a></div></section>
+<section class="slide" data-id="how-a-model-selects-its-output"><h2>How a model selects its output</h2><p>Module 1 tells you that a model calculates a probability for each possible next token. Then the system selects one token. We call this selection <span class="tn" title="The selection of the next token from the probabilities that the model calculates.">sampling</span>.</p><figure class="slide-fig"><svg viewBox="0 0 760 260" role="img" aria-labelledby="g3t">
+            <title id="g3t">Next-token probabilities at a low and a high temperature</title>
+            <text class="hd" x="20" y="26">Prompt: "The sky is ..."</text>
+            <line class="faint" x1="380" y1="44" x2="380" y2="232"/>
+
+            <text class="hd" x="20" y="62">Low temperature (0.2)</text>
+            <text class="lbl" x="20" y="93">blue</text><rect class="barhi" x="80" y="80" width="179" height="18"/><text class="sm" x="267" y="94">78%</text>
+            <text class="lbl" x="20" y="125">clear</text><rect class="bar" x="80" y="112" width="28" height="18"/><text class="sm" x="116" y="126">12%</text>
+            <text class="lbl" x="20" y="157">grey</text><rect class="bar" x="80" y="144" width="14" height="18"/><text class="sm" x="102" y="158">6%</text>
+            <text class="lbl" x="20" y="189">dark</text><rect class="bar" x="80" y="176" width="7" height="18"/><text class="sm" x="95" y="190">3%</text>
+            <text class="lbl" x="20" y="221">falling</text><rect class="bar" x="80" y="208" width="3" height="18"/><text class="sm" x="91" y="222">1%</text>
+
+            <text class="hd" x="400" y="62">High temperature (1.2)</text>
+            <text class="lbl" x="400" y="93">blue</text><rect class="barhi" x="460" y="80" width="78" height="18"/><text class="sm" x="546" y="94">34%</text>
+            <text class="lbl" x="400" y="125">clear</text><rect class="bar" x="460" y="112" width="51" height="18"/><text class="sm" x="519" y="126">22%</text>
+            <text class="lbl" x="400" y="157">grey</text><rect class="bar" x="460" y="144" width="41" height="18"/><text class="sm" x="509" y="158">18%</text>
+            <text class="lbl" x="400" y="189">dark</text><rect class="bar" x="460" y="176" width="32" height="18"/><text class="sm" x="500" y="190">14%</text>
+            <text class="lbl" x="400" y="221">falling</text><rect class="bar" x="460" y="208" width="28" height="18"/><text class="sm" x="496" y="222">12%</text>
+
+            <text class="sm" x="20" y="252">Predictable output. Good for facts and code.</text>
+            <text class="sm" x="400" y="252">Varied output. Good for ideas and stories.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> If the system always selects the token with the highest probability, the text is predictable. But the text can become repetitive. If the system sometimes selects a token with a lower probability, the text is more varied. A setting with the name temperature controls this. Refer to Figure 3. Because of sampling, the same prompt can give a different answer each time. This is usual. It is not a fault. <a href="../generative-ai.html#how-a-model-selects-its-output">Open the section</a></div></section>
+<section class="slide" data-id="how-an-image-generator-works"><h2>How an image generator works</h2><p>Most image generators use a <span class="tn" title="A generative model that learns to remove noise from an image. It makes a new image when it starts from random noise.">diffusion model</span>. A diffusion model learns to remove <span class="tn" title="Random values that hide the content of an image, like the static on an old television.">noise</span> from an image. Refer to Figure 4.</p><figure class="slide-fig"><svg viewBox="0 0 760 310" role="img" aria-labelledby="g4t">
+            <title id="g4t">A diffusion model adds noise in training and removes noise in generation</title>
+            <defs>
+              <marker id="g4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+              <symbol id="g4-scene" viewBox="0 0 100 100">
+                <rect width="100" height="100" fill="var(--blue-soft)"/>
+                <circle cx="73" cy="27" r="12" fill="var(--amber)"/>
+                <polygon points="0,100 0,78 28,46 46,68 66,38 100,82 100,100" fill="var(--blue)"/>
+                <polygon points="0,100 0,88 40,80 100,90 100,100" fill="var(--green)"/>
+              </symbol>
+              <pattern id="g4-noise" width="32" height="32" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="4" height="4" fill="var(--rule-strong)"/><rect x="4" y="0" width="4" height="4" fill="var(--muted)"/><rect x="8" y="0" width="4" height="4" fill="var(--sheet)"/><rect x="12" y="0" width="4" height="4" fill="var(--diagram-bg)"/><rect x="16" y="0" width="4" height="4" fill="var(--ink)"/><rect x="20" y="0" width="4" height="4" fill="var(--ink)"/><rect x="24" y="0" width="4" height="4" fill="var(--blue)"/><rect x="28" y="0" width="4" height="4" fill="var(--ink)"/><rect x="0" y="4" width="4" height="4" fill="var(--rule-strong)"/><rect x="4" y="4" width="4" height="4" fill="var(--blue)"/><rect x="8" y="4" width="4" height="4" fill="var(--ink)"/><rect x="12" y="4" width="4" height="4" fill="var(--blue)"/><rect x="16" y="4" width="4" height="4" fill="var(--muted)"/><rect x="20" y="4" width="4" height="4" fill="var(--ink)"/><rect x="24" y="4" width="4" height="4" fill="var(--ink)"/><rect x="28" y="4" width="4" height="4" fill="var(--sheet)"/><rect x="0" y="8" width="4" height="4" fill="var(--sheet)"/><rect x="4" y="8" width="4" height="4" fill="var(--ink)"/><rect x="8" y="8" width="4" height="4" fill="var(--muted)"/><rect x="12" y="8" width="4" height="4" fill="var(--ink)"/><rect x="16" y="8" width="4" height="4" fill="var(--blue)"/><rect x="20" y="8" width="4" height="4" fill="var(--sheet)"/><rect x="24" y="8" width="4" height="4" fill="var(--ink)"/><rect x="28" y="8" width="4" height="4" fill="var(--blue)"/><rect x="0" y="12" width="4" height="4" fill="var(--ink)"/><rect x="4" y="12" width="4" height="4" fill="var(--muted)"/><rect x="8" y="12" width="4" height="4" fill="var(--diagram-bg)"/><rect x="12" y="12" width="4" height="4" fill="var(--diagram-bg)"/><rect x="16" y="12" width="4" height="4" fill="var(--blue)"/><rect x="20" y="12" width="4" height="4" fill="var(--ink)"/><rect x="24" y="12" width="4" height="4" fill="var(--blue)"/><rect x="28" y="12" width="4" height="4" fill="var(--blue)"/><rect x="0" y="16" width="4" height="4" fill="var(--sheet)"/><rect x="4" y="16" width="4" height="4" fill="var(--ink)"/><rect x="8" y="16" width="4" height="4" fill="var(--muted)"/><rect x="12" y="16" width="4" height="4" fill="var(--ink)"/><rect x="16" y="16" width="4" height="4" fill="var(--blue)"/><rect x="20" y="16" width="4" height="4" fill="var(--muted)"/><rect x="24" y="16" width="4" height="4" fill="var(--rule-strong)"/><rect x="28" y="16" width="4" height="4" fill="var(--sheet)"/><rect x="0" y="20" width="4" height="4" fill="var(--muted)"/><rect x="4" y="20" width="4" height="4" fill="var(--blue)"/><rect x="8" y="20" width="4" height="4" fill="var(--ink)"/><rect x="12" y="20" width="4" height="4" fill="var(--blue)"/><rect x="16" y="20" width="4" height="4" fill="var(--rule-strong)"/><rect x="20" y="20" width="4" height="4" fill="var(--blue)"/><rect x="24" y="20" width="4" height="4" fill="var(--diagram-bg)"/><rect x="28" y="20" width="4" height="4" fill="var(--muted)"/><rect x="0" y="24" width="4" height="4" fill="var(--ink)"/><rect x="4" y="24" width="4" height="4" fill="var(--blue)"/><rect x="8" y="24" width="4" height="4" fill="var(--blue)"/><rect x="12" y="24" width="4" height="4" fill="var(--diagram-bg)"/><rect x="16" y="24" width="4" height="4" fill="var(--muted)"/><rect x="20" y="24" width="4" height="4" fill="var(--rule-strong)"/><rect x="24" y="24" width="4" height="4" fill="var(--ink)"/><rect x="28" y="24" width="4" height="4" fill="var(--blue)"/><rect x="0" y="28" width="4" height="4" fill="var(--diagram-bg)"/><rect x="4" y="28" width="4" height="4" fill="var(--ink)"/><rect x="8" y="28" width="4" height="4" fill="var(--blue)"/><rect x="12" y="28" width="4" height="4" fill="var(--ink)"/><rect x="16" y="28" width="4" height="4" fill="var(--blue)"/><rect x="20" y="28" width="4" height="4" fill="var(--muted)"/><rect x="24" y="28" width="4" height="4" fill="var(--sheet)"/><rect x="28" y="28" width="4" height="4" fill="var(--diagram-bg)"/></pattern>
+            </defs>
+
+            <text class="hd" x="20" y="28">A. Training: add noise, step by step</text>
+            <use href="#g4-scene" x="20" y="40" width="100" height="100"/>
+            <use href="#g4-scene" x="170" y="40" width="100" height="100" opacity=".8"/><rect x="170" y="40" width="100" height="100" fill="url(#g4-noise)" opacity=".3"/>
+            <use href="#g4-scene" x="320" y="40" width="100" height="100" opacity=".55"/><rect x="320" y="40" width="100" height="100" fill="url(#g4-noise)" opacity=".55"/>
+            <use href="#g4-scene" x="470" y="40" width="100" height="100" opacity=".3"/><rect x="470" y="40" width="100" height="100" fill="url(#g4-noise)" opacity=".8"/>
+            <use href="#g4-scene" x="620" y="40" width="100" height="100" opacity=".08"/><rect x="620" y="40" width="100" height="100" fill="url(#g4-noise)"/>
+            <rect class="faint" x="20" y="40" width="100" height="100" fill="none"/><rect class="faint" x="170" y="40" width="100" height="100" fill="none"/><rect class="faint" x="320" y="40" width="100" height="100" fill="none"/><rect class="faint" x="470" y="40" width="100" height="100" fill="none"/><rect class="faint" x="620" y="40" width="100" height="100" fill="none"/>
+            <path class="line" d="M122 90 H166" marker-end="url(#g4)"/><path class="line" d="M272 90 H316" marker-end="url(#g4)"/><path class="line" d="M422 90 H466" marker-end="url(#g4)"/><path class="line" d="M572 90 H616" marker-end="url(#g4)"/>
+            <text class="sm" x="144" y="80" text-anchor="middle">+ noise</text><text class="sm" x="294" y="80" text-anchor="middle">+ noise</text><text class="sm" x="444" y="80" text-anchor="middle">+ noise</text><text class="sm" x="594" y="80" text-anchor="middle">+ noise</text>
+            <text class="sm" x="70" y="156" text-anchor="middle">Training image</text><text class="sm" x="670" y="156" text-anchor="middle">Only noise</text>
+
+            <line class="faint" x1="20" y1="170" x2="740" y2="170"/>
+
+            <text class="hd" x="20" y="194">B. Generation: remove noise, step by step</text>
+            <text class="sm" x="740" y="194" text-anchor="end" style="fill:var(--green)">Prompt: "mountains and a sun"</text>
+            <use href="#g4-scene" x="20" y="205" width="100" height="100" opacity=".08"/><rect x="20" y="205" width="100" height="100" fill="url(#g4-noise)"/>
+            <use href="#g4-scene" x="170" y="205" width="100" height="100" opacity=".3"/><rect x="170" y="205" width="100" height="100" fill="url(#g4-noise)" opacity=".8"/>
+            <use href="#g4-scene" x="320" y="205" width="100" height="100" opacity=".55"/><rect x="320" y="205" width="100" height="100" fill="url(#g4-noise)" opacity=".55"/>
+            <use href="#g4-scene" x="470" y="205" width="100" height="100" opacity=".8"/><rect x="470" y="205" width="100" height="100" fill="url(#g4-noise)" opacity=".3"/>
+            <use href="#g4-scene" x="620" y="205" width="100" height="100"/>
+            <rect class="faint" x="20" y="205" width="100" height="100" fill="none"/><rect class="faint" x="170" y="205" width="100" height="100" fill="none"/><rect class="faint" x="320" y="205" width="100" height="100" fill="none"/><rect class="faint" x="470" y="205" width="100" height="100" fill="none"/><rect x="620" y="205" width="100" height="100" fill="none" stroke="var(--green)" stroke-width="2"/>
+            <path class="line" d="M122 255 H166" marker-end="url(#g4)"/><path class="line" d="M272 255 H316" marker-end="url(#g4)"/><path class="line" d="M422 255 H466" marker-end="url(#g4)"/><path class="line" d="M572 255 H616" marker-end="url(#g4)"/>
+            <text class="sm" x="144" y="245" text-anchor="middle">− noise</text><text class="sm" x="294" y="245" text-anchor="middle">− noise</text><text class="sm" x="444" y="245" text-anchor="middle">− noise</text><text class="sm" x="594" y="245" text-anchor="middle">− noise</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Video generators use the same principle. They also keep the frames of the video consistent with each other. <a href="../generative-ai.html#how-an-image-generator-works">Open the section</a></div></section>
+<section class="slide" data-id="how-to-write-a-good-prompt"><h2>How to write a good prompt</h2><p>The quality of the answer depends on the quality of the prompt. A good prompt gives the model the information that it needs. A good prompt can have five parts. Refer to Figure 5.</p><figure class="slide-fig"><svg viewBox="0 0 760 280" role="img" aria-labelledby="g5t">
+            <title id="g5t">The five parts of a good prompt</title>
+            <rect class="box" x="20" y="20" width="420" height="244" rx="6"/>
+            <rect class="boxb" x="34" y="34" width="76" height="36" rx="3"/><text class="hd" x="72" y="58" text-anchor="middle">Role</text><text class="lbl" x="124" y="57">You are a science teacher.</text>
+            <rect class="boxb" x="34" y="80" width="76" height="36" rx="3"/><text class="hd" x="72" y="104" text-anchor="middle">Task</text><text class="lbl" x="124" y="103">Explain how a rainbow forms.</text>
+            <rect class="boxb" x="34" y="126" width="76" height="36" rx="3"/><text class="hd" x="72" y="150" text-anchor="middle">Context</text><text class="lbl" x="124" y="149">The readers are 10 years old.</text>
+            <rect class="boxb" x="34" y="172" width="76" height="36" rx="3"/><text class="hd" x="72" y="196" text-anchor="middle">Format</text><text class="lbl" x="124" y="195">Use 5 short steps, max. 100 words.</text>
+            <rect x="34" y="218" width="76" height="36" rx="3" fill="var(--sheet)" stroke="var(--green)" stroke-width="1.5"/><text class="hd" x="72" y="242" text-anchor="middle" style="fill:var(--green)">Example</text><text class="lbl" x="124" y="241">Step 1: Sunlight goes into a raindrop.</text>
+
+            <text class="lbl" x="470" y="48" style="font-weight:600">Who the AI must act as</text><text class="sm" x="470" y="65">Optional. It sets the style and the level.</text>
+            <text class="lbl" x="470" y="94" style="font-weight:600">What the AI must do</text><text class="sm" x="470" y="111">Use a clear verb: explain, list, compare.</text>
+            <text class="lbl" x="470" y="140" style="font-weight:600">Facts that the AI needs</text><text class="sm" x="470" y="157">Who reads the answer, and why.</text>
+            <text class="lbl" x="470" y="186" style="font-weight:600">The shape of the answer</text><text class="sm" x="470" y="203">Length, steps, table, or list.</text>
+            <text class="lbl" x="470" y="232" style="font-weight:600">A sample of a good result</text><text class="sm" x="470" y="249">The model copies its style.</text>
+            <path class="faint" d="M440 52 H462 M440 98 H462 M440 144 H462 M440 190 H462 M440 236 H462"/>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> These examples show how to make a weak prompt better: Many AI products add hidden instructions before your prompt. We call these instructions the system prompt . The system prompt gives the model its role and its rules. Copy each prompt into any chat AI. Compare the answer with the description of a good answer. <a href="../generative-ai.html#how-to-write-a-good-prompt">Open the section</a></div></section>
+<section class="slide" data-id="connect-a-model-to-documents-and-tools"><h2>Connect a model to documents and tools</h2><p>A model knows only its training data. It does not know your company documents or the news of today. A method with the name <span class="tn" title="Retrieval-augmented generation: a method that finds relevant text in documents and adds it to the prompt. The model then uses this text to write its answer.">RAG</span> solves this problem. Refer to Figure 6.</p><figure class="slide-fig"><svg viewBox="0 0 760 270" role="img" aria-labelledby="g6t">
+            <title id="g6t">Retrieval-augmented generation</title>
+            <defs>
+              <marker id="g6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+              <marker id="g6b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--blue)"/></marker>
+            </defs>
+            <path class="lineb" d="M90 40 V22 H485 V36" stroke-dasharray="5 4" marker-end="url(#g6b)"/>
+            <text class="sm" x="288" y="16" text-anchor="middle" style="fill:var(--blue)">The question also goes into the prompt.</text>
+
+            <rect class="box" x="20" y="40" width="140" height="60" rx="2"/><text class="lbl" x="90" y="66" text-anchor="middle" style="font-weight:600">(1) Question</text><text class="sm" x="90" y="86" text-anchor="middle">from the user</text>
+            <path class="line" d="M160 70 H206" marker-end="url(#g6)"/>
+            <rect class="boxb" x="210" y="40" width="150" height="60" rx="2"/><text class="lbl" x="285" y="66" text-anchor="middle" style="font-weight:600">(2) Search</text><text class="sm" x="285" y="86" text-anchor="middle">find relevant text</text>
+            <path class="line" d="M360 70 H406" marker-end="url(#g6)"/>
+            <rect class="box" x="410" y="40" width="150" height="60" rx="2"/><text class="lbl" x="485" y="66" text-anchor="middle" style="font-weight:600">(3) Make prompt</text><text class="sm" x="485" y="86" text-anchor="middle">question + found text</text>
+            <path class="line" d="M560 70 H596" marker-end="url(#g6)"/>
+            <rect class="boxb" x="600" y="40" width="140" height="60" rx="2"/><text class="lbl" x="670" y="66" text-anchor="middle" style="font-weight:600">(4) LLM</text><text class="sm" x="670" y="86" text-anchor="middle">writes the answer</text>
+            <path class="line" d="M670 100 V176" marker-end="url(#g6)"/>
+            <rect x="600" y="180" width="140" height="60" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="670" y="206" text-anchor="middle" style="fill:var(--green);font-weight:600">(5) Answer</text><text class="sm" x="670" y="226" text-anchor="middle">with its sources</text>
+
+            <rect x="230" y="170" width="140" height="64" rx="2" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.2"/>
+            <rect x="222" y="178" width="140" height="64" rx="2" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.2"/>
+            <rect x="214" y="186" width="140" height="64" rx="2" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.5"/>
+            <text class="lbl" x="284" y="214" text-anchor="middle">Your documents</text><text class="sm" x="284" y="234" text-anchor="middle">manuals, policies, notes</text>
+            <path class="line" d="M285 168 V104" marker-end="url(#g6)"/>
+            <text class="sm" x="295" y="140">relevant parts</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> RAG has these advantages: Some AI systems can use tools. For example, they can search the web, do calculations, run code, or send an email. An AI agent is a system that uses an LLM to plan steps. Then it uses tools to complete a task. Example task for an agent: "Find three hotels in Pune for less than ₹5,000 per night. Make a table of their prices and ratings." <a href="../generative-ai.html#connect-a-model-to-documents-and-tools">Open the section</a></div></section>
+<section class="slide" data-id="risks-of-generative-ai"><h2>Risks of generative AI</h2><p>Generative AI can make content that looks real but is false. This includes text, photographs, voices, and videos. Do not believe content only because it looks real.</p><ul><li><b>Hallucinations.</b> A model can invent facts, quotes, and references. The text can sound correct and confident. Refer to <a href="../ai.html#limits-and-risks">Module 1, Section 8</a>.</li><li><b>Deepfakes.</b> A <span class="tn" title="An image, video, or voice recording that AI makes to show a real person doing or saying something that did not occur.">deepfake</span> is a false image, video, or voice of a real person. Criminals use deepfakes for fraud. For example, a false voice of a family member asks for money.</li><li><b>Copyright.</b> Models are trained on content that people made. The rules about the use of this content are different in different countries. The output can also be similar to an existing work.</li><li><b>Bias.</b> Text and images from a model can repeat unfair ideas from the training data.</li><li><b>Prompt injection.</b> A web page or a document can contain hidden instructions for an AI. We call this <span class="tn" title="An attack in which hidden text in a document or web page gives instructions to an AI system.">prompt injection</span>. These instructions can make an AI agent do something that you did not ask for.</li><li><b>Private data.</b> Data that you give to an AI tool can be kept by the company that makes the tool.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> Know these risks: Obey the rules of your school or company for the use of AI. Some rules tell you to say when AI helped you to make a document. <a href="../generative-ai.html#risks-of-generative-ai">Open the section</a></div></section>
+<section class="slide" data-id="summary"><h2>Summary</h2><ul><li>Generative AI makes new content: text, images, sound, video, and code.</li><li>A chat AI is made in three stages: pretraining, fine-tuning, and human feedback.</li><li>Temperature controls how predictable or varied the output is.</li><li>The context window limits how much text a model can use at one time.</li><li>An image generator starts from noise and removes it step by step.</li><li>A good prompt gives the task, the context, the format, and an example.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../generative-ai.html#summary">Open the section</a></div></section>
+<section class="slide slide-end"><h2>Practice</h2><ul>
+      <li>Do the <a href="../generative-ai.html#knowledge-check">knowledge check</a> of Module 5.</li>
+      <li>Do the code exercises under <a href='../generative-ai.html#practice-in-code'>Practice in code</a>.</li>
+      <li>Practice the technical names with the <a href="../glossary.html#flashcards">flashcards</a>.</li></ul></section>
+</main>
+<nav class="deck-bar" aria-label="Slide controls">
+  <a class="deck-home" href="../instructor.html#lesson-module-5">Instructor kit</a>
+  <button type="button" class="deck-prev" aria-label="Previous slide">&larr;</button>
+  <span class="deck-count" aria-live="polite"></span>
+  <button type="button" class="deck-next" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="deck-notes" aria-pressed="false">Notes (N)</button>
+  <button type="button" class="deck-full">Full screen (F)</button>
+</nav>
+</body>
+</html>

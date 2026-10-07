@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides: Responsible AI | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=fb0c9c6007">
+<script src="../assets/slides.js?v=6e683b3824" defer></script>
+</head>
+<body class="deck-body">
+<main class="deck" aria-roledescription="slides" aria-label="Slides: Module 6, Responsible AI">
+<h1 class="sr-only">Slides: Module 6, Responsible AI</h1>
+<section class="slide slide-title"><p class="slide-k">Module 6</p><h2 class="slide-h">Responsible AI</h2>
+      <p class="slide-sub">After this module, you can:</p><ul><li>Find and measure bias in a model.</li><li>Apply the basic rules of privacy and AI law.</li><li>Plan explanations and human oversight.</li><li>Evaluate an AI tool, and decide when not to use AI.</li></ul></section>
+<section class="slide" data-id="what-responsible-ai-is"><h2>What responsible AI is</h2><p>An AI system can help many people. It can also cause harm. For example, it can refuse a loan to a person without a good reason, or it can show private data. Responsible AI is the work to prevent this harm.</p>
+      <div class="slide-notes"><b>Notes:</b> Most companies and governments use the same principles: The AI does not have responsibility. People do. The organization that uses the system is responsible for its decisions. <a href="../responsible-ai.html#what-responsible-ai-is">Open the section</a></div></section>
+<section class="slide" data-id="bias-and-fairness"><h2>Bias and fairness</h2><p>An AI system has <span class="tn" title="A systematic error that makes a system treat some groups of people or things worse than others.">bias</span> when it makes more errors for some groups than for others. Bias can get into the system at each step of the ML workflow. Refer to Figure 1.</p><figure class="slide-fig"><svg viewBox="0 0 760 230" role="img" aria-labelledby="r1t">
+            <title id="r1t">Four places where bias can get into an AI system</title>
+            <defs><marker id="r1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="20" y="40" width="160" height="60" rx="2"/><text class="lbl" x="100" y="66" text-anchor="middle" style="font-weight:600">(1) Data</text><text class="sm" x="100" y="86" text-anchor="middle">which examples are collected</text>
+            <path class="line" d="M180 70 H206" marker-end="url(#r1)"/>
+            <rect class="box" x="210" y="40" width="160" height="60" rx="2"/><text class="lbl" x="290" y="66" text-anchor="middle" style="font-weight:600">(2) Labels</text><text class="sm" x="290" y="86" text-anchor="middle">the opinions of people</text>
+            <path class="line" d="M370 70 H396" marker-end="url(#r1)"/>
+            <rect class="boxb" x="400" y="40" width="160" height="60" rx="2"/><text class="lbl" x="480" y="66" text-anchor="middle" style="font-weight:600">(3) Design</text><text class="sm" x="480" y="86" text-anchor="middle">what the model must predict</text>
+            <path class="line" d="M560 70 H586" marker-end="url(#r1)"/>
+            <rect x="590" y="40" width="150" height="60" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="665" y="66" text-anchor="middle" style="font-weight:600">(4) Use</text><text class="sm" x="665" y="86" text-anchor="middle">who uses it, and where</text>
+
+            <g fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.2">
+              <rect x="20" y="125" width="160" height="88" rx="4"/><rect x="210" y="125" width="160" height="88" rx="4"/><rect x="400" y="125" width="160" height="88" rx="4"/><rect x="590" y="125" width="150" height="88" rx="4"/>
+            </g>
+            <g class="sm" style="fill:var(--ink)">
+              <text x="32" y="148">Photographs of one</text><text x="32" y="166">type of mango only.</text><text x="32" y="184">Few examples of</text><text x="32" y="202">older people.</text>
+              <text x="222" y="148">Old hiring decisions</text><text x="222" y="166">that were not fair</text><text x="222" y="184">become the labels.</text>
+              <text x="412" y="148">The model predicts</text><text x="412" y="166">"cost", but the real</text><text x="412" y="184">goal is "health need".</text>
+              <text x="602" y="148">A model from one</text><text x="602" y="166">country is used in a</text><text x="602" y="184">different country.</text>
+            </g>
+            <text class="hd" x="20" y="26" style="fill:var(--red)">Examples of bias at each step</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../responsible-ai.html#bias-and-fairness">Open the section</a></div></section>
+<section class="slide" data-id="privacy-and-the-law"><h2>Privacy and the law</h2><p>Many AI systems use <span class="tn" title="Data that identifies a person, or that can identify a person when it is combined with other data. For example: a name, a phone number, a face, or a location.">personal data</span>. Personal data is any data that can identify a person, for example a name, a phone number, a photograph of a face, or a location.</p><figure class="slide-fig"><svg viewBox="0 0 760 290" role="img" aria-labelledby="r2t">
+            <title id="r2t">The four levels of risk in the EU AI Act</title>
+            <polygon points="150,20 210,20 250,80 110,80" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.5"/>
+            <polygon points="110,86 250,86 290,146 70,146" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/>
+            <polygon points="70,152 290,152 330,212 30,212" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <polygon points="30,218 330,218 360,270 0,270" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.5"/>
+            <text class="hd" x="180" y="56" text-anchor="middle" style="fill:var(--red)">Unacceptable</text>
+            <text class="hd" x="180" y="122" text-anchor="middle" style="fill:var(--amber-ink)">High</text>
+            <text class="hd" x="180" y="188" text-anchor="middle" style="fill:var(--blue)">Limited</text>
+            <text class="hd" x="180" y="250" text-anchor="middle" style="fill:var(--green)">Minimal</text>
+            <path class="faint" d="M255 50 H385 M295 116 H385 M335 182 H385 M360 244 H385"/>
+            <text class="lbl" x="395" y="46" style="font-weight:600">Not allowed</text><text class="sm" x="395" y="63">For example, social scoring of citizens.</text>
+            <text class="lbl" x="395" y="112" style="font-weight:600">Strict rules: tests, records, human checks</text><text class="sm" x="395" y="129">For example, hiring, credit scores, exams, medical devices.</text>
+            <text class="lbl" x="395" y="178" style="font-weight:600">Tell people that AI is used</text><text class="sm" x="395" y="195">For example, chatbots and deepfakes.</text>
+            <text class="lbl" x="395" y="240" style="font-weight:600">No special rules</text><text class="sm" x="395" y="257">For example, spam filters and video games.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Follow the principle of data minimization : collect only the data that the system really needs. Data that you do not have cannot be stolen. The European Union made the first large law about AI: the EU AI Act (2024). It puts AI systems into four levels of risk. A higher risk has stricter rules. Refer to Figure 2. Laws are different in each country, and they change frequently. Before you use AI with personal data or for important decisions, get advice from a legal expert. <a href="../responsible-ai.html#privacy-and-the-law">Open the section</a></div></section>
+<section class="slide" data-id="explanations-and-human-oversight"><h2>Explanations and human oversight</h2><p>Module 4 tells you that it is difficult to know why a deep network gives an answer. But when a decision has a large effect on a person, the person must be able to ask "why?". <span class="tn" title="The ability to tell people why an AI system made a decision, in words that they can understand.">Explainability</span> is the ability to answer this question.</p><ul><li><b>Show the most important features.</b> For example: "The loan was refused mainly because of the low income and the short work history."</li><li><b>Show similar examples.</b> For example: "Mangoes with these marks were damaged in 9 of 10 cases."</li><li><b>Use a simpler model.</b> For important decisions, a decision tree can be better than a deep network, because people can read it.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> Some methods help: There are two common designs: A human check is useful only if the person has the time, the knowledge, and the authority to disagree with the AI. If a person always accepts the AI's suggestion, there is no real check. <a href="../responsible-ai.html#explanations-and-human-oversight">Open the section</a></div></section>
+<section class="slide" data-id="evaluate-an-ai-tool-before-you-trust-it"><h2>Evaluate an AI tool before you trust it</h2><p>Many companies sell AI tools. Their demonstrations show the best results. Do your own test with your own data.</p><ol><li>Write the task, and write what a good result is.</li><li>Collect 20 to 50 real examples from your task. Include difficult examples.</li><li>Test the tool on these examples. Count the errors, and look at each error.</li><li>Compare the results for different groups of users.</li><li>Read where the tool keeps your data, and if the company uses your data for training.</li><li>Decide who checks the results, and who is responsible for errors.</li></ol>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../responsible-ai.html#evaluate-an-ai-tool-before-you-trust-it">Open the section</a></div></section>
+<section class="slide" data-id="when-not-to-use-ai"><h2>When not to use AI</h2><p>AI is not always the best solution. A usual program, a simple rule, or a person can be better. Do not use AI in these cases:</p><ul><li><b>A simple rule works.</b> If a person can write clear rules that are always correct, use a usual program. It is cheaper and easier to check.</li><li><b>There is no good data.</b> Without enough correct and fair examples, the model cannot learn.</li><li><b>Nobody can check the errors.</b> If an error can cause serious harm and no person can check the decisions, do not use AI.</li><li><b>The law requires an explanation that you cannot give.</b></li><li><b>The task needs human care.</b> For example, telling a patient bad news.</li><li><b>The cost is larger than the benefit.</b> Include the cost of data, training, checks, and errors.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> "Do not use AI" is a correct result of a careful plan. It is not a failure. <a href="../responsible-ai.html#when-not-to-use-ai">Open the section</a></div></section>
+<section class="slide" data-id="capstone-project-plan-an-ai-solution"><h2>Capstone project: plan an AI solution</h2><p>Now use what you learned. Select a problem from your work, your studies, or your town. Then answer the nine questions below. Each question has a link to the part of the manual that helps you.</p>
+      <div class="slide-notes"><b>Notes:</b> In the AI Engineer track, this plan is part 1 of the capstone. In part 2, you build it. Refer to the capstone page . If you need an idea, select Load the mango example . It shows the plan for the mango checker. <a href="../responsible-ai.html#capstone-project-plan-an-ai-solution">Open the section</a></div></section>
+<section class="slide" data-id="summary"><h2>Summary</h2><ul><li>Responsible AI is fair, transparent, private, safe, and under human control. People are responsible, not the AI.</li><li>Bias can get into a system through the data, the labels, the design, or the use.</li><li>Measure the results for each group separately to find bias.</li><li>Laws such as the DPDP Act, the GDPR, and the EU AI Act control personal data and AI.</li><li>For important decisions, give explanations and let a qualified person check each decision.</li><li>Test an AI tool with your own examples before you trust it.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../responsible-ai.html#summary">Open the section</a></div></section>
+<section class="slide slide-end"><h2>Practice</h2><ul>
+      <li>Do the <a href="../responsible-ai.html#knowledge-check">knowledge check</a> of Module 6.</li>
+      <li>Do the code exercises under <a href='../responsible-ai.html#practice-in-code'>Practice in code</a>.</li>
+      <li>Practice the technical names with the <a href="../glossary.html#flashcards">flashcards</a>.</li></ul></section>
+</main>
+<nav class="deck-bar" aria-label="Slide controls">
+  <a class="deck-home" href="../instructor.html#lesson-module-6">Instructor kit</a>
+  <button type="button" class="deck-prev" aria-label="Previous slide">&larr;</button>
+  <span class="deck-count" aria-live="polite"></span>
+  <button type="button" class="deck-next" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="deck-notes" aria-pressed="false">Notes (N)</button>
+  <button type="button" class="deck-full">Full screen (F)</button>
+</nav>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides: ML system design | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=fb0c9c6007">
+<script src="../assets/slides.js?v=6e683b3824" defer></script>
+</head>
+<body class="deck-body">
+<main class="deck" aria-roledescription="slides" aria-label="Slides: Module 10, ML system design">
+<h1 class="sr-only">Slides: Module 10, ML system design</h1>
+<section class="slide slide-title"><p class="slide-k">Module 10</p><h2 class="slide-h">ML system design</h2>
+      <p class="slide-sub">After this module, you can:</p><ul><li>Design an ML system in seven steps, from requirements to risks.</li><li>Estimate the load, the latency budget, the storage, and the cost of a design.</li><li>Select a decision threshold from the costs of the two types of error.</li><li>Explain the lessons of real failures, and answer a design interview question.</li></ul></section>
+<section class="slide" data-id="a-method-in-seven-steps"><h2>A method in seven steps</h2><p>A good design starts with questions, not with a model. Do the steps in this order. Refer to Figure 1.</p><figure class="slide-fig"><svg viewBox="0 0 760 210" role="img" aria-labelledby="sd1t">
+            <title id="sd1t">Seven steps of ML system design, from requirements to risks</title>
+            <defs><marker id="sd1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <g class="sm" text-anchor="middle">
+              <rect class="box" x="8" y="30" width="96" height="72" rx="6"/><text x="56" y="56" class="lbl" style="font-weight:600">1</text><text x="56" y="74" style="font-weight:600">Requirements</text><text x="56" y="90">users, scale</text>
+              <rect class="box" x="116" y="30" width="96" height="72" rx="6"/><text x="164" y="56" class="lbl" style="font-weight:600">2</text><text x="164" y="74" style="font-weight:600">Metrics</text><text x="164" y="90">success, errors</text>
+              <rect class="boxb" x="224" y="30" width="96" height="72" rx="6"/><text x="272" y="56" class="lbl" style="font-weight:600">3</text><text x="272" y="74" style="font-weight:600">Data</text><text x="272" y="90">labels, freshness</text>
+              <rect class="boxb" x="332" y="30" width="96" height="72" rx="6"/><text x="380" y="56" class="lbl" style="font-weight:600">4</text><text x="380" y="74" style="font-weight:600">Model</text><text x="380" y="90">baseline first</text>
+              <rect class="boxb" x="440" y="30" width="96" height="72" rx="6"/><text x="488" y="56" class="lbl" style="font-weight:600">5</text><text x="488" y="74" style="font-weight:600">Serving</text><text x="488" y="90">latency, cost</text>
+              <rect class="boxb" x="548" y="30" width="96" height="72" rx="6"/><text x="596" y="56" class="lbl" style="font-weight:600">6</text><text x="596" y="74" style="font-weight:600">Monitoring</text><text x="596" y="90">drift, feedback</text>
+              <rect x="656" y="30" width="96" height="72" rx="6" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text x="704" y="56" class="lbl" style="font-weight:600">7</text><text x="704" y="74" style="font-weight:600">Risks</text><text x="704" y="90">trade-offs</text>
+            </g>
+            <g class="line" marker-end="url(#sd1)"><path d="M104 66 H112"/><path d="M212 66 H220"/><path d="M320 66 H328"/><path d="M428 66 H436"/><path d="M536 66 H544"/><path d="M644 66 H652"/></g>
+            <path d="M704 102 V150 H56 V106" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#sd1)"/>
+            <text class="sm" x="380" y="172" text-anchor="middle" style="fill:var(--green);font-weight:600">What you learn in steps 3 to 7 can change the requirements. Go back and adjust.</text>
+            <text class="sm" x="380" y="196" text-anchor="middle">Steps 1 and 2 are the most important. A wrong metric gives a good model for the wrong problem.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../system-design.html#a-method-in-seven-steps">Open the section</a></div></section>
+<section class="slide" data-id="estimate-load-latency-and-cost"><h2>Estimate load, latency, and cost</h2><p>Simple calculations show early if a design can work. We call them <span class="tn" title="A quick calculation with round numbers that shows if a design is possible, before any detailed work.">back-of-the-envelope estimates</span>.</p><ul><li>A log of 1 KB for each request: 2,000,000 &times; 1 KB = 2 GB each day, approximately 60 GB each month.</li><li>An LLM answer that costs $0.018 (refer to <a href="../llm-engineering.html#control-cost-and-speed">Module 9, Section 9</a>): 10,000 answers each day cost $180 each day, approximately $5,400 each month. Is the value larger than this?</li></ul>
+      <div class="slide-notes"><b>Notes:</b> Traffic is not equal during the day. Plan for a peak of 3 to 5 times the mean: approximately 70 to 115 requests each second. If the answer must come in 100 ms, divide the 100 ms between the parts. Example: network 30 ms, get the features 25 ms, model 25 ms, rules and logging 20 ms. If the model needs 200 ms, the design must change: a smaller model, a cache, or a prediction in advance (batch). <a href="../system-design.html#estimate-load-latency-and-cost">Open the section</a></div></section>
+<section class="slide" data-id="case-study-fraud-detection"><h2>Case study: fraud detection for card payments</h2><p><b>The problem.</b> A payment company must stop fraud in card payments. It processes 100,000 payments each day. Approximately 0.2% are fraud: 200 payments. Each decision must come in less than 100 ms, while the customer waits.</p><figure class="slide-fig"><svg viewBox="0 0 760 230" role="img" aria-labelledby="sd2t">
+            <title id="sd2t">The design of a fraud detection system: features, a model, decision rules, human review, and labels from chargebacks</title>
+            <defs><marker id="sd2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="10" y="80" width="100" height="56" rx="4"/><text class="lbl" x="60" y="104" text-anchor="middle" style="font-weight:600">Payment</text><text class="sm" x="60" y="122" text-anchor="middle">amount, shop</text>
+            <rect class="boxb" x="135" y="80" width="120" height="56" rx="4"/><text class="lbl" x="195" y="104" text-anchor="middle" style="font-weight:600">Features</text><text class="sm" x="195" y="122" text-anchor="middle">history of the card</text>
+            <rect class="boxb" x="280" y="80" width="110" height="56" rx="4"/><text class="lbl" x="335" y="104" text-anchor="middle" style="font-weight:600">Model</text><text class="sm" x="335" y="122" text-anchor="middle">fraud score 0 to 1</text>
+            <rect class="boxb" x="415" y="80" width="110" height="56" rx="4"/><text class="lbl" x="470" y="104" text-anchor="middle" style="font-weight:600">Rules</text><text class="sm" x="470" y="122" text-anchor="middle">thresholds, limits</text>
+            <rect x="560" y="14" width="190" height="44" rx="4" fill="var(--green-soft)" stroke="var(--green)"/><text class="sm" x="655" y="41" text-anchor="middle" style="font-weight:600">Low score: approve</text>
+            <rect x="560" y="86" width="190" height="44" rx="4" fill="var(--amber-soft)" stroke="var(--amber)"/><text class="sm" x="655" y="113" text-anchor="middle" style="font-weight:600">Middle: ask the customer, or review</text>
+            <rect x="560" y="158" width="190" height="44" rx="4" fill="var(--red-soft)" stroke="var(--red)"/><text class="sm" x="655" y="185" text-anchor="middle" style="font-weight:600">High score: block</text>
+            <g class="line" marker-end="url(#sd2)"><path d="M110 108 H131"/><path d="M255 108 H276"/><path d="M390 108 H411"/><path d="M525 100 L556 40"/><path d="M525 108 H556"/><path d="M525 116 L556 176"/></g>
+            <path d="M655 202 V222 H195 V140" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#sd2)"/>
+            <text class="sm" x="380" y="216" text-anchor="middle" style="fill:var(--blue);font-weight:600">Labels come back weeks later: chargebacks and customer reports</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> The model gives a score. The threshold decides which payments are blocked. The best threshold is not 0.5. It depends on the cost of each type of error. Refer to Module 3, Section 10 . <a href="../system-design.html#case-study-fraud-detection">Open the section</a></div></section>
+<section class="slide" data-id="case-study-recommendations-for-a-shop"><h2>Case study: recommendations for a shop</h2><p><b>The problem.</b> An online shop for fruit and vegetables has 2 million users and 50,000 products. The home page must show 20 products for each user. Refer to <a href="../topic-recommendation-systems.html">the short topic Recommendation systems</a>.</p>
+      <div class="slide-notes"><b>Notes:</b> A key trade-off: batch candidates are cheap and fast, but they do not know what the user did 5 minutes ago. The online ranking step adds that. <a href="../system-design.html#case-study-recommendations-for-a-shop">Open the section</a></div></section>
+<section class="slide" data-id="case-study-a-support-chatbot"><h2>Case study: a support chatbot</h2><p><b>The problem.</b> A company gets 5,000 support messages each day in English, Hindi, and Marathi. It wants an assistant that answers the simple questions and sends the others to people. Refer to <a href="../llm-engineering.html">Module 9</a>.</p>
+      <div class="slide-notes"><b>Notes:</b> A key trade-off: a larger model gives better answers but costs more for each conversation. Measure both with the evaluation set, and use the larger model only where the smaller one fails. <a href="../system-design.html#case-study-a-support-chatbot">Open the section</a></div></section>
+<section class="slide" data-id="lessons-from-real-failures"><h2>Lessons from real failures</h2><p>These systems were made by capable teams with much data. They failed because of the design around the model.</p>
+      <div class="slide-notes"><b>Notes:</b> In 2018, Reuters reported that Amazon stopped an experimental tool that scored job applications. The tool learned from approximately 10 years of past applications, and most of them came from men. It gave lower scores to applications that contained the word "women's", for example "women's chess club captain". The team could not be sure that it was fair, and the company stopped the project. Lesson: past decisions are not correct labels. If the history contains bias, the model learns it. Measure the results for each group before use. Refer to Module 6, Section 3 . Zillow used price predictions to buy houses directly, and to sell them again. In 2021, prices changed quickly, and the company bought many houses for more than it could sell them for. In November 2021, it closed the program, reported a write-down of approximately 300 million US dollars for the quarter, and planned to reduce its st <a href="../system-design.html#lessons-from-real-failures">Open the section</a></div></section>
+<section class="slide" data-id="design-interviews"><h2>Design interviews</h2><p>In an ML system design interview, you get an open problem, for example "Design the feed of a video app", and approximately 45 minutes. The interviewer looks at your method more than at the final answer.</p><ol><li><b>Clarify (5 minutes).</b> Ask about the users, the scale, the latency, and the cost of errors. Write the answers.</li><li><b>Metrics (5 minutes).</b> Say the business metric, the model metric, and the guardrail metrics.</li><li><b>Data and features (10 minutes).</b> Say where the labels come from, and how late they arrive. Name the main features.</li><li><b>Model (10 minutes).</b> Start with a baseline. Then a model with a reason. Do not start with the most complex model.</li><li><b>Serving and monitoring (10 minutes).</b> Batch or online, the latency budget, and how you find drift.</li><li><b>Risks and trade-offs (5 minutes).</b> Say what you gave up, and why. Name the risks for users.</li></ol>
+      <div class="slide-notes"><b>Notes:</b> For each question, write a design with the table of the case studies above. Then compare it with a friend's design. <a href="../system-design.html#design-interviews">Open the section</a></div></section>
+<section class="slide" data-id="summary"><h2>Summary</h2><ul><li>Design in seven steps: requirements, metrics, data, model, serving, monitoring, and risks.</li><li>Use back-of-the-envelope estimates for load, latency, storage, and cost.</li><li>Select a threshold from the costs of the two types of error, not 0.5.</li><li>Labels can arrive late. Divide data by date, and plan how new labels come back.</li><li>Start with a baseline. Add complexity only when the metrics show the need.</li><li>Real failures came from biased labels, drift, and correlations that changed, not from the code.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../system-design.html#summary">Open the section</a></div></section>
+<section class="slide slide-end"><h2>Practice</h2><ul>
+      <li>Do the <a href="../system-design.html#knowledge-check">knowledge check</a> of Module 10.</li>
+      <li>Do the code exercises under <a href='../system-design.html#practice-in-code'>Practice in code</a>.</li>
+      <li>Practice the technical names with the <a href="../glossary.html#flashcards">flashcards</a>.</li></ul></section>
+</main>
+<nav class="deck-bar" aria-label="Slide controls">
+  <a class="deck-home" href="../instructor.html#lesson-module-10">Instructor kit</a>
+  <button type="button" class="deck-prev" aria-label="Previous slide">&larr;</button>
+  <span class="deck-count" aria-live="polite"></span>
+  <button type="button" class="deck-next" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="deck-notes" aria-pressed="false">Notes (N)</button>
+  <button type="button" class="deck-full">Full screen (F)</button>
+</nav>
+</body>
+</html>

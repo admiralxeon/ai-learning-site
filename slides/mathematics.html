@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides: Mathematics for machine learning | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=fb0c9c6007">
+<script src="../assets/slides.js?v=6e683b3824" defer></script>
+</head>
+<body class="deck-body">
+<main class="deck" aria-roledescription="slides" aria-label="Slides: Module 2, Mathematics for machine learning">
+<h1 class="sr-only">Slides: Module 2, Mathematics for machine learning</h1>
+<section class="slide slide-title"><p class="slide-k">Module 2</p><h2 class="slide-h">Mathematics for machine learning</h2>
+      <p class="slide-sub">After this module, you can:</p><ul><li>Describe data with the mean, the median, and the standard deviation.</li><li>Use probability and Bayes' rule, and explain softmax.</li><li>Calculate with vectors and matrices.</li><li>Explain derivatives, gradients, and gradient descent.</li></ul></section>
+<section class="slide" data-id="why-ai-needs-mathematics"><h2>Why AI needs mathematics</h2><p>A model is a mathematical function. It changes input numbers into output numbers. Training changes the numbers inside the function until the output is good. Four parts of mathematics do this work:</p>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../mathematics.html#why-ai-needs-mathematics">Open the section</a></div></section>
+<section class="slide" data-id="variables-and-functions"><h2>Variables and functions</h2><p>A <span class="tn" title="A name, for example x, for a value that can change.">variable</span> is a name for a value that can change. Mathematics usually uses letters, for example <i>x</i> or <i>w</i>.</p><figure class="slide-fig"><svg viewBox="0 0 760 170" role="img" aria-labelledby="m1t">
+            <title id="m1t">A function changes an input into an output</title>
+            <defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="30" y="55" width="130" height="60" rx="2"/><text class="lbl" x="95" y="80" text-anchor="middle">Input</text><text class="hd" x="95" y="102" text-anchor="middle">x = 3</text>
+            <path class="line" d="M160 85 H246" marker-end="url(#m1)"/>
+            <rect class="boxb" x="250" y="35" width="260" height="100" rx="6"/>
+            <text class="hd" x="380" y="72" text-anchor="middle">Function</text>
+            <text class="lbl" x="380" y="100" text-anchor="middle" style="font-family:var(--font-mono)">f(x) = 2x + 1</text>
+            <text class="sm" x="380" y="122" text-anchor="middle">2 and 1 are the parameters</text>
+            <path class="line" d="M510 85 H596" marker-end="url(#m1)"/>
+            <rect x="600" y="55" width="130" height="60" rx="2" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="665" y="80" text-anchor="middle">Output</text><text class="hd" x="665" y="102" text-anchor="middle">f(3) = 7</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> A function is a rule that changes each input into one output. Refer to Figure 1. In the function f ( x ) = 2 x + 1, the numbers 2 and 1 are parameters . A model is a function with many parameters. In a neural network, the parameters are the weights and the biases. Training finds good values for them. Machine learning frequently adds many values. The symbol Σ (the Greek letter sigma) means "add all of these". <a href="../mathematics.html#variables-and-functions">Open the section</a></div></section>
+<section class="slide" data-id="statistics-describe-data"><h2>Statistics: describe data</h2><p>Before you train a model, you must know your data. Statistics gives a few numbers that describe many values. In this section, the data is the weight of seven mangoes from Asha's farm, in grams:</p><ul><li>The <span class="tn" title="The sum of all values, divided by the number of values. It is also called the average.">mean</span> (average) is the sum of the values, divided by the number of values: 2,095 &divide; 7 &asymp; 299 g.</li><li>The <span class="tn" title="The middle value when you put the values in order.">median</span> is the middle value when the values are in order: 300 g.</li><li>The <span class="tn" title="The value that occurs most frequently.">mode</span> is the value that occurs most frequently. Here, each value occurs one time, so there is no mode.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> An outlier is a value that is very different from the others. One outlier can change the mean very much. If a worker types 2,000 g in place of 315 g, the mean becomes 540 g. The median stays at 300 g. Always look for outliers before you train a model. <a href="../mathematics.html#statistics-describe-data">Open the section</a></div></section>
+<section class="slide" data-id="distributions"><h2>Distributions</h2><p>A <span class="tn" title="A description of how frequently each value occurs in the data.">distribution</span> shows how frequently each value occurs. Many measurements in nature have a <span class="tn" title="A symmetrical, bell-shaped distribution. Most values are near the mean, and few values are far from it.">normal distribution</span>. Its shape is like a bell. Most values are near the mean. Few values are far from the mean. Refer to Figure 2.</p><figure class="slide-fig"><svg viewBox="0 0 760 270" role="img" aria-labelledby="m2t">
+            <title id="m2t">A normal distribution with the 68, 95 and 99.7 percent ranges</title>
+            <polygon points="105.7,220.0 105.7,218.1 114.9,217.4 124.0,216.5 133.1,215.4 142.3,214.0 151.4,212.3 160.6,210.2 169.7,207.6 178.9,204.4 188.0,200.7 197.1,196.3 206.3,191.2 215.4,185.4 224.6,178.7 233.7,171.3 242.9,163.2 252.0,154.3 261.1,144.8 270.3,134.8 279.4,124.4 288.6,113.9 297.7,103.3 306.9,92.9 316.0,83.0 325.1,73.8 334.3,65.6 343.4,58.5 352.6,52.7 361.7,48.5 370.9,45.9 380.0,45.0 389.1,45.9 398.3,48.5 407.4,52.7 416.6,58.5 425.7,65.6 434.9,73.8 444.0,83.0 453.1,92.9 462.3,103.3 471.4,113.9 480.6,124.4 489.7,134.8 498.9,144.8 508.0,154.3 517.1,163.2 526.3,171.3 535.4,178.7 544.6,185.4 553.7,191.2 562.9,196.3 572.0,200.7 581.1,204.4 590.3,207.6 599.4,210.2 608.6,212.3 617.7,214.0 626.9,215.4 636.0,216.5 645.1,217.4 654.3,218.1 654.3,220.0" fill="color-mix(in srgb,var(--blue) 12%,transparent)"/>
+            <polygon points="197.1,220.0 197.1,196.3 203.2,193.0 209.3,189.4 215.4,185.4 221.5,181.0 227.6,176.4 233.7,171.3 239.8,166.0 245.9,160.3 252.0,154.3 258.1,148.1 264.2,141.5 270.3,134.8 276.4,127.9 282.5,120.9 288.6,113.9 294.7,106.8 300.8,99.8 306.9,92.9 313.0,86.3 319.0,79.9 325.1,73.8 331.2,68.2 337.3,63.1 343.4,58.5 349.5,54.5 355.6,51.1 361.7,48.5 367.8,46.5 373.9,45.4 380.0,45.0 386.1,45.4 392.2,46.5 398.3,48.5 404.4,51.1 410.5,54.5 416.6,58.5 422.7,63.1 428.8,68.2 434.9,73.8 441.0,79.9 447.0,86.3 453.1,92.9 459.2,99.8 465.3,106.8 471.4,113.9 477.5,120.9 483.6,127.9 489.7,134.8 495.8,141.5 501.9,148.1 508.0,154.3 514.1,160.3 520.2,166.0 526.3,171.3 532.4,176.4 538.5,181.0 544.6,185.4 550.7,189.4 556.8,193.0 562.9,196.3 562.9,220.0" fill="color-mix(in srgb,var(--blue) 22%,transparent)"/>
+            <polygon points="288.6,220.0 288.6,113.9 291.6,110.3 294.7,106.8 297.7,103.3 300.8,99.8 303.8,96.3 306.9,92.9 309.9,89.6 313.0,86.3 316.0,83.0 319.0,79.9 322.1,76.8 325.1,73.8 328.2,71.0 331.2,68.2 334.3,65.6 337.3,63.1 340.4,60.7 343.4,58.5 346.5,56.4 349.5,54.5 352.6,52.7 355.6,51.1 358.7,49.7 361.7,48.5 364.8,47.4 367.8,46.5 370.9,45.9 373.9,45.4 377.0,45.1 380.0,45.0 383.0,45.1 386.1,45.4 389.1,45.9 392.2,46.5 395.2,47.4 398.3,48.5 401.3,49.7 404.4,51.1 407.4,52.7 410.5,54.5 413.5,56.4 416.6,58.5 419.6,60.7 422.7,63.1 425.7,65.6 428.8,68.2 431.8,71.0 434.9,73.8 437.9,76.8 441.0,79.9 444.0,83.0 447.0,86.3 450.1,89.6 453.1,92.9 456.2,96.3 459.2,99.8 462.3,103.3 465.3,106.8 468.4,110.3 471.4,113.9 471.4,220.0" fill="color-mix(in srgb,var(--blue) 38%,transparent)"/>
+            <path d="M60.0 219.6 L64.6 219.5 L69.1 219.5 L73.7 219.4 L78.3 219.2 L82.9 219.1 L87.4 219.0 L92.0 218.8 L96.6 218.6 L101.1 218.3 L105.7 218.1 L110.3 217.7 L114.9 217.4 L119.4 217.0 L124.0 216.5 L128.6 216.0 L133.1 215.4 L137.7 214.8 L142.3 214.0 L146.9 213.2 L151.4 212.3 L156.0 211.3 L160.6 210.2 L165.1 208.9 L169.7 207.6 L174.3 206.1 L178.9 204.4 L183.4 202.7 L188.0 200.7 L192.6 198.6 L197.1 196.3 L201.7 193.9 L206.3 191.2 L210.9 188.4 L215.4 185.4 L220.0 182.2 L224.6 178.7 L229.1 175.1 L233.7 171.3 L238.3 167.4 L242.9 163.2 L247.4 158.8 L252.0 154.3 L256.6 149.6 L261.1 144.8 L265.7 139.9 L270.3 134.8 L274.9 129.7 L279.4 124.4 L284.0 119.2 L288.6 113.9 L293.1 108.6 L297.7 103.3 L302.3 98.1 L306.9 92.9 L311.4 87.9 L316.0 83.0 L320.6 78.3 L325.1 73.8 L329.7 69.6 L334.3 65.6 L338.9 61.9 L343.4 58.5 L348.0 55.4 L352.6 52.7 L357.1 50.4 L361.7 48.5 L366.3 47.0 L370.9 45.9 L375.4 45.2 L380.0 45.0 L384.6 45.2 L389.1 45.9 L393.7 47.0 L398.3 48.5 L402.9 50.4 L407.4 52.7 L412.0 55.4 L416.6 58.5 L421.1 61.9 L425.7 65.6 L430.3 69.6 L434.9 73.8 L439.4 78.3 L444.0 83.0 L448.6 87.9 L453.1 92.9 L457.7 98.1 L462.3 103.3 L466.9 108.6 L471.4 113.9 L476.0 119.2 L480.6 124.4 L485.1 129.7 L489.7 134.8 L494.3 139.9 L498.9 144.8 L503.4 149.6 L508.0 154.3 L512.6 158.8 L517.1 163.2 L521.7 167.4 L526.3 171.3 L530.9 175.1 L535.4 178.7 L540.0 182.2 L544.6 185.4 L549.1 188.4 L553.7 191.2 L558.3 193.9 L562.9 196.3 L567.4 198.6 L572.0 200.7 L576.6 202.7 L581.1 204.4 L585.7 206.1 L590.3 207.6 L594.9 208.9 L599.4 210.2 L604.0 211.3 L608.6 212.3 L613.1 213.2 L617.7 214.0 L622.3 214.8 L626.9 215.4 L631.4 216.0 L636.0 216.5 L640.6 217.0 L645.1 217.4 L649.7 217.7 L654.3 218.1 L658.9 218.3 L663.4 218.6 L668.0 218.8 L672.6 219.0 L677.1 219.1 L681.7 219.2 L686.3 219.4 L690.9 219.5 L695.4 219.5 L700.0 219.6" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+            <line x1="60" y1="220" x2="700" y2="220" class="line"/>
+            <line x1="105.7" y1="220" x2="105.7" y2="225" class="line"/>
+            <text class="sm" x="105.7" y="240" text-anchor="middle">267 g</text>
+            <text class="sm" x="105.7" y="256" text-anchor="middle" style="fill:var(--ink)">−3 SD</text>
+            <line x1="197.1" y1="220" x2="197.1" y2="225" class="line"/>
+            <text class="sm" x="197.1" y="240" text-anchor="middle">278 g</text>
+            <text class="sm" x="197.1" y="256" text-anchor="middle" style="fill:var(--ink)">−2 SD</text>
+            <line x1="288.6" y1="220" x2="288.6" y2="225" class="line"/>
+            <text class="sm" x="288.6" y="240" text-anchor="middle">289 g</text>
+            <text class="sm" x="288.6" y="256" text-anchor="middle" style="fill:var(--ink)">−1 SD</text>
+            <line x1="380.0" y1="220" x2="380.0" y2="225" class="line"/>
+            <text class="sm" x="380.0" y="240" text-anchor="middle">300 g</text>
+            <text class="sm" x="380.0" y="256" text-anchor="middle" style="fill:var(--ink)">mean</text>
+            <line x1="471.4" y1="220" x2="471.4" y2="225" class="line"/>
+            <text class="sm" x="471.4" y="240" text-anchor="middle">311 g</text>
+            <text class="sm" x="471.4" y="256" text-anchor="middle" style="fill:var(--ink)">+1 SD</text>
+            <line x1="562.9" y1="220" x2="562.9" y2="225" class="line"/>
+            <text class="sm" x="562.9" y="240" text-anchor="middle">322 g</text>
+            <text class="sm" x="562.9" y="256" text-anchor="middle" style="fill:var(--ink)">+2 SD</text>
+            <line x1="654.3" y1="220" x2="654.3" y2="225" class="line"/>
+            <text class="sm" x="654.3" y="240" text-anchor="middle">333 g</text>
+            <text class="sm" x="654.3" y="256" text-anchor="middle" style="fill:var(--ink)">+3 SD</text>
+            <text class="hd" x="380.0" y="120.0" text-anchor="middle">68%</text>
+            <path d="M197.1 40 V32 H562.9 V40" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+            <text class="sm" x="380.0" y="29" text-anchor="middle" style="fill:var(--ink);font-weight:600">95%</text>
+            <path d="M105.7 22 V14 H654.3 V22" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+            <text class="sm" x="380.0" y="11" text-anchor="middle" style="fill:var(--ink);font-weight:600">99.7%</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> In a normal distribution: Features can have very different sizes. For example, the weight of a mango is approximately 300, but its ripeness score is between 0 and 1. Many models learn better when all features have a similar size. Standardization changes each value into a z-score: Example: a mango of 322 g has z = (322 − 300) ÷ 11 = 2. It is 2 standard deviations heavier than the mean. This is unusual, but not an error. <a href="../mathematics.html#distributions">Open the section</a></div></section>
+<section class="slide" data-id="correlation"><h2>Correlation</h2><p><span class="tn" title="A measurement of how strongly two values increase or decrease together. It is between -1 and +1.">Correlation</span> shows how strongly two values change together. The correlation coefficient <i>r</i> is between &minus;1 and +1. Refer to Figure 3.</p><figure class="slide-fig"><svg viewBox="0 0 760 240" role="img" aria-labelledby="m3t">
+            <title id="m3t">Three scatter plots with positive, negative and no correlation</title>
+            <text class="hd" x="30" y="24">A. Positive (r ≈ +0.9)</text>
+            <path class="line" d="M30 40 V190 H230"/>
+            <text class="sm" x="130.0" y="208" text-anchor="middle">Length</text>
+            <text class="sm" x="20" y="115.0" text-anchor="middle" transform="rotate(-90 20 115.0)">Weight</text>
+            <circle cx="121.4" cy="145.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="123.8" cy="129.2" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="131.4" cy="120.4" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="132.1" cy="117.4" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="153.4" cy="96.7" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="94.6" cy="145.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="56.3" cy="161.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="47.5" cy="176.1" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="216.8" cy="53.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="150.8" cy="103.7" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="68.3" cy="145.2" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="50.7" cy="170.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="74.2" cy="155.1" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="123.5" cy="116.8" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="119.3" cy="115.0" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="155.3" cy="108.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="130.0" cy="121.8" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="90.1" cy="154.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="219.6" cy="53.9" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="167.4" cy="88.6" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="96.7" cy="137.8" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="52.6" cy="161.3" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="177.9" cy="98.7" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="109.6" cy="116.5" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="212.4" cy="55.2" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <circle cx="77.7" cy="153.1" r="4" fill="var(--green)" fill-opacity=".8"/>
+            <text class="hd" x="275" y="24">B. Negative (r ≈ −0.9)</text>
+            <path class="line" d="M275 40 V190 H475"/>
+            <text class="sm" x="375.0" y="208" text-anchor="middle">Days after picking</text>
+            <text class="sm" x="265" y="115.0" text-anchor="middle" transform="rotate(-90 265 115.0)">Firmness</text>
+            <circle cx="448.8" cy="176.1" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="356.5" cy="95.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="298.1" cy="73.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="333.6" cy="99.8" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="300.7" cy="76.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="421.4" cy="122.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="306.2" cy="65.2" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="295.8" cy="53.9" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="428.5" cy="147.0" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="365.5" cy="94.7" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="319.3" cy="75.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="400.9" cy="139.8" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="306.0" cy="72.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="333.6" cy="81.2" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="459.8" cy="172.9" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="444.3" cy="174.4" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="322.9" cy="95.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="400.5" cy="119.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="303.1" cy="55.0" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="331.5" cy="84.1" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="424.1" cy="155.1" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="298.2" cy="53.9" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="301.2" cy="69.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="393.2" cy="132.5" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="351.9" cy="126.6" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <circle cx="372.1" cy="104.3" r="4" fill="var(--red)" fill-opacity=".8"/>
+            <text class="hd" x="520" y="24">C. No correlation (r ≈ 0)</text>
+            <path class="line" d="M520 40 V190 H720"/>
+            <text class="sm" x="620.0" y="208" text-anchor="middle">Weight</text>
+            <text class="sm" x="510" y="115.0" text-anchor="middle" transform="rotate(-90 510 115.0)">Day of the week</text>
+            <circle cx="633.4" cy="67.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="562.9" cy="160.0" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="693.5" cy="73.7" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="574.9" cy="155.3" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="663.1" cy="57.7" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="565.4" cy="56.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="688.8" cy="101.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="605.9" cy="166.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="537.0" cy="54.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="572.9" cy="88.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="576.3" cy="72.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="637.4" cy="141.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="561.6" cy="86.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="542.4" cy="150.3" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="630.7" cy="69.2" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="640.6" cy="143.6" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="695.1" cy="153.5" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="533.0" cy="145.0" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="610.2" cy="172.1" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="561.7" cy="132.1" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="633.0" cy="162.9" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="595.2" cy="64.2" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="706.5" cy="94.6" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="654.4" cy="104.0" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="555.3" cy="175.4" r="4" fill="var(--muted)" fill-opacity=".8"/>
+            <circle cx="533.2" cy="61.7" r="4" fill="var(--muted)" fill-opacity=".8"/>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Correlation does not show cause. In summer, people buy more ice cream, and more people swim and have accidents in the water. The two values have a strong correlation, but ice cream does not cause the accidents. The hot weather causes both. A model learns correlations. It does not know causes. <a href="../mathematics.html#correlation">Open the section</a></div></section>
+<section class="slide" data-id="probability"><h2>Probability</h2><p>A <span class="tn" title="A number between 0 and 1 that shows how possible an event is. 0 means impossible. 1 means certain.">probability</span> is a number between 0 and 1. It shows how possible an event is. 0 means "impossible". 1 means "certain". We write P(A) for "the probability of A".</p><ul><li>A usual die has 6 sides. P(you throw a 6) = 1 &divide; 6 &asymp; 0.17.</li><li>The probability that A does not occur is 1 &minus; P(A). P(no 6) = 1 &minus; 0.17 = 0.83.</li><li>If two events do not have an effect on each other, they are <span class="tn" title="Two events are independent when one event does not change the probability of the other event.">independent</span>. The probability that both occur is P(A) &times; P(B). Two coins both show heads: 0.5 &times; 0.5 = 0.25.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> A conditional probability is the probability of A when you know that B occurred. We write P(A | B), and we say "the probability of A, given B". Bayes' rule changes a probability when you get new information: Example: 3% of Asha's mangoes are damaged. The checker finds 90% of the damaged mangoes. But it also puts 5% of the good mangoes into the damaged box. If a mango is in the damaged box, what is the probability that it is really damaged? Think of 1,000 mangoes: <a href="../mathematics.html#probability">Open the section</a></div></section>
+<section class="slide" data-id="probability-in-ai-models"><h2>Probability in AI models</h2><p>A classification model first calculates a score for each category. A function with the name <span class="tn" title="A function that changes a list of scores into probabilities. The probabilities are between 0 and 1, and their sum is 1.">softmax</span> changes the scores into probabilities:</p><ol><li>Calculate e<sup>score</sup> for each score. The number e is approximately 2.718.</li><li>Add all the results.</li><li>Divide each result by the sum.</li></ol>
+      <div class="slide-notes"><b>Notes:</b> The sum of the probabilities is 1. A chat AI uses the same function for the next token. The temperature divides the scores before softmax. A low temperature makes the largest probability larger. Refer to Module 5, Section 5 . During training, the loss measures how much probability the model gave to the correct answer. A frequent loss is cross-entropy : loss = −log(probability of the correct answer). Thus the model gets a large loss when it is sure but wrong. Training makes this loss smaller. <a href="../mathematics.html#probability-in-ai-models">Open the section</a></div></section>
+<section class="slide" data-id="vectors"><h2>Vectors</h2><p>A <span class="tn" title="An ordered list of numbers.">vector</span> is an ordered list of numbers. One example in the data is a vector of its features. For example, a mango with a weight of 300 g, a length of 12 cm, and a ripeness score of 0.8 is the vector [300, 12, 0.8]. An embedding is also a vector. Refer to <a href="../deep-learning.html#how-a-network-changes-words-into-numbers">Module 4, Section 7</a>.</p><ul><li><b>Add</b> two vectors: add the numbers in the same position. [1, 2] + [3, 1] = [4, 3].</li><li><b>Multiply</b> a vector by a number: multiply each number. 2 &times; [1, 2] = [2, 4].</li><li>The <b>length</b> of a vector: &radic;(sum of the squares). The length of [3, 4] is &radic;(9 + 16) = 5.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> The dot product multiplies the numbers in the same positions, and then adds the results: Example: [1, 2] · [3, 1] = 1 × 3 + 2 × 1 = 5. A neuron calculates a dot product: its inputs · its weights. Refer to Module 4, Section 3 . Cosine similarity measures if two vectors point in the same direction. It is the dot product divided by the two lengths: <a href="../mathematics.html#vectors">Open the section</a></div></section>
+<section class="slide" data-id="matrices"><h2>Matrices</h2><p>A <span class="tn" title="A table of numbers with rows and columns.">matrix</span> is a table of numbers, with rows and columns. A data set is a matrix: each row is one example, and each column is one feature. A matrix with 6,000 rows and 3 columns has the shape 6,000 &times; 3.</p><figure class="slide-fig"><svg viewBox="0 0 760 210" role="img" aria-labelledby="m4t">
+            <title id="m4t">A matrix multiplied by a vector gives one dot product for each row</title>
+            <text class="hd" x="40" y="30">Weights W (2 × 3)</text>
+            <text class="hd" x="262" y="30">Inputs x</text>
+            <text class="hd" x="370" y="30">Result</text>
+            <rect x="44" y="62" width="166" height="36" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text class="lbl" x="69.0" y="86" text-anchor="middle" style="font-family:var(--font-mono)">0.4</text>
+            <text class="lbl" x="127.0" y="86" text-anchor="middle" style="font-family:var(--font-mono)">0.6</text>
+            <text class="lbl" x="185.0" y="86" text-anchor="middle" style="font-family:var(--font-mono)">−0.5</text>
+            <text class="lbl" x="69.0" y="126" text-anchor="middle" style="font-family:var(--font-mono)">0.1</text>
+            <text class="lbl" x="127.0" y="126" text-anchor="middle" style="font-family:var(--font-mono)">0.2</text>
+            <text class="lbl" x="185.0" y="126" text-anchor="middle" style="font-family:var(--font-mono)">0.3</text>
+            <path d="M48 60 H40 V140 H48" class="line"/><path d="M206 60 H214 V140 H206" class="line"/>
+            <text class="hd" x="234" y="106" text-anchor="middle" style="font-size:22px">×</text>
+            <rect x="266" y="42" width="50" height="116" rx="5" fill="var(--blue-soft)" stroke="var(--blue)"/>
+            <text class="lbl" x="291.0" y="66" text-anchor="middle" style="font-family:var(--font-mono)">0.5</text>
+            <text class="lbl" x="291.0" y="106" text-anchor="middle" style="font-family:var(--font-mono)">0.8</text>
+            <text class="lbl" x="291.0" y="146" text-anchor="middle" style="font-family:var(--font-mono)">0.2</text>
+            <path d="M270 40 H262 V160 H270" class="line"/><path d="M312 40 H320 V160 H312" class="line"/>
+            <text class="hd" x="342" y="106" text-anchor="middle" style="font-size:22px">=</text>
+            <rect x="374" y="62" width="70" height="36" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text class="lbl" x="409.0" y="86" text-anchor="middle" style="font-family:var(--font-mono);font-weight:600">0.58</text>
+            <text class="lbl" x="409.0" y="126" text-anchor="middle" style="font-family:var(--font-mono);font-weight:600">0.27</text>
+            <path d="M378 60 H370 V140 H378" class="line"/><path d="M440 60 H448 V140 H440" class="line"/>
+            <text class="sm" x="480" y="72" style="fill:var(--ink);font-weight:600">Row 1 (one neuron):</text>
+            <text class="sm" x="480" y="90" style="fill:var(--ink)">0.4 × 0.5 + 0.6 × 0.8 + (−0.5) × 0.2 = 0.58</text>
+            <text class="sm" x="480" y="118">Row 2 (a second neuron):</text>
+            <text class="sm" x="480" y="136">0.1 × 0.5 + 0.2 × 0.8 + 0.3 × 0.2 = 0.27</text>
+            <text class="sm" x="40" y="190">Each row of W gives one number: the dot product of the row and x.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> To multiply a matrix by a vector, calculate the dot product of each row with the vector. Each row gives one number. Refer to Figure 4. A layer of a neural network does exactly this calculation. Each row of the matrix contains the weights of one neuron. Then the layer adds the biases and applies the activation function: A large model does billions of these multiplications for each answer. GPUs can do many of them at the same time. This is why AI uses GPUs. <a href="../mathematics.html#matrices">Open the section</a></div></section>
+<section class="slide" data-id="calculus-rates-of-change"><h2>Calculus: rates of change</h2><p>The slope of a straight line shows how much the output changes when the input increases by 1. For <i>f</i>(<i>x</i>) = 2<i>x</i> + 1, the slope is 2.</p><ul><li>At <i>x</i> = 3, the slope is 6. The curve goes up quickly.</li><li>At <i>x</i> = &minus;1, the slope is &minus;2. The curve goes down.</li><li>At <i>x</i> = 0, the slope is 0. This is the bottom of the curve.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> A curve does not have one slope. Its slope changes at each point. The derivative is the slope of the curve at one point. For f ( x ) = x ², the derivative is f ′( x ) = 2 x : Gradient descent uses this information. If the slope of the loss is positive, a smaller weight decreases the loss. If the slope is negative, a larger weight decreases the loss. Thus each step moves the weight in the direction opposite to the slope: Refer to Module 3, Section 8 . <a href="../mathematics.html#calculus-rates-of-change">Open the section</a></div></section>
+<section class="slide" data-id="summary"><h2>Summary</h2><ul><li>A model is a function with parameters. Training finds good values for the parameters.</li><li>The mean, the median, and the standard deviation describe data. Look for outliers.</li><li>Many measurements have a normal distribution. Standardization gives features a similar size.</li><li>Correlation shows that two values change together. It does not show cause.</li><li>Bayes' rule changes a probability with new information. Rare events give many false alarms.</li><li>Softmax changes scores into probabilities. Cross-entropy measures the loss.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../mathematics.html#summary">Open the section</a></div></section>
+<section class="slide slide-end"><h2>Practice</h2><ul>
+      <li>Do the <a href="../mathematics.html#knowledge-check">knowledge check</a> of Module 2.</li>
+      <li>Do the code exercises under <a href='../mathematics.html#practice-in-code'>Practice in code</a>.</li>
+      <li>Practice the technical names with the <a href="../glossary.html#flashcards">flashcards</a>.</li></ul></section>
+</main>
+<nav class="deck-bar" aria-label="Slide controls">
+  <a class="deck-home" href="../instructor.html#lesson-module-2">Instructor kit</a>
+  <button type="button" class="deck-prev" aria-label="Previous slide">&larr;</button>
+  <span class="deck-count" aria-live="polite"></span>
+  <button type="button" class="deck-next" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="deck-notes" aria-pressed="false">Notes (N)</button>
+  <button type="button" class="deck-full">Full screen (F)</button>
+</nav>
+</body>
+</html>

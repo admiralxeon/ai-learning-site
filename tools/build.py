@@ -145,7 +145,7 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
                "p7": "project-7-audit-a-model-for-bias", "p8": "project-8-find-drift-and-train-again",
                "p9": "project-9-ship-a-model-with-ci-cd"}
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
-REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE, VERIFY, NOTES = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html", "verify.html", "notes.html"
+REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE, VERIFY, NOTES, INSTRUCTOR = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html", "verify.html", "notes.html", "instructor.html"
 SITE_NAME = "AI learning manual"
 HOME_DESCRIPTION = ("A full AI course in eleven modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, LLM engineering, and ML system design. "
                     "Each module has diagrams, videos, and a knowledge check.")
@@ -154,6 +154,7 @@ CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check o
 REVIEW_DESCRIPTION = "The final review: 20 questions from the modules of your track, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
 CAPSTONE_DESCRIPTION = "The capstone of the AI Engineer track: build and ship an ML service or a RAG application, with a submission checklist, a seven-part rubric, and a self-assessment score."
+INSTRUCTOR_DESCRIPTION = "The instructor kit of the AI learning manual: course formats, assessment, a 90-minute lesson plan and a slide deck for each module."
 NOTES_DESCRIPTION = "Your notes and bookmarks from the sections of the AI learning manual, kept in this browser."
 VERIFY_DESCRIPTION = "Check a certificate of the AI learning manual: its data, its ID, and the digital signature of the course issuer."
 COURSE_DESCRIPTION = "The course plan: two tracks, AI Foundations (6 weeks) and AI Engineer (12 weeks), with a weekly plan, the learning outcomes of each module, and the certificate rules."
@@ -241,7 +242,7 @@ for m in MODULES:
             q["rn"], q["rt"] = titles[q["ref"]]
         review_pool.append(q)
 
-EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), VERIFY: ("Verify a certificate", VERIFY_DESCRIPTION), NOTES: ("My notes", NOTES_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
+EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), VERIFY: ("Verify a certificate", VERIFY_DESCRIPTION), NOTES: ("My notes", NOTES_DESCRIPTION), INSTRUCTOR: ("Instructor kit", INSTRUCTOR_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
          CHEATS: ("Cheat sheets", CHEATS_DESCRIPTION), CAREERS: ("Careers", CAREERS_DESCRIPTION)}
 for m in MODULES:
     if m["num"] not in OUTCOMES:
@@ -254,7 +255,7 @@ for t in TRACKS:
         t["modules"] = [m["num"] for m in MODULES]
 for m in MODULES:
     m["tracks"] = [t["id"] for t in TRACKS if m["num"] in t["modules"]]
-PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE, VERIFY, NOTES]
+PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE, VERIFY, NOTES, INSTRUCTOR]
 
 
 # ---------------------------------------------------------------- shared parts
@@ -286,7 +287,7 @@ def nav_html(current):
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics">{tops}</ul>
-        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(CAPSTONE, "Capstone")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(NOTES, "My notes")}{top(CERTIFICATE, "Certificate")}</div>
+        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(CAPSTONE, "Capstone")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(NOTES, "My notes")}{top(CERTIFICATE, "Certificate")}{top(INSTRUCTOR, "Instructor kit")}</div>
       </div>
     </details>
     {top(PROJECTS, "Projects", " topnav-proj")}
@@ -695,10 +696,236 @@ def course_page():
 """
 
 
+# ---------------------------------------------------------------- instructor kit: lesson plans and slides
+SKIP_SLIDES = ("scope", "knowledge-check", "technical-names")
+
+
+def module_extras(m):
+    src = read(m["href"])
+    pgs = [plain(t) for t in re.findall(r'<div class="playground"[^>]*>.*?<h3>(.*?)</h3>', src, flags=re.S)]
+    thinks = [plain(t) for t in re.findall(r'<details class="story-think"><summary><b>Think:</b>(.*?)</summary>', src, flags=re.S)]
+    videos = [plain(t) for t in re.findall(r'<span><b>Video \d+\.</b>(.*?)</span>', src, flags=re.S)]
+    return pgs, thinks, videos
+
+
+def lesson_plan(m, prev):
+    e = lambda t: html.escape(t, quote=False)
+    pgs, thinks, videos = module_extras(m)
+    by_id = {s["id"]: s for s in m["sections"]}
+    teach = [by_id[q] for q in m.get("quick", []) if q in by_id and q not in ("summary", "knowledge-check")]
+    teach_html = ", ".join(f'<a href="{m["href"]}#{s["id"]}">{s["num"]}. {e(s["title"])}</a>' for s in teach)
+    warm = (f'Ask 3 questions from the knowledge check of <a href="{prev["href"]}#knowledge-check">Module {prev["num"]}</a>. Learners answer on paper first.'
+            if prev else "Ask: where did you use AI this week? Write the answers on the board.")
+    act = ("Learners use the playground in pairs: " + "; ".join(e(p) for p in pgs) + ". Each pair writes one thing that surprised them."
+           if pgs else "Learners work in pairs on the first figure of the module: each pair explains it to another pair.")
+    think = (" ".join(f"&ldquo;{e(t)}&rdquo;" for t in thinks[:2]) if thinks else "Ask: what could go wrong if a company used this tomorrow?")
+    n_ex = len(EXERCISES.get(m["href"], []))
+    practice = (f'AI Engineer track: the {n_ex} code exercises under <a href="{m["href"]}#practice-in-code">Practice in code</a>. AI Foundations track: the Think questions and the glossary flashcards.'
+                if n_ex else "The glossary flashcards for this module, in pairs.")
+    outs = "".join(f"<li>{e(o)}</li>" for o in m["outcomes"])
+    vids = "".join(f"<li>{e(v)}</li>" for v in videos) or "<li>No videos in this module.</li>"
+    return f'''  <section id="lesson-module-{m["num"]}">
+    <div class="num">{m["num"] + 5}</div>
+    <div>
+      <h2>Module {m["num"]}: {e(m["title"])}</h2>
+      <p class="ik-links"><a href="{m["href"]}">Open the module</a> <a href="slides/{m["href"]}">Open the slides</a> <span>About {m["read"]} min to read{f", {m['video']} min of video" if m["video"] else ""}</span></p>
+      <div class="cs-grid">
+        <div class="cs-box"><h3>Learning outcomes</h3><ul>{outs}</ul></div>
+        <div class="cs-box"><h3>Before the class</h3><ul><li>Read the module and do its knowledge check.</li><li>Try each playground yourself.</li><li>Watch or select the videos:</li></ul><ul>{vids}</ul></div>
+      </div>
+      <div class="tablewrap">
+        <table class="plan">
+          <thead><tr><th>Minutes</th><th>Activity</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td>0&ndash;10</td><td>Warm-up</td><td>{warm}</td></tr>
+            <tr><td>10&ndash;35</td><td>Teach</td><td>Use the slides for the key sections: {teach_html}.</td></tr>
+            <tr><td>35&ndash;55</td><td>Activity</td><td>{act}</td></tr>
+            <tr><td>55&ndash;70</td><td>Discussion</td><td>{think}</td></tr>
+            <tr><td>70&ndash;85</td><td>Practice</td><td>{practice}</td></tr>
+            <tr><td>85&ndash;90</td><td>Exit ticket</td><td>Each learner writes one outcome of the list in their own words. Homework: the full module and its <a href="{m["href"]}#knowledge-check">knowledge check</a>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>'''
+
+
+def instructor_page():
+    plans = "\n\n".join(lesson_plan(m, MODULES[i - 1] if i else None) for i, m in enumerate(MODULES))
+    toc = "".join(f'<li><a href="#lesson-module-{m["num"]}">Module {m["num"]}: {html.escape(m["title"])}</a> &middot; <a href="slides/{m["href"]}">slides</a></li>' for m in MODULES)
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Instructor kit | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  {nav_html(INSTRUCTOR)}
+</div></header>
+
+<div class="sheet">
+<main id="main" data-reference>
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-00-00-00-008A</b></div>
+    <div>Subject<b>Instructor kit</b></div>
+    <div>Info type<b>Lesson plans</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Instructor kit</h1>
+    <p>This kit helps teachers and trainers to use the manual in a class, a company training, or a study group. It has a lesson plan of 90 minutes and a set of slides for each module. The plans and the slides are made from the modules, so they always agree with the content.</p>
+  </div>
+
+  <section id="course-formats">
+    <div class="num">1</div>
+    <div>
+      <h2>Course formats</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Format</th><th>Plan</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>AI Foundations, 6 weeks</td><td>One 90-minute class each week for Modules 1 to 6, and the final review in week 6.</td><td>Schools, colleges, and all staff of a company.</td></tr>
+            <tr><td>AI Engineer, 12 weeks</td><td>One class each week with the <a href="course.html#engineer-weekly-plan">weekly plan</a>, a lab session for the projects, and the capstone in weeks 9 to 12.</td><td>Engineering students, developers, and data teams.</td></tr>
+            <tr><td>Workshop, 2 days</td><td>Day 1: Modules 1, 3, and 5 with their playgrounds. Day 2: Module 6, Project 6, and a short capstone plan.</td><td>Managers and teams who need a fast start.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-to-teach-with-the-manual">
+    <div class="num">2</div>
+    <div>
+      <h2>How to teach with the manual</h2>
+      <ul>
+        <li><b>Flip the class.</b> Learners read the module before the class. Use the class time for the playgrounds, the discussions, and the exercises.</li>
+        <li><b>Use the simple language.</b> The text is written in Simplified Technical English, so it is easier for people who learn in a second language. Use the same short sentences when you speak.</li>
+        <li><b>Use the story.</b> The mango checker connects the modules. Start each class with the problem of the farm in the current part of the story.</li>
+        <li><b>Let learners make errors.</b> In the exercises, a failed test is a good start for a discussion.</li>
+        <li><b>Check accessibility.</b> All pages work with a keyboard and a screen reader, and they have a display menu for larger text and a dark theme.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="assessment">
+    <div class="num">3</div>
+    <div>
+      <h2>Assessment</h2>
+      <ul>
+        <li><b>Knowledge checks</b> at the end of each module (pass mark 70%), and the <a href="review.html">final review</a> (20 mixed questions, pass mark 75%).</li>
+        <li><b>Code exercises</b> in each module, checked automatically in the browser.</li>
+        <li><b>Projects</b> and the <a href="capstone.html">capstone</a>, graded with the seven-part rubric. Grade a sample yourself, and compare it with the learner's self-assessment.</li>
+        <li><b>Verified certificates:</b> sign the requests of learners who passed with <code>tools/sign_certificate.py</code>. Refer to <a href="verify.html">the verify page</a> and to the README of the repository.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="lesson-plans">
+    <div class="num">4</div>
+    <div>
+      <h2>Lesson plans and slides</h2>
+      <p>Each plan is for one class of 90 minutes. Change the times to agree with your group. In the slides, use the arrow keys to move, <b>N</b> to show the speaker notes, and <b>F</b> for full screen. To print the slides or save them as a PDF, use the print command of the browser.</p>
+      <ul class="ik-toc">{toc}</ul>
+    </div>
+  </section>
+
+{plans}
+</main>
+
+  {pager_html(INSTRUCTOR)}
+
+  <footer>
+    <span>Made from the modules by tools/build.py. The lesson plans are a start: adapt them to your learners.</span>
+  </footer>
+</div>
+</body>
+</html>
+"""
+
+
+def slide_deck(m, css_v, js_v):
+    """A slide deck for one module: a title slide, one slide for each section, and a summary."""
+    src = read(m["href"])
+    main = re.search(r"<main\b.*?</main>", src, flags=re.S).group(0)
+    e = lambda t: html.escape(t, quote=False)
+    fix = lambda h: re.sub(r'href="(?!https?:|#|mailto:)([^"]+)"', r'href="../\1"', h)
+    slides = [f'''<section class="slide slide-title"><p class="slide-k">Module {m["num"]}</p><h2 class="slide-h">{e(m["title"])}</h2>
+      <p class="slide-sub">After this module, you can:</p><ul>{"".join(f"<li>{e(o)}</li>" for o in m["outcomes"])}</ul></section>''']
+    for sid, body in re.findall(r'<section id="([^"]+)">(.*?)</section>', main, flags=re.S):
+        if sid in SKIP_SLIDES:
+            continue
+        h2 = plain(re.search(r"<h2>(.*?)</h2>", body, flags=re.S).group(1))
+        body = re.sub(r'<div class="playground".*?<div class="pg-body">.*?</div>\s*</div>', " ", body, flags=re.S)
+        body = re.sub(r'<div class="video".*?<div class="meta">.*?</div>\s*</div>', " ", body, flags=re.S)
+        body = re.sub(r'<div class="codeblock[^"]*">.*?</pre>\s*</div>', " ", body, flags=re.S)
+        body = re.sub(r'<div class="story".*?</nav>\s*</div>', " ", body, flags=re.S)
+        body = re.sub(r"<!-- exercises:start.*?<!-- exercises:end -->", " ", body, flags=re.S)
+        fig = re.search(r"<figure>.*?</figure>", body, flags=re.S)
+        paras = [p for p in re.findall(r"<p>(.*?)</p>", body, flags=re.S) if plain(p)]
+        lists = re.findall(r"<(ul|ol)( class=\"steps\")?>(.*?)</\1>", body, flags=re.S)
+        content = ""
+        if paras:
+            content += f"<p>{fix(paras[0])}</p>"
+        if lists and not fig:
+            tag, cls, inner = lists[0]
+            items = re.findall(r"<li>(.*?)</li>", inner, flags=re.S)[:6]
+            content += f"<{tag}>" + "".join(f"<li>{fix(i)}</li>" for i in items) + f"</{tag}>"
+        if fig:
+            svg = re.search(r'<div class="art">\s*(<svg.*?</svg>)', fig.group(0), flags=re.S)
+            if svg:
+                content += f'<figure class="slide-fig">{svg.group(1)}</figure>'
+        notes = " ".join(plain(p) for p in paras[1:4])[:900]
+        slides.append(f'''<section class="slide" data-id="{sid}"><h2>{e(h2)}</h2>{content}
+      <div class="slide-notes"><b>Notes:</b> {e(notes) or "No extra notes."} <a href="../{m["href"]}#{sid}">Open the section</a></div></section>''')
+    slides.append(f'''<section class="slide slide-end"><h2>Practice</h2><ul>
+      <li>Do the <a href="../{m["href"]}#knowledge-check">knowledge check</a> of Module {m["num"]}.</li>
+      {"<li>Do the code exercises under <a href='../" + m["href"] + "#practice-in-code'>Practice in code</a>.</li>" if EXERCISES.get(m["href"]) else ""}
+      <li>Practice the technical names with the <a href="../glossary.html#flashcards">flashcards</a>.</li></ul></section>''')
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides: {e(m["title"])} | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v={css_v}">
+<script src="../assets/slides.js?v={js_v}" defer></script>
+</head>
+<body class="deck-body">
+<main class="deck" aria-roledescription="slides" aria-label="Slides: Module {m["num"]}, {e(m["title"])}">
+<h1 class="sr-only">Slides: Module {m["num"]}, {e(m["title"])}</h1>
+{chr(10).join(slides)}
+</main>
+<nav class="deck-bar" aria-label="Slide controls">
+  <a class="deck-home" href="../instructor.html#lesson-module-{m["num"]}">Instructor kit</a>
+  <button type="button" class="deck-prev" aria-label="Previous slide">&larr;</button>
+  <span class="deck-count" aria-live="polite"></span>
+  <button type="button" class="deck-next" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="deck-notes" aria-pressed="false">Notes (N)</button>
+  <button type="button" class="deck-full">Full screen (F)</button>
+</nav>
+</body>
+</html>
+"""
+
+
 # ---------------------------------------------------------------- write everything
 glossary_html, glossary_entries = glossary_page()
 write(GLOSSARY, glossary_html)
 write(COURSE, course_page())
+write(INSTRUCTOR, instructor_page())
 
 for name in PAGES:
     src = read(name)
@@ -776,6 +1003,10 @@ for name in PAGES:
     if new != src:
         write(name, new)
 versioned = {**versions, **later}
+(SITE / "slides").mkdir(exist_ok=True)
+versioned["slides.js"] = fhash("assets/slides.js")
+for m in MODULES:
+    write("slides/" + m["href"], slide_deck(m, versions["site.css"], versioned["slides.js"]))
 assets = []
 for f in sorted((SITE / "assets").iterdir()):
     if f.is_file():

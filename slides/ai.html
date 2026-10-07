@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides: Artificial intelligence | AI learning manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=fb0c9c6007">
+<script src="../assets/slides.js?v=6e683b3824" defer></script>
+</head>
+<body class="deck-body">
+<main class="deck" aria-roledescription="slides" aria-label="Slides: Module 1, Artificial intelligence">
+<h1 class="sr-only">Slides: Module 1, Artificial intelligence</h1>
+<section class="slide slide-title"><p class="slide-k">Module 1</p><h2 class="slide-h">Artificial intelligence</h2>
+      <p class="slide-sub">After this module, you can:</p><ul><li>Explain what AI is, and the difference between AI, ML, deep learning, and generative AI.</li><li>Describe how a system learns from examples.</li><li>Explain how a chat AI makes text, one token at a time.</li><li>Name the main limits and risks of AI.</li></ul></section>
+<section class="slide" data-id="what-ai-is"><h2>What AI is</h2><p>AI is a type of computer software. It does tasks that usually need a human mind.</p><figure class="slide-fig"><svg viewBox="0 0 760 270" role="img" aria-labelledby="f1t">
+            <title id="f1t">Usual programming compared with machine learning</title>
+            <text class="hd" x="20" y="28">A. Usual program</text>
+            <rect class="box" x="20" y="50" width="130" height="44" rx="2"/><text class="lbl" x="85" y="77" text-anchor="middle">Rules (by a person)</text>
+            <rect class="box" x="20" y="110" width="130" height="44" rx="2"/><text class="lbl" x="85" y="137" text-anchor="middle">Data</text>
+            <path class="line" d="M150 72 H195 V102 H215 M150 132 H195 V102"/>
+            <polygon points="215,96 227,102 215,108" fill="var(--ink)"/>
+            <rect class="boxb" x="228" y="74" width="110" height="56" rx="2"/><text class="lbl" x="283" y="107" text-anchor="middle">Computer</text>
+            <path class="line" d="M338 102 H360"/><polygon points="360,96 372,102 360,108" fill="var(--ink)"/>
+            <text class="lbl" x="378" y="107">Answers</text>
+
+            <line class="faint" x1="20" y1="180" x2="740" y2="180"/>
+
+            <text class="hd" x="20" y="208">B. Machine learning</text>
+            <rect class="box" x="20" y="222" width="130" height="40" rx="2"/><text class="lbl" x="85" y="247" text-anchor="middle">Data</text>
+            <rect class="box" x="160" y="222" width="130" height="40" rx="2"/><text class="lbl" x="225" y="247" text-anchor="middle">Correct answers</text>
+            <path class="line" d="M290 242 H330"/><polygon points="330,236 342,242 330,248" fill="var(--ink)"/>
+            <rect class="boxb" x="343" y="216" width="110" height="52" rx="2"/><text class="lbl" x="398" y="247" text-anchor="middle">Computer</text>
+            <path class="lineb" d="M453 242 H493"/><polygon points="493,236 505,242 493,248" fill="var(--blue)"/>
+            <text class="lbl" x="512" y="240" style="fill:var(--blue);font-weight:600">Rules</text>
+            <text class="sm" x="512" y="256">The computer finds them.</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Examples of these tasks are: A usual computer program obeys rules. A person writes these rules, one by one. An AI system is different. It finds its own rules. It finds these rules in a large quantity of examples. We call these examples data . <a href="../ai.html#what-ai-is">Open the section</a></div></section>
+<section class="slide" data-id="the-parts-of-ai"><h2>The parts of AI</h2><p>AI is a large area. It has smaller areas in it. Refer to Figure 2.</p><figure class="slide-fig"><svg viewBox="0 0 760 330" role="img" aria-labelledby="f2t">
+            <title id="f2t">Nested areas of AI</title>
+            <rect x="20" y="15" width="720" height="300" rx="4" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.5"/>
+            <text class="hd" x="40" y="45">Artificial intelligence</text>
+            <text class="sm" x="40" y="64">Rule-based systems, search, planning, and learning systems</text>
+            <rect x="130" y="80" width="590" height="220" rx="4" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5" opacity=".55"/>
+            <text class="hd" x="150" y="108">Machine learning</text>
+            <text class="sm" x="150" y="127">Learns from data: for example, spam filters</text>
+            <rect x="260" y="140" width="440" height="145" rx="4" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+            <text class="hd" x="280" y="168">Deep learning</text>
+            <text class="sm" x="280" y="187">Neural networks with many layers: for example, face ID</text>
+            <rect x="400" y="200" width="280" height="70" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/>
+            <text class="hd" x="420" y="228" style="fill:var(--green)">Generative AI</text>
+            <text class="sm" x="420" y="248">Chat AI, image makers, code helpers</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Each of these areas has its own module. Module 2 gives the mathematics that they use. Refer to Module 3, Machine learning , Module 4, Deep learning , and Module 5, Generative AI . All AI systems that you can use today are "narrow" AI. Each system can do only some types of tasks. A system that can do all human tasks does not exist at this time. We call that type of system AGI . <a href="../ai.html#the-parts-of-ai">Open the section</a></div></section>
+<section class="slide" data-id="how-an-ai-system-learns"><h2>How an AI system learns</h2><p>The learning procedure is <span class="tn" title="The procedure in which an AI model learns from data.">training</span>. The result of training is a <span class="tn" title="The software that training makes. It contains the learned rules as numbers.">model</span>. The model keeps what it learned as a very large set of numbers. We call these numbers <span class="tn" title="Adjustable numbers in a model. Training changes them to make the model more accurate.">weights</span>.</p><figure class="slide-fig"><svg viewBox="0 0 760 300" role="img" aria-labelledby="f3t">
+            <title id="f3t">The training loop</title>
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="box" x="30" y="40" width="150" height="56" rx="2"/><text class="lbl" x="105" y="66" text-anchor="middle">(1) Example</text><text class="sm" x="105" y="84" text-anchor="middle">a photo of a cat</text>
+            <rect class="boxb" x="300" y="40" width="160" height="56" rx="2"/><text class="lbl" x="380" y="66" text-anchor="middle">(2) Model guess</text><text class="sm" x="380" y="84" text-anchor="middle">"dog: 70%"</text>
+            <rect class="box" x="580" y="40" width="150" height="56" rx="2"/><text class="lbl" x="655" y="66" text-anchor="middle">(3) Compare</text><text class="sm" x="655" y="84" text-anchor="middle">correct answer: cat</text>
+            <rect class="box" x="580" y="200" width="150" height="56" rx="2"/><text class="lbl" x="655" y="226" text-anchor="middle">(4) Calculate error</text><text class="sm" x="655" y="244" text-anchor="middle">the guess is wrong</text>
+            <rect class="boxb" x="300" y="200" width="160" height="56" rx="2"/><text class="lbl" x="380" y="226" text-anchor="middle">(5) Adjust weights</text><text class="sm" x="380" y="244" text-anchor="middle">small change</text>
+            <rect class="box" x="30" y="200" width="150" height="56" rx="2"/><text class="lbl" x="105" y="226" text-anchor="middle">(6) Next example</text><text class="sm" x="105" y="244" text-anchor="middle">repeat many times</text>
+            <path class="line" d="M180 68 H296" marker-end="url(#ar)"/>
+            <path class="line" d="M460 68 H576" marker-end="url(#ar)"/>
+            <path class="line" d="M655 96 V196" marker-end="url(#ar)"/>
+            <path class="line" d="M580 228 H464" marker-end="url(#ar)"/>
+            <path class="line" d="M300 228 H184" marker-end="url(#ar)"/>
+            <path class="line" d="M105 200 V100" marker-end="url(#ar)"/>
+            <text class="sm" x="380" y="150" text-anchor="middle">One loop = one small improvement</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Training is a loop. The loop has these steps. Refer to Figure 3. The loop can occur millions or billions of times. After many loops, the guesses become accurate. For more information about training, refer to Module 3, Machine learning . <a href="../ai.html#how-an-ai-system-learns">Open the section</a></div></section>
+<section class="slide" data-id="neural-networks"><h2>Neural networks</h2><p>Most modern AI uses a neural network. A neural network has many small units. We call these units <span class="tn" title="One small unit in a neural network. It adds its inputs, applies a simple function, and sends a number forward.">neurons</span>. The neurons are in layers. Refer to Figure 4.</p><figure class="slide-fig"><svg viewBox="0 0 760 340" role="img" aria-labelledby="f4t" id="nn">
+            <title id="f4t">A simple neural network with four layers</title>
+            <g id="nn-lines"></g>
+            <g id="nn-nodes"></g>
+            <text class="hd" x="110" y="330" text-anchor="middle">Input layer</text>
+            <text class="hd" x="300" y="330" text-anchor="middle">Hidden layer 1</text>
+            <text class="hd" x="490" y="330" text-anchor="middle">Hidden layer 2</text>
+            <text class="hd" x="670" y="330" text-anchor="middle">Output layer</text>
+            <text class="sm" x="720" y="125">cat</text>
+            <text class="sm" x="720" y="205">dog</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> Each line between two neurons has a weight. A large weight makes the connection strong. A small weight makes it weak. Training adjusts all these weights. For more information about how a neural network calculates and learns, refer to Module 4, Deep learning . <a href="../ai.html#neural-networks">Open the section</a></div></section>
+<section class="slide" data-id="how-a-chat-ai-makes-text"><h2>How a chat AI makes text</h2><p>A chat AI uses a <span class="tn" title="Large language model: a very large neural network that is trained on text. It predicts the next part of a text.">large language model</span> (LLM). An LLM is trained on a very large quantity of text. This text comes from books, websites, and code.</p><figure class="slide-fig"><svg viewBox="0 0 760 320" role="img" aria-labelledby="f5t">
+            <title id="f5t">Next-token prediction with probabilities</title>
+            <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <text class="hd" x="20" y="30">Input text, cut into tokens</text>
+            <g>
+              <rect class="box" x="20" y="45" width="56" height="34"/><text class="lbl" x="48" y="67" text-anchor="middle">The</text>
+              <rect class="box" x="82" y="45" width="56" height="34"/><text class="lbl" x="110" y="67" text-anchor="middle">cat</text>
+              <rect class="box" x="144" y="45" width="56" height="34"/><text class="lbl" x="172" y="67" text-anchor="middle">sat</text>
+              <rect class="box" x="206" y="45" width="56" height="34"/><text class="lbl" x="234" y="67" text-anchor="middle">on</text>
+              <rect class="box" x="268" y="45" width="56" height="34"/><text class="lbl" x="296" y="67" text-anchor="middle">the</text>
+              <rect x="330" y="45" width="56" height="34" fill="none" stroke="var(--green)" stroke-width="2" stroke-dasharray="5 4"/><text class="lbl" x="358" y="67" text-anchor="middle" style="fill:var(--green)">?</text>
+            </g>
+            <path class="line" d="M172 82 V120" marker-end="url(#ar2)"/>
+            <rect class="boxb" x="60" y="124" width="224" height="60" rx="2"/>
+            <text class="hd" x="172" y="150" text-anchor="middle">Large language model</text>
+            <text class="sm" x="172" y="170" text-anchor="middle">billions of weights</text>
+            <path class="line" d="M284 154 H420" marker-end="url(#ar2)"/>
+
+            <text class="hd" x="430" y="110">Probability of the next token</text>
+            <g>
+              <text class="lbl" x="430" y="145">mat</text><rect class="barhi" x="490" y="132" width="186" height="18"/><text class="sm" x="684" y="146">62%</text>
+              <text class="lbl" x="430" y="178">floor</text><rect class="bar" x="490" y="165" width="54" height="18"/><text class="sm" x="552" y="179">18%</text>
+              <text class="lbl" x="430" y="211">sofa</text><rect class="bar" x="490" y="198" width="27" height="18"/><text class="sm" x="525" y="212">9%</text>
+              <text class="lbl" x="430" y="244">roof</text><rect class="bar" x="490" y="231" width="15" height="18"/><text class="sm" x="513" y="245">5%</text>
+              <text class="lbl" x="430" y="277">other</text><rect class="bar" x="490" y="264" width="18" height="18"/><text class="sm" x="516" y="278">6%</text>
+            </g>
+            <text class="sm" x="20" y="230">The system selects "mat", adds it to the text,</text>
+            <text class="sm" x="20" y="248">and then predicts the token after "mat".</text>
+          </svg></figure>
+      <div class="slide-notes"><b>Notes:</b> An LLM does one main task. It predicts the next word in a text. It does this task again and again. This makes full sentences and full answers. An LLM does not look up facts in a database. It makes text that is probable, from the patterns that it learned. This is very useful. But it is also the cause of some errors. Refer to Section 8. Most LLMs use a design that has the name transformer . A transformer uses a method with the name attention . Attention lets each word "look at" the other words in the text. Thus the model knows that "bank" in "river bank" is different from "bank" in "bank account". <a href="../ai.html#how-a-chat-ai-makes-text">Open the section</a></div></section>
+<section class="slide" data-id="where-people-use-ai"><h2>Where people use AI</h2>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../ai.html#where-people-use-ai">Open the section</a></div></section>
+<section class="slide" data-id="limits-and-risks"><h2>Limits and risks</h2><p>An AI system can give incorrect information that looks correct. Do not use AI output for medical, legal, financial, or safety decisions without a check by a qualified person.</p><ul><li><b>Incorrect answers.</b> An LLM can make facts, names, or references that do not exist. We call this a <span class="tn" title="An answer from an AI that sounds correct but is false or invented.">hallucination</span>.</li><li><b>Bias.</b> A model learns from data that people made. If the data is not fair, the model can also be not fair.</li><li><b>Old information.</b> A model knows only the data from before its training stopped. Some systems can search the web to get new information.</li><li><b>No real understanding.</b> A model finds patterns. It does not have human experience of the world.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> Know these limits of AI: Do not give private data to an AI tool if you do not know how the tool keeps that data. Private data includes passwords, ID numbers, and company secrets. <a href="../ai.html#limits-and-risks">Open the section</a></div></section>
+<section class="slide" data-id="a-short-history-of-ai"><h2>A short history of AI</h2><p>AI is not new. Researchers started to work on it in the 1950s. There were periods of large hopes and periods of disappointment. The large changes came when three things became available together: large quantities of data, fast computer chips, and better methods.</p>
+      <div class="slide-notes"><b>Notes:</b> In his paper “Computing Machinery and Intelligence”, Turing describes a test. Can a person find the difference between a computer and a human in a written conversation? At a workshop at Dartmouth College in the USA, researchers use the name “artificial intelligence” for the new subject. John McCarthy suggested the name. Frank Rosenblatt makes the perceptron, one of the first machines that learns from examples. It is a very simple neural network. <a href="../ai.html#a-short-history-of-ai">Open the section</a></div></section>
+<section class="slide" data-id="summary"><h2>Summary</h2><ul><li>AI is software that does tasks that usually need a human mind.</li><li>Machine learning finds rules in data. A person does not write the rules.</li><li>Training is a loop: guess, compare, adjust, repeat.</li><li>A neural network has layers of neurons. Weights connect the neurons.</li><li>A chat AI predicts the next token again and again.</li><li>AI can make errors. Always do a check of important information.</li></ul>
+      <div class="slide-notes"><b>Notes:</b> No extra notes. <a href="../ai.html#summary">Open the section</a></div></section>
+<section class="slide slide-end"><h2>Practice</h2><ul>
+      <li>Do the <a href="../ai.html#knowledge-check">knowledge check</a> of Module 1.</li>
+      <li>Do the code exercises under <a href='../ai.html#practice-in-code'>Practice in code</a>.</li>
+      <li>Practice the technical names with the <a href="../glossary.html#flashcards">flashcards</a>.</li></ul></section>
+</main>
+<nav class="deck-bar" aria-label="Slide controls">
+  <a class="deck-home" href="../instructor.html#lesson-module-1">Instructor kit</a>
+  <button type="button" class="deck-prev" aria-label="Previous slide">&larr;</button>
+  <span class="deck-count" aria-live="polite"></span>
+  <button type="button" class="deck-next" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="deck-notes" aria-pressed="false">Notes (N)</button>
+  <button type="button" class="deck-full">Full screen (F)</button>
+</nav>
+</body>
+</html>
