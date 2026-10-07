@@ -51,7 +51,7 @@
     {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":16,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":7}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"8172454378","search-index.js":"bff3295cc4"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"8172454378","search-index.js":"cdadaa570d"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
@@ -705,7 +705,7 @@
       var pc2=el("div","dash-card dash-proj");
       var pjt=el("div");
       pjt.appendChild(el("b",null,"Projects"));
-      pjt.appendChild(el("p",null,"Seven hands-on projects, from an image classifier to a bias audit. "+(pjDone?pjDone+" of 7 done.":"Start with a beginner project.")));
+      pjt.appendChild(el("p",null,"Nine hands-on projects, from an image classifier to an MLOps pipeline. "+(pjDone?pjDone+" of 9 done.":"Start with a beginner project.")));
       pc2.appendChild(pjt);
       var pja=el("a","btn",pjDone?"Continue the projects":"Open the projects");pja.href="projects.html";pc2.appendChild(pja);
       dash.appendChild(pc2);

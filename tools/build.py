@@ -61,7 +61,7 @@ REVIEW, CHEATS, CAREERS = "review.html", "cheat-sheets.html", "careers.html"
 SITE_NAME = "AI learning manual"
 HOME_DESCRIPTION = ("Learn artificial intelligence in eight short modules: AI, the mathematics for ML, machine learning, deep learning, generative AI, responsible AI, AI in practice, and DevOps for AI. "
                     "Each module has diagrams, videos, and a knowledge check.")
-PROJECTS_DESCRIPTION = "Seven hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, and a bias audit."
+PROJECTS_DESCRIPTION = "Nine hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, a bias audit, drift monitoring, and a CI/CD pipeline."
 CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual."
 REVIEW_DESCRIPTION = "The final review: 20 questions from all eight modules, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."

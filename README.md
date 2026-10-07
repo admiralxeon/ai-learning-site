@@ -13,7 +13,7 @@ A static learning site in eight modules, written in ASD-STE100 Simplified Techni
 | `cheat-sheets.html` | One printable summary sheet for each module, and a formula sheet |
 | `careers.html` | Jobs in AI, skills, what to learn next, and how to build a portfolio |
 | `glossary.html` | All technical names and the flashcards. **Generated**: do not edit by hand |
-| `projects.html` | Seven hands-on projects. The code in it is tested with scikit-learn 1.9 |
+| `projects.html` | Nine hands-on projects, including two MLOps projects. The code in it is tested with scikit-learn 1.9 and SciPy 1.18 |
 | `certificate.html` | The completion certificate |
 | `assets/playgrounds.js` | The interactive activities and the capstone worksheet |
 | `assets/flashcards.js` | The glossary flashcards |

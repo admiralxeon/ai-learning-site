@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Projects | AI learning manual</title>
 <!-- head:start (made by tools/build.py) -->
-<meta name="description" content="Seven hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, and a bias audit.">
+<meta name="description" content="Nine hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, a bias audit, drift monitoring, and a CI/CD pipeline.">
 <meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -14,13 +14,13 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI learning manual">
 <meta property="og:title" content="Projects | AI learning manual">
-<meta property="og:description" content="Seven hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, and a bias audit.">
+<meta property="og:description" content="Nine hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, a bias audit, drift monitoring, and a CI/CD pipeline.">
 <!-- head:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=e1c3ba1d5e">
-<script src="assets/site.js?v=64e3452570"></script>
+<script src="assets/site.js?v=13fa3360d2"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -63,7 +63,7 @@
 
   <div class="title">
     <h1>Projects</h1>
-    <p>This page has seven hands-on projects, from beginner to advanced. Each project uses the ideas of the modules. Do a project when you finish the modules that it uses. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+    <p>This page has nine hands-on projects, from beginner to advanced. The last two are MLOps projects: they show how to keep a model good in production. Each project uses the ideas of the modules. Do a project when you finish the modules that it uses. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
   </div>
 
   <!-- 1 -->
@@ -71,14 +71,15 @@
     <div class="num">1</div>
     <div>
       <h2>About the projects</h2>
-      <p>Reading teaches you the ideas. Projects teach you to use them. This page has seven projects. Each project uses the ideas of one or more modules.</p>
+      <p>Reading teaches you the ideas. Projects teach you to use them. This page has nine projects. Each project uses the ideas of one or more modules.</p>
       <div class="tablewrap">
         <table>
           <thead><tr><th>Level</th><th>What you need</th><th>Projects</th></tr></thead>
           <tbody>
             <tr><td>Beginner</td><td>A web browser. No code.</td><td>1, 2, and 6</td></tr>
             <tr><td>Intermediate</td><td>A Google account for Google Colab. You copy and run the code.</td><td>3 and 4</td></tr>
-            <tr><td>Advanced</td><td>Google Colab. You read and change the code.</td><td>5 and 7</td></tr>
+            <tr><td>Advanced</td><td>Google Colab. You read and change the code.</td><td>5, 7, and 8</td></tr>
+            <tr><td>Advanced, with Git</td><td>A GitHub account, and Python on your computer or GitHub Codespaces.</td><td>9</td></tr>
           </tbody>
         </table>
       </div>
@@ -420,8 +421,146 @@ for group, part in test.groupby(&quot;group&quot;):
     </div>
   </section>
   <!-- 9 -->
-  <section id="after-the-projects">
+  <section id="project-8-find-drift-and-train-again">
     <div class="num">9</div>
+    <div>
+      <h2>Project 8: Find drift and train again</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-advanced">Advanced</li><li>About 45 min</li><li>Python in Google Colab</li><li>MLOps</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="ai-in-practice.html#monitor-the-model">Module 7, Section 7</a> <a href="devops.html#mlops-and-llmops">Module 8, Section 3</a> <a href="devops.html#version-everything">Module 8, Section 4</a></p>
+      <p><b>What you make:</b> a monitoring loop for the mango checker. Each month, it compares the new data with the training data and measures the recall. When it finds a problem, it trains a new model (the <span class="tn" title="A new model that competes with the model in production. It replaces that model only if it is better on the same test data.">challenger</span>), compares it with the model in production (the <span class="tn" title="The model that is in production now. A challenger must be better than it to replace it.">champion</span>), and updates a small model registry. In month 4, a new camera comes to the farm. It sees fewer spots on the mangoes.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Python</span><button type="button" class="pg-chip" data-copy="code-drift">Copy the code</button></div>
+        <pre id="code-drift" tabindex="0" role="region" aria-label="Python code: drift monitoring and training again"><code>import numpy as np
+from scipy.stats import ks_2samp
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import recall_score
+
+rng = np.random.default_rng(7)
+
+
+def make_month(n, new_camera=False):
+    """Example data for the mangoes of one month: features X and labels y (1 = damaged)."""
+    weight = rng.normal(250, 40, n)
+    firmness = rng.normal(6, 1.5, n)
+    spots = rng.poisson(1.5, n)
+    y = ((spots &gt;= 4) | (firmness &lt; 3.5)).astype(int)
+    if new_camera:
+        spots = np.maximum(spots - 2, 0)    # the new camera sees fewer spots
+    return np.column_stack([weight, firmness, spots]), y
+
+
+# 1. Train the first model on 3,000 old mangoes. Put it in the registry.
+X_train, y_train = make_month(3000)
+model = RandomForestClassifier(n_estimators=100, random_state=1).fit(X_train, y_train)
+registry = [{"version": 1, "month": 0, "status": "production"}]
+
+# 2. Each month: compare the new data with the training data, and measure the recall.
+for month in range(1, 7):
+    X, y = make_month(1000, new_camera=(month &gt;= 4))
+    p = ks_2samp(X_train[:, 2], X[:, 2]).pvalue          # drift test for the "spots" feature
+    recall = recall_score(y, model.predict(X))
+    alert = p &lt; 0.01 or recall &lt; 0.90
+    print(f"Month {month}: drift p-value = {p:.3f}, recall = {recall:.2f}", "&lt;- ALERT" if alert else "")
+    if not alert:
+        continue
+
+    # 3. Alert: train a challenger with half of the new data only. The old data comes
+    #    from the old camera, so it does not agree with the new data any more.
+    #    Compare the two models on the other half, which neither model saw.
+    half = len(y) // 2
+    X_new, y_new = X[:half], y[:half]
+    challenger = RandomForestClassifier(n_estimators=100, random_state=1).fit(X_new, y_new)
+    old_r = recall_score(y[half:], model.predict(X[half:]))
+    new_r = recall_score(y[half:], challenger.predict(X[half:]))
+    print(f"  Champion recall {old_r:.2f}, challenger recall {new_r:.2f}")
+
+    # 4. Promote the challenger only if it is clearly better.
+    if new_r &gt;= old_r + 0.02:
+        registry[-1]["status"] = "archived"
+        registry.append({"version": len(registry) + 1, "month": month, "status": "production"})
+        model, X_train, y_train = challenger, X_new, y_new
+        print(f"  Version {len(registry)} is now in production.")
+
+print(registry)</code></pre>
+      </div>
+      <p>The drift test (the Kolmogorov-Smirnov test) compares two sets of values. A small p-value, for example less than 0.01, means that the two sets very probably do not come from the same distribution. Refer to <a href="mathematics.html#distributions">Module 2, Section 5</a>.</p>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>Months 1 to 3 have a large p-value and a recall of approximately 1.00. There is no alert.</li>
+        <li>In month 4, the p-value is 0.000 and the recall decreases to approximately 0.47. The alert starts.</li>
+        <li>The champion has a recall of approximately 0.47 on the test half. The challenger has approximately 1.00. Version 2 goes into production, and version 1 is archived.</li>
+        <li>Months 5 and 6 have no alert, because the drift test now compares with the new training data.</li>
+        <li>You can explain why the challenger uses only the new data: the old data comes from a different camera.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Remove the drift test, and keep only the recall check. In real use, labels come late. Which check finds the problem first?</li>
+        <li>Change the camera effect from <code>spots - 2</code> to <code>spots - 1</code>. Does the drift test still find it? Does the recall decrease as much?</li>
+        <li>Add the data version and the recall to each entry of the registry, and save the registry as a JSON file.</li>
+        <li>Try a professional tool for the same work, for example MLflow for experiments and a model registry.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 10 -->
+  <section id="project-9-ship-a-model-with-ci-cd">
+    <div class="num">10</div>
+    <div>
+      <h2>Project 9: Ship a model with CI/CD</h2>
+      <ul class="pj-meta" aria-label="About this project">
+        <li class="pj-level pj-advanced">Advanced</li><li>About 90 min</li><li>A GitHub account, and Python on your computer or GitHub Codespaces</li><li>MLOps</li>
+      </ul>
+      <p class="pj-uses"><b>Uses:</b> <a href="devops.html#serve-the-model-as-an-api">Module 8, Section 5</a> <a href="devops.html#package-it-in-a-container">Module 8, Section 6</a> <a href="devops.html#test-and-release-automatically">Module 8, Section 7</a></p>
+      <p><b>What you make:</b> a repository on GitHub with the mango checker service from Module 8. Each change goes through an automatic pipeline that trains the model, runs the tests, and builds the container image. Then you send a bad model, and you see the pipeline stop it. This project is a good first item for your portfolio. Refer to <a href="careers.html#make-a-portfolio-from-your-projects">Careers, Section 5</a>.</p>
+      <h3>Steps</h3>
+      <ol class="steps">
+        <li>On GitHub, make a new public repository with the name <code>mango-checker</code>. Select <b>Add a README file</b>.</li>
+        <li>Open the repository in a codespace: select <b>Code</b>, then <b>Codespaces</b>, then <b>Create codespace</b>. A codespace is a computer in your browser with Python and Git. You can also copy the repository to your own computer with <code>git clone</code>.</li>
+        <li>Make the six files of Module 8 in the repository: <code>train.py</code> and <code>app.py</code> (<a href="devops.html#serve-the-model-as-an-api">Section 5</a>), <code>requirements.txt</code> and <code>Dockerfile</code> (<a href="devops.html#package-it-in-a-container">Section 6</a>), <code>test_app.py</code> and <code>.github/workflows/ci.yml</code> (<a href="devops.html#test-and-release-automatically">Section 7</a>). Use the <b>Copy</b> buttons.</li>
+        <li>Make a file <code>.gitignore</code> with the two lines below. The pipeline makes the model again each time, so the model file does not go into Git.
+        <div class="codeblock">
+          <div class="cb-head"><span>.gitignore</span><button type="button" class="pg-chip" data-copy="code-gitignore">Copy</button></div>
+          <pre id="code-gitignore" tabindex="0" role="region" aria-label=".gitignore file"><code>model.joblib
+model_info.json</code></pre>
+        </div></li>
+        <li>In the terminal, test everything on your computer first:
+        <div class="codeblock">
+          <div class="cb-head"><span>Terminal</span><button type="button" class="pg-chip" data-copy="code-p9-test">Copy the commands</button></div>
+          <pre id="code-p9-test" tabindex="0" role="region" aria-label="Terminal commands to test the project"><code>pip install -r requirements.txt
+python train.py
+pytest</code></pre>
+        </div></li>
+        <li>Save the files in Git, and send them to GitHub:
+        <div class="codeblock">
+          <div class="cb-head"><span>Terminal</span><button type="button" class="pg-chip" data-copy="code-p9-push">Copy the commands</button></div>
+          <pre id="code-p9-push" tabindex="0" role="region" aria-label="Terminal commands to commit and push"><code>git add .
+git commit -m "Add the mango checker service and its pipeline"
+git push</code></pre>
+        </div></li>
+        <li>On GitHub, open the <b>Actions</b> tab. Look at the pipeline run. Select it to see each step: install, train, test, and build.</li>
+        <li>Now send a bad model. Make a branch with <code>git switch -c weak-model</code>. In <code>train.py</code>, change <code>RandomForestClassifier(n_estimators=100, random_state=1)</code> to <code>RandomForestClassifier(n_estimators=100, max_depth=1, random_state=1)</code>. Commit the change, push the branch, and open a pull request.</li>
+        <li>Look at the pipeline of the pull request. Read the error of the failed test. Then close the pull request without merging it.</li>
+      </ol>
+      <h3>Check your work</h3>
+      <ul class="pj-check">
+        <li>On your computer, <code>python train.py</code> prints a recall of 0.98, and <code>pytest</code> shows 5 passed tests.</li>
+        <li>On GitHub, the pipeline of the <code>main</code> branch has a green check mark.</li>
+        <li>The pipeline of the pull request has a red mark. The weak model has a recall of 0.041, and the error is <code>assert 0.041 &gt;= 0.9</code>.</li>
+        <li>You can explain an important point: the four API tests still passed with the weak model. Only the quality gate found the problem. Tests of the code alone are not sufficient for an AI service.</li>
+      </ul>
+      <h3>Go further</h3>
+      <ul>
+        <li>Add a load test: a test that sends 100 requests and fails if the slowest answer takes more than 100 ms. Refer to the story in <a href="devops.html#project-part-8">Module 8, Part 8</a>.</li>
+        <li>Make the pipeline send the container image to GitHub Container Registry, with the version as its tag.</li>
+        <li>Put the service on a cloud host that has a free plan, and add the address to your README.</li>
+        <li>Write the README with the template in <a href="careers.html#make-a-portfolio-from-your-projects">Careers, Section 5</a>.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- 11 -->
+  <section id="after-the-projects">
+    <div class="num">11</div>
     <div>
       <h2>After the projects</h2>
       <p>Keep your work. A small set of projects shows employers and teachers what you can do.</p>
@@ -440,7 +579,7 @@ for group, part in test.groupby(&quot;group&quot;):
   </nav>
 
   <footer>
-    <span>Written to ASD-STE100 (approx. 80% compliance). Data: SMS Spam Collection (UCI), scikit-learn digits.</span>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Data: SMS Spam Collection (UCI), scikit-learn digits. Projects 8 and 9 use example data.</span>
   </footer>
 </div>
 </body>
