@@ -10,6 +10,7 @@ A static learning site with ten modules (0 to 9) and two tracks, written in ASD-
 | `ai.html`, `mathematics.html`, `machine-learning.html`, `deep-learning.html`, `generative-ai.html`, `responsible-ai.html`, `ai-in-practice.html`, `devops.html`, `llm-engineering.html` | Modules 1 to 9. Module 0 is `python-for-ai.html` |
 | `course.html` | The course plan: tracks, weekly plans, outcomes, certificate rules. **Generated** from `TRACKS` and `OUTCOMES` in `tools/build.py` |
 | `topic-*.html` | Short topics: computer vision, language tasks, recommendation systems, forecasting. Listed in `TOPICS` in `tools/build.py` |
+| `capstone.html` | The graded capstone of the AI Engineer track: two options, milestones, a submission checklist, and a seven-part rubric with a self-assessment score |
 | `review.html` | The final review: 20 questions drawn from all module knowledge checks. Passing it is the last step to the certificate |
 | `cheat-sheets.html` | One printable summary sheet for each module, and a formula sheet |
 | `careers.html` | Jobs in AI, skills, what to learn next, and how to build a portfolio |

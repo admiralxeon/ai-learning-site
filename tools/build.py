@@ -119,14 +119,14 @@ TRACKS = [
               ([6], ["The capstone plan in Module 6", "The final review"])]},
     {"id": "engineer", "name": "AI Engineer", "weeks": 12, "hours": "6 to 8 hours each week",
      "who": "For people who want to build AI products: developers, data analysts, and students of engineering.",
-     "modules": "all", "projects": ["p3", "p5", "p8", "p9"],
+     "modules": "all", "projects": ["p3", "p5", "p8", "p9"], "capstone": True,
      "plan": [([0], ["Run all the examples of Module 0", "p2"]), ([1, 2], ["p1"]), ([3], ["p3", "p4"]),
               ([4], ["p5"]), ([5], ["p6"]), ([6], ["p7"]),
               ([7], ["p8"]), ([8], ["p9"]),
-              ([9], ["Run rag.py and eval_retrieval.py of Module 9 (no API key necessary)"]),
-              (["topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html"], ["With an API key: build the RAG answer, the judge, and the tool example of Module 9", "Select one short topic, and add a feature to one of your projects"]),
-              (["cheat-sheets.html"], ["The final review"]),
-              (["careers.html"], ["Put your projects on GitHub with a README", "Plan your own project with the capstone"])]},
+              ([9], ["Run rag.py and eval_retrieval.py of Module 9 (no API key necessary)", "cap1"]),
+              (["topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html"], ["With an API key: build the RAG answer, the judge, and the tool example of Module 9", "cap2"]),
+              (["cheat-sheets.html"], ["The final review", "cap3"]),
+              (["careers.html"], ["Put your projects on GitHub with a README", "cap4"])]},
 ]
 PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predict-flat-prices-with-a-line",
                "p3": "project-3-build-a-spam-filter", "p4": "project-4-find-groups-of-customers",
@@ -134,7 +134,7 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
                "p7": "project-7-audit-a-model-for-bias", "p8": "project-8-find-drift-and-train-again",
                "p9": "project-9-ship-a-model-with-ci-cd"}
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
-REVIEW, CHEATS, CAREERS, COURSE = "review.html", "cheat-sheets.html", "careers.html", "course.html"
+REVIEW, CHEATS, CAREERS, COURSE, CAPSTONE = "review.html", "cheat-sheets.html", "careers.html", "course.html", "capstone.html"
 SITE_NAME = "AI learning manual"
 HOME_DESCRIPTION = ("A full AI course in ten modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, and LLM engineering. "
                     "Each module has diagrams, videos, and a knowledge check.")
@@ -142,6 +142,7 @@ PROJECTS_DESCRIPTION = "Nine hands-on AI projects from beginner to advanced: an 
 CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual."
 REVIEW_DESCRIPTION = "The final review: 20 questions from the modules of your track, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
+CAPSTONE_DESCRIPTION = "The capstone of the AI Engineer track: build and ship an ML service or a RAG application, with a submission checklist, a seven-part rubric, and a self-assessment score."
 COURSE_DESCRIPTION = "The course plan: two tracks, AI Foundations (6 weeks) and AI Engineer (12 weeks), with a weekly plan, the learning outcomes of each module, and the certificate rules."
 CAREERS_DESCRIPTION = "Jobs in AI, the skills that each job needs, what to learn after this course, and how to show your projects in a portfolio."
 GLOSSARY_DESCRIPTION = "All the technical names in the AI learning manual, with short definitions and links to the modules that use them."
@@ -227,7 +228,7 @@ for m in MODULES:
             q["rn"], q["rt"] = titles[q["ref"]]
         review_pool.append(q)
 
-EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
+EXTRA = {COURSE: ("Course plan", COURSE_DESCRIPTION), CAPSTONE: ("Capstone", CAPSTONE_DESCRIPTION), PROJECTS: ("Projects", PROJECTS_DESCRIPTION), REVIEW: ("Final review", REVIEW_DESCRIPTION),
          CHEATS: ("Cheat sheets", CHEATS_DESCRIPTION), CAREERS: ("Careers", CAREERS_DESCRIPTION)}
 for m in MODULES:
     if m["num"] not in OUTCOMES:
@@ -240,7 +241,7 @@ for t in TRACKS:
         t["modules"] = [m["num"] for m in MODULES]
 for m in MODULES:
     m["tracks"] = [t["id"] for t in TRACKS if m["num"] in t["modules"]]
-PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE]
+PAGES = [HOME, COURSE] + [m["href"] for m in MODULES] + [t["href"] for t in TOPICS] + [PROJECTS, CAPSTONE, REVIEW, CHEATS, CAREERS, GLOSSARY, CERTIFICATE]
 
 
 # ---------------------------------------------------------------- shared parts
@@ -272,7 +273,7 @@ def nav_html(current):
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics">{tops}</ul>
-        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(CERTIFICATE, "Certificate")}</div>
+        <div class="mods-foot">{top(HOME, "Home", " mods-home")}{top(COURSE, "Course plan")}{top(PROJECTS, "Projects")}{top(CAPSTONE, "Capstone")}{top(REVIEW, "Final review")}{top(CHEATS, "Cheat sheets")}{top(CAREERS, "Careers")}{top(GLOSSARY, "Glossary and flashcards")}{top(CERTIFICATE, "Certificate")}</div>
       </div>
     </details>
     {top(PROJECTS, "Projects", " topnav-proj")}
@@ -492,6 +493,9 @@ def item_html(x):
         return f'<a href="projects.html#{PROJECT_IDS[x]}">Project {x[1:]}</a>'
     if x == "The final review":
         return '<a href="review.html">The final review</a>'
+    if x.startswith("cap") and x[3:].isdigit():
+        names = {"1": "plan and data", "2": "baseline and first version", "3": "tests, evaluation, and pipeline", "4": "model card, demo, and submission"}
+        return f'<a href="capstone.html#milestones">Capstone, week {x[3:]}: {names[x[3:]]}</a>'
     if x.endswith(".html"):
         names = {CHEATS: "Cheat sheets", CAREERS: "Careers and next steps", REVIEW: "The final review"}
         names.update({t["href"]: t["title"] for t in TOPICS})
@@ -514,6 +518,8 @@ def plan_table(t):
 def cert_rules(t):
     mods = ", ".join(str(n) for n in t["modules"])
     rules = [f"Pass the knowledge check of Modules {mods}.", "Pass the final review (75% or more)."]
+    if t.get("capstone"):
+        rules.append('Pass the <a href="capstone.html">capstone</a>: 70% or more in the rubric, no criterion at level 1, and a complete checklist.')
     if t["projects"]:
         rules.append("Mark these projects as done: " + ", ".join(f'<a href="projects.html#{PROJECT_IDS[p]}">Project {p[1:]}</a>' for p in t["projects"]) + ".")
     return "".join(f"<li>{r}</li>" for r in rules)
@@ -531,6 +537,7 @@ def course_page():
           <ul>
             <li>{len(t["modules"])} modules: {", ".join(str(x) for x in t["modules"])}</li>
             <li>{proj}</li>
+            {"<li>A graded capstone project</li>" if t.get("capstone") else ""}
             <li>The final review and the {t["name"]} certificate</li>
           </ul>
           <button type="button" class="pg-btn pg-btn-primary track-pick" data-track="{t["id"]}">Follow this track</button>
@@ -684,7 +691,7 @@ js, n = re.subn(r"var MODULES=\[.*?\n  \];", lambda mo: "var MODULES=[\n" + data
 if n != 1:
     raise SystemExit("assets/site.js: MODULES list not found")
 tracks_js = json.dumps([{"id": t["id"], "name": t["name"], "weeks": t["weeks"], "modules": [BY_NUM[n]["href"] for n in t["modules"]],
-                         "projects": [PROJECT_IDS[p] for p in t["projects"]]} for t in TRACKS], separators=(",", ":"))
+                         "projects": [PROJECT_IDS[p] for p in t["projects"]], "capstone": bool(t.get("capstone"))} for t in TRACKS], separators=(",", ":"))
 js, n = re.subn(r"var TRACKS=\[.*?\];", lambda mo: "var TRACKS=" + tracks_js + ";", js, count=1, flags=re.S)
 if n != 1:
     raise SystemExit("assets/site.js: TRACKS list not found")

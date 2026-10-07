@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capstone | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="The capstone of the AI Engineer track: build and ship an ML service or a RAG application, with a submission checklist, a seven-part rubric, and a self-assessment score.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="Capstone | AI learning manual">
+<meta property="og:description" content="The capstone of the AI Engineer track: build and ship an ML service or a RAG application, with a submission checklist, a seven-part rubric, and a self-assessment score.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=8cdbf4e652">
+<script src="assets/site.js?v=28d8ff8099"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn"><span class="mods-t">Modules</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="python-for-ai.html" data-mod="python-for-ai.html"><span class="mods-n">0</span><span class="mods-i"><b>Python and data tools</b><small>Python basics, NumPy arrays, pandas tables, SQL, error messages, the terminal, and Git: the tools of an AI engineer.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 16 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
+        <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="course.html">Course plan</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="capstone.html" aria-current="page">Capstone</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main" data-reference>
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-00-00-00-007A</b></div>
+    <div>Subject<b>Capstone</b></div>
+    <div>Info type<b>Assessment</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>Capstone: build and ship an AI product</h1>
+    <p>The capstone is the final work of the AI Engineer track. You build a real AI product from the start to the end, put it on GitHub, and grade it with a rubric. A passed capstone is necessary for the AI Engineer certificate. It is also the most important item of your portfolio.</p>
+  </div>
+
+  <section id="about-the-capstone">
+    <div class="num">1</div>
+    <div>
+      <h2>About the capstone</h2>
+      <ul>
+        <li><b>Time:</b> approximately 15 to 25 hours, in 4 weeks.</li>
+        <li><b>Start:</b> make your plan with the worksheet in <a href="responsible-ai.html#capstone-project-plan-an-ai-solution">Module 6, Section 8</a>. That plan is part 1 of the capstone. This page is part 2: the build.</li>
+        <li><b>Select one option:</b> an ML service (Option A) or a RAG application (Option B).</li>
+        <li><b>Work alone or in a team of two.</b> In a team, each person must be able to explain all the code.</li>
+        <li><b>Grading:</b> you grade your work with the rubric in <a href="#rubric-and-self-assessment">Section 6</a>. For a certificate that other people can check, a reviewer also grades it. Refer to <a href="certificate.html">the certificate page</a>.</li>
+      </ul>
+      <div class="notice caution">
+        <strong>Caution</strong>
+        <p>Use public data or data that you have permission to use. Do not put personal data, passwords, or API keys into the repository. Refer to <a href="devops.html#security-and-secrets">Module 8, Section 10</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="option-a-an-ml-service">
+    <div class="num">2</div>
+    <div>
+      <h2>Option A: an ML service</h2>
+      <p>Train a model on a real data set, and serve it as a tested API, as in <a href="devops.html">Module 8</a> and <a href="projects.html#project-9-ship-a-model-with-ci-cd">Project 9</a>.</p>
+      <h3>Minimum requirements</h3>
+      <ul class="pj-check">
+        <li>A real data set of at least 1,000 rows, for example from Kaggle, the UCI Machine Learning Repository, or data.gov.in.</li>
+        <li>A baseline and at least one better model, compared with cross-validation. Refer to <a href="ai-in-practice.html#test-fairly-with-cross-validation">Module 7, Section 5</a>.</li>
+        <li>No data leakage: a written check of each feature. Refer to <a href="ai-in-practice.html#prepare-the-data">Module 7, Section 3</a>.</li>
+        <li>An API with input checks, a health address, and the model version in each answer.</li>
+        <li>Tests, including a quality gate, that run in a CI pipeline.</li>
+        <li>A Dockerfile, and a drift check on new data, as in <a href="projects.html#project-8-find-drift-and-train-again">Project 8</a>.</li>
+      </ul>
+      <p><b>Ideas:</b> predict late deliveries for a shop, find damaged products from sensor data, predict the demand of a product (refer to <a href="topic-forecasting.html">Forecasting</a>), or sort support emails by subject.</p>
+    </div>
+  </section>
+
+  <section id="option-b-a-rag-application">
+    <div class="num">3</div>
+    <div>
+      <h2>Option B: a RAG application</h2>
+      <p>Build an assistant that answers questions from a set of documents, with sources, as in <a href="llm-engineering.html">Module 9</a>.</p>
+      <h3>Minimum requirements</h3>
+      <ul class="pj-check">
+        <li>At least 20 public documents, for example the rules of your college, the FAQ of a government scheme, or the manuals of a product.</li>
+        <li>Chunks, an embedding model or TF-IDF, and a search that you can explain.</li>
+        <li>Answers that cite their sources, and say "I do not know" when the sources do not contain the answer.</li>
+        <li>An evaluation set of at least 30 questions: a retrieval test (recall at k) and a judge with reference answers.</li>
+        <li>Guardrails: input checks, output checks, and a limit on cost. Refer to <a href="llm-engineering.html#build-an-agent-with-guardrails">Module 9, Section 7</a>.</li>
+        <li>A simple interface: a web page, a chat in Streamlit or Gradio, or a command-line program.</li>
+      </ul>
+      <p><b>Ideas:</b> a help desk for new students, an assistant for farmers in a local language, or a search tool for the documents of a small company.</p>
+    </div>
+  </section>
+
+  <section id="milestones">
+    <div class="num">4</div>
+    <div>
+      <h2>Milestones</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Week</th><th>Do</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Finish the plan. Get the data or the documents. Make the repository.</td><td>A README with the problem, the users, and the measure of success.</td></tr>
+            <tr><td>2</td><td>Make a baseline and a first working version.</td><td>The first results, compared with the baseline.</td></tr>
+            <tr><td>3</td><td>Add tests, the evaluation set, the pipeline, and the guardrails. Improve the weakest part.</td><td>A green pipeline and an evaluation report.</td></tr>
+            <tr><td>4</td><td>Write the model card. Record a demo video. Grade your work with the rubric.</td><td>The submission.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="submission-checklist">
+    <div class="num">5</div>
+    <div>
+      <h2>Submission checklist</h2>
+      <p>Select each item when it is done. Your answers are kept in this browser.</p>
+      <div class="cap-sub">
+        <label class="pg-label" for="cap-repo">Address of your public repository</label>
+        <input class="pg-text" id="cap-repo" type="url" placeholder="https://github.com/your-name/your-project" autocomplete="url">
+        <label class="pg-label" for="cap-demo">Address of your demo video</label>
+        <input class="pg-text" id="cap-demo" type="url" placeholder="https://..." autocomplete="url">
+      </div>
+      <ul class="cap-check" aria-label="Submission checklist">
+        <li><label><input type="checkbox" data-cap="repo"> The code is in a public GitHub repository.</label></li>
+        <li><label><input type="checkbox" data-cap="readme"> The README follows the template in <a href="careers.html#make-a-portfolio-from-your-projects">Careers, Section 5</a>: problem, data, method, results, limits.</label></li>
+        <li><label><input type="checkbox" data-cap="run"> A different person can run it with the instructions in the README.</label></li>
+        <li><label><input type="checkbox" data-cap="tests"> The tests pass in the CI pipeline, and the pipeline has a quality gate.</label></li>
+        <li><label><input type="checkbox" data-cap="baseline"> The results compare the solution with a baseline.</label></li>
+        <li><label><input type="checkbox" data-cap="eval"> The evaluation results are in the README, with the evaluation set or the test data.</label></li>
+        <li><label><input type="checkbox" data-cap="card"> A model card describes the use, the data, the results for each group, the limits, and who is responsible. Refer to <a href="projects.html#project-7-audit-a-model-for-bias">Project 7</a>.</label></li>
+        <li><label><input type="checkbox" data-cap="video"> A demo video of 2 to 3 minutes shows the product and one limit.</label></li>
+        <li><label><input type="checkbox" data-cap="secrets"> The repository contains no secrets and no personal data.</label></li>
+      </ul>
+      <p class="cap-check-status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="rubric-and-self-assessment">
+    <div class="num">6</div>
+    <div>
+      <h2>Rubric and self-assessment</h2>
+      <p>For each criterion, select the level that agrees with your work. Be honest: a reviewer uses the same rubric. To pass, you need 70% or more, no criterion at level 1, and a complete checklist.</p>
+      <div class="cap-rubric">
+        <fieldset class="rb" data-crit="problem">
+          <legend>1. Problem and users</legend>
+          <label><input type="radio" name="rb-problem" value="1"><span><b>1 Beginning</b>The problem is not clear.</span></label>
+          <label><input type="radio" name="rb-problem" value="2"><span><b>2 Developing</b>The problem is clear, but not the users or the measure of success.</span></label>
+          <label><input type="radio" name="rb-problem" value="3"><span><b>3 Proficient</b>Clear problem, users, and measure of success.</span></label>
+          <label><input type="radio" name="rb-problem" value="4"><span><b>4 Excellent</b>Also explains why AI is the correct tool, with the cost of errors.</span></label>
+        </fieldset>
+        <fieldset class="rb" data-crit="data">
+          <legend>2. Data and baseline</legend>
+          <label><input type="radio" name="rb-data" value="1"><span><b>1 Beginning</b>No baseline, or the data is not described.</span></label>
+          <label><input type="radio" name="rb-data" value="2"><span><b>2 Developing</b>A baseline, but the data checks are missing.</span></label>
+          <label><input type="radio" name="rb-data" value="3"><span><b>3 Proficient</b>A baseline, clean data, and a written leakage check.</span></label>
+          <label><input type="radio" name="rb-data" value="4"><span><b>4 Excellent</b>Also the limits and the possible bias of the data.</span></label>
+        </fieldset>
+        <fieldset class="rb" data-crit="solution">
+          <legend>3. Model or pipeline</legend>
+          <label><input type="radio" name="rb-solution" value="1"><span><b>1 Beginning</b>It does not work, or it is not better than the baseline.</span></label>
+          <label><input type="radio" name="rb-solution" value="2"><span><b>2 Developing</b>It works, but the choices are not explained.</span></label>
+          <label><input type="radio" name="rb-solution" value="3"><span><b>3 Proficient</b>It is clearly better than the baseline, and the choices are explained.</span></label>
+          <label><input type="radio" name="rb-solution" value="4"><span><b>4 Excellent</b>Also compares two or more methods fairly, and selects with a reason.</span></label>
+        </fieldset>
+        <fieldset class="rb" data-crit="evaluation">
+          <legend>4. Evaluation</legend>
+          <label><input type="radio" name="rb-evaluation" value="1"><span><b>1 Beginning</b>Only a few examples, checked by hand.</span></label>
+          <label><input type="radio" name="rb-evaluation" value="2"><span><b>2 Developing</b>One measurement on a test set or a small evaluation set.</span></label>
+          <label><input type="radio" name="rb-evaluation" value="3"><span><b>3 Proficient</b>The correct measurements for the problem, on a fair test, with the errors analysed.</span></label>
+          <label><input type="radio" name="rb-evaluation" value="4"><span><b>4 Excellent</b>Also results for each group, and the evaluation runs automatically.</span></label>
+        </fieldset>
+        <fieldset class="rb" data-crit="engineering">
+          <legend>5. Engineering</legend>
+          <label><input type="radio" name="rb-engineering" value="1"><span><b>1 Beginning</b>Only a notebook. No tests.</span></label>
+          <label><input type="radio" name="rb-engineering" value="2"><span><b>2 Developing</b>Code in files, some tests, exact library versions.</span></label>
+          <label><input type="radio" name="rb-engineering" value="3"><span><b>3 Proficient</b>Tests and a quality gate in CI, a container or a clear way to run it, input checks.</span></label>
+          <label><input type="radio" name="rb-engineering" value="4"><span><b>4 Excellent</b>Also monitoring or a drift check, and a log of errors.</span></label>
+        </fieldset>
+        <fieldset class="rb" data-crit="responsible">
+          <legend>6. Responsible AI</legend>
+          <label><input type="radio" name="rb-responsible" value="1"><span><b>1 Beginning</b>Risks are not described.</span></label>
+          <label><input type="radio" name="rb-responsible" value="2"><span><b>2 Developing</b>A list of risks, without checks.</span></label>
+          <label><input type="radio" name="rb-responsible" value="3"><span><b>3 Proficient</b>A model card, a privacy check, and a plan for human oversight.</span></label>
+          <label><input type="radio" name="rb-responsible" value="4"><span><b>4 Excellent</b>Also a bias test with results, and guardrails in code.</span></label>
+        </fieldset>
+        <fieldset class="rb" data-crit="communication">
+          <legend>7. Communication</legend>
+          <label><input type="radio" name="rb-communication" value="1"><span><b>1 Beginning</b>No README or demo.</span></label>
+          <label><input type="radio" name="rb-communication" value="2"><span><b>2 Developing</b>A short README. The demo does not show the result clearly.</span></label>
+          <label><input type="radio" name="rb-communication" value="3"><span><b>3 Proficient</b>A clear README with results and limits, and a clear demo.</span></label>
+          <label><input type="radio" name="rb-communication" value="4"><span><b>4 Excellent</b>A person who does not know AI understands the value and the limits.</span></label>
+        </fieldset>
+      </div>
+      <div class="cap-score" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="peer-review">
+    <div class="num">7</div>
+    <div>
+      <h2>Peer review</h2>
+      <p>A second opinion makes your grade more reliable, and it is good practice for code review at work.</p>
+      <ol class="steps">
+        <li>Give your repository and this page to a friend or a colleague who also studies the course.</li>
+        <li>Ask them to run your project with only the README, and to grade it with the rubric.</li>
+        <li>Compare their grades with yours. Talk about each criterion with a difference of 2 levels or more.</li>
+        <li>Improve the weakest criterion, and grade again.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="index.html"><small>Back to</small><b>Home</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). The rubric uses four levels for each of seven criteria.</span>
+  </footer>
+</div>
+</body>
+</html>

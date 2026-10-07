@@ -53,13 +53,23 @@
     {"href":"llm-engineering.html","num":9,"title":"LLM engineering","sections":14,"read":18,"video":9,"quick":["the-parts-of-an-llm-application","call-a-model-through-an-api","answer-from-your-documents-with-rag","evaluate-the-application","summary","knowledge-check"],"quickRead":6,"tracks":["engineer"]}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"f27baddd21","search-index.js":"f3153b4e1b"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"f27baddd21","search-index.js":"7ce5e1e967"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   // The tracks of the course. tools/build.py writes them.
-  var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[]},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"]}];
+  var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[],"capstone":false},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"],"capstone":true}];
   var TRACK_KEY="ai-manual-track";
   function myTrack(){var id=get(TRACK_KEY);for(var i=0;i<TRACKS.length;i++)if(TRACKS[i].id===id)return TRACKS[i];return null;}
   function trackMods(t){return t?MODULES.filter(function(M){return t.modules.indexOf(M.href)>=0;}):MODULES;}
+  var CAPG_KEY="ai-manual-capstone-grade",CAP_ITEMS=["repo","readme","run","tests","baseline","eval","card","video","secrets"],CAP_CRITS=["problem","data","solution","evaluation","engineering","responsible","communication"];
+  function capGrade(){try{return JSON.parse(get(CAPG_KEY))||{};}catch(e){return {};}}
+  // Pass: a complete checklist, a level for each criterion, no level 1, and 70% or more of the points.
+  function capResult(g){
+    var ck=g.check||{},lv=g.levels||{},done=CAP_ITEMS.filter(function(k){return ck[k];}).length,sum=0,n=0,low=false;
+    CAP_CRITS.forEach(function(c){var v=+lv[c]||0;if(v){n++;sum+=v;if(v===1)low=true;}});
+    var pct=Math.round(sum/(CAP_CRITS.length*4)*100);
+    return {done:done,items:CAP_ITEMS.length,rated:n,crits:CAP_CRITS.length,sum:sum,max:CAP_CRITS.length*4,pct:pct,low:low,
+      passed:done===CAP_ITEMS.length&&n===CAP_CRITS.length&&!low&&pct>=70};
+  }
   function projectsDone(t,store){var d=(store["projects.html"]||{}).done||[];return (t?t.projects:[]).filter(function(id){return d.indexOf(id)>=0;});}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 
@@ -599,7 +609,7 @@
       if(TK){
         tct.appendChild(el("small",null,"Your track"));
         tct.appendChild(el("b",null,TK.name));
-        tct.appendChild(el("p",null,TK.weeks+" weeks \u00b7 "+qp+" of "+TM.length+" modules passed"+(TK.projects.length?" \u00b7 "+projectsDone(TK,store).length+" of "+TK.projects.length+" required projects done":"")));
+        tct.appendChild(el("p",null,TK.weeks+" weeks \u00b7 "+qp+" of "+TM.length+" modules passed"+(TK.projects.length?" \u00b7 "+projectsDone(TK,store).length+" of "+TK.projects.length+" required projects done":"")+(TK.capstone?" \u00b7 capstone "+(capResult(capGrade()).passed?"passed":"not passed yet"):"")));
         tc.appendChild(tct);
         var tl=el("div","dash-track-a");
         var ta=el("a","btn","See your weekly plan");ta.href="course.html#"+TK.id+"-weekly-plan";tl.appendChild(ta);
@@ -628,8 +638,8 @@
       var mkBtn=function(label,fn){var b=el("button","linkbtn",label);b.type="button";b.addEventListener("click",fn);return b;};
       var fileIn=el("input");fileIn.type="file";fileIn.accept="application/json,.json";fileIn.hidden=true;
       tools.appendChild(mkBtn("Export progress",function(){
-        var cards=null,cap=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));}catch(e){}
-        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,
+        var cards=null,cap=null,capg=null;try{cards=JSON.parse(get("ai-manual-cards"));cap=JSON.parse(get("ai-manual-capstone"));capg=JSON.parse(get(CAPG_KEY));}catch(e){}
+        var data={app:"ai-learning-manual",version:2,exported:new Date().toISOString(),progress:loadProgress(),cards:cards||{},capstone:cap||null,capstoneGrade:capg||null,
           settings:{theme:get(THEME_KEY)||"",text:get(TEXT_KEY)||"",path:get(PATH_KEY)||"",name:get(NAME_KEY)||"",track:get(TRACK_KEY)||""}};
         var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
         var u=URL.createObjectURL(blob),dl=el("a");dl.href=u;dl.download="ai-manual-progress.json";
@@ -639,7 +649,7 @@
       tools.appendChild(mkBtn("Import progress",function(){fileIn.click();}));
       tools.appendChild(mkBtn("Reset progress",function(){
         if(window.confirm("Delete all your progress, quiz scores, flashcards, and your project plan? You cannot undo this.")){
-          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+          try{[PROG_KEY,"ai-manual-cards","ai-manual-capstone",CAPG_KEY,NAME_KEY].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
           location.reload();
         }
       }));
@@ -653,6 +663,7 @@
           saveProgress(d.progress);
           if(d.cards&&typeof d.cards==="object")set("ai-manual-cards",JSON.stringify(d.cards));
           if(d.capstone&&typeof d.capstone==="object")set("ai-manual-capstone",JSON.stringify(d.capstone));
+          if(d.capstoneGrade&&typeof d.capstoneGrade==="object")set(CAPG_KEY,JSON.stringify(d.capstoneGrade));
           if(d.settings){set(THEME_KEY,d.settings.theme||"");set(TEXT_KEY,d.settings.text||"");if(d.settings.path)set(PATH_KEY,d.settings.path);if(d.settings.name)set(NAME_KEY,d.settings.name);if(d.settings.track)set(TRACK_KEY,d.settings.track);}
           location.reload();
         };
@@ -722,8 +733,9 @@
       brow.appendChild(rli);
       bc.appendChild(brow);
       var cp=el("p","badges-cert");
-      var pjNeed=TK?TK.projects:[],pjHave=projectsDone(TK,store),pjOk=pjHave.length===pjNeed.length;
+      var pjNeed=TK?TK.projects:[],pjHave=projectsDone(TK,store),capOk=!(TK&&TK.capstone)||capResult(capGrade()).passed,pjOk=pjHave.length===pjNeed.length&&capOk;
       if(qp===TM.length&&rvOk&&pjOk){var ca=el("a","btn","Get your certificate");ca.href="certificate.html";cp.appendChild(ca);}
+      else if(qp===TM.length&&rvOk&&!capOk&&pjHave.length===pjNeed.length){var cpa=el("a","btn","Open the capstone");cpa.href="capstone.html";cp.appendChild(document.createTextNode("One step left: pass the capstone. "));cp.appendChild(cpa);}
       else if(qp===TM.length&&rvOk){var pa=el("a","btn","Open the projects");pa.href="projects.html";cp.appendChild(document.createTextNode("Mark the required projects as done ("+pjHave.length+" of "+pjNeed.length+"): "));cp.appendChild(pa);}
       else if(qp===TM.length){var ra=el("a","btn","Take the final review");ra.href="review.html";cp.appendChild(document.createTextNode("All knowledge checks passed. One step to your certificate: "));cp.appendChild(ra);}
       else cp.textContent="Pass the knowledge check of all "+TM.length+" modules"+(TK?" of your track":"")+", the final review"+(pjNeed.length?", and "+pjNeed.length+" projects":"")+" to get your certificate.";
@@ -1088,12 +1100,13 @@
       if(!myTrack()){var cn=el("p","cert-note");cn.innerHTML='You did not choose a track. This page shows the <b>'+CT.name+'</b> track. <a href="course.html#choose-your-track">Choose your track</a>.';capp.appendChild(cn);}
       var passedM=CM.filter(function(M){var p=store[M.href]||{};return (p.done||[]).indexOf("knowledge-check")>=0;});
       var rv=store["review.html"]||{},rvPassed=(rv.done||[]).indexOf("final-review")>=0;
-      var cpj=projectsDone(CT,store),cpjOk=cpj.length===CT.projects.length;
+      var cpj=projectsDone(CT,store),capR=capResult(capGrade()),cpjOk=cpj.length===CT.projects.length&&(!CT.capstone||capR.passed);
       if(passedM.length<CM.length||!rvPassed||!cpjOk){
         capp.appendChild(el("p",null,"Track: "+CT.name+". You passed "+passedM.length+" of "+CM.length+" knowledge checks"+(rvPassed?" and the final review":"")+(CT.projects.length?", and you did "+cpj.length+" of "+CT.projects.length+" required projects":"")+". To get your certificate, do these steps:"));
         var cul=el("ul");
         CM.forEach(function(M){if(passedM.indexOf(M)>=0)return;var li=el("li"),a=el("a",null,"Module "+M.num+": "+M.title);a.href=M.href+"#knowledge-check";li.appendChild(a);cul.appendChild(li);});
         if(!rvPassed){var rli2=el("li"),ra2=el("a",null,"The final review: 20 questions from the modules of your track");ra2.href="review.html#final-review";rli2.appendChild(ra2);cul.appendChild(rli2);}
+        if(CT.capstone&&!capR.passed){var cli=el("li"),cla=el("a",null,"Pass the capstone (now "+capR.pct+"%, "+capR.done+" of "+capR.items+" checklist items)");cla.href="capstone.html";cli.appendChild(cla);cul.appendChild(cli);}
         CT.projects.forEach(function(id){if(cpj.indexOf(id)>=0)return;var li=el("li"),a=el("a",null,"Mark as done: Project "+(/^project-(\d+)/.exec(id)||[0,"?"])[1]);a.href="projects.html#"+id;li.appendChild(a);cul.appendChild(li);});
         capp.appendChild(cul);
       }else{
@@ -1108,7 +1121,8 @@
         ci.appendChild(el("p","cert-k","Certificate of completion \u00b7 "+CT.name));
         ci.appendChild(el("p","cert-this","This certificate is given to"));
         var cname=el("p","cert-name");ci.appendChild(cname);
-        ci.appendChild(el("p","cert-for","for the completion of the "+CT.name+" track of the AI learning manual: "+CM.length+" modules"+(CT.projects.length?" and "+CT.projects.length+" projects":"")+"."));
+        ci.appendChild(el("p","cert-for","for the completion of the "+CT.name+" track of the AI learning manual: "+CM.length+" modules"+(CT.projects.length?", "+CT.projects.length+" projects":"")+(CT.capstone?", and a capstone project":"")+"."));
+        var cg=capGrade();if(CT.capstone&&cg.repo){var cr=el("p","cert-cap");cr.textContent="Capstone: "+cg.repo+" \u00b7 self-assessment "+capR.pct+"%";ci.appendChild(cr);}
         var cmods=el("ul","cert-mods");CM.forEach(function(M){cmods.appendChild(el("li",null,M.num+". "+M.title));});ci.appendChild(cmods);
         var cdate=new Date(latest||Date.now());
         var dtxt;try{dtxt=cdate.toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});}catch(e){dtxt=cdate.toDateString();}
@@ -1123,6 +1137,45 @@
         capp.appendChild(el("p",null,"Congratulations. You completed the "+CT.name+" track: all "+CM.length+" knowledge checks, the final review"+(CT.projects.length?", and the required projects":"")+"."));
         capp.appendChild(clab);capp.appendChild(cin);capp.appendChild(cert);capp.appendChild(cact);
       }
+    }
+
+    // ---------- Capstone page: checklist and rubric ----------
+    var capBox=document.querySelector(".cap-rubric");
+    if(capBox){
+      var g=capGrade();g.check=g.check||{};g.levels=g.levels||{};
+      var saveG=function(){g.result=capResult(g);if(g.result.passed&&!g.passedAt)g.passedAt=Date.now();set(CAPG_KEY,JSON.stringify(g));paintG();};
+      var repoIn=document.getElementById("cap-repo"),demoIn=document.getElementById("cap-demo");
+      if(repoIn){repoIn.value=g.repo||"";repoIn.addEventListener("input",function(){g.repo=repoIn.value.trim();saveG();});}
+      if(demoIn){demoIn.value=g.demo||"";demoIn.addEventListener("input",function(){g.demo=demoIn.value.trim();saveG();});}
+      [].forEach.call(document.querySelectorAll("input[data-cap]"),function(c){
+        c.checked=!!g.check[c.getAttribute("data-cap")];
+        c.addEventListener("change",function(){g.check[c.getAttribute("data-cap")]=c.checked;saveG();});
+      });
+      [].forEach.call(capBox.querySelectorAll("fieldset[data-crit]"),function(fs){
+        var crit=fs.getAttribute("data-crit");
+        [].forEach.call(fs.querySelectorAll("input[type=radio]"),function(r){
+          r.checked=String(g.levels[crit]||"")===r.value;
+          r.addEventListener("change",function(){if(r.checked){g.levels[crit]=+r.value;saveG();}});
+        });
+      });
+      var scoreBox=document.querySelector(".cap-score"),chkStat=document.querySelector(".cap-check-status");
+      var paintG=function(){
+        var r=capResult(g);
+        if(chkStat)chkStat.textContent=r.done+" of "+r.items+" items done.";
+        scoreBox.innerHTML="";
+        var sc=el("div","qr-score");sc.appendChild(el("b",null,r.sum+" / "+r.max));sc.appendChild(el("span",null,r.pct+"%"));scoreBox.appendChild(sc);
+        var why=[];
+        if(r.rated<r.crits)why.push("Select a level for each criterion ("+r.rated+" of "+r.crits+" done).");
+        if(r.low)why.push("No criterion can be at level 1.");
+        if(r.pct<70&&r.rated===r.crits)why.push("You need 70% or more.");
+        if(r.done<r.items)why.push("Complete the checklist ("+r.done+" of "+r.items+").");
+        var msg=el("div","qr-msg");
+        msg.appendChild(el("b",null,r.passed?"Capstone passed. Well done.":"Not passed yet."));
+        msg.appendChild(el("p",null,r.passed?"The capstone now counts for the AI Engineer certificate.":why.join(" ")));
+        scoreBox.appendChild(msg);
+        scoreBox.className="cap-score quiz-result on "+(r.passed?"passed":"failed");
+      };
+      paintG();
     }
 
     // ---------- Course page: choose a track ----------
