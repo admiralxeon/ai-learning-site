@@ -104,7 +104,7 @@ OUTCOMES = {
     9: (["Call an LLM API from code, and handle refusals and errors.",
          "Get structured output that a program can use.",
          "Build a RAG pipeline that answers with sources.",
-         "Give a model tools, and evaluate an LLM application with a retrieval test and a judge.",
+         "Give a model tools, build an agent with guardrails, and evaluate an application with a retrieval test and a judge.",
          "Decrease cost with caching, and select between a prompt, RAG, and fine-tuning."], [0, 5, 7]),
 }
 

@@ -50,10 +50,10 @@
     {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5,"tracks":["foundations","engineer"]},
     {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"]},
     {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":17,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":7,"tracks":["engineer"]},
-    {"href":"llm-engineering.html","num":9,"title":"LLM engineering","sections":13,"read":15,"video":9,"quick":["the-parts-of-an-llm-application","call-a-model-through-an-api","answer-from-your-documents-with-rag","evaluate-the-application","summary","knowledge-check"],"quickRead":6,"tracks":["engineer"]}
+    {"href":"llm-engineering.html","num":9,"title":"LLM engineering","sections":14,"read":18,"video":9,"quick":["the-parts-of-an-llm-application","call-a-model-through-an-api","answer-from-your-documents-with-rag","evaluate-the-application","summary","knowledge-check"],"quickRead":6,"tracks":["engineer"]}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"f27baddd21","search-index.js":"f87ec1b0af"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"f27baddd21","search-index.js":"f3153b4e1b"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   // The tracks of the course. tools/build.py writes them.
   var TRACKS=[{"id":"foundations","name":"AI Foundations","weeks":6,"modules":["ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html"],"projects":[]},{"id":"engineer","name":"AI Engineer","weeks":12,"modules":["python-for-ai.html","ai.html","mathematics.html","machine-learning.html","deep-learning.html","generative-ai.html","responsible-ai.html","ai-in-practice.html","devops.html","llm-engineering.html"],"projects":["project-3-build-a-spam-filter","project-5-a-neural-network-that-reads-digits","project-8-find-drift-and-train-again","project-9-ship-a-model-with-ci-cd"]}];
