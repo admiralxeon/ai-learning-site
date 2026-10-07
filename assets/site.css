@@ -1181,6 +1181,11 @@ table.plan a{display:inline-block;min-height:24px;line-height:24px}
 .dash-track-a{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
 .cert-note{padding:.6rem .8rem;border-radius:8px;background:var(--amber-soft);border:1px solid color-mix(in srgb,var(--amber) 45%,transparent)}
 
+.pg-rag-prompt{max-height:16rem;overflow:auto;margin-top:.3rem}
+.pg-rag li{padding-left:2.2rem}
+.pg-rag .pg-rag-out::before{background:var(--rule-strong)}
+.pg-rag .pg-rag-out .pg-rel-s{color:var(--muted)}
+
 /* ---------- Motion & print ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{

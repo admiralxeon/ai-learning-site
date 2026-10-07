@@ -47,6 +47,9 @@ MODULES = [
     {"href": "devops.html", "title": "DevOps for AI",
      "summary": "Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.",
      "quick": ["what-devops-is", "serve-the-model-as-an-api", "test-and-release-automatically", "observe-the-system-in-production", "summary", "knowledge-check"]},
+    {"href": "llm-engineering.html", "title": "LLM engineering",
+     "summary": "Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.",
+     "quick": ["the-parts-of-an-llm-application", "call-a-model-through-an-api", "answer-from-your-documents-with-rag", "evaluate-the-application", "summary", "knowledge-check"]},
 ]
 # Short topics: single pages that are not part of the certificate. In this order, with previous and next links.
 TOPICS = [
@@ -98,6 +101,11 @@ OUTCOMES = {
          "Serve a model as an API and package it in a container.",
          "Build a CI/CD pipeline with quality gates.",
          "Observe a service in production and protect its secrets."], [0, 7]),
+    9: (["Call an LLM API from code, and handle refusals and errors.",
+         "Get structured output that a program can use.",
+         "Build a RAG pipeline that answers with sources.",
+         "Give a model tools, and evaluate an LLM application with a retrieval test and a judge.",
+         "Decrease cost with caching, and select between a prompt, RAG, and fine-tuning."], [0, 5, 7]),
 }
 
 # The two tracks. "plan" has one line for each week: (what to study, what to do).
@@ -114,8 +122,9 @@ TRACKS = [
      "modules": "all", "projects": ["p3", "p5", "p8", "p9"],
      "plan": [([0], ["Run all the examples of Module 0", "p2"]), ([1, 2], ["p1"]), ([3], ["p3", "p4"]),
               ([4], ["p5"]), ([5], ["p6"]), ([6], ["p7"]),
-              ([7], ["p8"]), ([8], ["p9"]), ("rest", []),
-              (["topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html"], ["Select one short topic, and add a feature to one of your projects"]),
+              ([7], ["p8"]), ([8], ["p9"]),
+              ([9], ["Run rag.py and eval_retrieval.py of Module 9 (no API key necessary)"]),
+              (["topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html"], ["With an API key: build the RAG answer, the judge, and the tool example of Module 9", "Select one short topic, and add a feature to one of your projects"]),
               (["cheat-sheets.html"], ["The final review"]),
               (["careers.html"], ["Put your projects on GitHub with a README", "Plan your own project with the capstone"])]},
 ]
@@ -127,11 +136,11 @@ PROJECT_IDS = {"p1": "project-1-teach-a-computer-to-see", "p2": "project-2-predi
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
 REVIEW, CHEATS, CAREERS, COURSE = "review.html", "cheat-sheets.html", "careers.html", "course.html"
 SITE_NAME = "AI learning manual"
-HOME_DESCRIPTION = ("Learn artificial intelligence in eight short modules: AI, the mathematics for ML, machine learning, deep learning, generative AI, responsible AI, AI in practice, and DevOps for AI. "
+HOME_DESCRIPTION = ("A full AI course in ten modules and two tracks, AI Foundations and AI Engineer: from Python, AI, mathematics, machine learning, and deep learning to generative AI, responsible AI, MLOps, and LLM engineering. "
                     "Each module has diagrams, videos, and a knowledge check.")
 PROJECTS_DESCRIPTION = "Nine hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, a bias audit, drift monitoring, and a CI/CD pipeline."
 CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual."
-REVIEW_DESCRIPTION = "The final review: 20 questions from all eight modules, in a new mix each time. Pass it to get your certificate."
+REVIEW_DESCRIPTION = "The final review: 20 questions from the modules of your track, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
 COURSE_DESCRIPTION = "The course plan: two tracks, AI Foundations (6 weeks) and AI Engineer (12 weeks), with a weekly plan, the learning outcomes of each module, and the certificate rules."
 CAREERS_DESCRIPTION = "Jobs in AI, the skills that each job needs, what to learn after this course, and how to show your projects in a portfolio."

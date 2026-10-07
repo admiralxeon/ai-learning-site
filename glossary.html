@@ -19,8 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=e70235eafd">
-<script src="assets/site.js?v=be2736f1e5"></script>
+<link rel="stylesheet" href="assets/site.css?v=b9d5263dc3">
+<script src="assets/site.js?v=8c5a6cd82b"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -42,6 +42,7 @@
         <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
         <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
         <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 17 min read</span></span></a></li>
+        <li><a href="llm-engineering.html" data-mod="llm-engineering.html"><span class="mods-n">9</span><span class="mods-i"><b>LLM engineering</b><small>Build LLM applications: API calls, structured output, RAG with sources, tools, evaluation with a judge, cost and caching, and fine-tuning choices.</small><span class="mods-meta">About 15 min read</span></span></a></li>
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
@@ -83,7 +84,7 @@
       <div class="gl-filter">
         <label for="gl-q">Find a name</label>
         <input id="gl-q" type="search" placeholder="For example: token" autocomplete="off">
-        <p class="gl-count" aria-live="polite">179 technical names</p>
+        <p class="gl-count" aria-live="polite">189 technical names</p>
       </div>
       <nav class="gl-az" aria-label="Letters"><a href="#letter-a">A</a><a href="#letter-b">B</a><a href="#letter-c">C</a><a href="#letter-d">D</a><a href="#letter-e">E</a><a href="#letter-f">F</a><a href="#letter-g">G</a><a href="#letter-h">H</a><a href="#letter-i">I</a><a href="#letter-k">K</a><a href="#letter-l">L</a><a href="#letter-m">M</a><a href="#letter-n">N</a><a href="#letter-o">O</a><a href="#letter-p">P</a><a href="#letter-q">Q</a><a href="#letter-r">R</a><a href="#letter-s">S</a><a href="#letter-t">T</a><a href="#letter-u">U</a><a href="#letter-v">V</a><a href="#letter-w">W</a></nav>
       <h3 id="letter-a" class="gl-letter">A</h3>
@@ -116,6 +117,7 @@
         <div class="gl-item"><dt id="term-canary-release">Canary release</dt><dd><span class="gl-def">A release of a new version to a small part of the users first.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
         <div class="gl-item"><dt id="term-candidate-generation">Candidate generation</dt><dd><span class="gl-def">The first stage of a recommendation system. A fast method selects some hundreds or thousands of possible items.</span><span class="gl-mods"><a href="topic-recommendation-systems.html#technical-names">Recommendation systems</a></span></dd></div>
         <div class="gl-item"><dt id="term-chain-rule">Chain rule</dt><dd><span class="gl-def">A rule to find the slope through many steps: multiply the slopes of the steps.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
+        <div class="gl-item"><dt id="term-chunk">Chunk</dt><dd><span class="gl-def">A short part of a document that retrieval can find and put into a prompt.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-ci-cd">CI/CD</dt><dd><span class="gl-def">Continuous integration and continuous delivery: each change is tested, packaged, and released automatically.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
         <div class="gl-item"><dt id="term-classification">Classification</dt><dd><span class="gl-def">Supervised learning that predicts a category.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-clustering">Clustering</dt><dd><span class="gl-def">A task that puts similar examples into the same group.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
@@ -159,6 +161,7 @@
       <h3 id="letter-e" class="gl-letter">E</h3>
       <dl class="gl-list">
         <div class="gl-item"><dt id="term-embedding">Embedding</dt><dd><span class="gl-def">A list of numbers that shows the meaning of an item.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
+        <div class="gl-item"><dt id="term-embedding-model">Embedding model</dt><dd><span class="gl-def">A model that changes a text into a vector that keeps its meaning.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-epoch">Epoch</dt><dd><span class="gl-def">One complete pass through all of the training data.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
         <div class="gl-item"><dt id="term-eu-ai-act">EU AI Act</dt><dd><span class="gl-def">The European Union law about AI, adopted in 2024. It has four levels of risk.</span><span class="gl-mods"><a href="responsible-ai.html#technical-names">Module 6</a></span></dd></div>
         <div class="gl-item"><dt id="term-evaluation-set">Evaluation set</dt><dd><span class="gl-def">A fixed set of example inputs with good answers, to test each new version.</span><span class="gl-mods"><a href="ai-in-practice.html#technical-names">Module 7</a></span></dd></div>
@@ -172,7 +175,7 @@
         <div class="gl-item"><dt id="term-feedback-loop">Feedback loop</dt><dd><span class="gl-def">A loop in which the outputs of a model change the data that the model learns from next time.</span><span class="gl-mods"><a href="topic-recommendation-systems.html#technical-names">Recommendation systems</a></span></dd></div>
         <div class="gl-item"><dt id="term-few-shot-prompting">Few-shot prompting</dt><dd><span class="gl-def">A prompt method that gives the model some examples of the task.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
         <div class="gl-item"><dt id="term-filter">Filter</dt><dd><span class="gl-def">A small grid of weights that finds one type of pattern in an image.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
-        <div class="gl-item"><dt id="term-fine-tuning">Fine-tuning</dt><dd><span class="gl-def">Additional training on a smaller and more specific set of data.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
+        <div class="gl-item"><dt id="term-fine-tuning">Fine-tuning</dt><dd><span class="gl-def">Additional training on a smaller and more specific set of data.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-forecast">Forecast</dt><dd><span class="gl-def">A prediction of future values of a time series.</span><span class="gl-mods"><a href="topic-forecasting.html#technical-names">Forecasting</a></span></dd></div>
         <div class="gl-item"><dt id="term-forecast-horizon">Forecast horizon</dt><dd><span class="gl-def">How far into the future a forecast predicts.</span><span class="gl-mods"><a href="topic-forecasting.html#technical-names">Forecasting</a></span></dd></div>
         <div class="gl-item"><dt id="term-forward-pass">Forward pass</dt><dd><span class="gl-def">The calculation from the input layer to the output layer.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
@@ -213,7 +216,9 @@
         <div class="gl-item"><dt id="term-latency">Latency</dt><dd><span class="gl-def">The time between a request and its answer.</span><span class="gl-mods"><a href="ai-in-practice.html#technical-names">Module 7</a></span></dd></div>
         <div class="gl-item"><dt id="term-learning-rate">Learning rate</dt><dd><span class="gl-def">A setting that controls the size of each step in gradient descent.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-llm-large-language-model">LLM (large language model)</dt><dd><span class="gl-def">A very large neural network that is trained on text.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a></span></dd></div>
+        <div class="gl-item"><dt id="term-llm-judge">LLM judge</dt><dd><span class="gl-def">A method in which a model grades the answers of an application against a reference answer and rules.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-llmops">LLMOps</dt><dd><span class="gl-def">MLOps for applications that use large language models: prompt versions, evaluation sets, guardrails, and cost monitoring.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
+        <div class="gl-item"><dt id="term-lora">LoRA</dt><dd><span class="gl-def">Low-rank adaptation: a fine-tuning method that trains only a small number of extra weights.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-loss">Loss</dt><dd><span class="gl-def">A number that shows how wrong the model is.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
       </dl>
       <h3 id="letter-m" class="gl-letter">M</h3>
@@ -264,6 +269,7 @@
         <div class="gl-item"><dt id="term-pretraining">Pretraining</dt><dd><span class="gl-def">The first and largest stage of training. The model learns to predict the next token.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
         <div class="gl-item"><dt id="term-probability">Probability</dt><dd><span class="gl-def">A number between 0 and 1 that shows how possible an event is.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
         <div class="gl-item"><dt id="term-prompt">Prompt</dt><dd><span class="gl-def">The text that you give to an AI system.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a></span></dd></div>
+        <div class="gl-item"><dt id="term-prompt-caching">Prompt caching</dt><dd><span class="gl-def">A feature of the API that keeps the start of a prompt that does not change, so that later requests read it at a lower price.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-prompt-injection">Prompt injection</dt><dd><span class="gl-def">An attack in which hidden text gives instructions to an AI system.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
         <div class="gl-item"><dt id="term-pull-request">Pull request</dt><dd><span class="gl-def">A request to join the changes of a branch into the main branch, with review and automatic tests.</span><span class="gl-mods"><a href="devops.html#technical-names">Module 8</a></span></dd></div>
         <div class="gl-item"><dt id="term-python">Python</dt><dd><span class="gl-def">A programming language that is easy to read. Most AI work uses it.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a></span></dd></div>
@@ -278,6 +284,7 @@
         <div class="gl-item"><dt id="term-rag">RAG</dt><dd><span class="gl-def">Retrieval-augmented generation. The system adds relevant text from documents to the prompt.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
         <div class="gl-item"><dt id="term-reasoning-model">Reasoning model</dt><dd><span class="gl-def">A model that works through a problem in steps before it answers.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
         <div class="gl-item"><dt id="term-recall">Recall</dt><dd><span class="gl-def">Of all real positive examples, the percentage that the model finds.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
+        <div class="gl-item"><dt id="term-recall-at-k">Recall at k</dt><dd><span class="gl-def">For retrieval: the part of the questions for which the correct document is in the first k results.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-recommendation-system">Recommendation system</dt><dd><span class="gl-def">A system that predicts which items a person will probably like, and shows those items first.</span><span class="gl-mods"><a href="topic-recommendation-systems.html#technical-names">Recommendation systems</a></span></dd></div>
         <div class="gl-item"><dt id="term-regression">Regression</dt><dd><span class="gl-def">Supervised learning that predicts a number.</span><span class="gl-mods"><a href="machine-learning.html#technical-names">Module 3</a></span></dd></div>
         <div class="gl-item"><dt id="term-relu">ReLU</dt><dd><span class="gl-def">An activation function that changes negative numbers to zero.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
@@ -301,7 +308,9 @@
         <div class="gl-item"><dt id="term-sql">SQL</dt><dd><span class="gl-def">Structured Query Language: the standard language to get and change data in a database.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a></span></dd></div>
         <div class="gl-item"><dt id="term-standard-deviation">Standard deviation</dt><dd><span class="gl-def">The square root of the variance. The usual distance of a value from the mean.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
         <div class="gl-item"><dt id="term-standardization">Standardization</dt><dd><span class="gl-def">A change of a feature so that its mean is 0 and its standard deviation is 1.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
-        <div class="gl-item"><dt id="term-system-prompt">System prompt</dt><dd><span class="gl-def">Instructions from the maker of an AI product that the model gets before your prompt.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a></span></dd></div>
+        <div class="gl-item"><dt id="term-streaming">Streaming</dt><dd><span class="gl-def">A way to get the answer of a model in small parts while it is made.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
+        <div class="gl-item"><dt id="term-structured-output">Structured output</dt><dd><span class="gl-def">Model output that agrees with a schema, for example a JSON object with fixed fields.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
+        <div class="gl-item"><dt id="term-system-prompt">System prompt</dt><dd><span class="gl-def">Instructions from the maker of an AI product that the model gets before your prompt.</span><span class="gl-mods"><a href="generative-ai.html#technical-names">Module 5</a><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
       </dl>
       <h3 id="letter-t" class="gl-letter">T</h3>
       <dl class="gl-list">
@@ -309,6 +318,7 @@
         <div class="gl-item"><dt id="term-terminal">Terminal</dt><dd><span class="gl-def">A program where you type commands to the computer.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a></span></dd></div>
         <div class="gl-item"><dt id="term-time-series">Time series</dt><dd><span class="gl-def">A sequence of measurements in time order.</span><span class="gl-mods"><a href="topic-forecasting.html#technical-names">Forecasting</a></span></dd></div>
         <div class="gl-item"><dt id="term-token">Token</dt><dd><span class="gl-def">A small part of text: a word, a part of a word, or a punctuation mark.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a></span></dd></div>
+        <div class="gl-item"><dt id="term-tool">Tool</dt><dd><span class="gl-def">A function that your program offers to the model. The model asks for the call; your program runs it.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-training">Training</dt><dd><span class="gl-def">The procedure in which a model learns from data.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a></span></dd></div>
         <div class="gl-item"><dt id="term-transfer-learning">Transfer learning</dt><dd><span class="gl-def">Training that starts from a model that is already trained.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
         <div class="gl-item"><dt id="term-transformer">Transformer</dt><dd><span class="gl-def">The neural network design that most LLMs use.</span><span class="gl-mods"><a href="ai.html#technical-names">Module 1</a><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
@@ -324,6 +334,7 @@
         <div class="gl-item"><dt id="term-variable">Variable</dt><dd><span class="gl-def">A name that refers to a value.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
         <div class="gl-item"><dt id="term-variance">Variance</dt><dd><span class="gl-def">The mean of the squared differences between each value and the mean.</span><span class="gl-mods"><a href="mathematics.html#technical-names">Module 2</a></span></dd></div>
         <div class="gl-item"><dt id="term-vector">Vector</dt><dd><span class="gl-def">An ordered list of numbers.</span><span class="gl-mods"><a href="deep-learning.html#technical-names">Module 4</a></span></dd></div>
+        <div class="gl-item"><dt id="term-vector-database">Vector database</dt><dd><span class="gl-def">A database that keeps vectors and finds the nearest vectors to a query vector quickly.</span><span class="gl-mods"><a href="llm-engineering.html#technical-names">Module 9</a></span></dd></div>
         <div class="gl-item"><dt id="term-virtual-environment">Virtual environment</dt><dd><span class="gl-def">A separate folder of Python libraries for one project.</span><span class="gl-mods"><a href="python-for-ai.html#technical-names">Module 0</a></span></dd></div>
         <div class="gl-item"><dt id="term-vision-transformer">Vision transformer</dt><dd><span class="gl-def">A transformer that divides an image into small squares and uses attention between them.</span><span class="gl-mods"><a href="topic-computer-vision.html#technical-names">Computer vision</a></span></dd></div>
       </dl>
