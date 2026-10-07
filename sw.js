@@ -1,6 +1,6 @@
 /* Made by tools/build.py. Do not edit. It keeps a copy of the site so that it works offline. */
-const VERSION = "9d57b71ec2d3";
-const FILES = ["./", "index.html", "ai.html", "mathematics.html", "machine-learning.html", "deep-learning.html", "generative-ai.html", "responsible-ai.html", "ai-in-practice.html", "topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html", "projects.html", "review.html", "cheat-sheets.html", "careers.html", "glossary.html", "certificate.html", "assets/favicon.svg", "assets/flashcards.js?v=f3d6700cfe", "assets/icon-192.png", "assets/icon-512.png", "assets/playgrounds.js?v=b710db72c0", "assets/review-pool.js?v=3f9bdeb3bd", "assets/search-index.js?v=aa0168fb1b", "assets/site.css?v=96f39d8353", "assets/site.js?v=d4bd5b33fe", "manifest.webmanifest"];
+const VERSION = "a1d1b5730a5f";
+const FILES = ["./", "index.html", "ai.html", "mathematics.html", "machine-learning.html", "deep-learning.html", "generative-ai.html", "responsible-ai.html", "ai-in-practice.html", "devops.html", "topic-computer-vision.html", "topic-language-tasks.html", "topic-recommendation-systems.html", "topic-forecasting.html", "projects.html", "review.html", "cheat-sheets.html", "careers.html", "glossary.html", "certificate.html", "assets/favicon.svg", "assets/flashcards.js?v=f3d6700cfe", "assets/icon-192.png", "assets/icon-512.png", "assets/playgrounds.js?v=8172454378", "assets/review-pool.js?v=d3033f1a9e", "assets/search-index.js?v=bff3295cc4", "assets/site.css?v=e1c3ba1d5e", "assets/site.js?v=64e3452570", "manifest.webmanifest"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
 });

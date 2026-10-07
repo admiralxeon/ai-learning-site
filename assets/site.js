@@ -47,10 +47,11 @@
     {"href":"deep-learning.html","num":4,"title":"Deep learning","sections":12,"read":14,"video":48,"quick":["what-deep-learning-is","inside-a-neuron","how-a-transformer-uses-attention","summary","knowledge-check"],"quickRead":5},
     {"href":"generative-ai.html","num":5,"title":"Generative AI","sections":12,"read":18,"video":104,"quick":["what-generative-ai-is","how-a-large-language-model-is-made","how-to-write-a-good-prompt","risks-of-generative-ai","summary","knowledge-check"],"quickRead":9},
     {"href":"responsible-ai.html","num":6,"title":"Responsible AI","sections":11,"read":11,"video":23,"quick":["what-responsible-ai-is","bias-and-fairness","when-not-to-use-ai","summary","knowledge-check"],"quickRead":5},
-    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7}
+    {"href":"ai-in-practice.html","num":7,"title":"AI in practice","sections":12,"read":15,"video":109,"quick":["from-a-model-to-a-product","prepare-the-data","start-with-a-baseline","monitor-the-model","summary","knowledge-check"],"quickRead":7},
+    {"href":"devops.html","num":8,"title":"DevOps for AI","sections":13,"read":16,"video":44,"quick":["what-devops-is","serve-the-model-as-an-api","test-and-release-automatically","observe-the-system-in-production","summary","knowledge-check"],"quickRead":7}
   ];
   // Versions of the files that this script loads later. tools/build.py writes them, so that an update is never mixed with old copies.
-  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"b710db72c0","search-index.js":"aa0168fb1b"};
+  var ASSET_V={"flashcards.js":"f3d6700cfe","playgrounds.js":"8172454378","search-index.js":"bff3295cc4"};
   function av(n){return ASSET_V[n]?"?v="+ASSET_V[n]:"";}
   function fmtMin(m){m=Math.round(m||0);if(m>=60){var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+r+" min":"");}return m+" min";}
 

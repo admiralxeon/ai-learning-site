@@ -1,7 +1,7 @@
 {
   "name": "AI learning manual",
   "short_name": "AI manual",
-  "description": "Learn artificial intelligence in seven short modules, with diagrams, activities, videos, and knowledge checks.",
+  "description": "Learn artificial intelligence in eight short modules, with diagrams, activities, videos, and knowledge checks.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

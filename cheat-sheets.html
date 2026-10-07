@@ -19,8 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=96f39d8353">
-<script src="assets/site.js?v=d4bd5b33fe"></script>
+<link rel="stylesheet" href="assets/site.css?v=e1c3ba1d5e">
+<script src="assets/site.js?v=64e3452570"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -40,6 +40,7 @@
         <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
         <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
         <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="devops.html" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 16 min read</span></span></a></li>
         </ol>
         <p class="mods-h">Short topics</p>
         <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
@@ -128,7 +129,7 @@
         </div>
         <div class="cs-box cs-wide">
           <h3>Watch out</h3>
-          <p>Standardize features that have very different sizes. Otherwise the largest feature hides the others. For all formulas, refer to <a href="#formula-sheet">Sheet 8, Formula sheet</a>.</p>
+          <p>Standardize features that have very different sizes. Otherwise the largest feature hides the others. For all formulas, refer to <a href="#formula-sheet">Sheet 9, Formula sheet</a>.</p>
         </div>
       </div>
       <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-2-mathematics">Print this sheet</button> <a href="mathematics.html">Open Module 2</a></p>
@@ -342,8 +343,55 @@
   </section>
 
   <!-- 8 -->
-  <section id="formula-sheet">
+  <section id="sheet-8-devops-for-ai">
     <div class="num">8</div>
+    <div>
+      <h2>Module 8: DevOps for AI</h2>
+      <div class="cs-grid">
+        <div class="cs-box">
+          <h3>Key ideas</h3>
+          <ul>
+            <li>DevOps: one team builds and operates, with small changes, automation, and fast feedback.</li>
+            <li>MLOps adds versions of data and models, model tests, and training again.</li>
+            <li>LLMOps adds prompt versions, evaluation sets in the pipeline, and cost monitoring.</li>
+            <li>Keep a version of code, data, models, prompts, and libraries.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Build and release</h3>
+          <ul>
+            <li>Serve the model as an API. Check each input. Send the model version with each answer.</li>
+            <li>Pin library versions. Put the service in a container.</li>
+            <li>Environments: development, staging, production.</li>
+            <li>Pipeline: tests, build, staging, canary, production. Quality gates stop bad models.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Operate</h3>
+          <ul>
+            <li>Observability: logs, metrics, traces, dashboards, alerts.</li>
+            <li>SLO example: 99.9% availability = 43.2 minutes without service in 30 days.</li>
+            <li>Use the p95 latency, not the mean.</li>
+            <li>Incident: confirm, roll back, find the cause, repair, write a postmortem.</li>
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h3>Watch out</h3>
+          <ul>
+            <li>Never put secrets in code or Git. If one gets in, change it immediately.</li>
+            <li>Give each service the least access.</li>
+            <li>Set a cost budget and an alert in the cloud.</li>
+            <li>Keep personal data out of the logs.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="cs-print"><button class="pg-btn" type="button" data-print="sheet-8-devops-for-ai">Print this sheet</button> <a href="devops.html">Open Module 8</a></p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="formula-sheet">
+    <div class="num">9</div>
     <div>
       <h2>Formula sheet</h2>
       <p>All formulas of <a href="mathematics.html">Module 2</a> and the measurements of <a href="machine-learning.html#how-to-measure-a-model">Module 3</a>. Σ means "add all the values".</p>

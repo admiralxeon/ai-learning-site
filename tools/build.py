@@ -41,6 +41,9 @@ MODULES = [
     {"href": "ai-in-practice.html", "title": "AI in practice",
      "summary": "From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.",
      "quick": ["from-a-model-to-a-product", "prepare-the-data", "start-with-a-baseline", "monitor-the-model", "summary", "knowledge-check"]},
+    {"href": "devops.html", "title": "DevOps for AI",
+     "summary": "Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.",
+     "quick": ["what-devops-is", "serve-the-model-as-an-api", "test-and-release-automatically", "observe-the-system-in-production", "summary", "knowledge-check"]},
 ]
 # Short topics: single pages that are not part of the certificate. In this order, with previous and next links.
 TOPICS = [
@@ -56,11 +59,11 @@ TOPICS = [
 HOME, GLOSSARY, CERTIFICATE, PROJECTS = "index.html", "glossary.html", "certificate.html", "projects.html"
 REVIEW, CHEATS, CAREERS = "review.html", "cheat-sheets.html", "careers.html"
 SITE_NAME = "AI learning manual"
-HOME_DESCRIPTION = ("Learn artificial intelligence in seven short modules: AI, the mathematics for ML, machine learning, deep learning, generative AI, responsible AI, and AI in practice. "
+HOME_DESCRIPTION = ("Learn artificial intelligence in eight short modules: AI, the mathematics for ML, machine learning, deep learning, generative AI, responsible AI, AI in practice, and DevOps for AI. "
                     "Each module has diagrams, videos, and a knowledge check.")
 PROJECTS_DESCRIPTION = "Seven hands-on AI projects from beginner to advanced: an image classifier, a spam filter, customer groups, a digit reader, a prompt lab, and a bias audit."
 CERTIFICATE_DESCRIPTION = "Get a certificate when you pass the knowledge check of each module and the final review of the AI learning manual."
-REVIEW_DESCRIPTION = "The final review: 20 questions from all seven modules, in a new mix each time. Pass it to get your certificate."
+REVIEW_DESCRIPTION = "The final review: 20 questions from all eight modules, in a new mix each time. Pass it to get your certificate."
 CHEATS_DESCRIPTION = "One-page summary sheets for each module of the AI learning manual, and a formula sheet for the mathematics. Print one or all."
 CAREERS_DESCRIPTION = "Jobs in AI, the skills that each job needs, what to learn after this course, and how to show your projects in a portfolio."
 GLOSSARY_DESCRIPTION = "All the technical names in the AI learning manual, with short definitions and links to the modules that use them."

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>8. DevOps for AI | AI learning manual</title>
+<!-- head:start (made by tools/build.py) -->
+<meta name="description" content="Module 8, DevOps for AI: Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A111A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI learning manual">
+<meta property="og:title" content="8. DevOps for AI | AI learning manual">
+<meta property="og:description" content="Module 8, DevOps for AI: Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.">
+<!-- head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=e1c3ba1d5e">
+<script src="assets/site.js?v=64e3452570"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="sitebar"><div class="in">
+  <a class="brand" href="index.html">AI learning manual</a>
+  <nav class="topnav" aria-label="Main">
+    <a class="topnav-a topnav-home" href="index.html">Home</a>
+    <details class="mods">
+      <summary class="mods-btn is-current"><span class="mods-k">Module 8</span><span class="mods-t">DevOps for AI</span><svg class="mods-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="mods-panel">
+        <p class="mods-h">All modules</p>
+        <ol class="mods-list">
+        <li><a href="ai.html" data-mod="ai.html"><span class="mods-n">1</span><span class="mods-i"><b>Artificial intelligence</b><small>What AI is, the parts of AI, training, neural networks, chat AI, limits and risks.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="mathematics.html" data-mod="mathematics.html"><span class="mods-n">2</span><span class="mods-i"><b>Mathematics for machine learning</b><small>Statistics, distributions and correlation, probability and Bayes' rule, softmax, vectors and matrices, and derivatives and gradients.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="machine-learning.html" data-mod="machine-learning.html"><span class="mods-n">3</span><span class="mods-i"><b>Machine learning</b><small>The ML workflow, data, the three types of learning, gradient descent, overfitting, evaluation, and common algorithms.</small><span class="mods-meta">About 13 min read</span></span></a></li>
+        <li><a href="deep-learning.html" data-mod="deep-learning.html"><span class="mods-n">4</span><span class="mods-i"><b>Deep learning</b><small>Neurons and activation, backpropagation, network types, CNNs, embeddings, transformers and attention, and training in practice.</small><span class="mods-meta">About 14 min read</span></span></a></li>
+        <li><a href="generative-ai.html" data-mod="generative-ai.html"><span class="mods-n">5</span><span class="mods-i"><b>Generative AI</b><small>How generative models are made, temperature and context, image generators, prompts, RAG and agents, and risks.</small><span class="mods-meta">About 18 min read</span></span></a></li>
+        <li><a href="responsible-ai.html" data-mod="responsible-ai.html"><span class="mods-n">6</span><span class="mods-i"><b>Responsible AI</b><small>Fairness and bias, privacy and AI laws, explanations and human oversight, how to evaluate an AI tool, and a capstone project.</small><span class="mods-meta">About 11 min read</span></span></a></li>
+        <li><a href="ai-in-practice.html" data-mod="ai-in-practice.html"><span class="mods-n">7</span><span class="mods-i"><b>AI in practice</b><small>From a model to a product: data preparation and leakage, baselines, cross-validation, deployment, monitoring for drift, LLM applications, and agents.</small><span class="mods-meta">About 15 min read</span></span></a></li>
+        <li><a href="devops.html" aria-current="page" data-mod="devops.html"><span class="mods-n">8</span><span class="mods-i"><b>DevOps for AI</b><small>Build, ship, and run an AI product: Git, model APIs, containers, CI/CD pipelines, the cloud, observability, and secrets.</small><span class="mods-meta">About 16 min read</span></span></a></li>
+        </ol>
+        <p class="mods-h">Short topics</p>
+        <ul class="mods-topics"><li><a href="topic-computer-vision.html">Computer vision</a></li><li><a href="topic-language-tasks.html">Language tasks</a></li><li><a href="topic-recommendation-systems.html">Recommendation systems</a></li><li><a href="topic-forecasting.html">Forecasting</a></li></ul>
+        <div class="mods-foot"><a class="topnav-a mods-home" href="index.html">Home</a><a class="topnav-a" href="projects.html">Projects</a><a class="topnav-a" href="review.html">Final review</a><a class="topnav-a" href="cheat-sheets.html">Cheat sheets</a><a class="topnav-a" href="careers.html">Careers</a><a class="topnav-a" href="glossary.html">Glossary and flashcards</a><a class="topnav-a" href="certificate.html">Certificate</a></div>
+      </div>
+    </details>
+    <a class="topnav-a topnav-proj" href="projects.html">Projects</a>
+    <a class="topnav-a topnav-gloss" href="glossary.html">Glossary</a>
+  </nav>
+</div></header>
+
+<div class="sheet">
+<main id="main">
+  <div class="dmhead" role="group" aria-label="Document identification">
+    <div>Data module<b>AI-50-00-00-050A</b></div>
+    <div>Subject<b>DevOps for AI</b></div>
+    <div>Info type<b>Description and procedure</b></div>
+    <div>Issue<b>001, Oct 2026</b></div>
+  </div>
+
+  <div class="title">
+    <h1>DevOps for AI: build, ship, and run an AI product</h1>
+    <p>This module is written in ASD-STE100 Simplified Technical English, at approximately 80% compliance. Read <a href="ai-in-practice.html">Module 7, AI in practice</a> before you read this module. Module 7 tells you what a model needs in real use. This module tells you how teams build, test, release, and operate the software around the model, every day, without errors. You will change the mango checker into a small web service, put it in a container, and test it automatically. Names with a dotted line are technical names. Put the pointer on a name to see its definition.</p>
+  </div>
+
+  <!-- 1 -->
+  <section id="scope">
+    <div class="num">1</div>
+    <div>
+      <h2>Scope</h2>
+      <p>This module gives a description of the engineering work that makes an AI product reliable.</p>
+      <p>It tells you:</p>
+      <ul>
+        <li>What DevOps is, and what MLOps and LLMOps add for AI.</li>
+        <li>How to keep versions of code, data, models, and prompts.</li>
+        <li>How to serve a model as an API, and how to put it in a container.</li>
+        <li>How automatic tests and a CI/CD pipeline release changes safely.</li>
+        <li>How to run the service in the cloud, and how to observe it.</li>
+        <li>How to keep secrets and the system safe.</li>
+      </ul>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>The code in this module is tested with Python, scikit-learn 1.9, and FastAPI. To run it, you need Python on your computer. Docker is necessary only for <a href="#package-it-in-a-container">Section 6</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="what-devops-is">
+    <div class="num">2</div>
+    <div>
+      <h2>What DevOps is</h2>
+      <p>In the past, one team wrote the software (development) and a different team ran it on the servers (operations). The two teams frequently blamed each other for problems, and releases were slow and risky. <span class="tn" title="A way of working in which the same team builds, tests, releases, and operates software, with much automation, small changes, and fast feedback.">DevOps</span> joins the two types of work.</p>
+      <ul>
+        <li><b>Small changes, frequently.</b> A small change is easy to test, and easy to remove if it is wrong.</li>
+        <li><b>Automation.</b> Machines do the tests, the builds, and the releases. People do not do the same steps by hand each time.</li>
+        <li><b>Fast feedback.</b> The team sees immediately if a change causes a problem, in the tests or in production.</li>
+        <li><b>Shared responsibility.</b> The team that builds the service also helps to operate it.</li>
+      </ul>
+      <p>The work is a loop with no end. Refer to Figure 1.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 250" role="img" aria-labelledby="do1t">
+            <title id="do1t">The DevOps loop: plan, code, build, test, release, deploy, operate, monitor, and back to plan</title>
+            <defs><marker id="do1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <path d="M380 125 C 300 30, 120 30, 120 125 C 120 220, 300 220, 380 125 C 460 30, 640 30, 640 125 C 640 220, 460 220, 380 125 z" fill="none" stroke="var(--rule-strong)" stroke-width="16" stroke-linejoin="round"/>
+            <path d="M380 125 C 300 30, 120 30, 120 125 C 120 220, 300 220, 380 125" fill="none" stroke="var(--blue)" stroke-width="16" opacity=".35"/>
+            <path d="M380 125 C 460 30, 640 30, 640 125 C 640 220, 460 220, 380 125" fill="none" stroke="var(--green)" stroke-width="16" opacity=".35"/>
+            <g fill="var(--ink)"><path d="M209.0 53.8 L220.0 46.8 L220.0 60.8 z"/><path d="M231.0 196.2 L220.0 203.2 L220.0 189.2 z"/><path d="M551.0 53.8 L540.0 60.8 L540.0 46.8 z"/><path d="M529.0 196.2 L540.0 189.2 L540.0 203.2 z"/></g>
+            <text class="lbl" x="250" y="130" text-anchor="middle" style="font-weight:600;fill:var(--blue)">Development</text>
+            <text class="lbl" x="510" y="130" text-anchor="middle" style="font-weight:600;fill:var(--green)">Operations</text>
+            <g class="sm" style="font-weight:600">
+              <text x="300" y="44" text-anchor="middle">Plan</text>
+              <text x="150" y="44" text-anchor="middle">Code</text>
+              <text x="92" y="130" text-anchor="end">Build</text>
+              <text x="160" y="222" text-anchor="middle">Test</text>
+              <text x="300" y="222" text-anchor="middle">Release</text>
+              <text x="460" y="44" text-anchor="middle">Deploy</text>
+              <text x="610" y="44" text-anchor="middle">Operate</text>
+              <text x="668" y="130">Monitor</text>
+              <text x="560" y="222" text-anchor="middle">Feedback</text>
+            </g>
+            <text class="sm" x="380" y="246" text-anchor="middle">What the team learns from operations goes back into the plan.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> The DevOps loop. The left side is development, the right side is operations. The work goes around again and again, in small steps.</figcaption>
+      </figure>
+
+      <p>Teams frequently measure DevOps with four numbers: how frequently they release, how long a change takes to reach users, how many releases cause a problem, and how long it takes to repair a problem.</p>
+
+      <div class="video" data-seconds="2132">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=0yWAtQ6wYNM" data-yt="0yWAtQ6wYNM" data-title="What is DevOps? REALLY understand it (TechWorld with Nana)"><img src="https://i.ytimg.com/vi/0yWAtQ6wYNM/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: What is DevOps? REALLY understand it (TechWorld with Nana)</span></a></div>
+        <div class="meta"><span><b>Video 1.</b> What is DevOps? (TechWorld with Nana)</span><a href="https://www.youtube.com/watch?v=0yWAtQ6wYNM" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="mlops-and-llmops">
+    <div class="num">3</div>
+    <div>
+      <h2>MLOps and LLMOps: what is different for AI</h2>
+      <p>Usual software changes only when a person changes the code. An AI system can also change when the data changes, and it can become worse without a change in the code. Refer to <a href="ai-in-practice.html#monitor-the-model">Module 7, Section 7</a>. Thus AI teams add more work to DevOps.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Practice</th><th>What it adds</th></tr></thead>
+          <tbody>
+            <tr><td>DevOps</td><td>Versions of code, automatic tests, automatic releases, monitoring of the servers.</td></tr>
+            <tr><td><span class="tn" title="DevOps for machine learning: it also keeps versions of data and models, tests models automatically, and trains them again when necessary.">MLOps</span></td><td>Versions of data and models, automatic model tests, a model registry, monitoring for drift, and automatic training again.</td></tr>
+            <tr><td><span class="tn" title="MLOps for applications that use large language models: versions of prompts, evaluation sets in the pipeline, guardrails, and monitoring of cost and quality.">LLMOps</span></td><td>Versions of prompts, evaluation sets that run in the pipeline, guardrails, and monitoring of token cost and answer quality.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A team does not need all of this on the first day. Start with the basics, and add more when the product grows:</p>
+      <ol>
+        <li><b>Level 0:</b> a person trains the model in a notebook and copies the file to a server by hand.</li>
+        <li><b>Level 1:</b> the code is in Git, the tests are automatic, and a pipeline releases the service.</li>
+        <li><b>Level 2:</b> the pipeline also trains and tests new models, and the monitoring starts training again when drift occurs.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="version-everything">
+    <div class="num">4</div>
+    <div>
+      <h2>Keep a version of everything</h2>
+      <p>If a problem occurs, you must know exactly what changed, and you must be able to go back. Thus keep a version of each part of the system.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Part</th><th>Usual tool</th></tr></thead>
+          <tbody>
+            <tr><td>Code and settings</td><td><span class="tn" title="A version control system. It keeps each change to the files, with who made it, when, and why.">Git</span>, with a shared copy on GitHub or GitLab.</td></tr>
+            <tr><td>Data</td><td>A data versioning tool, for example DVC, or dated copies in cloud storage that nobody changes.</td></tr>
+            <tr><td>Models</td><td>A <span class="tn" title="A store for trained models. It keeps each model version with its data version, its test results, and its status, for example 'in production'.">model registry</span>: each model with its version, its training data, and its test results.</td></tr>
+            <tr><td>Prompts</td><td>In Git, as files, the same as code.</td></tr>
+            <tr><td>Libraries</td><td>A requirements file with exact version numbers.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Procedure: make a change with Git</h3>
+      <ol class="steps">
+        <li>Make a new <span class="tn" title="A separate line of work in Git. You make changes on a branch, then join them into the main branch after review.">branch</span> for the change, for example <code>git switch -c new-threshold</code>.</li>
+        <li>Make the change. Save it in small steps with <code>git commit</code>. Write a short message that tells why.</li>
+        <li>Send the branch to GitHub, and open a <span class="tn" title="A request to join the changes of a branch into the main branch. Other people review it, and automatic tests run on it.">pull request</span>.</li>
+        <li>The automatic tests run. Another person reviews the change.</li>
+        <li>When the tests pass and the review is good, join the branch into <code>main</code>. The pipeline then releases it.</li>
+      </ol>
+      <div class="video" data-seconds="117">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=hwP7WQkmECE" data-yt="hwP7WQkmECE" data-title="Git Explained in 100 Seconds (Fireship)"><img src="https://i.ytimg.com/vi/hwP7WQkmECE/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Git Explained in 100 Seconds (Fireship)</span></a></div>
+        <div class="meta"><span><b>Video 2.</b> Git explained in 100 seconds (Fireship)</span><a href="https://www.youtube.com/watch?v=hwP7WQkmECE" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="serve-the-model-as-an-api">
+    <div class="num">5</div>
+    <div>
+      <h2>Serve the model as an API</h2>
+      <p>An app, a website, or a machine on the sorting line must ask the model for predictions. The usual way is an <span class="tn" title="Application programming interface: a defined way for one program to ask another program for data or an action, usually with HTTP requests.">API</span>: the program sends a request with the features, and the service sends back the prediction. Refer to <a href="ai-in-practice.html#put-a-model-into-use">Module 7, Section 6</a>.</p>
+      <h3>Step 1: train and save the model</h3>
+      <p>This program makes example data for 2,000 mangoes, trains a model, and saves it to a file with a version number.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>train.py</span><button type="button" class="pg-chip" data-copy="code-train">Copy the code</button></div>
+        <pre id="code-train" tabindex="0" role="region" aria-label="Python code: train.py"><code>import json
+import joblib
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import recall_score
+from sklearn.model_selection import train_test_split
+
+# 1. Make example data: 2,000 mangoes with three features each.
+rng = np.random.default_rng(0)
+n = 2000
+weight = rng.normal(250, 40, n)        # grams
+firmness = rng.normal(6, 1.5, n)       # 0 (soft) to 10 (hard)
+spots = rng.poisson(1.5, n)            # dark spots on the skin
+damaged = ((spots &gt;= 4) | (firmness &lt; 3.5)).astype(int)
+wrong = rng.random(n) &lt; 0.01           # 1% of the labels are wrong, as in real data
+damaged = damaged ^ wrong
+X = np.column_stack([weight, firmness, spots])
+
+# 2. Divide the data, train the model, and measure it.
+X_train, X_test, y_train, y_test = train_test_split(
+    X, damaged, test_size=0.2, random_state=1, stratify=damaged)
+model = RandomForestClassifier(n_estimators=100, random_state=1)
+model.fit(X_train, y_train)
+recall = recall_score(y_test, model.predict(X_test))
+print("Recall for damaged mangoes:", round(recall, 3))
+
+# 3. Save the model and its results, with a version number.
+joblib.dump(model, "model.joblib")
+with open("model_info.json", "w") as f:
+    json.dump({"version": "1.0.0", "recall": round(recall, 3)}, f)</code></pre>
+      </div>
+      <h3>Step 2: make the web service</h3>
+      <p>This program uses FastAPI. It loads the model one time when it starts. It has two addresses: <code>/health</code> tells if the service works, and <code>/predict</code> gives a prediction. The <code>Mango</code> class checks each input. A weight of −5 grams is refused.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>app.py</span><button type="button" class="pg-chip" data-copy="code-app">Copy the code</button></div>
+        <pre id="code-app" tabindex="0" role="region" aria-label="Python code: app.py"><code>import json
+import joblib
+from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI(title="Mango checker")
+model = joblib.load("model.joblib")
+with open("model_info.json") as f:
+    info = json.load(f)
+
+
+# The input that the API accepts. Values outside these limits are refused.
+class Mango(BaseModel):
+    weight_g: float = Field(gt=0, lt=1000)
+    firmness: float = Field(ge=0, le=10)
+    spots: int = Field(ge=0, le=100)
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok", "model_version": info["version"]}
+
+
+@app.post("/predict")
+def predict(mango: Mango):
+    p = model.predict_proba([[mango.weight_g, mango.firmness, mango.spots]])[0][1]
+    return {"damaged": bool(p &gt;= 0.5), "probability": round(float(p), 3),
+            "model_version": info["version"]}</code></pre>
+      </div>
+      <h3>Step 3: run it</h3>
+      <p>Put the two files and <code>requirements.txt</code> (refer to <a href="#package-it-in-a-container">Section 6</a>) in one folder. Then type these commands in a terminal:</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Terminal</span><button type="button" class="pg-chip" data-copy="code-run">Copy the commands</button></div>
+        <pre id="code-run" tabindex="0" role="region" aria-label="Terminal commands to run the service"><code>pip install -r requirements.txt
+python train.py
+uvicorn app:app --port 8000</code></pre>
+      </div>
+      <p>The training prints <code>Recall for damaged mangoes: 0.98</code>. Then open <code>http://localhost:8000/docs</code> in a browser. FastAPI makes a page where you can send test requests. A request with <code>{"weight_g": 240, "firmness": 2, "spots": 6}</code> gives <code>{"damaged": true, "probability": 1.0, "model_version": "1.0.0"}</code>.</p>
+      <div class="notice note">
+        <strong>Note</strong>
+        <p>Each answer contains the model version. When a user reports a wrong answer, the team knows immediately which model gave it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="package-it-in-a-container">
+    <div class="num">6</div>
+    <div>
+      <h2>Package it in a container</h2>
+      <p>"It works on my computer" is a usual problem. The server has a different version of Python or of a library, and the service fails. Two solutions work together:</p>
+      <ul>
+        <li><b>Exact versions.</b> A requirements file gives the exact version of each library.</li>
+        <li><b>A <span class="tn" title="A package that contains a program and everything that it needs to run: the libraries, the settings, and a small operating system. It runs the same way on each computer.">container</span>.</b> It packs the program with everything that it needs. The same container runs the same way on your computer, on the test server, and in production.</li>
+      </ul>
+      <div class="codeblock">
+        <div class="cb-head"><span>requirements.txt</span><button type="button" class="pg-chip" data-copy="code-req">Copy</button></div>
+        <pre id="code-req" tabindex="0" role="region" aria-label="requirements.txt"><code>fastapi==0.135.1
+uvicorn==0.41.0
+scikit-learn==1.9.0
+numpy==2.4.6
+joblib==1.5.3
+httpx==0.28.1
+pytest==9.1.1</code></pre>
+      </div>
+      <p>A <span class="tn" title="A text file with the steps to build a container image: the base system, the libraries to install, the files to copy, and the command to start.">Dockerfile</span> gives the steps to build the container image:</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Dockerfile</span><button type="button" class="pg-chip" data-copy="code-docker">Copy</button></div>
+        <pre id="code-docker" tabindex="0" role="region" aria-label="Dockerfile"><code>FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py model.joblib model_info.json ./
+EXPOSE 8000
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+      </div>
+      <p>Build the image with a version tag, and start it:</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>Terminal</span><button type="button" class="pg-chip" data-copy="code-dockrun">Copy the commands</button></div>
+        <pre id="code-dockrun" tabindex="0" role="region" aria-label="Terminal commands to build and run the container"><code>docker build -t mango-checker:1.0.0 .
+docker run -p 8000:8000 mango-checker:1.0.0</code></pre>
+      </div>
+      <h3>Environments</h3>
+      <p>Teams usually have three copies of the system. The same container image goes through all three:</p>
+      <ol>
+        <li><b>Development:</b> on the computer of the developer.</li>
+        <li><b>Staging:</b> a copy of production, for the last tests. It does not have real users.</li>
+        <li><b>Production:</b> the system that real users use.</li>
+      </ol>
+      <div class="video" data-seconds="127">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=Gjnup-PuquQ" data-yt="Gjnup-PuquQ" data-title="Docker in 100 Seconds (Fireship)"><img src="https://i.ytimg.com/vi/Gjnup-PuquQ/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Docker in 100 Seconds (Fireship)</span></a></div>
+        <div class="meta"><span><b>Video 3.</b> Docker in 100 seconds (Fireship)</span><a href="https://www.youtube.com/watch?v=Gjnup-PuquQ" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="test-and-release-automatically">
+    <div class="num">7</div>
+    <div>
+      <h2>Test and release automatically</h2>
+      <p><span class="tn" title="Continuous integration and continuous delivery: each change is tested automatically, and if all tests pass, it is packaged and released automatically.">CI/CD</span> means continuous integration and continuous delivery. Each change goes through the same automatic steps, called a <span class="tn" title="A sequence of automatic steps that each change goes through, for example test, build, and release.">pipeline</span>. Refer to Figure 2.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 190" role="img" aria-labelledby="do2t">
+            <title id="do2t">A CI/CD pipeline from a code change to production, with a stop at each failed check</title>
+            <defs><marker id="do2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+              <marker id="do2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--red)"/></marker></defs>
+            <rect class="box" x="10" y="40" width="100" height="56" rx="4"/><text class="lbl" x="60" y="64" text-anchor="middle" style="font-weight:600">Change</text><text class="sm" x="60" y="82" text-anchor="middle">pull request</text>
+            <rect class="boxb" x="135" y="40" width="110" height="56" rx="4"/><text class="lbl" x="190" y="64" text-anchor="middle" style="font-weight:600">Tests</text><text class="sm" x="190" y="82" text-anchor="middle">code and model</text>
+            <rect class="boxb" x="270" y="40" width="100" height="56" rx="4"/><text class="lbl" x="320" y="64" text-anchor="middle" style="font-weight:600">Build</text><text class="sm" x="320" y="82" text-anchor="middle">container image</text>
+            <rect class="boxb" x="395" y="40" width="100" height="56" rx="4"/><text class="lbl" x="445" y="64" text-anchor="middle" style="font-weight:600">Staging</text><text class="sm" x="445" y="82" text-anchor="middle">last checks</text>
+            <rect class="boxb" x="520" y="40" width="100" height="56" rx="4"/><text class="lbl" x="570" y="64" text-anchor="middle" style="font-weight:600">Canary</text><text class="sm" x="570" y="82" text-anchor="middle">5% of users</text>
+            <rect x="645" y="40" width="105" height="56" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="697" y="64" text-anchor="middle" style="font-weight:600">Production</text><text class="sm" x="697" y="82" text-anchor="middle">all users</text>
+            <g class="line" marker-end="url(#do2)"><path d="M110 68 H131"/><path d="M245 68 H266"/><path d="M370 68 H391"/><path d="M495 68 H516"/><path d="M620 68 H641"/></g>
+            <g fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#do2r)">
+              <path d="M190 96 V140 H60 V100"/><path d="M445 96 V140 H190"/><path d="M570 96 V140 H445"/>
+            </g>
+            <text class="sm" x="380" y="160" text-anchor="middle" style="fill:var(--red);font-weight:600">If a check fails, the pipeline stops, and the change goes back to the developer.</text>
+            <text class="sm" x="380" y="182" text-anchor="middle">After the canary, an automatic rollback is possible: production goes back to the previous version.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2.</b> A CI/CD pipeline. Each change goes through the same checks. A change reaches all users only if it passes all of them.</figcaption>
+      </figure>
+
+      <h3>Tests for an AI service</h3>
+      <p>Test more than the code. These tests check the API, the input checks, and the quality of the model:</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>test_app.py</span><button type="button" class="pg-chip" data-copy="code-tests">Copy the code</button></div>
+        <pre id="code-tests" tabindex="0" role="region" aria-label="Python code: test_app.py"><code>from fastapi.testclient import TestClient
+from app import app, info
+
+client = TestClient(app)
+
+
+def test_health():
+    assert client.get("/health").status_code == 200
+
+
+def test_good_mango():
+    r = client.post("/predict", json={"weight_g": 260, "firmness": 7, "spots": 0})
+    assert r.json()["damaged"] is False
+
+
+def test_damaged_mango():
+    r = client.post("/predict", json={"weight_g": 240, "firmness": 2, "spots": 6})
+    assert r.json()["damaged"] is True
+
+
+def test_bad_input_is_refused():
+    r = client.post("/predict", json={"weight_g": -5, "firmness": 7, "spots": 0})
+    assert r.status_code == 422
+
+
+def test_model_is_good_enough():
+    assert info["recall"] &gt;= 0.90</code></pre>
+      </div>
+      <p>Run them with the command <code>pytest</code>. The last test is a <span class="tn" title="A check in a pipeline that a release must pass, for example a minimum recall or a maximum latency.">quality gate</span>: if a new model has a recall of less than 90%, the test fails, and the pipeline does not release that model.</p>
+      <h3>The pipeline file</h3>
+      <p>GitHub Actions runs this pipeline automatically for each pull request and for each change to <code>main</code>. Put the file in the folder <code>.github/workflows</code>.</p>
+      <div class="codeblock">
+        <div class="cb-head"><span>.github/workflows/ci.yml</span><button type="button" class="pg-chip" data-copy="code-ci">Copy</button></div>
+        <pre id="code-ci" tabindex="0" role="region" aria-label="GitHub Actions pipeline file"><code>name: Test and build
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python train.py
+      - run: pytest
+      - run: docker build -t mango-checker:${{ github.sha }} .</code></pre>
+      </div>
+      <p>For an LLM application, add the evaluation set to the pipeline. Refer to <a href="ai-in-practice.html#build-with-large-language-models">Module 7, Section 8</a>. A change to a prompt is then tested the same as a change to code.</p>
+
+      <div class="playground" data-pg="release" id="try-release">
+        <div class="pg-head"><span class="pg-badge">Try it</span><h3>Stop bad changes before they reach users</h3></div>
+        <p class="pg-intro">Eight changes go through your pipeline this month. Five of them contain a problem. Select the checks in the pipeline, and look at which problems reach the users. Each check takes time for each change. The canary release gives each change to 5% of the users for one hour.</p>
+        <div class="pg-body"><noscript><p>This activity needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript></div>
+      </div>
+
+      <div class="video" data-seconds="115">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=scEDHsr3APg" data-yt="scEDHsr3APg" data-title="DevOps CI/CD Explained in 100 Seconds (Fireship)"><img src="https://i.ytimg.com/vi/scEDHsr3APg/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: DevOps CI/CD Explained in 100 Seconds (Fireship)</span></a></div>
+        <div class="meta"><span><b>Video 4.</b> DevOps CI/CD explained in 100 seconds (Fireship)</span><a href="https://www.youtube.com/watch?v=scEDHsr3APg" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="run-it-in-the-cloud">
+    <div class="num">8</div>
+    <div>
+      <h2>Run it in the cloud</h2>
+      <p>Most teams rent servers from a cloud company in place of buying them. There are different levels of service. Refer to the table.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Option</th><th>You manage</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>Virtual machine</td><td>The operating system, the container, the updates.</td><td>Full control, special hardware.</td></tr>
+            <tr><td>Container service</td><td>Only the container. The cloud starts and stops copies.</td><td>Most web services and APIs.</td></tr>
+            <tr><td><span class="tn" title="A system that runs many containers on many servers. It starts, stops, repairs, and scales them automatically.">Kubernetes</span></td><td>A cluster of many containers and services.</td><td>Large systems with many services and a platform team.</td></tr>
+            <tr><td>Serverless functions</td><td>Only the code of one function.</td><td>Small tasks that run sometimes. Not for large models.</td></tr>
+            <tr><td>Managed AI service</td><td>Only the prompts and the data. The company runs the model.</td><td>LLM applications. Refer to <a href="generative-ai.html">Module 5</a>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Scale and cost</h3>
+      <ul>
+        <li><b><span class="tn" title="The automatic change of the number of running copies of a service, to agree with the number of requests.">Autoscaling</span>:</b> the cloud starts more copies of the container when there are many requests, and stops them when there are few. A load balancer divides the requests between the copies.</li>
+        <li><b>GPUs</b> are expensive. Use them only for models that need them. A small model like the mango checker runs well on a usual processor.</li>
+        <li><b>Cost alerts:</b> set a monthly budget and an alert. A mistake in autoscaling can cost much money in one night.</li>
+      </ul>
+      <h3>Infrastructure as code</h3>
+      <p>Do not make the servers, the networks, and the databases by hand in the web console of the cloud. Write them in files, for example with Terraform. We call this <span class="tn" title="A method in which files describe the servers, networks, and other infrastructure. A tool makes the infrastructure from the files, so it can be reviewed, versioned, and made again.">infrastructure as code</span>. The files go into Git, so a change to the servers gets a review, and you can make the same system again after a disaster.</p>
+      <div class="video" data-seconds="126">
+        <div class="frame"><a class="yt" href="https://www.youtube.com/watch?v=PziYflu8cB8" data-yt="PziYflu8cB8" data-title="Kubernetes Explained in 100 Seconds (Fireship)"><img src="https://i.ytimg.com/vi/PziYflu8cB8/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play video: Kubernetes Explained in 100 Seconds (Fireship)</span></a></div>
+        <div class="meta"><span><b>Video 5.</b> Kubernetes explained in 100 seconds (Fireship)</span><a href="https://www.youtube.com/watch?v=PziYflu8cB8" target="_blank" rel="noopener">Open on YouTube</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="observe-the-system-in-production">
+    <div class="num">9</div>
+    <div>
+      <h2>Observe the system in production</h2>
+      <p>Module 7 tells you how to monitor the quality of the model. The service around the model also needs monitoring. We call the ability to see what occurs inside a running system <span class="tn" title="The ability to know what occurs inside a running system from its outputs: logs, metrics, and traces.">observability</span>. It uses three types of data. Refer to Figure 3.</p>
+
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 760 210" role="img" aria-labelledby="do3t">
+            <title id="do3t">Logs, metrics, and traces from the running service go to dashboards and alerts</title>
+            <defs><marker id="do3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+            <rect class="boxb" x="20" y="75" width="150" height="60" rx="4"/><text class="lbl" x="95" y="101" text-anchor="middle" style="font-weight:600">Mango checker</text><text class="sm" x="95" y="119" text-anchor="middle">3 running copies</text>
+            <rect class="box" x="270" y="15" width="220" height="50" rx="4"/><text class="lbl" x="380" y="36" text-anchor="middle" style="font-weight:600">Logs</text><text class="sm" x="380" y="54" text-anchor="middle">a record of each event and error</text>
+            <rect class="box" x="270" y="80" width="220" height="50" rx="4"/><text class="lbl" x="380" y="101" text-anchor="middle" style="font-weight:600">Metrics</text><text class="sm" x="380" y="119" text-anchor="middle">numbers over time: latency, errors</text>
+            <rect class="box" x="270" y="145" width="220" height="50" rx="4"/><text class="lbl" x="380" y="166" text-anchor="middle" style="font-weight:600">Traces</text><text class="sm" x="380" y="184" text-anchor="middle">the path of one request</text>
+            <g class="line" marker-end="url(#do3)"><path d="M170 95 L266 42"/><path d="M170 105 H266"/><path d="M170 115 L266 168"/></g>
+            <rect x="580" y="40" width="160" height="50" rx="4" fill="var(--sheet)" stroke="var(--green)" stroke-width="2"/><text class="lbl" x="660" y="70" text-anchor="middle" style="font-weight:600">Dashboards</text>
+            <rect x="580" y="120" width="160" height="50" rx="4" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/><text class="lbl" x="660" y="141" text-anchor="middle" style="font-weight:600">Alerts</text><text class="sm" x="660" y="158" text-anchor="middle">to the person on call</text>
+            <g class="line" marker-end="url(#do3)"><path d="M490 40 L576 62"/><path d="M490 105 L576 70"/><path d="M490 110 L576 140"/><path d="M490 170 L576 150"/></g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 3.</b> The three types of observability data. People look at dashboards. Alerts call a person when a limit is passed.</figcaption>
+      </figure>
+
+      <h3>Set clear targets</h3>
+      <p>A <span class="tn" title="Service level objective: a measurable target for a service, for example 99.9% of requests are successful in each month.">service level objective</span> (SLO) is a target that the team agrees on. Examples:</p>
+      <ul>
+        <li><b>Availability:</b> 99.9% of the requests are successful each month. In a month of 30 days, this allows 30 &times; 24 &times; 60 &times; 0.001 = 43.2 minutes without service.</li>
+        <li><b>Latency:</b> 95% of the answers come in less than 100 ms. We call this the p95 latency. Use the p95, not the mean. The mean hides the slow answers that make users angry.</li>
+      </ul>
+      <h3>Procedure: when an alert comes</h3>
+      <ol class="steps">
+        <li>Confirm the problem on the dashboard. Tell the team that you are working on it.</li>
+        <li>Stop the damage first. If a new release caused the problem, do a <span class="tn" title="A return to the previous version of a service or a model, to stop a problem quickly.">rollback</span> to the previous version.</li>
+        <li>Find the cause with the logs and the traces.</li>
+        <li>Repair the cause. Release the repair through the normal pipeline.</li>
+        <li>Write a short report without blame: what occurred, why, and what change prevents it next time. We call this a postmortem.</li>
+      </ol>
+
+      <div class="story" id="project-part-8">
+        <div class="story-head"><span class="story-icon" aria-hidden="true">&#x1F96D;</span><div><span class="story-kicker">Project: the mango checker &middot; Part 8 of 8</span><h3>Forty farms, one service</h3></div></div>
+        <p>The mango checker is now a web service in the cloud. Forty farms send it 2 million requests each day. The team uses a pipeline for each change.</p>
+        <ul>
+          <li>The team releases model version 2.2. All tests pass. In the canary release, the dashboard shows that the p95 latency increases from 40 ms to 600 ms. The sorting lines on two farms become slow.</li>
+          <li>The person on call does a rollback to version 2.1 in two minutes. Only the farms in the canary group were affected, for 20 minutes.</li>
+          <li>The postmortem finds the cause: version 2.2 is a much larger model. The team adds a load test to the pipeline. Now a model that is too slow cannot pass the pipeline.</li>
+        </ul>
+        <details class="story-think"><summary><b>Think:</b> all the tests passed. Why did the problem still occur, and why was the damage small?</summary><p>The tests checked the accuracy, but not the speed. The canary release showed the problem with real traffic, but only to 5% of the users. The fast rollback stopped the damage. Each layer of protection catches some problems that the other layers miss.</p></details>
+        <nav class="story-nav" aria-label="Project, part 8 of 8: previous and next part"><a href="ai-in-practice.html#project-part-7">&larr; Part 7</a><span class="story-end">This is the last part of the project.</span></nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="security-and-secrets">
+    <div class="num">10</div>
+    <div>
+      <h2>Security and secrets</h2>
+      <p>A <span class="tn" title="A password, an API key, or another value that gives access to a system. It must never be in the code.">secret</span> is a password, an API key, or a token. Many security problems start with a secret in the wrong place.</p>
+      <div class="notice warning">
+        <strong>Warning</strong>
+        <p>Never put a secret in the code or in Git. Automatic programs search public repositories for keys all the time, and they can use a key minutes after it is published. If a secret gets into Git, change the secret immediately. To remove it from the code is not sufficient, because the history of Git still contains it.</p>
+      </div>
+      <ul>
+        <li><b>Keep secrets in a secret manager</b> or in the secret settings of the pipeline. The program reads them from environment variables when it starts.</li>
+        <li><b>Give the least access.</b> Each service gets only the permissions that it needs. Refer to <a href="ai-in-practice.html#agents-in-practice">Module 7, Section 9</a>.</li>
+        <li><b>Scan automatically.</b> Add a secret scan and a check of the libraries for known security problems to the pipeline.</li>
+        <li><b>Check all inputs.</b> The API refuses values that are not possible, as the <code>Mango</code> class does. For LLM applications, also defend against prompt injection. Refer to <a href="generative-ai.html#risks-of-generative-ai">Module 5, Section 9</a>.</li>
+        <li><b>Protect personal data</b> in logs too. Do not write names, phone numbers, or full prompts with private data into the logs. Refer to <a href="responsible-ai.html#privacy-and-the-law">Module 6, Section 4</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="summary">
+    <div class="num">11</div>
+    <div>
+      <h2>Summary</h2>
+      <ul>
+        <li>DevOps joins development and operations: small changes, automation, fast feedback, and shared responsibility.</li>
+        <li>MLOps adds versions of data and models, model tests, and training again. LLMOps adds prompt versions, evaluation sets, and cost monitoring.</li>
+        <li>Keep a version of code, data, models, prompts, and libraries. Make changes on a branch, with a pull request and a review.</li>
+        <li>Serve the model as an API. Check each input, and send the model version with each answer.</li>
+        <li>Pin the library versions, and put the service in a container. The same image goes to development, staging, and production.</li>
+        <li>A CI/CD pipeline tests and releases each change. Quality gates stop bad models. A canary release tests with real traffic.</li>
+        <li>Use logs, metrics, and traces. Set SLOs. When a problem occurs, roll back first, then find the cause.</li>
+        <li>Never put secrets in code. Give the least access, and scan the code automatically.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="knowledge-check">
+    <div class="num">12</div>
+    <div>
+      <h2>Knowledge check</h2>
+      <p>Answer these questions to find what you know. Select one answer for each question. If your answer is not correct, the explanation tells you which section to read again.</p>
+      <div class="quiz" data-pass="70">
+        <script type="application/json">
+{"questions":[
+ {"q": "What is the main idea of DevOps?", "options": ["The same team builds and operates the software, with small changes, automation, and fast feedback", "Developers never talk to the operations team", "Release one very large change each year", "Do all tests by hand before each release"], "answer": 0, "explain": "DevOps joins development and operations. Small, frequent, automatic releases are safer than large ones.", "ref": "what-devops-is"},
+ {"q": "Which thing does MLOps add to usual DevOps?", "options": ["Versions of data and models, and automatic model tests", "A faster programming language", "More meetings", "Only a new type of server"], "answer": 0, "explain": "An AI system can change when the data changes. MLOps keeps versions of data and models and tests the model automatically.", "ref": "mlops-and-llmops"},
+ {"q": "Why does each answer of the mango checker API contain the model version?", "options": ["So that the team knows which model gave a wrong answer", "To make the answer longer", "Because the law requires a version number", "To make the model faster"], "answer": 0, "explain": "When a user reports an error, the version tells the team exactly which model caused it.", "ref": "serve-the-model-as-an-api"},
+ {"q": "Why do teams put a service in a container?", "options": ["It runs the same way on each computer, with the same libraries", "It makes the model more accurate", "It removes the need for tests", "It keeps the code secret"], "answer": 0, "explain": "A container packs the program with everything that it needs, so development, staging, and production are the same.", "ref": "package-it-in-a-container"},
+ {"q": "A new model has a recall of 84%. The test requires 90% or more. What does the pipeline do?", "options": ["The test fails, and the pipeline does not release the model", "It releases the model to all users", "It changes the test to 84%", "It deletes the old model"], "answer": 0, "explain": "A quality gate stops a model that is not good enough before it reaches users.", "ref": "test-and-release-automatically"},
+ {"q": "What is a canary release?", "options": ["A new version goes to a small part of the users first", "A release on Fridays only", "A test with fake data", "A release without tests"], "answer": 0, "explain": "The canary tests the new version with real traffic, but only for a small part of the users. Refer also to the A/B test in Module 7.", "ref": "test-and-release-automatically"},
+ {"q": "The SLO is 99.9% availability. How many minutes without service does this allow in a month of 30 days?", "options": ["43.2 minutes", "4.3 minutes", "432 minutes", "0 minutes"], "answer": 0, "explain": "30 × 24 × 60 minutes × 0.001 = 43.2 minutes.", "ref": "observe-the-system-in-production"},
+ {"q": "A developer finds an API key in the Git history of a public repository. What must the team do first?", "options": ["Change the key immediately, because the history still contains it", "Delete the line from the newest version only", "Make the repository private and do nothing else", "Wait to see if somebody uses it"], "answer": 0, "explain": "Programs search public repositories for keys all the time. Only a new key makes the old one useless.", "ref": "security-and-secrets"},
+ {"q": "After a new release, the p95 latency of the mango checker increases from 40 ms to 600 ms. What must the person on call do first?", "options": ["Roll back to the previous version, then find the cause", "Find the cause first, and release a repair next week", "Turn off the dashboard", "Add more mangoes to the test set"], "answer": 0, "explain": "Stop the damage first. A rollback is fast. Then use the logs and traces to find the cause.", "ref": "observe-the-system-in-production", "scenario": true},
+ {"q": "The team changes the prompt of the farmers' chatbot. How must they release the change?", "options": ["Through the pipeline, with the evaluation set as a test, the same as code", "Directly in production, because a prompt is only text", "Only after one person reads three answers", "Prompts do not need versions"], "answer": 0, "explain": "In LLMOps, prompts are in Git and the evaluation set runs in the pipeline for each change.", "ref": "test-and-release-automatically", "scenario": true}
+]}
+        </script>
+        <noscript><p>The knowledge check needs JavaScript. Turn on JavaScript in your browser to use it.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="technical-names">
+    <div class="num">13</div>
+    <div>
+      <h2>Technical names</h2>
+      <p>These names are not in the STE dictionary. STE lets you use technical names that are necessary for the subject.</p>
+      <dl class="glossary">
+        <dt>API</dt><dd>Application programming interface: a defined way for one program to ask another program for data or an action.</dd>
+        <dt>Autoscaling</dt><dd>The automatic change of the number of running copies of a service, to agree with the number of requests.</dd>
+        <dt>Branch</dt><dd>A separate line of work in Git. You join it into the main branch after review.</dd>
+        <dt>Canary release</dt><dd>A release of a new version to a small part of the users first.</dd>
+        <dt>CI/CD</dt><dd>Continuous integration and continuous delivery: each change is tested, packaged, and released automatically.</dd>
+        <dt>Container</dt><dd>A package that contains a program and everything that it needs to run.</dd>
+        <dt>DevOps</dt><dd>A way of working in which the same team builds, tests, releases, and operates software, with much automation.</dd>
+        <dt>Dockerfile</dt><dd>A text file with the steps to build a container image.</dd>
+        <dt>Git</dt><dd>A version control system that keeps each change to the files.</dd>
+        <dt>Infrastructure as code</dt><dd>A method in which files describe the servers and networks, so they can be reviewed, versioned, and made again.</dd>
+        <dt>Kubernetes</dt><dd>A system that runs many containers on many servers and manages them automatically.</dd>
+        <dt>LLMOps</dt><dd>MLOps for applications that use large language models: prompt versions, evaluation sets, guardrails, and cost monitoring.</dd>
+        <dt>MLOps</dt><dd>DevOps for machine learning: versions of data and models, automatic model tests, and training again.</dd>
+        <dt>Model registry</dt><dd>A store for trained models, with their versions, data, test results, and status.</dd>
+        <dt>Observability</dt><dd>The ability to know what occurs inside a running system from its logs, metrics, and traces.</dd>
+        <dt>Pipeline</dt><dd>A sequence of automatic steps that each change goes through.</dd>
+        <dt>Pull request</dt><dd>A request to join the changes of a branch into the main branch, with review and automatic tests.</dd>
+        <dt>Quality gate</dt><dd>A check in a pipeline that a release must pass, for example a minimum recall.</dd>
+        <dt>Rollback</dt><dd>A return to the previous version, to stop a problem quickly.</dd>
+        <dt>Secret</dt><dd>A password, an API key, or another value that gives access to a system.</dd>
+        <dt>Service level objective</dt><dd>A measurable target for a service, for example 99.9% availability each month.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+  <nav class="pager" aria-label="Previous and next module">
+    <a href="ai-in-practice.html"><small>Previous module</small><b>7. AI in practice</b></a>
+    <a class="next" href="review.html"><small>Last step</small><b>Final review</b></a>
+  </nav>
+
+  <footer>
+    <span>Written to ASD-STE100 (approx. 80% compliance). Videos: TechWorld with Nana and Fireship on YouTube.</span>
+  </footer>
+</div>
+</body>
+</html>

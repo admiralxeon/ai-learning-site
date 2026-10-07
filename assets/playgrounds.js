@@ -694,7 +694,61 @@
     draw();
   }
 
-  var KINDS={temperature:temperature,gradient:gradient,tokenizer:tokenizer,clustering:clustering,neuron:neuron,capstone:capstone,stats:stats,bayes:bayes,vectors:vectors,slope:slope,drift:drift};
+
+  // ------------------------------------------------------------------ Release pipeline (DevOps)
+  var GATES=[["unit","Unit tests",2],["eval","Model evaluation",6],["load","Load test",5],["secret","Secret scan",1],["canary","Canary release",60]];
+  var CHANGES=[
+    ["Add a colour score to the features",null,""],
+    ["Update the web library to a new version","unit","The API stops: every request gives an error."],
+    ["Train with a new threshold","eval","Recall for damaged mangoes decreases from 98% to 81%."],
+    ["Correct the text of an error message",null,""],
+    ["Use a larger model, version 1.2","load","Each answer takes 900 ms in place of 40 ms. The sorting line stops."],
+    ["Upload photographs to cloud storage","secret","The cloud password is in the code, and the code is public."],
+    ["Train again with photographs from new cameras","canary","Tests pass, but on real farm traffic recall decreases to 85%."],
+    ["Add a log line for each request",null,""]
+  ];
+  function release(box,body){
+    var on={unit:true,eval:false,load:false,secret:false,canary:false};
+    var fs=el("fieldset","pg-gates");fs.appendChild(el("legend",null,"Checks in the pipeline"));
+    GATES.forEach(function(g){
+      var id="pg-gate-"+g[0],lab=el("label","pg-gate");lab.setAttribute("for",id);
+      var inp=el("input");inp.type="checkbox";inp.id=id;inp.checked=on[g[0]];
+      inp.addEventListener("change",function(){on[g[0]]=inp.checked;run();});
+      lab.appendChild(inp);lab.appendChild(el("span",null,g[1]));lab.appendChild(el("small",null,g[2]+" min"));
+      fs.appendChild(lab);
+    });
+    body.appendChild(fs);
+    body.appendChild(presets("Try:",[["none","No checks"],["basic","Tests only"],["all","All checks"]],function(k){
+      GATES.forEach(function(g){on[g[0]]=k==="all"||(k==="basic"&&(g[0]==="unit"||g[0]==="eval"));document.getElementById("pg-gate-"+g[0]).checked=on[g[0]];});run();
+    }));
+    var list=el("ol","pg-rel");list.setAttribute("aria-label","Eight changes and what happened to each one");body.appendChild(list);
+    var grid=el("dl","pg-stat-grid");body.appendChild(grid);
+    var note=el("p","pg-status");note.setAttribute("aria-live","polite");body.appendChild(note);
+    function run(){
+      list.innerHTML="";grid.innerHTML="";
+      var stopped=0,escaped=0,mins=0;
+      GATES.forEach(function(g){if(on[g[0]])mins+=g[2];});
+      CHANGES.forEach(function(c,i){
+        var li=el("li"),gate=null;
+        if(c[1]&&on[c[1]])GATES.forEach(function(g){if(g[0]===c[1])gate=g[1];});
+        var state=!c[1]?"ok":gate?"stopped":"bad";
+        if(state==="stopped")stopped++;if(state==="bad")escaped++;
+        li.className="pg-rel-"+state;
+        li.appendChild(el("b",null,"Change "+(i+1)+": "+c[0]));
+        li.appendChild(el("span","pg-rel-s",state==="ok"?"Released. No problem.":state==="stopped"?"Stopped by: "+gate+". Nobody was affected.":"Reached all users. "+c[2]));
+        list.appendChild(li);
+      });
+      [["Problems stopped",stopped+" of 5"],["Problems that reached users",String(escaped)],["Pipeline time for each change",mins+" min"]].forEach(function(x){
+        var d=el("div");d.appendChild(el("dt",null,x[0]));d.appendChild(el("dd",null,x[1]));grid.appendChild(d);
+      });
+      if(escaped===0){note.className="pg-status pg-ok";note.textContent="All five problems were stopped before they reached all users. Each check finds a different type of problem. The canary release is slow, but it is the only check that uses real traffic.";}
+      else if(escaped>=4){note.className="pg-status pg-bad";note.textContent="Almost all problems reached the users. Without automatic checks, the users find the errors for you. Turn on more checks.";}
+      else{note.className="pg-status pg-warn";note.textContent=escaped+(escaped===1?" problem":" problems")+" reached all users. Look at the red changes: which check would stop each one?";}
+    }
+    run();
+  }
+
+  var KINDS={temperature:temperature,gradient:gradient,tokenizer:tokenizer,clustering:clustering,neuron:neuron,capstone:capstone,stats:stats,bayes:bayes,vectors:vectors,slope:slope,drift:drift,release:release};
   [].forEach.call(document.querySelectorAll(".playground[data-pg]"),function(box){
     var f=KINDS[box.getAttribute("data-pg")],body=box.querySelector(".pg-body");
     if(!f||!body)return;

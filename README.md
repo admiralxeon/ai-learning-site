@@ -1,13 +1,13 @@
 # AI learning manual
 
-A static learning site in seven modules, written in ASD-STE100 Simplified Technical English. There is no server and no framework: open `index.html` in a browser, or put the folder on any static host.
+A static learning site in eight modules, written in ASD-STE100 Simplified Technical English. There is no server and no framework: open `index.html` in a browser, or put the folder on any static host.
 
 ## Files
 
 | File | Contents |
 | --- | --- |
 | `index.html` | Home page and module list |
-| `ai.html`, `mathematics.html`, `machine-learning.html`, `deep-learning.html`, `generative-ai.html`, `responsible-ai.html`, `ai-in-practice.html` | Modules 1 to 7 |
+| `ai.html`, `mathematics.html`, `machine-learning.html`, `deep-learning.html`, `generative-ai.html`, `responsible-ai.html`, `ai-in-practice.html`, `devops.html` | Modules 1 to 8 |
 | `topic-*.html` | Short topics: computer vision, language tasks, recommendation systems, forecasting. Listed in `TOPICS` in `tools/build.py` |
 | `review.html` | The final review: 20 questions drawn from all module knowledge checks. Passing it is the last step to the certificate |
 | `cheat-sheets.html` | One printable summary sheet for each module, and a formula sheet |
